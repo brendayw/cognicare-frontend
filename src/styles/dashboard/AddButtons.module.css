@@ -1,0 +1,30 @@
+.add_container {
+    width: 280px;
+    height: 240px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.add_card {
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 5px #94a3b8;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;   
+}
+
+.add_card span {
+    color: #94a3b8;
+}
+
+.add_card svg {
+    color: #94a3b8;
+    font-size: 50px;
+}
+

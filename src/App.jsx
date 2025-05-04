@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import './App.css'; 
-import LoginForm from './components/loginForm';  // Asegúrate de importar el componente LoginForm
-import SignupForm from './components/singupForm'; // Asegúrate de importar el componente SignupForm
+import LoginForm from './components/loginForm';
+import SignupForm from './components/singupForm';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('login');
   
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="h-screen overflow-hidden flex">
       {/* Columna de izquierda: Overlay */}
       <div className="w-1/2 flex flex-col items-center justify-center bg-primary text-white p-8">
         <h1 className="text-4xl font-bold text-white">
@@ -25,11 +25,12 @@ export default function App() {
 
         {/* Botón de acción */}
         <button
-          className="mt-6 bg-transparent border-[1px] text-white py-2 px-6 rounded-full"
+          className="mt-6 bg-white text-primary py-2 px-6 rounded-full overflow-hidden"
           onClick={() => setActiveTab(activeTab === 'login' ? 'signup' : 'login')}
         >
           {activeTab === 'login' ? 'Registrarse' : 'Iniciar sesión'}
         </button>
+
       </div>
 
       {/* Columna de derecha: Formulario */}
@@ -38,11 +39,8 @@ export default function App() {
           {/* Títulos del formulario */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary">
-              {activeTab === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
+              {activeTab === 'login' ? 'Iniciar Sesión' : 'Crea una cuenta'}
             </h1>
-            {/* <p className="text-gray-500 mt-2">
-              {activeTab === 'login' ? 'Inicia sesión para continuar' : 'Crea tu cuenta'}
-            </p> */}
           </div>
 
           {/* Renderizamos el formulario correspondiente */}

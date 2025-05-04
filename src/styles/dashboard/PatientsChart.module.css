@@ -1,0 +1,12 @@
+.grafico_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    /* background-color: white; */
+    border-radius: 12px;
+    border: 0.5px solid #94a3b8;
+    box-shadow: 0 2px 2px #94a3b8;
+    width: 425px;
+    height: 300px;
+}

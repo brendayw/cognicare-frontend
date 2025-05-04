@@ -23,7 +23,7 @@ export default function SignupForm() {
                     <input
                         id="name"
                         type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
                         value={name}
                         placeholder='usuario'
                         onChange={(e) => setName(e.target.value)}
@@ -37,7 +37,7 @@ export default function SignupForm() {
                     <input
                         id="signup-email"
                         type="email"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
                         value={email}
                         placeholder='ejemplo@ejemplo.com'
                         onChange={(e) => setEmail(e.target.value)}
@@ -51,7 +51,7 @@ export default function SignupForm() {
                 <input
                     id="signup-password"
                     type="password"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
                     value={password}
                     placeholder='*******'
                     onChange={(e) => setPassword(e.target.value)}

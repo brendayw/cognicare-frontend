@@ -12,12 +12,16 @@ export default {
         'secondary': '#0f172a', 
         'testiary': '#ffffff83',
         'soft': '#89898a',
-        'dark': '#626263'
+        'dark': '#626263',
+        'white': '#ffffff',
       },
       fontFamily: {
         'montserrat': ['Montserrat', 'sans-serif'],   // Fuente sans-serif personalizada
         'cabin': ['Cabin', 'serif'],
       },
+      height: {
+        'screen': '100vh',
+      }
     },
   },
   plugins: [],

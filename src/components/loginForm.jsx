@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import '../App.css';
 
 export default function LoginForm() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
@@ -9,6 +11,12 @@ export default function LoginForm() {
       e.preventDefault();
       console.log('Login con:', { email, password });
       // Aquí implementarías la lógica de autenticación
+
+      if (email === 'patricia@gmail.com' && password === 'Hola1234') {
+        navigate('/dashboard');
+      } else {
+        alert('Credenciales incorrectas')
+      }
     };
   
     return (
@@ -21,7 +29,7 @@ export default function LoginForm() {
                 <input
                     id="email"
                     type="email"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
                     value={email}
                     placeholder='ejemplo@ejemplo'
                     onChange={(e) => setEmail(e.target.value)}
@@ -35,7 +43,7 @@ export default function LoginForm() {
                 <input
                     id="password"
                     type="password"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
                     value={password}
                     placeholder='******'
                     onChange={(e) => setPassword(e.target.value)}

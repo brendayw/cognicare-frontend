@@ -1,0 +1,81 @@
+.calendar_container {
+    width: 425px;
+    height: 300px;
+    margin-top: 5px;
+}
+
+.calendario {
+    width: 100%;
+    height: 300px;
+    box-shadow: 2px 2px 5px #94a3b8;
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.calendario_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendario_btn {
+    width: 100px;
+    padding: 5px 5px;
+    background-color: #94a3b8;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat';
+    font-size: 0.8rem;
+}
+
+.calendario_btn:hover {
+    background: #ffffff;
+    color: #94a3b8;
+    border: 1px solid #94a3b8;
+}
+
+.month_year {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #94a3b8;
+}
+
+.days_of_week {
+    font-size: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    color: #94a3b8;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 1rem;
+    color: #a3a3a3;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #94a3b8;
+    color: #ffffff;
+}
+
+.day.selected {
+    background-color: #4CAF50;
+    color: #ffffff;
+}

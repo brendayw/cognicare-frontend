@@ -1,0 +1,87 @@
+.perfil_profesional {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tarjeta_profesional {
+    background: #fff;
+    box-shadow: 2px 2px 5px #94a3b8;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 16px;
+    position: relative;
+}
+
+.tarjeta_profesional .perfil img {
+    width: 125px;
+    height: 125px;
+    border: 1px solid #94a3b8;
+    border-radius: 30rem;
+}
+
+.tarjeta_profesional .datos {
+    height: 150px;
+    width: 50%;
+}
+
+.datos h4 span {
+    font-size: 1.1rem;
+    color: #94a3b8;
+}
+
+.datos p {
+    color: #94a3b8;
+    text-align: left;
+    padding: 1rem 0;
+}
+
+.datos span {
+    color: #89898a;
+    font-size: 12px;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+
+.btn {
+    background: #94a3b8;
+    width: 125px;
+    height: 20px;
+    padding: 1.2rem;
+    margin: 1rem;
+    color: #ebebeb;
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+    border-radius: 5px;
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: #0f172a;
+    color: #fff;
+}
+
+.ver-perfil {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn:hover {
+    border: 1px solid #94a3b8;
+    background-color: transparent;
+    color: #94a3b8;
+}

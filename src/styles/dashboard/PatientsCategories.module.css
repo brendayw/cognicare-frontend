@@ -1,0 +1,50 @@
+.tarjetas {
+    width: 100%;
+    height: 125px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+}
+
+.tarjeta {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 290px;
+    height: 70px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    color: #94a3b8;
+    box-shadow: 2px 2px 5px #94a3b8;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tarjeta-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tarjeta span {
+    font-size: 20px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+.tarjeta:hover {
+    background-color: #94a3b8;
+    color: #ffffff;
+}
+
+.tarjeta:hover span {
+    color: #ffffff;
+}
+
+.tarjeta svg {
+    font-size: 35px;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+}
