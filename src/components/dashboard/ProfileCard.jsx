@@ -6,29 +6,20 @@ import styles from '../../styles/dashboard/ProfileCard.module.css';
 
 export default function ProfileCard() {
     const [perfil, setPerfil] = useState({});
-
     useEffect(() => {
-        const perfilTemporal = {
-            nombre: 'Juan Pérez',
-            email: 'juan.perez@ejemplo.com',
-            matricula: 1256,
-            especialidad: 'Psicóloga',
-            fotoPerfil: 'https://via.placeholder.com/150', // Imagen de placeholder
-            // Agrega más campos si lo necesitas
-          };
-
-        // axios.get('/api/perfil')
-        // .then((response) => {
-        //     if (response.data.success) {
-            setPerfil(perfilTemporal);
-        //     } else {
-        //     console.log("Error: No se pudo obtener los datos del perfil.");
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.error('Error al obtener los datos:', error);
-        // });
-    }, []);
+      const apiUrl = 'http://localhost:5000';
+        axios.get(`${apiUrl}/profesional`, { withCredentials: true })
+        .then((response) => {
+          if (response.data.success) {
+              setPerfil(response.data.data);  // Aquí actualizas el estado con los datos obtenidos
+          } else {
+              console.log("Error: No se pudo obtener los datos del perfil.");
+          }
+      })
+      .catch((error) => {
+          console.error('Error al obtener los datos:', error);
+      });
+  }, []);
 
     const obtenerAvatar = (genero) => {
         if (genero === 'femenino') return avatarFemenino;

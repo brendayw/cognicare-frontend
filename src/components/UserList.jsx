@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Paper } from '@mui/material';
+import { red } from '@mui/material/colors';
 
 const users = [
   { id: 1, name: 'Juan Pérez', email: 'juan@example.com', avatar: 'https://i.pravatar.cc/150?img=1' },
@@ -10,7 +11,8 @@ const users = [
 
 export default function UserList() {
   return (
-    <Paper elevation={3} sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4 }}>
+    <Paper sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4, boxShadow: 'none' }}>
+      <h5 className='text-primary '>Últimos pacientes registrados</h5>
       <List>
         {users.map(user => (
           <ListItem className='text-primary text-bold' key={user.id}>

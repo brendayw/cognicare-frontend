@@ -1,16 +1,38 @@
 import { useState } from 'react';
+import axios from 'axios';
+import LoginForm from './loginForm.jsx'; 
 import '../App.css';
 
 export default function SignupForm() {
-    const [name, setName] = useState('');
+    const [usuario, setUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [error, setError] = useState('');
   
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('Registro con:', { name, email, password });
-      // Aquí implementarías la lógica de registro
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('Registro con:', { usuario, email, password });
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/signup', {  
+                usuario,
+                email, 
+                password
+            });
+    
+            if (response.data.success) {
+                console.log("Usuario creado con éxito");
+                setSuccessMessage('¡Cuenta creada con éxito!');
+            } else {
+                setError(response.data.message || 'Error al crear la cuenta');
+                setSuccessMessage('');
+            }
+    
+        } catch (error) {
+            setError('Error al crear una cuenta: ' + error.message);
+            setSuccessMessage('');
+        }
     };
   
     return (
@@ -24,9 +46,9 @@ export default function SignupForm() {
                         id="name"
                         type="text"
                         className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
-                        value={name}
+                        value={usuario}
                         placeholder='usuario'
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setUsuario(e.target.value)}
                         required
                     />
                 </div>
@@ -66,6 +88,21 @@ export default function SignupForm() {
                     Crear Cuenta
                 </button>
             </form>
+
+            {/* Mostrar el mensaje de éxito si existe */}
+            {successMessage && 
+                <div className="bg-green-500 text-white p-2 mt-5 text-center rounded-md">
+                    {successMessage}
+                </div>
+            }
+
+            {/* Mostrar el mensaje de error si existe */}
+            {error && 
+                <div className="bg-red-500 text-white p-2 mt-5 text-center rounded-md">
+                    {error}
+                </div>
+            }
+
         </div>
     );
 }

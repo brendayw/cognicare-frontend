@@ -1,22 +1,39 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
 import '../App.css';
 
 export default function LoginForm() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       console.log('Login con:', { email, password });
-      // Aquí implementarías la lógica de autenticación
-
-      if (email === 'patricia@gmail.com' && password === 'Hola1234') {
-        navigate('/dashboard');
-      } else {
-        alert('Credenciales incorrectas')
+      
+      try {
+        const response = await axios.post('http://localhost:5000/api/login', {
+          email,
+          password,
+        }, { withCredentials: true });
+  
+        if (response.data.success) {
+          // Redirigir a la página del perfil o dashboard
+          window.location.href = '/dashboard'; // O la ruta que sea apropiada
+        } else {
+          setError('Credenciales incorrectas');
+        }
+      } catch (error) {
+        setError('Error en la autenticación');
       }
+
+    //   if (email === 'patricia@gmail.com' && password === 'Hola1234') {
+    //     navigate('/dashboard');
+    //   } else {
+    //     alert('Credenciales incorrectas')
+    //   }
     };
   
     return (
