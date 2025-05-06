@@ -1,41 +1,53 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import axios from 'axios';
 import '../App.css';
 
 export default function LoginForm() {
-    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
   
+    useEffect(() => {
+      const userToken = localStorage.getItem('userToken');
+      if (userToken) {
+        navigate('/dashboard');
+      }
+    }, [navigate]);
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log('Login con:', { email, password });
-      
+  
       try {
         const response = await axios.post('http://localhost:5000/api/login', {
           email,
           password,
-        }, { withCredentials: true });
+        }, {
+          withCredentials: true,
+        });
+  
+        console.log('Respuesta del login:', response.data);
   
         if (response.data.success) {
-          // Redirigir a la página del perfil o dashboard
-          window.location.href = '/dashboard'; // O la ruta que sea apropiada
+          console.log('Respuesta del login:', response.data);
+          // Guardar token si es necesario, por ejemplo, en localStorage
+          localStorage.setItem('token', response.data.token);
+          navigate('/dashboard'); // Redirige al dashboard
         } else {
           setError('Credenciales incorrectas');
         }
       } catch (error) {
         setError('Error en la autenticación');
       }
-
-    //   if (email === 'patricia@gmail.com' && password === 'Hola1234') {
-    //     navigate('/dashboard');
-    //   } else {
-    //     alert('Credenciales incorrectas')
-    //   }
     };
   
+    const logout = () => {
+      localStorage.removeItem('userToken');  // Eliminar el token de localStorage
+      navigate('/login');  // Redirigir al login
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -78,6 +90,8 @@ export default function LoginForm() {
                 >
                 Iniciar Sesión
                 </button>
+
+                {error && <p>{error}</p>}
             </form>
         </div>
     );

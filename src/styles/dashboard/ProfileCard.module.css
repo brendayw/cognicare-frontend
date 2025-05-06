@@ -18,32 +18,43 @@
     position: relative;
 }
 
-.tarjeta_profesional .perfil img {
-    width: 125px;
-    height: 125px;
-    border: 1px solid #94a3b8;
-    border-radius: 30rem;
+.perfil img {
+    width: 350px;
 }
 
 .tarjeta_profesional .datos {
     height: 150px;
-    width: 50%;
+    width: 60%;
+    padding: 0.5rem;
 }
 
-.datos h4 span {
-    font-size: 1.1rem;
+.datos h4 {
+    color: #ff6699;
+    font-size: 25px;
+    display: grid;          /* Activa Grid */
+    grid-auto-flow: row;    /* Elementos en columna */
+}
+
+.datos_nombre {
+    font-size: 18px;
     color: #94a3b8;
 }
 
-.datos p {
+.datos_perfil {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas de igual ancho */
+    row-gap: 4px;
+}
+
+.datos_perfil p {
     color: #94a3b8;
     text-align: left;
-    padding: 1rem 0;
+    font-size: 13px;
 }
 
-.datos span {
+.datos_perfil span {
     color: #89898a;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 button {

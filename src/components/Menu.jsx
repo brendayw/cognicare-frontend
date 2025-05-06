@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import styles from '../styles/Menu.module.css';
-import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import PersonOutlineTwoToneIcon from '@mui/icons-material/PersonOutlineTwoTone';
@@ -12,6 +11,13 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 
 export default function Menu() {
     const location = useLocation();
+    const navigate = useNavigate();
+    
+    // Función de cierre de sesión
+    const logout = () => {
+        localStorage.removeItem('userToken'); // Elimina el token de localStorage
+        navigate('/');  // Redirige a la página de login
+    };
 
     const isActive = (path) => {
         return location.pathname.includes(path) ? `${styles.active}` : '';
@@ -58,7 +64,7 @@ export default function Menu() {
                     </a>
                 </div>
 
-                <div className={`${styles.enlace} ${styles.logout} `}>
+                <div className={`${styles.enlace} ${styles.logout} `} onClick={logout}>
                     <div id="logout" className={`${styles.link_menu} `}>
                         <LogoutTwoToneIcon />
                         <span>Salir</span>
