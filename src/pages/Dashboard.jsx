@@ -4,7 +4,7 @@ import PatientsCategories from '../components/dashboard/PatientsCategories';
 import ProfileCard from '../components/dashboard/ProfileCard';
 import PatientsChart from '../components/dashboard/PatientsChart';
 import Calendar from '../components/dashboard/Calendar.jsx';
-import UserList from '../components/UserList.jsx';
+import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPatients.jsx';
 import AddButtons from '../components/dashboard/AddButtons.jsx';
 
 export default function Dashboard() {
@@ -58,7 +58,7 @@ export default function Dashboard() {
             </div>
             <div className="w-1/4 p-2">
                 <AddButtons />
-                <UserList />
+                <RecentlyCreatedPatients />
             </div>
         </div>
     );

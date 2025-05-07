@@ -1,33 +1,55 @@
+// UserList.jsx
 import React from 'react';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Paper } from '@mui/material';
-import { red } from '@mui/material/colors';
+import { List, ListItem, ListItemText, Paper, CircularProgress, Alert, Typography } from '@mui/material';
 
-const users = [
-  { id: 1, name: 'Juan Pérez', email: 'juan@example.com', avatar: 'https://i.pravatar.cc/150?img=1' },
-  { id: 2, name: 'Ana Gómez', email: 'ana@example.com', avatar: 'https://i.pravatar.cc/150?img=2' },
-  { id: 3, name: 'Carlos Ruiz', email: 'carlos@example.com', avatar: 'https://i.pravatar.cc/150?img=3' },
-  { id: 4, name: 'Carlos Ruiz', email: 'carlos@example.com', avatar: 'https://i.pravatar.cc/150?img=3' },
-];
+export default function UserList({
+  title = '', 
+  users = [], 
+  loading = false, 
+  error = null,
+  primaryText = 'name',
+  secondaryText = 'email'
+}) {
+  const safeUsers = Array.isArray(users) ? users : [];
 
-export default function UserList() {
   return (
     <Paper sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4, boxShadow: 'none' }}>
-      <h5 className='text-primary '>Últimos pacientes registrados</h5>
-      <List>
-        {users.map(user => (
-          <ListItem className='text-primary text-bold' key={user.id}>
-            <ListItemAvatar>
-              <Avatar src={user.avatar} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={user.name}
-              secondary={user.email}
-            />
-          </ListItem>
-        ))}
-      </List>
+      {loading && <CircularProgress />}
+      {error && <Alert severity="error">{error}</Alert>}
+      
+      {!loading && !error && (
+        <>
+          <h5 className='text-primary font-medium font-montserrat'>{title}</h5>
+          <List className='space-y-4'>
+            {safeUsers.length > 0 ? (
+              safeUsers.map(user => (
+                <ListItem className='border border-gray-200 rounded-xl p-4' key={user.id || Math.random()}>
+                  <ListItemText
+                    primary={
+                      <Typography className='flex flex-col'>
+                        <span className='font-bold text-[#ff6699] font-montserrat'>
+                          {user[primaryText] || 'Nombre no disponible'}
+                        </span>
+                      </Typography>
+                    }
+                    secondary={
+                      <Typography className='flex flex-col'>
+                        <span className='text-xs text-gray-500 font-montserrat'>
+                          {user[secondaryText] || 'Información no disponible'}
+                        </span>
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ))
+            ) : (
+              <ListItem>
+                <ListItemText primary="No hay pacientes para mostrar" />
+              </ListItem>
+            )}
+          </List>
+        </>
+      )}
     </Paper>
   );
-};
-
-
+}

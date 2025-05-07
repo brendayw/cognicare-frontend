@@ -1,59 +1,66 @@
 import { useState, useEffect } from 'react';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import styles from '../styles/Menu.module.css';
+import axios from 'axios'; // ¡Asegúrate de tener esta importación!
 
 export default function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [patients, setPatients] = useState([]);
+    const [patients, setPatients] = useState(null);
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchTerm(e.target.value); // Esto debería funcionar
     };
 
     useEffect(() => {
-        if (searchTerm === '') {
-          setPatients([]);
-          return;
+        if (!searchTerm.trim()) {
+            setPatients(null);
+            return;
         }
-    
+
         const searchPatients = async () => {
-          try {
-            const response = await axios.get(`http://localhost:5000/api/buscar?texto=${searchTerm}`);
-            setPatients(response.data.pacientes);
-          } catch (error) {
-            console.error('Error al realizar la búsqueda:', error);
-          }
+            try {
+                const response = await axios.get(`http://localhost:5000/api/buscar?texto=${searchTerm}`);
+                setPatients(response.data.pacientes);
+            } catch (error) {
+                console.error('Error al realizar la búsqueda:', error);
+                setPatients([]);
+            }
         };
-        searchPatients();
-      }, [searchTerm]);
+
+        const timer = setTimeout(searchPatients, 300);
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
 
     return (
-        <div className={`${styles.search_bar} `}>
-            <div className={`${styles.input_search} `}>
+        <div className={styles.search_bar}>
+            <div className={styles.input_search}>
                 <SearchTwoToneIcon />
                 <input
-                  type="text"
-                  id="searchInput"
-                  className={`${styles.input}`}
-                  placeholder="Buscar paciente"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
+                    type="text"
+                    id="searchInput"
+                    className={styles.input}
+                    placeholder="Buscar paciente"
+                    value={searchTerm}
+                    onChange={handleSearchChange} // Esto actualiza searchTerm
                 />
             </div>
 
-            <div className={`${styles.search_results} `} id="searchResults">
-                {patients.length > 0 ? (
-                <ul>
-                  {patients.map((paciente) => (
-                    <li key={paciente.id}>
-                      {paciente.nombre}
-                    </li>
-                  ))}
-                </ul>
-                ) : (
-                  <p>No se encontraron pacientes</p>
-                )}
-            </div>
+            {/* Resultados solo cuando hay término de búsqueda */}
+            {searchTerm && (
+                <div className={styles.search_results}>
+                    {patients === null ? (
+                        <p>Buscando...</p> // Opcional: mensaje de carga
+                    ) : patients?.length > 0 ? (
+                        <ul>
+                            {patients.map((paciente) => (
+                                <li key={paciente.id}>{paciente.nombre}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No se encontraron pacientes</p>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

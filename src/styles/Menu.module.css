@@ -97,8 +97,8 @@
     width: 100%;
     height: 30px;
     color: #ffffff;
-    font-size: 22px;
-    display: none;
+    padding: 0 10px;
+    font-size: 12px;
 }
 
 .input_search .input::placeholder {
@@ -118,6 +118,7 @@
     margin-top: -15px;
     max-height: 75px;
     overflow-y: auto;
+    font-size: 12px;
 }
 
 .result_item {

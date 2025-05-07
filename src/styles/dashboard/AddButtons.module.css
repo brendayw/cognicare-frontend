@@ -9,6 +9,7 @@
 .add_card {
     width: 100px;
     height: 100px;
+    padding: 1rem;
     background-color: #ffffff;
     box-shadow: 2px 2px 5px #94a3b8;
     border-radius: 16px;
