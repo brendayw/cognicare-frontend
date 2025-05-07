@@ -8,8 +8,9 @@ import PatientsList from './pages/PatientsList.jsx';
 import ProfesionalProfile from './pages/ProfesionalProfile.jsx';
 import Settings from './pages/Settings.jsx';
 import Diagnosis from './pages/dashboard/Diagnosis.jsx';
+import Treatment from './pages/dashboard/Treatment.jsx';
+import Discharged from './pages/dashboard/Discharged.jsx';
 import './index.css';
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -21,6 +22,8 @@ root.render(
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/patients" element={<PatientsList />} />
         <Route path="/patients/diagnosis" element={<Diagnosis />} />
+        <Route path="/patients/treatment" element={<Treatment />} />
+        <Route path="/patients/discharged" element={<Discharged />} />
         <Route path="/profesional" element={<ProfesionalProfile />} />
         <Route path="/settings" element={<Settings />} />
 
