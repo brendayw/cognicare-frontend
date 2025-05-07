@@ -37,28 +37,28 @@ export default function Menu() {
             {/* Menu */}
             <div className={`${styles.menu}`}>
                 <div className={`${styles.enlace} ${isActive('/dashboard')} `}>
-                    <a className={`${styles.link_menu} `} to="/dashboard">
+                    <a className={`${styles.link_menu} `} href="/dashboard">
                         <HomeTwoToneIcon  />
                         <span>Inicio</span>
                     </a>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/patients')} `}>
-                    <a className={`${styles.link_menu} `} to="/patients">
+                    <a className={`${styles.link_menu} `} href="/patients">
                         <GroupsTwoToneIcon/>
                         <span>Pacientes</span>
                     </a>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/profesional')} `}>
-                    <a className={`${styles.link_menu} `} to="/profesional">
+                    <a className={`${styles.link_menu} `} href="/profesional">
                         <PersonOutlineTwoToneIcon />
                         <span>Profesional</span>
                     </a>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/settings')} `}>
-                    <a className={`${styles.link_menu} `}  to="/settings">
+                    <a className={`${styles.link_menu} `}  href="/settings">
                         <SettingsTwoToneIcon />
                         <span>Ajustes</span>
                     </a>

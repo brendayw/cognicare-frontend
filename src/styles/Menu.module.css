@@ -107,11 +107,11 @@
     font-family: var(--fuente-primaria);
 }
 
-.menu_dashboard .search-results {
+/* .menu_dashboard .search-results {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
-}
+} */
 
 .search_results {
     color: #ffffff;
