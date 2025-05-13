@@ -7,7 +7,7 @@
 }
 
 .add_card {
-    width: 100px;
+    width: 110px;
     height: 100px;
     padding: 1rem;
     background-color: #ffffff;
@@ -21,11 +21,23 @@
 }
 
 .add_card span {
-    color: #94a3b8;
+    color: #00beb0ff;
 }
 
 .add_card svg {
-    color: #94a3b8;
-    font-size: 50px;
+    color: #424884;
+    font-size: 45px;
+}
+
+.add_card:hover {
+    background-color: #424884;
+}
+
+.add_card:hover span {
+    color: #ffffff;
+}
+
+.add_card:hover svg {
+    color: #00beb0ff;
 }
 

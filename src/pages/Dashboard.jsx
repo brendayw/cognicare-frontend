@@ -8,7 +8,7 @@ import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPati
 import AddButtons from '../components/dashboard/AddButtons.jsx';
 
 export default function Dashboard() {
-    const [perfil, setPerfil] = useState(null); // Estado para almacenar el perfil
+    const [perfil, setPerfil] = useState(null);
     const [error, setError] = useState('');
     
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function Dashboard() {
         };
 
         obtenerPerfil();
-    }, []); // Se ejecuta solo una vez al montar el componente
+    }, []);
 
     return (
         <div className="flex w-full">

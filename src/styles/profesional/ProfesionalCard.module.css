@@ -1,0 +1,66 @@
+.profesional_container {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tarjeta_profesional {
+    background-color: #ffffff;
+    border: 1px solid #94a3b8;
+    box-shadow: 1px 1px 1px #94a3b8;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 16px;
+    position: relative;
+}
+
+.tarjeta_profesional svg {
+    color: #00BEB0;
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.tarjeta_profesional:hover svg {
+    color: #424884;
+    font-size: 25px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.profesional_header {
+    width: 120px;
+}
+
+.datos {
+    height: 150px;
+    width: 70%;
+    padding: 0.5rem;
+}
+
+.datos_nombre {
+    font-size: 30px;
+    color: #B36ED8;
+}
+
+.datos_perfil {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+    position: relative;
+    top: 10px;
+}
+
+.dato_perfil p {
+    color: #94A3B8;
+}
+
+.dato_perfil span {
+    color: #89898a;
+    font-size: 12px;
+    font-weight: 100;
+}

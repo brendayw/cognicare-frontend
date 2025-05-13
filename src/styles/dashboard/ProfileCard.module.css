@@ -29,15 +29,15 @@
 }
 
 .datos h4 {
-    color: #ff6699;
+    color: #B36ED8;
     font-size: 25px;
     display: grid;          /* Activa Grid */
     grid-auto-flow: row;    /* Elementos en columna */
 }
 
 .datos_nombre {
-    font-size: 18px;
-    color: #94a3b8;
+    font-size: 20px;
+    color: #00a396;
 }
 
 .datos_perfil {

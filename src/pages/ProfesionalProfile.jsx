@@ -1,9 +1,51 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import Menu from '../components/Menu.jsx';
+import ProfesionalCard from '../components/profesional-profile/ProfesionalCard.jsx';
+import Buttons from '../components/profesional-profile/Buttons.jsx';
+import Chart from '../components/profesional-profile/Chart.jsx';
+import MoreInfo from '../components/profesional-profile/MoreInfo.jsx';
 
 export default function ProfesionalProfile() {
+    const [profesional, setProfesional] = useState();
+    const [error, setError] = useState('');
+    
+        useEffect(() => {
+            const obtenerProfesional = async () => {
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) throw new Error('Token no encontrado');
+    
+                    const response = await axios.get('http://localhost:5000/api/profesional', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+    
+                    if (response.data.success) {
+                        setProfesional(response.data.data);
+                    } else {
+                        setError('No se pudo obtener el perfil.');
+                    }
+                } catch (err) {
+                    console.error('Error:', err.response?.data || err.message);
+                    setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
+                } 
+            };
+            obtenerProfesional();
+        }, []);
+
     return (
-        <div className="text-2xl font-bold">
-            <p>Este es el dashboard de profesional</p>
-        </div>
+        <div className='flex w-full'>
+            <Menu />
+            <div className='flex w-full'>
+                <div className='w-3/4'>
+                    <ProfesionalCard prof={profesional} />
+                    <Buttons />
+                    <Chart />
+                </div>
+                <div className='w-1/4 p-2'>
+                    <MoreInfo />
+                </div>
+            </div>
+         </div>
     );
 }

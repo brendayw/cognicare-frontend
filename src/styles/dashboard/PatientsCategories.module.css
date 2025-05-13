@@ -29,12 +29,12 @@
 
 .tarjeta span {
     font-size: 20px;
-    color: #94a3b8;
+    color: #00beb0ff;
     white-space: nowrap;
 }
 
 .tarjeta:hover {
-    background-color: #94a3b8;
+    background-color: #424884;
     color: #ffffff;
 }
 
@@ -43,6 +43,7 @@
 }
 
 .tarjeta svg {
+    color: #00beb0ff;
     font-size: 35px;
     width: 35px;
     height: 35px;

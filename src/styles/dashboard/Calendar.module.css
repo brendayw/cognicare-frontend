@@ -28,7 +28,7 @@
 .calendario_btn {
     width: 100px;
     padding: 5px 5px;
-    background-color: #94a3b8;
+    background-color: #424884;
     color: #ffffff;
     border: 1px solid transparent;
     cursor: pointer;
@@ -40,14 +40,14 @@
 
 .calendario_btn:hover {
     background: #ffffff;
-    color: #94a3b8;
-    border: 1px solid #94a3b8;
+    color: #00a396;
+    border: 1px solid #424884;
 }
 
 .month_year {
     font-size: 1rem;
     font-weight: bold;
-    color: #94a3b8;
+    color: #00a396;
 }
 
 .days_of_week {
@@ -56,7 +56,7 @@
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     font-weight: bold;
-    color: #94a3b8;
+    color: #424884;
 }
 
 .days {
@@ -81,10 +81,10 @@
 }
 
 .day.selected {
-    background-color: #94a3b8;
+    background-color: #00a396;
     color: white;
 }
 
 .day.selected.today {
-    background-color: #ff6699;
+    background-color: #B36ED8;
 }

@@ -1,0 +1,129 @@
+/* acceso rapido*/
+.acceso_rapido {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    top: 10px
+}
+
+.acceso_rapido a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.access_card {
+    background-color: #ffffff;
+    box-shadow: 2px 2px 5px #94a3b8;
+    width: 110px;
+    height: 100px;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.access_card svg {
+    font-size: 45px;
+    color: #00BEB0;
+    margin-bottom: 0.5rem;
+}
+
+.access_card span {
+    font-size: 14px;
+    color: #424884;
+}
+
+.access_card:hover {
+    background-color: #424884;
+}
+
+.access_card:hover span {
+    color: #ffffff;
+}
+
+.add_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+}
+
+.add_card:hover {
+    background-color: #424884;
+}
+
+.add_card:hover span {
+    color: #ffffff;
+}
+
+.add_card:hover .options { 
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s;
+}
+
+.options {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 165%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+    width: 120px;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.option {
+    width: 30px;
+    height: 30px;
+    background-color: #424884;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+}
+
+.option svg {
+    font-size: 18px;
+    margin: 0.2rem;
+}
+
+.option:hover {
+    transform: scale(1.2);
+}
+
+/* Animación circular de las opciones */
+.add_card:hover .option:nth-child(1) {
+    transform: rotate(0deg) translateY(-40px) rotate(0deg);
+}
+
+.add_card:hover .option:nth-child(2) {
+    transform: rotate(60deg) translateY(-40px) rotate(-60deg);
+}
+
+.add_card:hover .option:nth-child(3) {
+    transform: rotate(120deg) translateY(-40px) rotate(-120deg);
+}
+
+.add_card:hover .option:nth-child(4) {
+    transform: rotate(180deg) translateY(-40px) rotate(-180deg);
+}

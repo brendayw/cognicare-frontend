@@ -1,0 +1,10 @@
+.chart {
+    background-color: #ffffff;
+    border: 1px solid #94A3B8;
+    border-radius: 12px;
+    width: 100%;
+    height: 300px;
+    position: relative;
+    top: 15px;
+}
+

@@ -1,0 +1,72 @@
+.profesional_detalles {
+    position: relative;
+    top: -10px;
+    right: 0px;
+    width: 100%;
+    height: 245px;
+    border-radius: 8px;
+}
+
+.titulo h5 {
+    color: #B36ED8;
+    font-size: 16px;
+    text-align: center;
+    padding: 0.2rem;
+}
+
+.dias_atencion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    /* Opcional: puedes usar place-items para ambas propiedades */
+    place-items: center; 
+    gap: 5px;
+}
+
+.dia_semana {
+    border: 0.5px solid #94A3B8;
+    border-radius: 15px;
+    height: 45px;
+    width: 100px;
+}
+
+.dia_titulo {
+    color: #00BEB0;
+    font-size: 12px;
+    font-weight: 100;
+    margin-top: 5px; /*sacar*/
+    text-align: center;
+}
+
+.dia {
+    color: #424884;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.horarios_atencion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.horario_completo {
+    width: 100%;
+    max-width: 300px;
+}
+
+.horario_fila {
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center; 
+}
+
+.horario_completo p {
+    color: #424884;
+    font-size: 13px;
+    text-align: center;
+}

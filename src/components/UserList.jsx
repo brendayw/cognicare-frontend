@@ -19,7 +19,7 @@ export default function UserList({
       
       {!loading && !error && (
         <>
-          <h5 className='text-primary font-medium font-montserrat'>{title}</h5>
+          <h5 className='text-[#424884] font-medium font-montserrat'>{title}</h5>
           <List className='space-y-4'>
             {safeUsers.length > 0 ? (
               safeUsers.map(user => (
@@ -27,7 +27,7 @@ export default function UserList({
                   <ListItemText
                     primary={
                       <Typography className='flex flex-col'>
-                        <span className='font-bold text-[#ff6699] font-montserrat'>
+                        <span className='font-bold text-[#94A3B8] font-montserrat'>
                           {user[primaryText] || 'Nombre no disponible'}
                         </span>
                       </Typography>

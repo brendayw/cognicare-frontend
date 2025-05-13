@@ -99,7 +99,7 @@ export default function PatientsChart() {
         <div className={`${styles.grafico_container}`}>
             {error && <div className={styles.error}>{error}</div>}
             <PieChart
-                colors={['#b36ed8', '#424884', '#00beb0']}
+                colors={['#b36ed8', '#424884', '#00a396']}
                 series={[
                     {
                         data: chartData,
