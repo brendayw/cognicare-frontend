@@ -29,7 +29,7 @@
 
 .tarjeta span {
     font-size: 20px;
-    color: #00beb0ff;
+    color: #00a396;
     white-space: nowrap;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .tarjeta svg {
-    color: #00beb0ff;
+    color: #00a396;
     font-size: 35px;
     width: 35px;
     height: 35px;

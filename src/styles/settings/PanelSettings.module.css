@@ -1,0 +1,54 @@
+.panel_settings {
+    width: 100%;
+}
+
+.opciones {
+    width: 100%;
+    height: 150px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.perfil, .password {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #94A3B8;
+    padding: 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease; /* Agrega transición suave */
+}
+
+.perfil:hover,
+.password:hover {
+    background-color: #94A3B8;
+}
+
+.perfil.selected,
+.password.selected {
+    background-color: #424884;
+}
+
+.perfil svg, .password svg {
+    color: #00a396;
+}
+
+.perfil span, .password span {
+    color: #00a396;
+    padding: 0.8rem;
+}
+
+.perfil:hover span, 
+.password:hover span,
+.perfil.selected span,
+.password.selected span {
+    color: #ffffff;
+}
+
+.perfil.selected svg,
+.password.selected svg {
+    color: #00a396;
+}

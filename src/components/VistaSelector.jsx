@@ -23,7 +23,7 @@ export default function VistaSelector({ currentView, onViewChange }) {
                 mb: 2
             }}
             >
-            <Typography className='!text-primary !text-2xl !font-bold !ml-4'>
+            <Typography className='!text-[#424884] !text-2xl !font-bold !ml-4'>
                 Todos los pacientes
             </Typography>
 
@@ -35,10 +35,10 @@ export default function VistaSelector({ currentView, onViewChange }) {
                 size="small"
                 sx={{
                     '& .MuiToggleButton-root': {
-                        color: '#94a3b8', // Color cuando no está seleccionado
+                        color: '#424884', // Color cuando no está seleccionado
                         '&.Mui-selected': {
-                            color: 'white',    // Color del texto cuando está seleccionado
-                            backgroundColor: '#94a3b8', // Color de fondo cuando está seleccionado
+                            color: '#00a396',    // Color del texto cuando está seleccionado
+                            backgroundColor: '#424884', // Color de fondo cuando está seleccionado
                             '&:hover': {
                                 backgroundColor: '#94a3b8' // Color al pasar el mouse
                             }

@@ -21,7 +21,7 @@
 }
 
 .add_card span {
-    color: #00beb0ff;
+    color: #00a396;
 }
 
 .add_card svg {
@@ -38,6 +38,6 @@
 }
 
 .add_card:hover svg {
-    color: #00beb0ff;
+    color: #00a396;
 }
 

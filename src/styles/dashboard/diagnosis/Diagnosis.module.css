@@ -10,6 +10,8 @@
     transition: all .3s ease;
 }
 
+
+
 .tarjeta_paciente p {
     color: #94a3b8;
     font-size: 12px;
@@ -36,7 +38,7 @@
 
 .paciente_detalles {
     background-color: #ffffff;
-    box-shadow: 2px 2px 5px #94a3b8;
+    box-shadow: 1px 1px 2px #94A3B8;
     border-radius: 1rem;
     padding: 10px;
     margin: 10px;
@@ -50,44 +52,6 @@
     text-decoration: none;
 }
 
-.paciente_detalles.Tratamiento:hover {
-    background-color: rgb(255, 205, 86);
-    transform: scale(1.05);
-}
-
-.paciente_detalles.Tratamiento .paciente_data h5 span {
-    color: #94a3b8;
-}
-
-.paciente_detalles.Tratamiento:hover .paciente_data h5 span {
-    color: #686867; 
-}
-.paciente_detalles.Diagnostico:hover {
-    background-color: rgb(255, 99, 132);
-    transform: scale(1.05);
-}
-
-.paciente_detalles.Diagnostico .paciente_data h5 span {
-    color: #94a3b8;
-}
-
-.paciente_detalles.Diagnostico:hover .paciente_data h5 span {
-    color: #686867; 
-}
-
-.paciente_detalles.Alta:hover {
-    background-color: rgb(54, 162, 235);
-    transform: scale(1.05);
-}
-
-.paciente_detalles.Alta .paciente_data h5 span {
-    color: #94a3b8;
-}
-
-.paciente_detalles.Alta:hover .paciente_data h5 span {
-    color: #686867; 
-}
-
 .tarjeta_paciente.lista .paciente_detalles {
     display: flex;
     width: 95%;
@@ -98,6 +62,14 @@
     padding: 20px;
 }
 
+.paciente_detalles:hover {
+    background-color: #424884;
+}
+
+.paciente_detalles:hover h5 {
+    color: #ffffff;
+}
+
 .tarjeta_paciente.lista .paciente_foto {
     margin-right: 20px;
 }
@@ -105,12 +77,12 @@
 .paciente_foto img {
     width: 80px;
     height: 80px;
-    border: 1px solid #94a3b8;
+    border: 1px solid #94A3B8;
     border-radius: 5rem;
 }
 
 .paciente_data {
-    color: #94a3b8;
+    color: #424884;
 }
 
 .paciente_data h5 {
