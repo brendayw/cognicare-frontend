@@ -24,7 +24,6 @@ root.render(
         <Route path="/patients/diagnosis" element={<Diagnosis />} />
         <Route path="/patients/treatment" element={<Treatment />} />
         <Route path="/patients/discharged" element={<Discharged />} />
-
         <Route path="/profesional" element={<ProfesionalProfile />} />
         <Route path="/settings" element={<Settings />} />
 
