@@ -19,7 +19,6 @@
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    /* Opcional: puedes usar place-items para ambas propiedades */
     place-items: center; 
     gap: 5px;
 }

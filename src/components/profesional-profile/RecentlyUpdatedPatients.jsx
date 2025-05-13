@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import UserList from '../UserList.jsx';
 import axios from 'axios';
+import RecentlyCreatedPatients from '../dashboard/RecentlyCreatedPatients.jsx';
 
-export default function RecentlyCreatedPatients() {
+export default function RecentlyUpdatedPatients() {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showRecentlyCreated, setShowRecentlyCreated] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const obtenerRecienCreados = async () => {
+        const obtenerUltimosActualizados = async () => {
             try {
                 setLoading(true);
                 setError(null);
@@ -18,7 +20,7 @@ export default function RecentlyCreatedPatients() {
                     throw new Error('No se encontró el token de autenticación');
                 }
 
-                const response = await axios.get('http://localhost:5000/api/patients/recently', {
+                const response = await axios.get('http://localhost:5000/api/patients/updated', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -52,8 +54,9 @@ export default function RecentlyCreatedPatients() {
                 if (pacientesData.length > 0) {
                     setPatients(pacientesData);
                 } else {
-                    setPatients([]);
-                    setError('No se encontraron pacientes recientes');
+                    setShowRecentlyCreated(true);
+                    // setPatients([]);
+                    // setError('Aún no se ha actualizado ningún paciente');
                 }
 
             } catch (err) {
@@ -82,13 +85,17 @@ export default function RecentlyCreatedPatients() {
             } finally {
                 setLoading(false);
             }
-        };
-        obtenerRecienCreados();
+        }; 
+        obtenerUltimosActualizados();
     }, []);
+
+    if (showRecentlyCreated) {
+        return <RecentlyCreatedPatients />;
+    }
 
     return (
         <UserList 
-            title="Últimos pacientes creados"
+            title="Últimos pacientes actualizados"
             users={patients}
             loading={loading}
             error={error}

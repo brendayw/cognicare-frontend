@@ -5,6 +5,7 @@ import ProfesionalCard from '../components/profesional-profile/ProfesionalCard.j
 import Buttons from '../components/profesional-profile/Buttons.jsx';
 import Chart from '../components/profesional-profile/Chart.jsx';
 import MoreInfo from '../components/profesional-profile/MoreInfo.jsx';
+import RecentlyUpdatedPatients from '../components/profesional-profile/RecentlyUpdatedPatients.jsx';
 
 export default function ProfesionalProfile() {
     const [profesional, setProfesional] = useState();
@@ -44,6 +45,7 @@ export default function ProfesionalProfile() {
                 </div>
                 <div className='w-1/4 p-2'>
                     <MoreInfo />
+                    <RecentlyUpdatedPatients />
                 </div>
             </div>
          </div>
