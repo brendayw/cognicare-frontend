@@ -78,7 +78,7 @@ export default function PerfilSolapa() {
   return (
     <div id="perfilSolapa" className={`${styles.solapa} ${styles.activa}`}>
       <h3>Perfil de usuario</h3>
-      <form id="guardarPerfil" onSubmit={handleSubmit}>
+      <form id="guardarPerfil" className={`${styles.form_perfil}`} onSubmit={handleSubmit}>
         <div className={`${styles.campo} ${styles.nombre}`}>
           <label htmlFor="nombre">Nombre Completo:</label>
           <input 
