@@ -27,11 +27,9 @@ export default function LoginForm() {
         const response = await axios.post(`${URL_API}api/login`, {
             email,
             password,
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          }
+          }, 
+          { headers: { 'Content-Type': 'application/json', } },
+          { withCredentials: true }
         );
         console.log('Respuesta del login:', response.data);
     
@@ -46,6 +44,11 @@ export default function LoginForm() {
       }
     };
   
+    const logout = () => {
+      localStorage.removeItem('token');  // Eliminar el token de localStorage
+      navigate('/login');  // Redirigir al login
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
