@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import PatientsCategories from '../components/dashboard/PatientsCategories';
 import ProfileCard from '../components/dashboard/ProfileCard';
 import PatientsChart from '../components/dashboard/PatientsChart';
@@ -8,35 +7,7 @@ import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPati
 import AddButtons from '../components/dashboard/AddButtons.jsx';
 
 export default function Dashboard() {
-    const [perfil, setPerfil] = useState(null);
-    const [error, setError] = useState('');
     
-    useEffect(() => {
-        const obtenerPerfil = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/api/profesional', 
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-                if (response.data.success) {
-                    setPerfil(response.data.data);
-                } else {
-                    setError('No se pudo obtener el perfil.');
-                }
-
-            } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
-                setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
-            } 
-        };
-
-        obtenerPerfil();
-    }, []);
-
     return (
         <div className="flex w-full">
             <div className="w-3/4">

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import avatarFemenino from '../../../public/assets/female-header.png';
 import avatarMasculino from '../../../public/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
@@ -6,6 +7,35 @@ import styles from '../../styles/profesional/ProfesionalCard.module.css';
 
 // ProfesionalCard.jsx
 export default function ProfesionalCard({ prof }) {
+    const [perfil, setPerfil] = useState(null);
+    const [error, setError] = useState('');
+    
+    useEffect(() => {
+        const obtenerPerfil = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5000/api/profesional', 
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                if (response.data.success) {
+                    setPerfil(response.data.data);
+                } else {
+                    setError('No se pudo obtener el perfil.');
+                }
+
+            } catch (err) {
+                console.error('Error:', err.response?.data || err.message);
+                setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
+            } 
+        };
+
+        obtenerPerfil();
+    }, []);
+
     return (
         <div className={`${styles.profesional_container}`}>
             <div className={`${styles.tarjeta_profesional}`}>
@@ -41,7 +71,7 @@ export default function ProfesionalCard({ prof }) {
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                E-mailn: <span>{prof?.correo_electronico || '-'}</span>
+                                E-mailn: <span>{prof?.email || '-'}</span>
                             </p>
                         </div>
                     </div>
