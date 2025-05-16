@@ -14,7 +14,8 @@ export default function SignupForm() {
         console.log('Registro con:', { usuario, email, password });
 
         try {
-            const response = await axios.post('http://localhost:5000/api/signup', {  
+            const URL_API = 'https://cognicare-backend.vercel.app/';
+            const response = await axios.post(`${URL_API}api/signup`, {  
                 usuario,
                 email, 
                 password
