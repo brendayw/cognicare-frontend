@@ -21,7 +21,7 @@ export default function LoginForm() {
       console.log('Login con:', { email, password });
   
       try {
-        const response = await axios.post('http://localhost:5000/api/login', {
+        const response = await axios.post('https://cognicare-backend-zalf.vercel.app/api/login', {
           email,
           password,
         }, {

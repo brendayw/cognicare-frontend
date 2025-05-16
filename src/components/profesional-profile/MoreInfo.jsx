@@ -15,7 +15,7 @@ export default function MoreInfo() {
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const response = await axios.get('http://localhost:5000/api/profesional', {
+                const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/profesional', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

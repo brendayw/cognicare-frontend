@@ -15,7 +15,7 @@ export default function Dashboard() {
         const obtenerPerfil = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5000/api/profesional', 
+                const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/profesional', 
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -40,7 +40,6 @@ export default function Dashboard() {
     return (
         <div className="flex w-full">
             <div className="w-3/4">
-                {/* Solo pasa el perfil a ProfileCard si se obtiene correctamente */}
                 {perfil ? (
                     <ProfileCard profesional = {perfil} />
                 ) : (

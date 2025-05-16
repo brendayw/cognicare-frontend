@@ -14,7 +14,7 @@ export default function SignupForm() {
         console.log('Registro con:', { usuario, email, password });
 
         try {
-            const response = await axios.post('http://localhost:5000/api/signup', {  
+            const response = await axios.post('https://cognicare-backend-zalf.vercel.app/api/signup', {  
                 usuario,
                 email, 
                 password

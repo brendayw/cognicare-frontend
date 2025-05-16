@@ -17,7 +17,7 @@ export default function ProfesionalProfile() {
                     const token = localStorage.getItem('token');
                     if (!token) throw new Error('Token no encontrado');
     
-                    const response = await axios.get('http://localhost:5000/api/profesional', {
+                    const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/profesional', {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
     

@@ -50,7 +50,7 @@ export default function Chart() {
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
 
-                const response = await axios.get('http://localhost:5000/api/patients', {
+                const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/patients', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
