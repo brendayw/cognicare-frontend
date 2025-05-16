@@ -28,7 +28,6 @@ export default function LoginForm() {
             email,
             password,
           }, 
-          { headers: { 'Content-Type': 'application/json', } },
           { withCredentials: true }
         );
         console.log('Respuesta del login:', response.data);
