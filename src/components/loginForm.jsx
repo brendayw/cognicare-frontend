@@ -10,8 +10,8 @@ export default function LoginForm() {
     const navigate = useNavigate();
   
     useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
+      const userToken = localStorage.getItem('userToken');
+      if (userToken) {
         navigate('/dashboard');
       }
     }, [navigate]);
@@ -21,22 +21,22 @@ export default function LoginForm() {
       console.log('Login con:', { email, password });
   
       try {
-        const URL_API = 'https://cognicare-backend.vercel.app/';
-        console.log('Enviando solicitud a:', `${URL_API}api/login`);
-
-        const response = await axios.post(`${URL_API}api/login`, {
-            email,
-            password,
-          }, 
-          { withCredentials: true }
-        );
+        const response = await axios.post('https://cognicare-backend.vercel.app/api/login', {
+          email,
+          password,
+        }, {
+          withCredentials: true,
+        });
+  
         console.log('Respuesta del login:', response.data);
-    
+  
         if (response.data.success) {
+          console.log('Respuesta del login:', response.data);
+          // Guardar token si es necesario, por ejemplo, en localStorage
           localStorage.setItem('token', response.data.token);
           navigate('/dashboard'); // Redirige al dashboard
         } else {
-          setError(response.data.message || 'Error al iniciar sesión');
+          setError('Credenciales incorrectas');
         }
       } catch (error) {
         setError('Error en la autenticación');
@@ -44,7 +44,7 @@ export default function LoginForm() {
     };
   
     const logout = () => {
-      localStorage.removeItem('token');  // Eliminar el token de localStorage
+      localStorage.removeItem('userToken');  // Eliminar el token de localStorage
       navigate('/login');  // Redirigir al login
     };
 
