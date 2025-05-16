@@ -6,7 +6,7 @@ import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import styles from '../../styles/profesional/ProfesionalCard.module.css';
 
 // ProfesionalCard.jsx
-export default function ProfesionalCard({ prof }) {
+export default function ProfesionalCard() {
     const [perfil, setPerfil] = useState(null);
     const [error, setError] = useState('');
     
@@ -42,36 +42,36 @@ export default function ProfesionalCard({ prof }) {
                 <div className={`${styles.perfil}`}>
                     <img
                         className={`${styles.profesional_header}`}
-                        src={prof?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
+                        src={perfil?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
                         alt="Avatar del profesional"
                     />
                 </div>
                 <div className={`${styles.datos}`}>
                     <h4>
                         <span className={`${styles.datos_nombre}`}>
-                            {prof?.nombre_completo || 'Cargando...'}
+                            {perfil?.nombre_completo || 'Cargando...'}
                         </span>
                     </h4>
                     
                     <div className={`${styles.datos_perfil}`}>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Profesión: <span>{prof?.especialidad || '-'}</span>
+                                Profesión: <span>{perfil?.especialidad || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Matrícula: <span>{prof?.matricula || '-'}</span>
+                                Matrícula: <span>{perfil?.matricula || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Telefono: <span>{prof?.telefono || '-'}</span>
+                                Telefono: <span>{perfil?.telefono || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                E-mailn: <span>{prof?.email || '-'}</span>
+                                E-mailn: <span>{perfil?.email || '-'}</span>
                             </p>
                         </div>
                     </div>

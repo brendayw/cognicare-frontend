@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PatientsCategories from '../components/dashboard/PatientsCategories';
 import ProfileCard from '../components/dashboard/ProfileCard';
 import PatientsChart from '../components/dashboard/PatientsChart';
@@ -7,15 +7,10 @@ import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPati
 import AddButtons from '../components/dashboard/AddButtons.jsx';
 
 export default function Dashboard() {
-    
     return (
         <div className="flex w-full">
             <div className="w-3/4">
-                {perfil ? (
-                    <ProfileCard profesional = {perfil} />
-                ) : (
-                    <p>No se encontró el perfil del profesional.</p>
-                )}
+                <ProfileCard  />
                 <PatientsCategories />
                 <div className="flex space-x-2 w-full">
                     <div className="flex-1">
