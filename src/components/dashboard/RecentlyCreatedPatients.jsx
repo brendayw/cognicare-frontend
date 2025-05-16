@@ -18,7 +18,7 @@ export default function RecentlyCreatedPatients() {
                     throw new Error('No se encontró el token de autenticación');
                 }
 
-                const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/patients/recently', {
+                const response = await axios.get('http://localhost:5000/api/patients/recently', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

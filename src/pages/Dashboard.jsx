@@ -15,7 +15,7 @@ export default function Dashboard() {
         const obtenerPerfil = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('https://cognicare-backend-zalf.vercel.app/api/profesional', 
+                const response = await axios.get('http://localhost:5000/api/profesional', 
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`
