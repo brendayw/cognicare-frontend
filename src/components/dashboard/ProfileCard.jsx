@@ -1,35 +1,40 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import styles from '../../styles/dashboard/ProfileCard.module.css';
 
 export default function ProfileCard() {
     const [profesional, setProfesional] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
         
-     useEffect(() => {
-        const obtenerPerfil = async () => {
+    useEffect(() => {
+        const obtenerProfesional = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`${URL_API}api/profesional`, 
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-    
-                if (response.data.success) {
-                    setProfesional(response.data.data);
-                } else {
-                    setError('No se pudo obtener el perfil.');
-                }
-    
+                if (!token) throw new Error('No autenticado');
+                
+                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const { data } = await axios.get(`${URL_API}api/profesional`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+
+                if (!data.success) throw new Error(data.message || 'Error en respuesta');
+                
+                setProfesional(data.data);
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
-                setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
-            } 
+                console.error('Error fetching profesional:', err);
+                setError(err.message || 'Error al cargar datos');
+            } finally {
+                setLoading(false);
+            }
         };
-        obtenerPerfil();
+
+        obtenerProfesional();
     }, []);
+
+    if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (error) return <div className={styles.error}>{error}</div>;
+    if (!profesional) return <div className={styles.error}>No hay datos disponibles</div>;
 
     return (
         <div className={`${styles.perfil_profesional}`}>
