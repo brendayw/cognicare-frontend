@@ -12,13 +12,14 @@ export default function RecentlyCreatedPatients() {
             try {
                 setLoading(true);
                 setError(null);
+                const URL_API = 'https://cognicare-backend.vercel.app/';
                 const token = localStorage.getItem('token');
                 
                 if (!token) {
                     throw new Error('No se encontró el token de autenticación');
                 }
 
-                const response = await axios.get('http://localhost:5000/api/patients/recently', {
+                const response = await axios.get(`${URL_API}api/patients/recently`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

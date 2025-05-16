@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
 import avatarFemenino from '../../../public/assets/female-header.png';
 import avatarMasculino from '../../../public/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import styles from '../../styles/profesional/ProfesionalCard.module.css';
 
 // ProfesionalCard.jsx
-export default function ProfesionalCard() {
+export default function ProfesionalCard({ prof }) {
     const [perfil, setPerfil] = useState(null);
     const [error, setError] = useState('');
     
@@ -24,7 +23,7 @@ export default function ProfesionalCard() {
                 if (response.data.success) {
                     setPerfil(response.data.data);
                 } else {
-                    setError('No se pudo obtener el perfil.');
+                    setError('No se pudo obtener el perfil del profesional.');
                 }
 
             } catch (err) {
@@ -42,36 +41,36 @@ export default function ProfesionalCard() {
                 <div className={`${styles.perfil}`}>
                     <img
                         className={`${styles.profesional_header}`}
-                        src={perfil?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
+                        src={prof?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
                         alt="Avatar del profesional"
                     />
                 </div>
                 <div className={`${styles.datos}`}>
                     <h4>
                         <span className={`${styles.datos_nombre}`}>
-                            {perfil?.nombre_completo || 'Cargando...'}
+                            {prof?.nombre_completo || 'Cargando...'}
                         </span>
                     </h4>
                     
                     <div className={`${styles.datos_perfil}`}>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Profesión: <span>{perfil?.especialidad || '-'}</span>
+                                Profesión: <span>{prof?.especialidad || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Matrícula: <span>{perfil?.matricula || '-'}</span>
+                                Matrícula: <span>{prof?.matricula || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                Telefono: <span>{perfil?.telefono || '-'}</span>
+                                Telefono: <span>{prof?.telefono || '-'}</span>
                             </p>
                         </div>
                         <div className={`${styles.dato_perfil}`}>
                             <p className="text-primary text-base">
-                                E-mailn: <span>{perfil?.email || '-'}</span>
+                                E-mailn: <span>{prof?.correo_electronico || '-'}</span>
                             </p>
                         </div>
                     </div>

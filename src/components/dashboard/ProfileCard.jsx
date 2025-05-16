@@ -1,15 +1,35 @@
-import React from 'react';
-import avatarFemenino from '../../../public/assets/avatar_mujer.jpg';
-import avatarMasculino from '../../../public/assets/hombre_avatar.avif';
+import React, {useState, useEffect} from 'react';
 import styles from '../../styles/dashboard/ProfileCard.module.css';
 
-export default function ProfileCard( { profesional }) {
-    // Función para obtener el avatar según el género
-    // const obtenerAvatar = (genero) => {
-    //     if (genero === 'femenino') return avatarFemenino;
-    //     if (genero === 'masculino') return avatarMasculino;
-    //     return avatarFemenino;  // Valor por defecto
-    // };
+export default function ProfileCard() {
+    const [profesional, setProfesional] = useState(null);
+    const [error, setError] = useState('');
+        
+     useEffect(() => {
+        const obtenerPerfil = async () => {
+            try {
+                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${URL_API}api/profesional`, 
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+    
+                if (response.data.success) {
+                    setProfesional(response.data.data);
+                } else {
+                    setError('No se pudo obtener el perfil.');
+                }
+    
+            } catch (err) {
+                console.error('Error:', err.response?.data || err.message);
+                setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
+            } 
+        };
+        obtenerPerfil();
+    }, []);
 
     return (
         <div className={`${styles.perfil_profesional}`}>
@@ -40,7 +60,7 @@ export default function ProfileCard( { profesional }) {
                            Teléfono: <span>{profesional.telefono}</span>
                         </p>
                         <p className="text-primary text-base">
-                            E-mail: <span>{profesional.correo_electronico}</span>
+                            E-mail: <span>{profesional.email}</span>
                         </p>
                     </div>
                 </div>

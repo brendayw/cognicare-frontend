@@ -15,23 +15,24 @@ export default function PatientsChart() {
     useEffect(() => {
         const obtenerEstado = async () => {
             try {
+                const URL_API = 'https://cognicare-backend.vercel.app/';
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const [diagnosisRes, treatmentRes, dischargedRes] = await Promise.all([
-                    axios.get('https://cognicare-backend-zalf.vercel.app/api/patients/diagnosis', {
+                    axios.get(`${URL_API}api/patients/diagnosis`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
                         console.error('Error en diagnóstico:', err);
                         return { data: { success: false, data: { rows: [] } } };
                     }),
-                    axios.get('https://cognicare-backend-zalf.vercel.app/api/patients/treatment', {
+                    axios.get(`${URL_API}api/patients/treatment`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
                         console.error('Error en tratamiento:', err);
                         return { data: { success: false, data: { rows: [] } } };
                     }),
-                    axios.get('https://cognicare-backend-zalf.vercel.app/api/patients/discharged', {
+                    axios.get(`${URL_API}api/patients/discharged`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
                         console.error('Error en alta:', err);
