@@ -24,12 +24,10 @@ export default function RecentlyCreatedPatients() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                
                 console.log('Respuesta completa:', response);
 
-                // Manejo flexible de diferentes formatos de respuesta
+
                 let pacientesData = [];
-                
                 if (response.data) {
                     // Caso 1: Respuesta con estructura { success: true, rows: [...] }
                     if (response.data.success && Array.isArray(response.data.rows)) {

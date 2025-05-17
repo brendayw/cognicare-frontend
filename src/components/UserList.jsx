@@ -1,6 +1,7 @@
 // UserList.jsx
 import React from 'react';
 import { List, ListItem, ListItemText, Paper, CircularProgress, Alert, Typography } from '@mui/material';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function UserList({
   title = '', 
@@ -15,7 +16,12 @@ export default function UserList({
   return (
     <Paper sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4, boxShadow: 'none' }}>
       {loading && <CircularProgress />}
-      {error && <Alert severity="error">{error}</Alert>}
+      {error && (
+        <div className="bg-[#f6e9e6] text-[#FF6F59] text-center border border-red-300 rounded-md px-4 py-3 text-sm mb-2">
+          <ErrorOutlineTwoToneIcon className='mr-2'/>
+          {error}
+        </div>
+      )}
       
       {!loading && !error && (
         <>

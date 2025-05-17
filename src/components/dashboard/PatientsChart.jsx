@@ -1,6 +1,7 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
 
 export default function PatientsChart() {
@@ -85,7 +86,10 @@ export default function PatientsChart() {
         <div className={`${styles.grafico_container}`}>
             {error ? (
                 <div className={styles.error}> 
-                    <p> No hay pacientes registrados aún para mostrar en el gráfico</p>
+                    <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] m-4 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {error}
+                    </p>
                 </div>
             ) : (
                 <PieChart
