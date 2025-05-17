@@ -4,11 +4,7 @@ import axios from 'axios';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
 
 export default function PatientsChart() {
-    const [chartData, setChartData] = useState([
-        { id: 0, value: 0, label: 'Tratamiento' },
-        { id: 1, value: 0, label: 'Diagnóstico' },
-        { id: 2, value: 0, label: 'Alta' }
-    ]);
+    const [chartData, setChartData] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     
@@ -16,6 +12,7 @@ export default function PatientsChart() {
         const obtenerEstado = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
+
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
@@ -65,12 +62,7 @@ export default function PatientsChart() {
                 if (newChartData.every(item => item.value === 0)) {
                     console.log('No hay datos para mostrar en el gráfico');
                     setError('No hay pacientes registrados para mostrar en el gráfico');
-                    // Usar datos de ejemplo si no hay datos reales
-                    setChartData([
-                        { id: 0, value: 1, label: 'Tratamiento' },
-                        { id: 1, value: 1, label: 'Diagnóstico' },
-                        { id: 2, value: 1, label: 'Alta' }
-                    ]);
+
                 } else {
                     console.log('Datos para el gráfico:', newChartData);
                     setChartData(newChartData);
@@ -79,12 +71,6 @@ export default function PatientsChart() {
             } catch (err) {
                 console.error('Error al cargar datos:', err);
                 setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-                // Establecer datos por defecto en caso de error
-                setChartData([
-                    { id: 0, value: 1, label: 'Tratamiento' },
-                    { id: 1, value: 1, label: 'Diagnóstico' },
-                    { id: 2, value: 1, label: 'Alta' }
-                ]);
             } finally {
                 setLoading(false);
             }

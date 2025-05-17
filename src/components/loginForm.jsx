@@ -18,16 +18,15 @@ export default function LoginForm() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log('Login con:', { email, password });
+      console.log('Login con:', { email, password, userToken });
   
       try {
-        const response = await axios.post('https://cognicare-backend.vercel.app/api/login', {
+        const response = await axios.post('https://cognicare-backend.vercel.app//api/login', {
           email,
           password,
         }, {
           withCredentials: true,
         });
-  
         console.log('Respuesta del login:', response.data);
   
         if (response.data.success) {
