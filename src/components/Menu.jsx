@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import styles from '../styles/Menu.module.css';
@@ -37,31 +37,31 @@ export default function Menu() {
             {/* Menu */}
             <div className={`${styles.menu}`}>
                 <div className={`${styles.enlace} ${isActive('/dashboard')} `}>
-                    <a className={`${styles.link_menu} `} href="/dashboard">
+                    <Link to="/dashboard"  className={`${styles.link_menu} `} >
                         <HomeTwoToneIcon  />
                         <span>Inicio</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/patients')} `}>
-                    <a className={`${styles.link_menu} `} href="/patients">
+                    <Link to="/patients" className={`${styles.link_menu} `}>
                         <GroupsTwoToneIcon/>
                         <span>Pacientes</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/profesional')} `}>
-                    <a className={`${styles.link_menu} `} href="/profesional">
+                    <Link to="/profesional" className={`${styles.link_menu} `} >
                         <PersonOutlineTwoToneIcon />
                         <span>Profesional</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/settings')} `}>
-                    <a className={`${styles.link_menu} `}  href="/settings">
+                    <Link to="/settings"  className={`${styles.link_menu} `} >
                         <SettingsTwoToneIcon />
                         <span>Ajustes</span>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={`${styles.enlace} ${styles.logout} `} onClick={logout}>

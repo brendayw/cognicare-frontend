@@ -13,13 +13,14 @@ export default function Patients() {
     useEffect(() => {
         const obtenerTodosLosPacientes = async () => {
             try {
+                const URL_API = 'https://cognicare-backend.vercel.app/'
+
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('Token no encontrado');
-                           
-                const response = await axios.get('http://localhost:5000/api/patients', {
+                
+                const response = await axios.get(`${URL_API}api/patients`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                
                 console.log("Respuesta recibida del listado de pacientes:", response); 
             
                 if (response.data && response.data.success) {
