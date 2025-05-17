@@ -10,7 +10,7 @@ export default function LoginForm() {
     const navigate = useNavigate();
   
     useEffect(() => {
-      const userToken = localStorage.getItem('userToken');
+      const userToken = localStorage.getItem('token');
       if (userToken) {
         navigate('/dashboard');
       }
