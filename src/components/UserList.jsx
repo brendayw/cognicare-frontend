@@ -17,10 +17,10 @@ export default function UserList({
     <Paper sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4, boxShadow: 'none' }}>
       {loading && <CircularProgress />}
       {error && (
-        <div className="bg-[#f6e9e6] text-[#FF6F59] text-center border border-red-300 rounded-md px-4 py-3 text-sm mb-2">
+        <p className="bg-[#f6e9e6] text-[#FF6F59] text-center border border-red-300 rounded-md m-4 p-4 text-sm">
           <ErrorOutlineTwoToneIcon className='mr-2'/>
           {error}
-        </div>
+        </p>
       )}
       
       {!loading && !error && (
