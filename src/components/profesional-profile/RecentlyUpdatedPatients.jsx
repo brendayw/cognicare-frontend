@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserList from '../UserList.jsx';
 import axios from 'axios';
 import RecentlyCreatedPatients from '../dashboard/RecentlyCreatedPatients.jsx';
@@ -14,23 +14,22 @@ export default function RecentlyUpdatedPatients() {
             try {
                 setLoading(true);
                 setError(null);
+                const URL_API = 'https://cognicare-backend.vercel.app/';
+
                 const token = localStorage.getItem('token');
-                
                 if (!token) {
-                    throw new Error('No se encontró el token de autenticación');
+                    throw new Error('Error al cargar datos: No hay token de autenticación');
                 }
 
-                const response = await axios.get('http://localhost:5000/api/patients/updated', {
+                const response = await axios.get(`${URL_API}api/patients/updated`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                
                 console.log('Respuesta completa:', response);
 
-                // Manejo flexible de diferentes formatos de respuesta
+
                 let pacientesData = [];
-                
                 if (response.data) {
                     // Caso 1: Respuesta con estructura { success: true, rows: [...] }
                     if (response.data.success && Array.isArray(response.data.rows)) {
@@ -65,12 +64,10 @@ export default function RecentlyUpdatedPatients() {
                 if (err.response) {
                     // Error de respuesta HTTP (4xx, 5xx)
                     errorMessage = err.response.data?.message || 
-                                 `Error ${err.response.status}: ${err.response.statusText}`;
+                        `Error ${err.response.status}: ${err.response.statusText}`;
                 } else if (err.request) {
-                    // La solicitud fue hecha pero no hubo respuesta
                     errorMessage = 'No se recibió respuesta del servidor';
                 } else {
-                    // Error al configurar la solicitud
                     errorMessage = err.message || 'Error desconocido';
                 }
                 

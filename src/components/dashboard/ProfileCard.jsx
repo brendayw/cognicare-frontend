@@ -12,7 +12,7 @@ export default function ProfileCard() {
         const obtenerProfesional = async () => {
             try {
                 const token = localStorage.getItem('token');
-                if (!token) throw new Error('No autenticado');
+                if (!token) throw new Error('No hay token de autenticación');
                 
                 const URL_API = 'https://cognicare-backend.vercel.app/';
                 const { data } = await axios.get(`${URL_API}api/profesional`,
@@ -24,7 +24,7 @@ export default function ProfileCard() {
                 setProfesional(data.data);
             } catch (err) {
                 console.error('Error fetching profesional:', err);
-                setError(err.message || 'Error al cargar datos');
+                setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }

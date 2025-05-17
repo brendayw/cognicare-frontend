@@ -33,7 +33,8 @@ export default function PasswordSolapa() {
     }
 
     try {
-      await axios.post('/api/cambiarPassword', {
+      const URL_API = 'https://cognicare-backend.vercel.app/';
+      await axios.post(`${URL_API}/api/cambiarPassword`, {
         nueva_password,
         password_actual
       });

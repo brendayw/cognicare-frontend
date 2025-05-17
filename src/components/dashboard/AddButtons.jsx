@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import VolunteerActivismTwoToneIcon from '@mui/icons-material/VolunteerActivismTwoTone';
 import NoteAddTwoToneIcon from '@mui/icons-material/NoteAddTwoTone';
@@ -9,28 +9,28 @@ export default function AddButtons() {
     return (
         <div className={`${styles.add_container}`}>
             <div className={`${styles.add_card}`}>
-                <a href="/patients/add">
+                <Link to="/patients/add">
                     <PersonAddAltTwoToneIcon />
                     <span>Paciente</span>
-                </a>
+                </Link>
             </div>
             <div className={`${styles.add_card}`}>
-                <a href="patients/session/add">
+                <Link to="patients/session/add">
                     <VolunteerActivismTwoToneIcon />
                     <span>Sesión</span>
-                </a>
+                </Link>
             </div>
             <div className={`${styles.add_card}`}>
-                <a href="patients/assessments/add">
+                <Link to="/patients/assessments/add">
                     <NoteAddTwoToneIcon />
                     <span>Evaluación</span>    
-                </a>
+                </Link>
             </div>
             <div className={`${styles.add_card}`}>
-                <a href="/patients/reports/add">
+                <Link to="/patients/reports/add">
                     <FilePresentTwoToneIcon />
                     <span>Reporte</span>
-                </a>
+                </Link>
             </div>
         </div>
     );

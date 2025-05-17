@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/settings/PerfilSolapa.module.css';
 
@@ -64,7 +64,8 @@ export default function PerfilSolapa() {
     }
 
     try {
-      const response = await axios.post('/api/createProfesional', formData);
+      const URL_API = 'https://cognicare-backend.vercel.app/';
+      const response = await axios.post(`${URL_API}/api/profesional}`, formData);
       alert("Profesional creado/a con éxito");
     } catch (error) {
       if (error.response) {

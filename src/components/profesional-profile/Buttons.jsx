@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import PsychologyAltTwoToneIcon from '@mui/icons-material/PsychologyAltTwoTone';
 import PsychologyTwoToneIcon from '@mui/icons-material/PsychologyTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
@@ -14,40 +14,39 @@ export default function Buttons() {
     return (
         <div className={`${styles.acceso_rapido}`}>
             <div className={`${styles.access_card}`}>
-                <a href="/patients">
+                <Link to="/patients">
                     <GroupsTwoToneIcon />
                     <span>Pacientes</span>
-                </a>
+                </Link>
             </div>
             <div className={`${styles.access_card}`}>
-                <a href="patients/diagnosis">
+                <Link to="/patients/diagnosis">
                     <PsychologyAltTwoToneIcon />
                     <span>Diagnóstico</span>
-                </a>
+                </Link>
             </div>
             <div className={`${styles.access_card}`}>
-                <a href="patients/treatment">
+                <Link to="/patients/treatment">
                     <PsychologyTwoToneIcon />
-                    <span>Evaluación</span>    
-                </a>
+                    <span>Tratamiento</span>    
+                </Link>
             </div>
             <div className={`${styles.access_card}`}>
                 <div className={`${styles.add_card}`}>
-                    
                     <AddCircleTwoToneIcon />
                     <span>Agregar</span>
                    
                     <div className={`${styles.options}`}>
                     {[
-                        { href: "/patients/add", icon: <PersonAddAltTwoToneIcon />},
-                        { href: "/patients/session/add", icon: <VolunteerActivismTwoToneIcon />},
-                        { href: "/patients/assessment/add", icon: <NoteAddTwoToneIcon /> },
-                        { href: "/patients/report/add", icon: <FilePresentTwoToneIcon /> }
+                        { to: "/patients/add", icon: <PersonAddAltTwoToneIcon />},
+                        { to: "/patients/session/add", icon: <VolunteerActivismTwoToneIcon />},
+                        { to: "/patients/assessment/add", icon: <NoteAddTwoToneIcon /> },
+                        { to: "/patients/report/add", icon: <FilePresentTwoToneIcon /> }
                     ].map((item, index) => (
                         <div key={index} className={`${styles.option}`}>
-                        <a href={item.href}>
+                        <Link to={item.href}>
                             <i className="material-icons-sharp">{item.icon}</i>
-                        </a>
+                        </Link>
                         </div>
                     ))}
                     </div>

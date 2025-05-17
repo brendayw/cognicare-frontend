@@ -1,6 +1,7 @@
-import React, { useEffect, useState, }from 'react';
+import { useEffect, useState, }from 'react';
 import axios from 'axios';
 import styles from '../../styles/profesional/MoreInfo.module.css';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function MoreInfo() {
     const [result, setResult] = useState();
@@ -12,15 +13,16 @@ export default function MoreInfo() {
     useEffect(() => {
         const obtenerData = async () => {
             try {
+                const URL_API = 'https://cognicare-backend.vercel.app/';
+
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const response = await axios.get('http://localhost:5000/api/profesional', {
+                const response = await axios.get(`${URL_API}api/profesional`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-
                 const result = response.data.data;
                 console.log('Datos recibidos:', result); // Para depuración
                 
@@ -112,7 +114,10 @@ export default function MoreInfo() {
                         );
                     })
                 ) : (
-                    <p>No hay días de atención disponibles.</p>
+                    <p className='bg-[#f6e9e6] w-[250px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {error}
+                    </p>
                 )}
             </div>
 
@@ -136,7 +141,10 @@ export default function MoreInfo() {
                     }
                 })
                 ) : (
-                    <p>No hay horarios de atención disponibles.</p>
+                    <p className='bg-[#f6e9e6] w-[250px] h-[75px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {error}
+                    </p>
                 )}
             </div>
         </div>

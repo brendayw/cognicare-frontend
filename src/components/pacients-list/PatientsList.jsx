@@ -1,4 +1,3 @@
-import React from 'react';
 import avatarFemenino from '../../../public/assets/avatar_mujer.jpg';
 import avatarMasculino from '../../../public/assets/hombre_avatar.avif';
 import styles from '../../styles/dashboard/diagnosis/Diagnosis.module.css';

@@ -16,7 +16,7 @@ export default function RecentlyCreatedPatients() {
                 const token = localStorage.getItem('token');
                 
                 if (!token) {
-                    throw new Error('No se encontró el token de autenticación');
+                    throw new Error('Error al cargar datos: No hay token de autenticación');
                 }
 
                 const response = await axios.get(`${URL_API}api/patients/recently`, {

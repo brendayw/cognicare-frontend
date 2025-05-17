@@ -33,11 +33,9 @@ export default function Settings() {
 
   return (
     <div className="container">
-      <Menu /> {/* Añadido el menú */}
-      
+      <Menu />
       <div className='flex w-full'>
         <div className='w-1/4'>
-          {/* Pasa activeTab y handleTabChange como props */}
           <PanelSettings activeTab={activeTab} onTabChange={handleTabChange} />
         </div>
       

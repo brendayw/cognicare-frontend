@@ -17,7 +17,7 @@ export default function UserList({
     <Paper sx={{ maxWidth: 250, maxHeight: 300, margin: 'auto', mt: 4, boxShadow: 'none' }}>
       {loading && <CircularProgress />}
       {error && (
-        <div className="bg-[#f6e9e6] text-[#FF6F59] text-center border border-red-300 rounded-md m-2 p-2 text-sm mb-2">
+        <div className="bg-[#f6e9e6] w-[250px] text-[#FF6F59] border border-red-300 rounded-md m-2 p-2 text-sm p-4">
           <ErrorOutlineTwoToneIcon className='mr-2'/>
           {error}
         </div>

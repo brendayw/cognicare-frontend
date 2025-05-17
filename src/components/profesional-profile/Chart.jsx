@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import axios from 'axios';
 import styles from '../../styles/profesional/Chart.module.css';
 
@@ -47,10 +48,12 @@ export default function Chart() {
     useEffect(() => {
         const obtenerData = async () => {
             try {
+                const URL_API = 'https://cognicare-backend.vercel.app/';
+
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
 
-                const response = await axios.get('http://localhost:5000/api/patients', {
+                const response = await axios.get(`${URL_API}api/patients`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -81,67 +84,77 @@ export default function Chart() {
     }, []);
 
     if (loading) return <div>Cargando...</div>;
-    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className={`${styles.chart}`} ref={chartContainerRef}>
-            <BarChart
-                series={[
-                    { 
-                        data: chartData.completedSessions, 
-                        label: 'Sesiones realizadas', 
-                        color: '#FFC759'
-                    },
-                    { 
-                        data: chartData.totalSessions, 
-                        label: 'Sesiones totales', 
-                        color: '#FF6F59'
-                    }
-                ]}
-                yAxis={[{ 
-                    data: chartData.names.slice(0, 10),
-                    scaleType: 'band',
-                    tickLabelStyle: {
-                        display: 'none'
-                    }
-                }]}
-                xAxis={[{ 
-                    min: 0,
-                    max: 100
-                }]}
-                layout='horizontal'
-                margin={{ left: -20, right: 20, top: 20, bottom: 100 }}
-                borderRadius={10}
-                height={Math.max(350, chartData.names.length * 60)}
-                width={800}
-                sx={{
-                    '.MuiChartsAxis-line': { stroke: '#94A3B8 !important' },
-                    '.MuiChartsAxis-tick': { stroke: '#94A3B8 !important' },
-                    '.MuiChartsAxis-tickLabel': { fill: '#94A3B8 !important' },
-                    '.MuiChartsLegend-label': {
-                        fill: '#94A3B8 !important',
-                        color: '#94A3B8 !important',
-                        fontFamily: 'Cabin, sans-serif !important',
-                        fontSize: '14px !important',
-                        fontWeight: '500 !important'
-                    }
-                }}
-            />
-            <style jsx global>{`
-                .MuiChartsLegend-label {
-                    fill: #94A3B8 !important;
-                    color: #94A3B8 !important;
-                    font-family: 'Cabin', sans-serif !important;
-                    font-size: 14px !important;
-                    font-weight: 500 !important;
-                }
-                .MuiChartsAxis-line, .MuiChartsAxis-tick {
-                    stroke: #94A3B8 !important;
-                }
-                .MuiChartsAxis-tickLabel {
-                    fill: #94A3B8 !important;
-                }
-            `}</style>
+            {error ? (
+                <div className={styles.error}>
+                    <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {error}
+                    </p>
+                </div>            
+            ) : (
+                <div>
+                    <BarChart
+                        series={[
+                            { 
+                                data: chartData.completedSessions, 
+                                label: 'Sesiones realizadas', 
+                                color: '#FFC759'
+                            },
+                            { 
+                                data: chartData.totalSessions, 
+                                label: 'Sesiones totales', 
+                                color: '#FF6F59'
+                            }
+                        ]}
+                        yAxis={[{ 
+                            data: chartData.names.slice(0, 10),
+                            scaleType: 'band',
+                            tickLabelStyle: {
+                                display: 'none'
+                            }
+                        }]}
+                        xAxis={[{ 
+                            min: 0,
+                            max: 100
+                        }]}
+                        layout='horizontal'
+                        margin={{ left: -20, right: 20, top: 20, bottom: 100 }}
+                        borderRadius={10}
+                        height={Math.max(350, chartData.names.length * 60)}
+                        width={800}
+                        sx={{
+                            '.MuiChartsAxis-line': { stroke: '#94A3B8 !important' },
+                            '.MuiChartsAxis-tick': { stroke: '#94A3B8 !important' },
+                            '.MuiChartsAxis-tickLabel': { fill: '#94A3B8 !important' },
+                            '.MuiChartsLegend-label': {
+                                fill: '#94A3B8 !important',
+                                color: '#94A3B8 !important',
+                                fontFamily: 'Cabin, sans-serif !important',
+                                fontSize: '14px !important',
+                                fontWeight: '500 !important'
+                            }
+                        }}
+                    />
+                    <style jsx global>{`
+                        .MuiChartsLegend-label {
+                            fill: #94A3B8 !important;
+                            color: #94A3B8 !important;
+                            font-family: 'Cabin', sans-serif !important;
+                            font-size: 14px !important;
+                            font-weight: 500 !important;
+                        }
+                        .MuiChartsAxis-line, .MuiChartsAxis-tick {
+                            stroke: #94A3B8 !important;
+                        }
+                        .MuiChartsAxis-tickLabel {
+                            fill: #94A3B8 !important;
+                        }
+                    `}</style>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import styles from '../styles/Menu.module.css';

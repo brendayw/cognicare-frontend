@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Menu from '../components/Menu.jsx';
 import ProfesionalCard from '../components/profesional-profile/ProfesionalCard.jsx';
@@ -14,10 +14,12 @@ export default function ProfesionalProfile() {
         useEffect(() => {
             const obtenerProfesional = async () => {
                 try {
+                    const URL_API = 'https://cognicare-backend.vercel.app/';
+
                     const token = localStorage.getItem('token');
                     if (!token) throw new Error('Token no encontrado');
     
-                    const response = await axios.get('http://localhost:5000/api/profesional', {
+                    const response = await axios.get(`${URL_API}api/profesional`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
     
@@ -28,7 +30,7 @@ export default function ProfesionalProfile() {
                     }
                 } catch (err) {
                     console.error('Error:', err.response?.data || err.message);
-                    setError('No se pudo obtener el perfil del profesional.'); // Manejo de errores
+                    setError('No se pudo obtener el perfil del profesional.');
                 } 
             };
             obtenerProfesional();
