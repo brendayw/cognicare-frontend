@@ -62,7 +62,6 @@ export default function PatientsChart() {
                 if (newChartData.every(item => item.value === 0)) {
                     console.log('No hay datos para mostrar en el gráfico');
                     setError('No hay pacientes registrados para mostrar en el gráfico');
-
                 } else {
                     console.log('Datos para el gráfico:', newChartData);
                     setChartData(newChartData);
@@ -84,26 +83,31 @@ export default function PatientsChart() {
     
     return (
         <div className={`${styles.grafico_container}`}>
-            {error && <div className={styles.error}>{error}</div>}
-            <PieChart
-                colors={['#b36ed8', '#424884', '#00a396']}
-                series={[
-                    {
-                        data: chartData,
-                        innerRadius: 20,
-                        outerRadius: 125,
-                        paddingAngle: 5,
-                        cornerRadius: 5,
-                        startAngle: -45,
-                        endAngle: 360,
-                        cy: '50%',
-                        cx: "25%",
-                    },
-                ]}
-                margin={{ left: 80, right: 20 }}
-                width={280}
-                height={250}
-            />
+            {error ? (
+                <div className={styles.error}> 
+                    <p> No hay pacientes registrados aún para mostrar en el gráfico</p>
+                </div>
+            ) : (
+                <PieChart
+                    colors={['#b36ed8', '#424884', '#00a396']}
+                    series={[
+                        {
+                            data: chartData,
+                            innerRadius: 20,
+                            outerRadius: 125,
+                            paddingAngle: 5,
+                            cornerRadius: 5,
+                            startAngle: -45,
+                            endAngle: 360,
+                            cy: '50%',
+                            cx: "25%",
+                        },
+                    ]}
+                    margin={{ left: 80, right: 20 }}
+                    width={280}
+                    height={250}
+                />
+            )}
         </div>
     );
 }
