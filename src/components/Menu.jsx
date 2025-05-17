@@ -15,8 +15,8 @@ export default function Menu() {
     
     // Función de cierre de sesión
     const logout = () => {
-        localStorage.removeItem('userToken'); // Elimina el token de localStorage
-        navigate('/');  // Redirige a la página de login
+        localStorage.removeItem('token');
+        navigate('/'); 
     };
 
     const isActive = (path) => {

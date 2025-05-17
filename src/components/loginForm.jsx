@@ -43,7 +43,7 @@ export default function LoginForm() {
     };
   
     const logout = () => {
-      localStorage.removeItem('userToken');  // Eliminar el token de localStorage
+      localStorage.removeItem('token');  // Eliminar el token de localStorage
       navigate('/login');  // Redirigir al login
     };
 
