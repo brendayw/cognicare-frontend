@@ -24,36 +24,47 @@ export default function RecentlyCreatedPatients() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log('Respuesta completa:', response);
+                console.log('Respuesta completa del recently:', response);
 
 
                 let pacientesData = [];
                 if (response.data) {
-                    // Caso 1: Respuesta con estructura { success: true, rows: [...] }
-                    if (response.data.success && Array.isArray(response.data.rows)) {
-                        pacientesData = response.data.rows;
-                    } 
-                    // Caso 2: Respuesta con array directo
-                    else if (Array.isArray(response.data)) {
-                        pacientesData = response.data;
-                    }
-                    // Caso 3: Respuesta con estructura alternativa
-                    else if (response.data.data && Array.isArray(response.data.data)) {
+
+                    if (response.data.data && Array.isArray(response.data.data)) {
                         pacientesData = response.data.data;
+
+                    } else if (response.data.rows && Array.isArray(response.data.rows)) {
+                        pacientesData = response.data.rows;
+
+                    } else if (Array.isArray(response.data)) {
+                        pacientesData = response.data;
+                    } else {
+                        console.warn('Estructura de respuesta inesperada, intentando extraer pacientes:', response.data);
+                        const possibleArrays = Object.values(response.data).filter(Array.isArray);
+                        if (possibleArrays.length === 1) {
+                            pacientesData = possibleArrays[0];
+                        } else {
+                            throw new Error(`Formato de respuesta no reconocido: ${JSON.stringify(response.data)}`);
+                        }
+                        //throw new Error(`Formato de respuesta no reconocido: ${JSON.stringify(response.data)}`);
                     }
-                    else {
-                        throw new Error(`Formato de respuesta no reconocido: ${JSON.stringify(response.data)}`);
-                    }
-                } else {
-                    throw new Error('La respuesta no contiene datos');
                 }
 
-                if (pacientesData.length > 0) {
-                    setPatients(pacientesData);
-                } else {
-                    setPatients([]);
-                    setError('No se encontraron pacientes recientes');
+                setPatients(pacientesData || []);
+
+                if (!pacientesData || pacientesData.length === 0) {
+                    setError('No se encontraron pacientes creados recientemente')
                 }
+                // } else {
+                //     throw new Error('La respuesta no contiene datos');
+                // }
+
+                // if (pacientesData.length > 0) {
+                //     setPatients(pacientesData);
+                // } else {
+                //     setPatients([]);
+                //     setError('No se encontraron pacientes recientes');
+                // }
 
             } catch (err) {
                 let errorMessage = 'Error al cargar pacientes';
