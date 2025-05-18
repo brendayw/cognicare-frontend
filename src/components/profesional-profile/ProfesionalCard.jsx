@@ -93,7 +93,7 @@ export default function ProfesionalCard({ prof }) {
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    E-mailn: <span>{profesional?.email || '-'}</span>
+                                    E-mail: <span>{profesional?.email || '-'}</span>
                                 </p>
                             </div>
                         </div>
