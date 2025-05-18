@@ -38,19 +38,11 @@ export default function PatientsChart() {
                     })
                 ]);
                 
-                // Extraer los datos de las respuestas
-                const diagnosisCount = diagnosisRes.data?.success && diagnosisRes.data?.data?.rows ? 
-                                    diagnosisRes.data.data.rows.length : 0;
-                const treatmentCount = treatmentRes.data?.success && treatmentRes.data?.data?.rows ? 
-                                    treatmentRes.data.data.rows.length : 0;
-                const dischargedCount = dischargedRes.data?.success && dischargedRes.data?.data?.rows ? 
-                                    dischargedRes.data.data.rows.length : 0;
-                
-                console.log('Conteos calculados:', {
-                    diagnóstico: diagnosisCount,
-                    tratamiento: treatmentCount,
-                    alta: dischargedCount
-                });
+                const pacientes = response.data?.data?.rows || [];
+
+                const diagnosisCount = pacientes.filter(p => p.estado === 'diagnóstico').length;
+                const treatmentCount = pacientes.filter(p => p.estado === 'tratamiento').length;
+                const dischargedCount = pacientes.filter(p => p.estado === 'alta').length;
         
                 // Crear estructura de datos para MUI X Charts
                 const newChartData = [
