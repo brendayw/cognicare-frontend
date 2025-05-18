@@ -24,31 +24,38 @@ export default function Patients() {
                 });
                 console.log("Respuesta recibida del listado de pacientes:", response); 
             
-                if (response.data && response.data.success) {
-                console.log("Datos recibidos:", response.data.data);
-                
-                if (Array.isArray(response.data.data)) {
-                    console.log("Número de pacientes:", response.data.data.length);
-                    setPatients(response.data.data);
-                } 
-
-                else if (response.data.data.rows) {
-                    console.log("Número de pacientes (rows):", response.data.data.rows.length);
-                    setPatients(response.data.data.rows);
+                 if (response.data?.success) {
+                    // Caso 1: Datos en propiedad data (array directo)
+                    if (Array.isArray(response.data.data)) {
+                        console.log("Pacientes recibidos (array directo):", response.data.data.length);
+                        setPatients(response.data.data);
+                    } 
+                    // Caso 2: Datos en propiedad data.rows (estructura antigua)
+                    else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
+                        console.log("Pacientes recibidos (en propiedad rows):", response.data.data.rows.length);
+                        setPatients(response.data.data.rows);
+                    }
+                    // Caso 3: Respuesta exitosa pero sin pacientes
+                    else {
+                        console.log("No hay pacientes registrados");
+                        setPatients([]);
+                        setError('No se encontraron pacientes registrados');
+                    }
+                } else {
+                    throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
-                else {
-                    console.log("Recibido objeto único de paciente");
-                    setPatients([response.data.data]);
-                }
-                
-            } else {
-                throw new Error(response.data.message || 'Estructura de datos inesperada');
-            }
-                
-            } catch (err) {
-                console.error('Error fetching patients:', err);
-                setError('Error al cargar datos: ' + (err.response?.data?.message || err.message || 'Error desconocido') );
+                                
+                console.error('Error al obtener pacientes:', {
+                        error: err,
+                        response: err.response?.data,
+                        stack: err.stack
+                });
+        
+                const errorMessage = err.response?.data?.message || err.message || 
+                    'Error al cargar los pacientes';
+                setError(errorMessage);
                 setPatients([]);
+
             } finally {
                 setLoading(false);
             }

@@ -15,7 +15,7 @@ export default function AddButtons() {
                 </Link>
             </div>
             <div className={`${styles.add_card}`}>
-                <Link to="patients/session/add">
+                <Link to="/patients/session/add">
                     <VolunteerActivismTwoToneIcon />
                     <span>Sesión</span>
                 </Link>
