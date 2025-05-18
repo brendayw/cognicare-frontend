@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
 import avatarFemenino from '../../../public/assets/female-header.png';
 import avatarMasculino from '../../../public/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
@@ -7,8 +8,9 @@ import styles from '../../styles/profesional/ProfesionalCard.module.css';
 
 // ProfesionalCard.jsx
 export default function ProfesionalCard({ prof }) {
-    const [perfil, setPerfil] = useState(null);
+    const [perfilDetallado, setPerfilDetallado] = useState(null);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         const obtenerPerfil = async () => {
@@ -25,7 +27,7 @@ export default function ProfesionalCard({ prof }) {
                     });
 
                 if (response.data.success) {
-                    setPerfil(response.data.data);
+                    setPerfilDetallado(response.data.data);
                 } else {
                     setError('No se pudo obtener el perfil del profesional.');
                 }
@@ -33,11 +35,20 @@ export default function ProfesionalCard({ prof }) {
             } catch (err) {
                 console.error('Error:', err.response?.data || err.message);
                 setError('Error al cargar datos: ' + err.message); // Manejo de errores
-            } 
+            } finally {
+                setLoading(false);
+            }
         };
 
         obtenerPerfil();
     }, []);
+
+    const profesional = {
+        ...prof,
+        ...(perfilDetallado || {})
+    };
+
+    if (loading) return <div className={styles.loading}>Cargando...</div>;
 
     return (
         <div className={`${styles.profesional_container}`}>
@@ -53,36 +64,36 @@ export default function ProfesionalCard({ prof }) {
                     <div className={`${styles.perfil}`}>
                         <img
                             className={`${styles.profesional_header}`}
-                            src={prof?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
+                            src={profesional?.genero === 'Femenino' ? avatarFemenino : avatarMasculino}
                             alt="Avatar del profesional"
                         />
                     </div>
                     <div className={`${styles.datos}`}>
                         <h4>
                             <span className={`${styles.datos_nombre}`}>
-                                {prof?.nombre_completo || 'Cargando...'}
+                                {profesional?.nombre_completo || 'Cargando...'}
                             </span>
                         </h4>
                         
                         <div className={`${styles.datos_perfil}`}>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Profesión: <span>{prof?.especialidad || '-'}</span>
+                                    Profesión: <span>{profesional?.especialidad || '-'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Matrícula: <span>{prof?.matricula || '-'}</span>
+                                    Matrícula: <span>{profesional?.matricula || '-'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Telefono: <span>{prof?.telefono || '-'}</span>
+                                    Telefono: <span>{profesional?.telefono || '-'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    E-mailn: <span>{prof?.correo_electronico || '-'}</span>
+                                    E-mailn: <span>{profesional?.correo_electronico || '-'}</span>
                                 </p>
                             </div>
                         </div>
