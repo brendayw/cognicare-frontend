@@ -6,7 +6,7 @@
 }
 
 .solapa h3 {
-    color: #424884;
+    color: #00a396;
 }
 
 .solapa.activa {
@@ -34,7 +34,7 @@
 .form_perfil label {
     margin-bottom: 5px;
     font-size: 14px;
-    color: #00a396;
+    color: #94A3B8;
 }
 
 .form_perfil input,
@@ -46,6 +46,13 @@
     font-size: 15px;
     color: #94A3B8;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form_perfil input:focus  {
+  outline: none;
+  border-color: #94A3B8;
+  box-shadow: 0 0 0 1px #00a396;
 }
 
 .form_perfil input::placeholder {

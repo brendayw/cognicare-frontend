@@ -24,7 +24,7 @@ export default function Patients() {
                 });
                 console.log("Respuesta recibida del listado de pacientes:", response); 
             
-                 if (response.data?.success) {
+                if (response.data?.success) {
                     // Caso 1: Datos en propiedad data (array directo)
                     if (Array.isArray(response.data.data)) {
                         console.log("Pacientes recibidos (array directo):", response.data.data.length);
@@ -44,18 +44,14 @@ export default function Patients() {
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
-                                
+            } catch (err) {
                 console.error('Error al obtener pacientes:', {
-                        error: err,
-                        response: err.response?.data,
-                        stack: err.stack
+                    error: err,
+                    response: err.response?.data,
+                    stack: err.stack
                 });
         
-                const errorMessage = err.response?.data?.message || err.message || 
-                    'Error al cargar los pacientes';
-                setError(errorMessage);
-                setPatients([]);
-
+                setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
@@ -81,7 +77,7 @@ export default function Patients() {
                         {error}
                     </div>
                 ) : (
-                    <PatientsList pacientes={patients} vista={view} />
+                    <PatientsList pacientes={patients} vista={view} error={error} />
                 )}
             </div>
         </div>

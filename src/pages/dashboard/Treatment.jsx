@@ -41,8 +41,8 @@ export default function Diagnosis() {
                 }
             } catch (err) {
                 console.error('Error:', err);
-                setError(err.message);
-                setPatients([]);
+                setError('Error al cargar datos: ' + err.message);
+
             } finally {
                 setLoading(false);
             }

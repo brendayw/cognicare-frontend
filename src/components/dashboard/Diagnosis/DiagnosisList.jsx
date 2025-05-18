@@ -25,7 +25,7 @@ export default function DiagnosisList({ pacientes, vista }) {
               <a
                 key={paciente.id}
                 className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                href={`/pacientes/perfil_paciente/${paciente.id}`}
+                href={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
                   <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -49,7 +49,7 @@ export default function DiagnosisList({ pacientes, vista }) {
                     <a
                       key={paciente.id}
                       className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                      href={`/pacientes/perfil_paciente/${paciente.id}`}
+                      href={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
                         <img src={avatarImagen} alt={paciente.nombre_completo} />
