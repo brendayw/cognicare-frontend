@@ -38,24 +38,24 @@ export default function PatientsChart() {
                     })
                 ]);
                 
-                const diagnosisCount = diagnosisRes.data?.success && diagnosisRes.data?.data?.rows
-                    ? diagnosisRes.data.data.rows.length
+                const diagnosisCount = diagnosisRes.data?.success 
+                    ? diagnosisRes.data.data?.length || 0
                     : 0;
 
-                const treatmentCount = treatmentRes.data?.success && treatmentRes.data?.data?.rows
-                    ? treatmentRes.data.data.rows.length
+                const treatmentCount = treatmentRes.data?.success 
+                    ? treatmentRes.data.data?.length || 0
                     : 0;
 
-                const dischargedCount = dischargedRes.data?.success && dischargedRes.data?.data?.rows
-                    ? dischargedRes.data.data.rows.length
+                const dischargedCount = dischargedRes.data?.success 
+                    ? dischargedRes.data.data?.length || 0
                     : 0;
 
                 console.log('Conteos calculados:', {
-                    diagnóstico: diagnosisCount,
+                    diagnostico: diagnosisCount,
                     tratamiento: treatmentCount,
                     alta: dischargedCount
                 });
-                
+
                 // Crear estructura de datos para MUI X Charts
                 const newChartData = [
                     { id: 0, value: treatmentCount, label: 'Tratamiento' },
