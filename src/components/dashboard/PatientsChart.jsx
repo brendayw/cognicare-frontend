@@ -13,37 +13,49 @@ export default function PatientsChart() {
         const obtenerEstado = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
-
                 const token = localStorage.getItem('token');
+
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const [diagnosisRes, treatmentRes, dischargedRes] = await Promise.all([
                     axios.get(`${URL_API}api/patients/diagnosis`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
-                        console.error('Error en diagnóstico:', err);
+                        console.error('Error en diagnóstico:', err?.response?.data || err.message);
                         return { data: { success: false, data: { rows: [] } } };
                     }),
                     axios.get(`${URL_API}api/patients/treatment`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
-                        console.error('Error en tratamiento:', err);
+                        console.error('Error en tratamiento:', err?.response?.data || err.message);
                         return { data: { success: false, data: { rows: [] } } };
                     }),
                     axios.get(`${URL_API}api/patients/discharged`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }).catch(err => {
-                        console.error('Error en alta:', err);
+                        console.error('Error en alta:', err?.response?.data || err.message);
                         return { data: { success: false, data: { rows: [] } } };
                     })
                 ]);
                 
-                const pacientes = response.data?.data?.rows || [];
+                const diagnosisCount = diagnosisRes.data?.success && diagnosisRes.data?.data?.rows
+                    ? diagnosisRes.data.data.rows.length
+                    : 0;
 
-                const diagnosisCount = pacientes.filter(p => p.estado === 'diagnóstico').length;
-                const treatmentCount = pacientes.filter(p => p.estado === 'tratamiento').length;
-                const dischargedCount = pacientes.filter(p => p.estado === 'alta').length;
-        
+                const treatmentCount = treatmentRes.data?.success && treatmentRes.data?.data?.rows
+                    ? treatmentRes.data.data.rows.length
+                    : 0;
+
+                const dischargedCount = dischargedRes.data?.success && dischargedRes.data?.data?.rows
+                    ? dischargedRes.data.data.rows.length
+                    : 0;
+
+                console.log('Conteos calculados:', {
+                    diagnóstico: diagnosisCount,
+                    tratamiento: treatmentCount,
+                    alta: dischargedCount
+                });
+                
                 // Crear estructura de datos para MUI X Charts
                 const newChartData = [
                     { id: 0, value: treatmentCount, label: 'Tratamiento' },
