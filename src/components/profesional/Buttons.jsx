@@ -13,25 +13,25 @@ export default function Buttons() {
 
     return (
         <div className={`${styles.acceso_rapido}`}>
-            <div className={`${styles.access_card}`}>
+            <div className={`${styles.access_card} ${styles.pacientes}`}>
                 <Link to="/patients">
                     <GroupsTwoToneIcon />
                     <span>Pacientes</span>
                 </Link>
             </div>
-            <div className={`${styles.access_card}`}>
+            <div className={`${styles.access_card} ${styles.diagnostico}`}>
                 <Link to="/patients/diagnosis">
                     <PsychologyAltTwoToneIcon />
                     <span>Diagnóstico</span>
                 </Link>
             </div>
-            <div className={`${styles.access_card}`}>
+            <div className={`${styles.access_card} ${styles.tratamiento}`}>
                 <Link to="/patients/treatment">
                     <PsychologyTwoToneIcon />
                     <span>Tratamiento</span>    
                 </Link>
             </div>
-            <div className={`${styles.access_card}`}>
+            <div className={`${styles.access_card} ${styles.pacientes}`}>
                 <div className={`${styles.add_card}`}>
                     <AddCircleTwoToneIcon />
                     <span>Agregar</span>

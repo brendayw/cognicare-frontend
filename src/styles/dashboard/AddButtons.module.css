@@ -17,7 +17,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;   
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .add_card span {
@@ -26,18 +27,14 @@
 
 .add_card svg {
     color: #424884;
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .add_card:hover {
-    background-color: #424884;
+    background-color: #94A3B8;
 }
 
-.add_card:hover span {
+.add_card:hover span,
+.add_card:hover svg {
     color: #ffffff;
 }
-
-.add_card:hover svg {
-    color: #00a396;
-}
-

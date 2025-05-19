@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import avatarFemenino from '../../../../../public/assets/avatar_mujer.jpg';
 import avatarMasculino from '../../../../../public/assets/hombre_avatar.avif';
 import styles from '../../../../styles/dashboard/diagnosis/Diagnosis.module.css';
@@ -22,10 +23,10 @@ export default function DiagnosisList({ pacientes, vista }) {
               paciente.genero === 'Masculino' ? avatarMasculino : avatarFemenino;
 
             return (
-              <a
+              <Link
                 key={paciente.id}
                 className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                href={`/patients/profile/${paciente.id}`}
+                to={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
                   <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -33,7 +34,7 @@ export default function DiagnosisList({ pacientes, vista }) {
                 <div className={styles['paciente_data']}>
                   <h5><span>{paciente.nombre_completo}</span></h5>
                 </div>
-              </a>
+              </Link>
             );
           })
         ) : (
@@ -46,10 +47,10 @@ export default function DiagnosisList({ pacientes, vista }) {
                     paciente.genero === 'Masculino' ? avatarMasculino : avatarFemenino;
 
                   return (
-                    <a
+                    <Link
                       key={paciente.id}
                       className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                      href={`/patients/profile/${paciente.id}`}
+                      to={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
                         <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -57,7 +58,7 @@ export default function DiagnosisList({ pacientes, vista }) {
                       <div className={styles['paciente_data']}>
                         <h5><span>{paciente.nombre_completo}</span></h5>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

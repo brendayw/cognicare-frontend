@@ -97,7 +97,7 @@ export default function PatientsChart() {
                 </div>
             ) : (
                 <PieChart
-                    colors={['#b36ed8', '#424884', '#00a396']}
+                    colors={['#b36ed8', '#f0890c', '#00a396']}
                     series={[
                         {
                             data: chartData,

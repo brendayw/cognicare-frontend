@@ -15,8 +15,8 @@
     width: 290px;
     height: 70px;
     border-radius: 16px;
-    background-color: #ffffff;
-    color: #94a3b8;
+    /* background-color: #ffffff; */
+    /* color: #94a3b8; */
     box-shadow: 2px 2px 5px #94a3b8;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -29,7 +29,8 @@
 
 .tarjeta span {
     font-size: 20px;
-    color: #00a396;
+    /* color: #00a396; */
+    color: #ffffff;
     white-space: nowrap;
 }
 
@@ -42,10 +43,28 @@
     color: #ffffff;
 }
 
+.tarjeta:hover svg {
+    color: #ffffff;
+}
+
 .tarjeta svg {
-    color: #00a396;
+    /* color: #00a396; */
+    color: #ffffff;
     font-size: 35px;
     width: 35px;
     height: 35px;
     flex-shrink: 0;
 }
+
+.diagnostico {
+    background-color: #f0890c;
+}
+
+.tratamiento {
+    background-color: #00a396;
+}
+
+.alta {
+    background-color: #b36ed8;
+}
+
