@@ -60,17 +60,8 @@
     padding: 20px;
 }
 
-.diagnostico:hover {
-    background-color: #f0890cff;
-
-}
-
-.tratamiento:hover {
-    background-color:  #00a396ff;
-}
-
-.alta:hover {
-    background-color:  #b36ed8ff;
+.paciente_detalles:hover {
+    background-color: #424884;
 }
 
 .paciente_detalles:hover h5 {

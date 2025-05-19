@@ -25,7 +25,7 @@ export default function TreatmentList({ pacientes, vista }) {
             return (
               <Link
                 key={paciente.id}
-                className={`${styles['paciente_detalles alta']} ${styles[paciente.estado]}`}
+                className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
                 to={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
@@ -49,7 +49,7 @@ export default function TreatmentList({ pacientes, vista }) {
                   return (
                     <Link
                       key={paciente.id}
-                      className={`${styles['paciente_detalles alta']} ${styles[paciente.estado]}`}
+                      className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
                       to={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
