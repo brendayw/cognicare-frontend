@@ -37,18 +37,18 @@ export default function Buttons() {
                     <span>Agregar</span>
                    
                     <div className={`${styles.options}`}>
-                    {[
-                        { to: "/patients/add", icon: <PersonAddAltTwoToneIcon />},
-                        { to: "/patients/session/add", icon: <VolunteerActivismTwoToneIcon />},
-                        { to: "/patients/assessment/add", icon: <NoteAddTwoToneIcon /> },
-                        { to: "/patients/report/add", icon: <FilePresentTwoToneIcon /> }
-                    ].map((item, index) => (
-                        <div key={index} className={`${styles.option}`}>
-                        <Link to={item.href}>
-                            <i className="material-icons-sharp">{item.icon}</i>
-                        </Link>
-                        </div>
-                    ))}
+                        {[
+                            { to: "/patients/add", icon: <PersonAddAltTwoToneIcon />},
+                            { to: "/patients/session/add", icon: <VolunteerActivismTwoToneIcon />},
+                            { to: "/patients/assessments/add", icon: <NoteAddTwoToneIcon /> },
+                            { to: "/patients/reports/add", icon: <FilePresentTwoToneIcon /> }
+                        ].map((item, index) => (
+                            <div key={index} className={`${styles.option}`}>
+                                <Link to={item.to}>
+                                    {item.icon}
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

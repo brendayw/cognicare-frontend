@@ -1,9 +1,9 @@
 import React from 'react';
-import avatarFemenino from '../../../../public/assets/avatar_mujer.jpg';
-import avatarMasculino from '../../../../public/assets/hombre_avatar.avif';
-import styles from '../../../styles/dashboard/diagnosis/Diagnosis.module.css';
+import avatarFemenino from '../../../../../public/assets/avatar_mujer.jpg';
+import avatarMasculino from '../../../../../public/assets/hombre_avatar.avif';
+import styles from '../../../../styles/dashboard/diagnosis/Diagnosis.module.css';
 
-export default function TreatmentList({ pacientes, vista }) {
+export default function DiagnosisList({ pacientes, vista }) {
   const columnasArray = Array.from({ length: 5 }, () => []);
   if (vista === 'grid') {
     pacientes.forEach((paciente, index) => {
@@ -25,7 +25,7 @@ export default function TreatmentList({ pacientes, vista }) {
               <a
                 key={paciente.id}
                 className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                href={`/pacientes/perfil_paciente/${paciente.id}`}
+                href={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
                   <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -49,7 +49,7 @@ export default function TreatmentList({ pacientes, vista }) {
                     <a
                       key={paciente.id}
                       className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                      href={`/pacientes/perfil_paciente/${paciente.id}`}
+                      href={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
                         <img src={avatarImagen} alt={paciente.nombre_completo} />

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Menu from '../components/Menu.jsx';
 import VistaSelector from '../components/VistaSelector.jsx';
-import PatientsList from '../components/pacients-list/PatientsList.jsx';
+import PatientsList from '../components/patients/PatientsList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Patients() {
@@ -15,8 +15,8 @@ export default function Patients() {
         const obtenerTodosLosPacientes = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
-
                 const token = localStorage.getItem('token');
+                
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const response = await axios.get(`${URL_API}api/patients`, {

@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../../components/Menu.jsx';
-import VistaSelector from '../../components/VistaSelector.jsx';
-import DischargedList from '../../components/dashboard/Discharged/DischargedList.jsx';
+import Menu from '../../../components/Menu.jsx';
+import VistaSelector from '../../../components/VistaSelector.jsx';
+import TreatmentList from '../../../components/dashboard/categories/Treatment/TreatmentList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
-export default function Discharged() {
+export default function Diagnosis() {
     const [patients, setPatients] = useState([]);
     const [view, setView] = useState('grid');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const obtenerPacientesDeAlta = async () => {
+        const obtenerPacientesEnTratamiento = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
 
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const response = await axios.get(`${URL_API}api/patients/discharged`, {
+                const response = await axios.get(`${URL_API}api/patients/treatment`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
@@ -48,7 +48,7 @@ export default function Discharged() {
             }
         };
         
-        obtenerPacientesDeAlta();
+        obtenerPacientesEnTratamiento();
     }, []);
     
     const handleViewChange = (newView) => {
@@ -68,7 +68,7 @@ export default function Discharged() {
                         {error}
                     </div>
                 ) : (
-                    <DischargedList pacientes={patients} vista={view} />
+                    <TreatmentList pacientes={patients} vista={view} />
                 )}
             </div>
         </div>

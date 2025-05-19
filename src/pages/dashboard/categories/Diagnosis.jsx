@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../../components/Menu.jsx';
-import VistaSelector from '../../components/VistaSelector.jsx';
-import DiagnosisList from '../../components/dashboard/Diagnosis/DiagnosisList.jsx';
+import Menu from '../../../components/Menu.jsx';
+import VistaSelector from '../../../components/VistaSelector.jsx';
+import DiagnosisList from '../../../components/dashboard/categories/Diagnosis/DiagnosisList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Diagnosis() {

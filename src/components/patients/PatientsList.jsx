@@ -33,10 +33,10 @@ export default function PatientsList({ pacientes, vista, error }) {
               paciente.genero === 'Masculino' ? avatarMasculino : avatarFemenino;
 
             return (
-              <a
+              <Link
                 key={paciente.id}
                 className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                href={`/pacientes/perfil_paciente/${paciente.id}`}
+                to={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
                   <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -44,7 +44,7 @@ export default function PatientsList({ pacientes, vista, error }) {
                 <div className={styles['paciente_data']}>
                   <h5><span>{paciente.nombre_completo}</span></h5>
                 </div>
-              </a>
+              </Link>
             );
           })
         ) : (
@@ -57,10 +57,10 @@ export default function PatientsList({ pacientes, vista, error }) {
                     paciente.genero === 'Masculino' ? avatarMasculino : avatarFemenino;
 
                   return (
-                    <a
+                     <Link
                       key={paciente.id}
                       className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
-                      href={`/pacientes/perfil_paciente/${paciente.id}`}
+                      to={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
                         <img src={avatarImagen} alt={paciente.nombre_completo} />
@@ -68,7 +68,7 @@ export default function PatientsList({ pacientes, vista, error }) {
                       <div className={styles['paciente_data']}>
                         <h5><span>{paciente.nombre_completo}</span></h5>
                       </div>
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

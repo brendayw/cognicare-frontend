@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import avatarFemenino from '../../../public/assets/female-header.png';
 import avatarMasculino from '../../../public/assets/male-header.png';
@@ -34,7 +35,7 @@ export default function ProfesionalCard({ prof }) {
 
             } catch (err) {
                 console.error('Error:', err.response?.data || err.message);
-                setError('Error al cargar datos: ' + err.message); // Manejo de errores
+                setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
@@ -98,7 +99,9 @@ export default function ProfesionalCard({ prof }) {
                             </div>
                         </div>
                     </div>
-                    <CreateTwoToneIcon />
+                    <Link to="/settings">
+                        <CreateTwoToneIcon />
+                    </Link>
                 </div>
             )}
         </div>
