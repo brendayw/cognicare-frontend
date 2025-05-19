@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PsychologyAltTwoToneIcon from '@mui/icons-material/PsychologyAltTwoTone';
 import PsychologyTwoToneIcon from '@mui/icons-material/PsychologyTwoTone';
+import FavoriteBorderTwoToneIcon from '@mui/icons-material/FavoriteBorderTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
@@ -29,6 +30,12 @@ export default function Buttons() {
                 <Link to="/patients/treatment">
                     <PsychologyTwoToneIcon />
                     <span>Tratamiento</span>    
+                </Link>
+            </div>
+            <div className={`${styles.access_card} ${styles.alta}`}>
+                <Link to="/patients/discharged">
+                    <FavoriteBorderTwoToneIcon />
+                    <span>Alta</span>    
                 </Link>
             </div>
             <div className={`${styles.access_card} ${styles.pacientes}`}>
