@@ -1,0 +1,14 @@
+.form_button {
+    width: 100%;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    background-color: #424884;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}

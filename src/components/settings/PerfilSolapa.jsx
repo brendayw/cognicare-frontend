@@ -12,8 +12,9 @@ export default function PerfilSolapa() {
     fecha_nacimiento: '',
     genero: 'femenino',
     dias_atencion: [],
-    horarios_atencion: [{ hora_inicio: '', hora_fin: '' }]
+    horarios_atencion: [" - "]
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -197,37 +198,42 @@ export default function PerfilSolapa() {
             </div>
           </div>
         </div>
-    
+
         <div className={`${styles.campo}`}>
           <label htmlFor="horarios_atencion">Horarios de atención:</label>
           <div className={`${styles.horarios_atencion}`} id="horariosAtencion">
-            <div className={`${styles.horario_group}`}>
-              <label htmlFor="hora_inicio">Hora de inicio:</label>
-              <input 
-                type="time" 
-                id="horaInicio" 
-                name="hora_inicio" 
-                className="hora" 
-                value={formData.horarios_atencion[0].hora_inicio}
-                onChange={(e) => handleHorarioChange(e, 'hora_inicio')}
-                required 
-              /> 
-            </div>
-            <div className={`${styles.horario_group}`}>
-              <label htmlFor="hora_fin">Hora de finalización:</label>
-              <input 
-                type="time" 
-                id="horaFin" 
-                name="hora_fin" 
-                className="hora" 
-                value={formData.horarios_atencion[0].hora_fin}
-                onChange={(e) => handleHorarioChange(e, 'hora_fin')}
-                required 
-              />
-            </div>
+            {formData.horarios_atencion.map((horario, index) => {
+              // Dividir el string "HH:MM - HH:MM" en inicio y fin
+              const [hora_inicio, hora_fin] = horario.split(' - ');
+              
+              return (
+                <div key={index} className={`${styles.horario_group}`}>
+                  <div>
+                    <label htmlFor={`hora_inicio_${index}`}>Hora de inicio:</label>
+                    <input 
+                      type="time" 
+                      id={`hora_inicio_${index}`}
+                      value={hora_inicio || ''}
+                      onChange={(e) => handleHorarioChange(e, index, 'inicio')}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor={`hora_fin_${index}`}>Hora de finalización:</label>
+                    <input 
+                      type="time" 
+                      id={`hora_fin_${index}`}
+                      value={hora_fin || ''}
+                      onChange={(e) => handleHorarioChange(e, index, 'fin')}
+                      required
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-        
+    
         <div className={`${styles.campo_perfil}`}>
           <button className={`${styles.btn_perfil}`} type="submit" aria-label="Guardar cambios del perfil">
             Guardar cambios

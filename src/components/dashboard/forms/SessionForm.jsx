@@ -3,6 +3,7 @@ import FormHeader from './components/FormHeader.jsx';
 import FormInput  from './components/FormInput.jsx';
 import FormSelect from './components/FormSelect.jsx';
 import FormButton from './components/FormButton.jsx';
+import styles from '../../../styles/dashboard/forms/SessionForm.module.css';
 
 export default function SessionForm() {
     const [nombre, setNombre] = useState('');
@@ -21,10 +22,10 @@ export default function SessionForm() {
     }
     
     return (
-        <div className='h-[400px] bg-white text-[#94a3b8] shadow-md rounded-md m-[5px] p-2'>
-            <form className='flex flex-col' onSubmit={handleSubmit}>
+        <div className={`${styles.panel_content}`}>
+            <form className={`${styles.session_form}`} onSubmit={handleSubmit}>
                 <FormHeader titulo='Agregar Sesión'/>
-                <div className='grid grid-cols-2 gap-[5px] p-[10px]'>
+                <div className={`${styles.session_data}`}>
                     <FormInput 
                         label='Nombre del paciente'
                         value={nombre}
@@ -92,7 +93,9 @@ export default function SessionForm() {
                         required
                     />
                 </div>
-                <FormButton texto='Guardar' />
+                <div className='relative top-1 right-1'>
+                    <FormButton texto="Guardar" />
+                </div>
             </form>
         </div>
     );

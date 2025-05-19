@@ -3,6 +3,7 @@ import FormHeader from './components/FormHeader.jsx';
 import FormInput from './components/FormInput.jsx';
 import FormSelect from './components/FormSelect.jsx';
 import FormButton from './components/FormButton.jsx';
+import styles from '../../../styles/dashboard/forms/AssessmentForm.module.css';
 
 export default function AssessmentForm() {
     const [nombre, setNombre] = useState('');
@@ -19,10 +20,10 @@ export default function AssessmentForm() {
     };
     
     return (
-       <div className=''>
-            <form onSubmit={handleSubmit} className=''>
+       <div className={`${styles.panel_content}`}>
+            <form onSubmit={handleSubmit} className={`${styles.assessment_form}`}>
                 <FormHeader titulo='Agregar Evaluación'/>
-                <div className='datos-personales'>
+                <div className={`${styles.assessment_data}`}>
                     <FormInput
                         label="Nombre del Paciente"
                         value={nombre}
@@ -92,7 +93,9 @@ export default function AssessmentForm() {
                         required
                     />
                 </div>
-                <FormButton texto="Guardar" />
+                <div className='relative top-1 right-1'>
+                    <FormButton texto="Guardar" />
+                </div>
             </form>
         </div>
     );

@@ -1,0 +1,21 @@
+.panel_content {
+    height: 575px;
+    margin: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 5px #94a3b8ff;
+    border-radius: 1rem;
+    color: #94a3b8ff;  
+}
+
+.patient_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient_data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 10px;
+}

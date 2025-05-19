@@ -1,0 +1,18 @@
+.panel_content {
+    height: 470px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 1rem;
+    color: #94a3b8;
+    background: #ffffff;
+    box-shadow: 2px 2px 5px #94a3b8;
+}
+
+.assessment_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.assessment_data {
+    padding: 10px;
+}

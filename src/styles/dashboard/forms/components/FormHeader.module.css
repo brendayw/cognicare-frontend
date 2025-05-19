@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.titulo_header {
+    font-size: 1.2rem;
+    padding: 5px;
+    color: #00a396ff;
+}
+
+.boton_header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btn svg {
+    color: #00a396;
+}

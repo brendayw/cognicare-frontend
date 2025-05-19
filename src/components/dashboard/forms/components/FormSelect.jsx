@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../../../../styles/dashboard/forms/components/FormSelect.module.css';
 
 export default function FormSelect( {
     label,
@@ -9,8 +10,8 @@ export default function FormSelect( {
     required = false,
 }) {
     return (
-        <div className=''>
-            <label htmlFor={id} className='text-sm text-[#94a3b8] mb-[5px] p-2'>
+        <div className={`${styles.campo}`}>
+            <label htmlFor={id} className={`${styles.form_label}`}>
                 {label}
             </label>
             <select
@@ -18,7 +19,7 @@ export default function FormSelect( {
                 value={value}
                 onChange={onChange}
                 required={required}
-                className='w-full p-1.5 border border-[#94A3B8] rounded-lg text-[#94A3B8] text-sm font-sans focus:outline-none focus:border-[#00a396] focus:ring-1 focus:ring-[#94A3B8] transition-all'
+                className={`${styles.form_select}`}
             >
                 {options.map((opcion) => (
                     <option key={opcion.value} value={opcion.value}>

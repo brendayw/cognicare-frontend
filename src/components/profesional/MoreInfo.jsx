@@ -27,8 +27,7 @@ export default function MoreInfo() {
                 console.log('Datos recibidos:', result); // Para depuración
                 
                 if (result) {
-                    // Procesamiento de días de atención
-                    const diasSemana = ['Lun', 'Mart', 'Miér', 'Jue', 'Vier', 'Sáb', 'Dom'];
+                    const diasSemana = ['Lun', 'Mart', 'Miér', 'Jue', 'Vier', 'Sáb'];
                     const diasMapeados = {
                         'lunes': 'Lun',
                         'martes': 'Mart',
@@ -36,7 +35,6 @@ export default function MoreInfo() {
                         'jueves': 'Jue',
                         'viernes': 'Vier',
                         'sabado': 'Sáb',
-                        'domingo': 'Dom'
                     };
 
                     const diasMarcados = result.dias_atencion ? result.dias_atencion.split(',') : [];
@@ -92,8 +90,8 @@ export default function MoreInfo() {
             <div className={`${styles.dias_atencion}`} id="diasAtencion">
                 {diasAtencion.length > 0 ? (
                     diasAtencion.map(({ dia, estaMarcado }) => {
-                        const color = estaMarcado ? '#424884' : 'none';
-                        const sombra = estaMarcado ? '1px 1px 2px #424884' : 'none';
+                        const color = estaMarcado ? ' #b36ed8' : 'none';
+                        const sombra = estaMarcado ? '1px 1px 2px #b36ed8' : 'none';
                         const fuente = estaMarcado ? '#f8fafc' : 'none';
 
                         return (
@@ -102,13 +100,8 @@ export default function MoreInfo() {
                                 className={`${styles.dia_semana}`}
                                 style={{ backgroundColor: color, boxShadow: sombra }}
                             >
-                                <div className={`${styles.dia_recuadro}`}>
-                                    <div className={`${styles.dia_titulo}`}>
-                                        <span>Día</span>
-                                    </div>
-                                    <div className={`${styles.dia}`} style={{ color: fuente }}>
-                                        <span>{dia}</span>
-                                    </div>
+                                <div className={`${styles.dia}`} style={{ color: fuente }}>
+                                    <span>{dia}</span>
                                 </div>
                             </div>
                         );
@@ -133,8 +126,8 @@ export default function MoreInfo() {
                         return (
                             <div key={index} className={`${styles.horario_completo}`}>
                                 <div className={`${styles.horario_fila}`}>
-                                    <p>Inicio: {horaInicio} hs</p>
-                                    <p>Fin: {horaFin} hs</p>
+                                    <p>Inicio: <span> {horaInicio} hs</span> </p>
+                                    <p>Fin: <span> {horaFin} hs </span> </p>
                                 </div>
                             </div>
                         );

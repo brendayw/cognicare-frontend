@@ -3,6 +3,7 @@ import FormHeader from './components/FormHeader.jsx';
 import FormInput from './components/FormInput.jsx';
 import FormSelect from './components/FormSelect.jsx';
 import FormButton from './components/FormButton.jsx';
+import styles from '../../../styles/dashboard/forms/ReportForm.module.css';
 
 export default function ReportForm() {
     const [tipo, setTipoReporte] = useState('');
@@ -24,10 +25,10 @@ export default function ReportForm() {
     };
 
     return (
-        <div className='h-[450px] bg-white text-[#94a3b8] shadow-md rounded-md m-[5px] p-2'>
-            <form onSubmit={handleSubmit} className=''>
+        <div className={`${styles.panel_content}`}>
+            <form onSubmit={handleSubmit} className={`${styles.report_form}`}>
                 <FormHeader titulo='Agregar Reporte'/>
-                <div className='flex flex-col'>
+                <div className={`${styles.report_data}`}>
                     <FormSelect
                         label="Tipo de reporte o Test"
                         value={tipo}
@@ -78,8 +79,8 @@ export default function ReportForm() {
                         required
                     />
                 </div>
-                <div className="mt-6">
-                    <FormButton texto='Guardar' />
+                <div className='relative top-1 right-1'>
+                    <FormButton texto="Guardar" />
                 </div>
             </form>
             </div>

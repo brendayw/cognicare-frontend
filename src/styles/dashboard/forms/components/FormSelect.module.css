@@ -1,0 +1,18 @@
+.form_label {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.form_select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #94a3b8;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #94a3b8;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.form_input::placeholder {
+    color: #94a3b8;
+}

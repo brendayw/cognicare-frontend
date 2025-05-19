@@ -1,48 +1,40 @@
 .profesional_detalles {
-    position: relative;
-    top: -10px;
-    right: 0px;
     width: 100%;
     height: 245px;
-    border-radius: 8px;
+    position: relative;
+    top: -10px;
 }
 
 .titulo h5 {
-    color: #B36ED8;
+    color:  #00a396;
     font-size: 16px;
     text-align: center;
-    padding: 0.2rem;
+    padding: 0.5rem;
 }
 
 .dias_atencion {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-    align-items: center;
-    place-items: center; 
     gap: 5px;
+    padding: 5px;
+    place-items: center;
 }
 
 .dia_semana {
-    border: 0.5px solid #94A3B8;
-    border-radius: 15px;
     height: 45px;
-    width: 100px;
-}
-
-.dia_titulo {
-    color: #00a396;
-    font-size: 12px;
-    font-weight: 100;
-    margin-top: 5px; /*sacar*/
-    text-align: center;
+    width: 90px;
+    border: 0.5px solid #b36ed8;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dia {
     color: #424884;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 14px;    
     text-align: center;
+    width: 100%;
 }
 
 .horarios_atencion {
@@ -58,14 +50,22 @@
 }
 
 .horario_fila {
-    background-color: white;
+    border: 0.5px solid #b36ed8;
+    box-shadow: 1px 1px 2px #b36ed8;
+    height: 40px;
+    border-radius: 8px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     place-items: center; 
+    
 }
 
 .horario_completo p {
-    color: #424884;
+    color: #94a3b8;
     font-size: 13px;
     text-align: center;
+}
+
+.horario_completo span {
+    color: #89898a;;
 }
