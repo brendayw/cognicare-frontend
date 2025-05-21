@@ -61,7 +61,7 @@
 }
 
 .paciente_detalles:hover {
-    background-color: #424884;
+    background-color: #94a3b8;
 }
 
 .paciente_detalles:hover h5 {
@@ -80,7 +80,7 @@
 }
 
 .paciente_data {
-    color: #424884;
+    color: #00a396;
 }
 
 .paciente_data h5 {

@@ -1,0 +1,46 @@
+.sessions {
+    width: 100%;
+    height: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    border-radius: 8px;
+    position: relative;
+    top: 25px;
+}
+
+.sessions p {
+    font-size: 1rem;
+    color: #949494;
+}
+
+.sessions_held, .sessions_total {
+    background-color: #ffffff;
+    width: 120px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sessions_held p,
+.sessions_total p {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.sessions_held p span {
+    font-size: 2.4rem;
+    color: #ffc759;
+}
+
+.sessions_total p span {
+    font-size: 2.4rem;
+    color: #ff6f59;
+}

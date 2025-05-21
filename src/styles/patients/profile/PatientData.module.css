@@ -1,0 +1,49 @@
+.patient_datacard {
+    width: 90%;
+    height: 200px;
+    margin: 10px 25px 10px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.26);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.id_card, .card_details {
+    display: flex;
+    flex-direction: column;
+}
+
+.id_card {
+    background-color: #00a396;
+    color: #ffffff;
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row; 
+}
+
+.id_card p {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 5px 40px;
+}
+
+.card_details {
+    padding: 15px;
+}
+
+.card_details p {
+    font-size: 0.8rem;
+    color: #949494;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card_details span {
+    color: #626263;
+    text-align: right;
+}
