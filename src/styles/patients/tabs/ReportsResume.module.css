@@ -1,0 +1,45 @@
+.reports_resume {
+    width: 100%;
+}
+
+.reports_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+}
+
+.report {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row;
+    gap: 5px;   
+    overflow-y: auto; 
+}
+
+.report_details {
+    border-radius: 15px;
+    padding: 0.6rem;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.report_details--diagnostico {
+    border: 1px solid #f0890c;
+}
+
+.report_details--tratamiento {
+    border: 1px solid #00a396;
+}
+
+.report_details--alta {
+    border: 1px solid #b36ed8;
+}
+
+.report_details span {
+    font-size: 12px;
+    font-weight: 100;
+    color: #626263;
+}

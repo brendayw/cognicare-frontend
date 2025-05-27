@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Menu from '../../components/Menu.jsx';
 import PatientProfileHeader from '../../components/patients/profile/PatientProfileHeader.jsx';
 import PatientName from '../../components/patients/profile/PatientName.jsx';
 import PatientData from '../../components/patients/profile/PatientData.jsx';
 import PatientProgress from '../../components/patients/profile/PatientProgress.jsx';
-import PatientHistoryTab from '../../components/patients/profile/PatientHistoryTab.jsx';
-import PatientLastSessionTab from '../../components/patients/profile/PatientLastSessionTab.jsx';
+import CustomTabs from '../../components/CustomTabs.jsx';
 
 export default function PatientProfile() {
     return (
-        <div>
+        <div className='flex w-full'>
             <Menu />
-            <div>
+            <div className='w-full'>
                 <PatientProfileHeader />
-                <div>
-                    <div>
+                <div className='flex'>
+                    <div className='w-[40%]'>
                         <PatientName />
-                        <PatientData />
+                        <PatientData  />
                         <PatientProgress />
                     </div>
-                    {/* <div>
-                        <PatientHistoryTab />
-                        <PatientLastSessionTab />
-                    </div> */}
+                    <div className='w-[60%]'>
+                        <CustomTabs />
+                    </div>
                 </div>
             </div>
+            
         </div>
     );
 }

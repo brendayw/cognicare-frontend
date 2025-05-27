@@ -7,11 +7,11 @@ export default function PatientProfileHeader() {
     return (
         <div className='w-full flex items-center justify-between p-2'>
             <Link to='/patients'>
-                <ArrowBackIosTwoToneIcon className='text-[#00a396] cursor:pointer'/>
+                <ArrowBackIosTwoToneIcon className='text-[#94a3b8] cursor:pointer'/>
             </Link>
 
             <Link to='/patients'>
-                <BorderColorTwoToneIcon className='text-[#00a396] cursor:pointer'/>
+                <BorderColorTwoToneIcon className='text-[#94a3b8] cursor:pointer'/>
             </Link>
         </div>
     );

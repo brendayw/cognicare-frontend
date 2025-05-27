@@ -1,0 +1,62 @@
+.historysessions_container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.sessions_container {
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+}
+
+.sessions_container--diagnostico {
+    border: 0.5px solid #f0890c7c;
+}
+
+.sessions_container--tratamiento {
+    border: 0.5px solid #00a3967c;
+
+}
+
+.sessions_container--alta {
+    border: 0.5px solid #b36ed87c;
+}
+
+.sessions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.sessions_observation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sessions_observation p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.sessions_observation span {
+    font-size: 12px;
+    color: #89898a;
+}
+
+.sessions_date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sessions_date p {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.sessions_date span {
+    font-size: 12px;
+    color: #89898a;
+}

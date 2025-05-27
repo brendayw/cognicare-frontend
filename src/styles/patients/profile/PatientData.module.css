@@ -1,6 +1,6 @@
 .patient_datacard {
     width: 90%;
-    height: 200px;
+    height: 225px;
     margin: 10px 25px 10px 25px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.26);
@@ -30,17 +30,40 @@
     margin: 5px 40px;
 }
 
+.id_card--diagnostico {
+  background-color:  #f0890c;
+}
+
+.id_card--tratamiento {
+  background-color: #00a396; 
+}
+
+.id_card--alta {
+  background-color: #b36ed8;
+}
+
 .card_details {
     padding: 15px;
 }
 
 .card_details p {
     font-size: 0.8rem;
-    color: #949494;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.card_details--diagnostico p {
+    color: #f0890c;
+}
+
+.card_details--tratamiento p {
+    color: #00a396;
+}
+
+.card_details--alta p {
+    color: #b36ed8;
 }
 
 .card_details span {

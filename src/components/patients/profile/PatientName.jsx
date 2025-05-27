@@ -47,13 +47,21 @@ export default function PatientName() {
 
     const avatarImagen = perfilDetallado.genero === 'Masculino' ? AvatarMasculino : AvatarFemenino;
     
+    const normalizeEstado = (estado) => {
+        if (!estado) return 'tratamiento';
+        return estado.toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+
+    const estadoNormalizado = normalizeEstado(perfilDetallado?.estado);
+    
     return (
         <div className={`${styles.patient_card}`} >
             <div className={`${styles.patient_photo}`}>
                 <img src={avatarImagen} alt={`Avatar predeterminado para ${perfilDetallado.nombre_completo}`} />
             </div>
 
-            <div className={`${styles.patient_info}`}>
+            <div className={`${styles.patient_info} ${styles[`patient_info--${estadoNormalizado}`]}` }>
                 <h4> <span> {perfilDetallado.nombre_completo} </span> </h4>
 
                 <div className={`${styles.patient_info_details}`}>
@@ -61,12 +69,12 @@ export default function PatientName() {
                     <div className={`${styles.info_details}`}>
                         
                         <div className={`${styles.details_col}`}>
-                            <p className={`${styles.title}`}> Id del paciente </p>
+                            <p className={`${styles.title}`}> ID del paciente </p>
                             <p className={`${styles.data}`}> ${perfilDetallado.id} </p>
                         </div>
                         
                         <div className={`${styles.details_col}`}>
-                            <p className={`${styles.title}`}> Id del profesional </p>
+                            <p className={`${styles.title}`}> ID del profesional </p>
                             <p className={`${styles.data}`}> ${perfilDetallado.id_profesional} </p>
                         </div>
                     </div>

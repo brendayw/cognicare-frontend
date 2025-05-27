@@ -1,0 +1,46 @@
+.assessments_resume {
+    width: 100%;
+}
+
+.assessments_header {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+}
+
+.assessment {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-auto-flow: row;
+    gap: 5px;   
+    overflow-y: auto;
+}
+
+.assessment_details {
+    width: 100%;
+    border-radius: 15px;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.assessment_details--diagnostico {
+  border: 1px solid #f0890c;
+  box-shadow: 0 2px 2px #f0890c;
+}
+
+.assessment_details--tratamiento {
+  border: 1px solid #00a396;
+  box-shadow: 0 2px 2px #00a396;
+}
+
+.assessment_details--alta {
+  border: 1px solid #b36ed8;
+  box-shadow: 0 2px 2px #b36ed8;
+}
+
+.assessment_details span {
+    font-size: 12px;
+    font-weight: 100;
+    color: #626263;
+}

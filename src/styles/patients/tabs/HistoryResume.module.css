@@ -1,0 +1,48 @@
+.resume_tab {
+  width: 100%;
+  height: 125px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.resume_tab--diagnostico {
+  border: 1px solid #f0890c;
+  box-shadow: 0 2px 2px #f0890c;
+}
+
+.resume_tab--tratamiento {
+  border: 1px solid #00a396;
+  box-shadow: 0 2px 2px #00a396;
+}
+
+.resume_tab--alta {
+  border: 1px solid #b36ed8;
+  box-shadow: 0 2px 2px #b36ed8;
+}
+
+.history_details {
+  gap: 5px;
+}
+
+.history_details--diagnostico p {
+  color: #f0890c;
+}
+
+.history_details--tratamiento p {
+  color: #00a396;
+}
+
+.history_details--alta p {
+  color: #b36ed8;
+}
+
+
+.history_details span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
