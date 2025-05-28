@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
 import styles from '../../../../styles/patients/tabs/ReportsResume.module.css';
 
@@ -32,6 +33,10 @@ export default function ReportsResume() {
 
                 if (reportResponse.data.success && patientResponse.data.success) {
                     let reportData = reportResponse.data.data;
+                    
+                    if (!reportData || (Array.isArray(reportData) && reportData.length === 0)) {
+                        throw new Error('NO_REPORTS');
+                    }
                     if (!Array.isArray(reportData)) {
                         reportData = [reportData];
                     }
@@ -41,8 +46,14 @@ export default function ReportsResume() {
               
 
             } catch (err) {
-                console.error('Error:', err);
-                setError(`Error: ${err.response?.data?.message || err.message}`);
+                console.error('Error al cargar datos:', err);
+                if (err.message === 'NO_REPORTS') {
+                    setError('No se encontraron reportes para mostrar asociados al paciente');
+                } else if (err.message === 'Token no encontrado') {
+                    setError('Error de autenticación: Token no encontrado');
+                } else {
+                    setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
+                }
             } finally {
                 setLoading(false);
             }
@@ -51,8 +62,8 @@ export default function ReportsResume() {
     }, [id]);
 
     if (loading) return <div>Cargando datos...</div>;
-    if (error) return <div className='error-message'>Error: {error}</div>;
-    if (!reportsData || reportsData.length === 0) return <div>No se encontraron reportes</div>;
+    //if (error) return <div className='error-message'>Error: {error}</div>;
+    //if (!reportsData || reportsData.length === 0) return <div>No se encontraron reportes</div>;
 
     const estadoNormalizado = patientStatus
         ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -66,29 +77,41 @@ export default function ReportsResume() {
                 <TabTitle titulo='Reportes' />
                 <BorderColorTwoToneIcon className='text-[#424884]'/>
             </div>
-            <div className={styles.report}>
-                {reportsData.map((report, index) => (
-                    
-                    <div 
-                        key={report.id || index}
-                        className={`${styles.report_details} ${styles[`report_details--${estadoNormalizado}`]}`}
-                    >
-                        <span>{report.descripcion || '-'}</span>
-                        <span>{report.tipo_reporte || '-'}</span>
-                        <span>{report.fecha_reporte || '-'}</span>
-                        <span>
-                            <a 
-                                className="link-reporte" 
-                                href={url} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                            >
-                                Ver reporte
-                            </a>
-                        </span>
-                    </div>
-                ))}
-            </div>
+            {error ? (
+                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                    <ErrorOutlineTwoToneIcon className='mr-2'/>
+                    {error}
+                </p>
+            ) : reportsData.length > 0 ? (
+                <div className={styles.report}>
+                    {reportsData.map((report, index) => (
+                        
+                        <div 
+                            key={report.id || index}
+                            className={`${styles.report_details} ${styles[`report_details--${estadoNormalizado}`]}`}
+                        >
+                            <span>{report.descripcion || '-'}</span>
+                            <span>{report.tipo_reporte || '-'}</span>
+                            <span>{report.fecha_reporte || '-'}</span>
+                            <span>
+                                <a 
+                                    className="link-reporte" 
+                                    href={url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                    Ver reporte
+                                </a>
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                    <ErrorOutlineTwoToneIcon className='mr-2'/>
+                    No se encontraron reportes para mostrar
+                </p>
+            )}
         </div>
     );
 }
