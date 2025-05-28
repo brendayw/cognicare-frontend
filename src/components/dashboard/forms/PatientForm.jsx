@@ -128,6 +128,14 @@ export default function PatientForm() {
                         required
                     />
                     <FormInput
+                        label="Estado"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                        id="estado"
+                        placeholder="Diagnóstico, Tratamiento o de Alta"
+                        required
+                    />
+                    <FormInput
                         label="Cantidad de sesiones realizadas"
                         type='number'
                         value={sesiones_realizadas}
@@ -145,14 +153,7 @@ export default function PatientForm() {
                         placeholder="Sesiones Totales"
                         required
                     />
-                    <FormInput
-                        label="Estado"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
-                        id="estado"
-                        placeholder="Diagnóstico, Tratamiento o de Alta"
-                        required
-                    />
+                    
                     <FormInput
                         label="Observación"
                         value={observacion}
@@ -162,7 +163,7 @@ export default function PatientForm() {
                         required
                     />
                 </div>
-                <div className='relative bottom-10 right-1'>
+                <div className='relative bottom-2 right-1'>
                     <FormButton texto="Guardar" />
                 </div>
             </form>

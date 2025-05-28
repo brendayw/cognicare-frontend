@@ -70,12 +70,12 @@ export default function PatientName() {
                         
                         <div className={`${styles.details_col}`}>
                             <p className={`${styles.title}`}> ID del paciente </p>
-                            <p className={`${styles.data}`}> ${perfilDetallado.id} </p>
+                            <p className={`${styles.data}`}> {perfilDetallado.id} </p>
                         </div>
                         
                         <div className={`${styles.details_col}`}>
                             <p className={`${styles.title}`}> ID del profesional </p>
-                            <p className={`${styles.data}`}> ${perfilDetallado.id_profesional} </p>
+                            <p className={`${styles.data}`}> {perfilDetallado.id_profesional} </p>
                         </div>
                     </div>
                 </div>  

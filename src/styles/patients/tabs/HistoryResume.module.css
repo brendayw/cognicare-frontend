@@ -29,20 +29,22 @@
 }
 
 .history_details--diagnostico p {
+  font-size: 14px;
   color: #f0890c;
 }
 
 .history_details--tratamiento p {
+  font-size: 14px;
   color: #00a396;
 }
 
 .history_details--alta p {
+  font-size: 14px;
   color: #b36ed8;
 }
 
-
 .history_details span {
-  color: #94a3b8;
+  color: #89898a;
   font-size: 12px;
 }
 

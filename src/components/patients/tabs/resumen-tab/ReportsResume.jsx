@@ -58,6 +58,8 @@ export default function ReportsResume() {
         ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         : 'default';
 
+    const reportRoute = reportsData.archivo;
+    const url = `${window.location.origin}/${reportRoute}`;
     return (
         <div className={styles.reports_resume}>
             <div className={styles.reports_header}>
@@ -66,15 +68,24 @@ export default function ReportsResume() {
             </div>
             <div className={styles.report}>
                 {reportsData.map((report, index) => (
+                    
                     <div 
                         key={report.id || index}
                         className={`${styles.report_details} ${styles[`report_details--${estadoNormalizado}`]}`}
                     >
-                            <span>{report.descripcion || '-'}</span>
-                            <span>{report.tipo_reporte || '-'}</span>
-                            <span>{report.fecha_reporte ? new Date(report.fecha_reporte).toLocaleDateString() : '-'}</span>
-                            <span>{report.observaciones}</span>
-
+                        <span>{report.descripcion || '-'}</span>
+                        <span>{report.tipo_reporte || '-'}</span>
+                        <span>{report.fecha_reporte || '-'}</span>
+                        <span>
+                            <a 
+                                className="link-reporte" 
+                                href={url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                            >
+                                Ver reporte
+                            </a>
+                        </span>
                     </div>
                 ))}
             </div>

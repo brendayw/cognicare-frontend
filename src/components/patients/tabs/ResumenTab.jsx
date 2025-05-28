@@ -6,7 +6,7 @@ import ReportsResume from './resumen-tab/ReportsResume';
 
 export default function ResumenTab() {
     return (
-        <div className='w-full flex flex-col gap-4'>
+        <div className='w-full flex flex-col gap-2'>
             <TabTitle titulo='Historia Clínica del paciente' />
             <div className='w-full'>
                 <HistoryResume />

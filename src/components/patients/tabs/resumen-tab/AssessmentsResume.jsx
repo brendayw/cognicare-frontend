@@ -76,9 +76,10 @@ export default function AssessmentResume() {
                     >
                         <span> {assessment.nombre_evaluacion || '-'}</span>
                         <span> {assessment.tipo_evaluacion || '-' }</span>
-                        <span> {assessment.resultado || '-'}</span>
-                        <span> {assessment.fecha_evaluacion || '-' }</span>
-                        <span> {assessment.observaciones || '-'}</span>
+                        
+                        <p>Resultados: <span> {assessment.resultado || '-'}</span></p>
+                        <p>Fecha: <span> {assessment.fecha_evaluacion || '-' }</span></p>
+                        <p>Observaciones: <span> {assessment.observaciones || '-'}</span></p>
                     </div>
                 ))}
             </div>

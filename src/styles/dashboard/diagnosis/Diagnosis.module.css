@@ -36,7 +36,8 @@
 
 .paciente_detalles {
     background-color: #ffffff;
-    box-shadow: 1px 1px 2px #94A3B8;
+    border: 1px solid #424884;
+    box-shadow: 0.5px 3px 1px  #424884;
     border-radius: 1rem;
     padding: 10px;
     margin: 10px;
@@ -61,7 +62,7 @@
 }
 
 .paciente_detalles:hover {
-    background-color: #94a3b8;
+    background-color: #424884;
 }
 
 .paciente_detalles:hover h5 {
@@ -75,12 +76,12 @@
 .paciente_foto img {
     width: 80px;
     height: 80px;
-    border: 1px solid #94A3B8;
     border-radius: 5rem;
+    border: 1px solid #89898a;
 }
 
 .paciente_data {
-    color: #00a396;
+    color: #424884;
 }
 
 .paciente_data h5 {

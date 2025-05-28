@@ -16,6 +16,6 @@
 .patient_data {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    padding: 10px;
+    gap: 2px;
+    padding: 5px;
 }

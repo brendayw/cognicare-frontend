@@ -10,17 +10,11 @@
     top: 10px;
 }
 
-.sessions p {
-    font-size: 1rem;
-    color: #949494;
-}
-
 .sessions_held, .sessions_total {
     background-color: #ffffff;
     width: 120px;
     height: 120px;
     padding: 1rem;
-    
     border-radius: 15px;
     display: flex;
     justify-content: center;
