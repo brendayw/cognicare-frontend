@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import FormHeader from './components/FormHeader.jsx';
 import FormInput  from './components/FormInput.jsx';
 import FormSelect from './components/FormSelect.jsx';
@@ -13,13 +14,72 @@ export default function SessionForm() {
     const [tipo_sesion, setTipoSesion] = useState('');
     const [estado, setEstado] = useState('');
     const [observacion, setObservacion] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const formatDate = (dateString) => {
+        if (!dateString) return null;
+    
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return null;
+    
+        return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ nombre, apellido });
+        
+        const formData = {
+            nombre_completo: nombre,
+            fecha: formatDate(fecha),
+            hora: hora,
+            duracion: duracion,
+            tipo_sesion: tipo_sesion,
+            estado: estado,
+            observaciones: observacion
+        }
+        console.log("Datos de la sesion: ", formData);
 
-        //api
-    }
+        try {
+            const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            const token = localStorage.getItem('token');
+            console.log('Token usado:', token);
+
+            if (!token) throw new Error('No hay token de autenticación');
+            console.log('Token: ' + token);
+
+            const response = await axios.post(`${URL_API}session`, formData,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            if (response.data.success) {
+                alert('Formulario enviado con éxito');
+                setNombre('');
+                setFecha('');
+                setHora('');
+                setDuracion('');
+                setTipoSesion('');
+                setEstado('');
+                setObservacion('');
+            } else {
+                alert('Hubo un error al enviar el formulario')
+            }
+
+        } catch (error) {
+            console.error('Error completo:', error);
+            if (error.response) {
+                console.error('Respuesta del servidor:', error.response.data);
+                setError(error.response.data.message || 'Error del servidor');
+            } else if (error.request) {
+                console.error('No hubo respuesta:', error.request);
+                setError('El servidor no respondió');
+            } else {
+                console.error('Error en la solicitud:', error.message);
+                setError('Error al enviar el formulario');
+            }
+        }
+    };
     
     return (
         <div className={`${styles.panel_content}`}>
@@ -52,7 +112,6 @@ export default function SessionForm() {
                     />
                     <FormInput
                         label="Duración"
-                        type="time"
                         value={duracion}
                         onChange={(e) => setDuracion(e.target.value)}
                         id="duracion"
@@ -79,8 +138,9 @@ export default function SessionForm() {
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value: 'Inicial', label: 'Inicial' },
-                            { value: 'Diagnostico', label: 'Diagnóstico' },
+                            { value: 'Diagnóstico', label: 'Diagnóstico' },
                             { value: 'Tratamiento', label: 'Tratamiento' },
+                            { value: 'Final', label: 'Final' }
                         ]}
                         required
                     />
@@ -90,7 +150,6 @@ export default function SessionForm() {
                         onChange={(e) => setObservacion(e.target.value)}
                         id="observacion"
                         placeholder="Observaciones"
-                        required
                     />
                 </div>
                 <div className='relative top-1 right-1'>

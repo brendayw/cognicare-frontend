@@ -226,14 +226,7 @@ export default function ReportForm() {
                         accept=".pdf, .docx, .doc, .jpg, .png"
                         required
                     />
-                </div>
-                
-                {error && (
-                    <div className={styles.error_message}>
-                        {error}
-                    </div>
-                )}
-                
+                </div>               
                 <div className={styles.form_footer}>
                     <FormButton texto="Guardar" />
                 </div>

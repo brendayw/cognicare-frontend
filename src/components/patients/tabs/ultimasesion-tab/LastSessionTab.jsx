@@ -23,6 +23,7 @@ export default function LastSessionTab() {
                 const response = await axios.get(`${URL_API}session/${id}/last`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+                console.log("Datos de la ultima sesion: ", response);
 
                 if (response.data.success) {
                     let sessionData = response.data.data;
@@ -53,14 +54,14 @@ export default function LastSessionTab() {
     if (loading) return <div className=''>Cargando datos...</div>;
 
     return (
-        <div className='{styles.lastsession_container} flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center'>
             {error ? (
                 <p className='flex items-center bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     {error}
                 </p>
-            ) : lastSession.length > 0 ? (
-                <>
+            ) : lastSession ? (
+                <div className={styles.lastsession_container}>
                     <div className={styles.session_datetime}>
                         <p>Día: <span>{lastSession.fecha || '-'}</span></p>
                         <p>Hora: <span>{lastSession.hora || '-'}</span></p>
@@ -71,7 +72,7 @@ export default function LastSessionTab() {
                         <p>Tipo: <span>{lastSession.tipo_sesion || '-'}</span></p>
                         <p>Observaciones: <span>{lastSession.observaciones || '-'}</span></p>
                     </div>
-                </>
+                </div>
             ) : (
                 <p className='flex items-center bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>

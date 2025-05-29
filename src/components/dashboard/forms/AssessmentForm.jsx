@@ -151,11 +151,6 @@ export default function AssessmentForm() {
                         placeholder="Observaciones"
                     />
                 </div>
-                {error && (
-                    <div className="error-message" style={{color: 'red', marginBottom: '10px'}}>
-                        {error}
-                    </div>
-                )}
                 <div className='relative top-1 right-1'>
                     <FormButton texto="Guardar" />
                 </div>
