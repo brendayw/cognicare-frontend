@@ -51,10 +51,6 @@ export default function LastSessionTab() {
     }, [id]);
 
     if (loading) return <div className=''>Cargando datos...</div>;
-    // if (error) return <div className='error-message'>Error: {error}</div>;
-    // if (!lastSessionData) {
-    //     return <div>No se encontraron datos de la última sesión.</div>;
-    // }
 
     return (
         <div className='{styles.lastsession_container} flex flex-col items-center justify-center'>

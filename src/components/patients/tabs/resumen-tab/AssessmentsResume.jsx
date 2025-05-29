@@ -66,8 +66,6 @@ export default function AssessmentResume() {
     }, [id]);
 
     if (loading) return <div className=''>Cargando datos...</div>;
-    // if (error) return <div className='error-message'>Error: {error}</div>;
-    // if (!assessments|| assessments.length === 0) return <div>No se encontraron evaluaciones para mostrar</div>;
 
     const estadoNormalizado = patientStatus
         ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")

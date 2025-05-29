@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 import FormHeader from './components/FormHeader.jsx';
 import FormInput from './components/FormInput.jsx';
 import FormSelect from './components/FormSelect.jsx';
@@ -21,13 +22,88 @@ export default function PatientForm() {
     const [sesiones_totales, setSesionesTotales] = useState('');
     const [estado, setEstado] = useState('');
     const [observacion, setObservacion] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const formatDate = (dateString) => {
+        if (!dateString) return null;
+    
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return null;
+    
+        return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+    };
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ nombre, apellido });
 
-        //api
-    }
+        const formData = {
+            nombre_completo: nombre,
+            fecha_nacimiento: formatDate(fechaNacimiento),
+            edad: edad,
+            genero: genero,
+            direccion: direccion,
+            telefono: telefono,
+            email: email,
+            fecha_inicio: formatDate(inicio),
+            fecha_fin: formatDate(fin),
+            motivo_inicial: motivo,
+            motivo_alta: final,
+            sesiones_realizadas: sesiones_realizadas,
+            sesiones_totales: sesiones_realizadas,
+            estado: estado,
+            observaciones: observacion
+        }
+        console.log("Datos paciente: ", formData);
+
+        try {
+            const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            const token = localStorage.getItem('token');
+            console.log('Token usado:', token);
+
+            if (!token) throw new Error('No hay token de autenticación');
+            console.log('Token: ' + token);
+
+            const response = await axios.post(`${URL_API}patients`, formData,{
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            if (response.data.success) {
+                alert('Formulario enviado con éxito');
+                setNombre('');
+                setfechaNacimiento('');
+                setEdad('');
+                setGenero('');
+                setDireccion('');
+                setEmail('');
+                setTelefono('');
+                setInicio('');
+                setFin('');
+                setMotivo('');
+                setFinal('');
+                setSesionesRealizadas('');
+                setSesionesTotales('');
+                setEstado('');
+                setObservacion('');
+            } else {
+                alert('Hubo un error al enviar el formulario');
+            }
+
+        } catch (error) {
+            console.error('Error completo:', error);
+            if (error.response) {
+                console.error('Respuesta del servidor:', error.response.data);
+                setError(error.response.data.message || 'Error del servidor');
+            } else if (error.request) {
+                console.error('No hubo respuesta:', error.request);
+                setError('El servidor no respondió');
+            } else {
+                console.error('Error en la solicitud:', error.message);
+                setError('Error al enviar el formulario');
+            }
+        }
+    };
 
     return (
         <div className={`${styles.panel_content}`}>
@@ -65,9 +141,10 @@ export default function PatientForm() {
                         onChange={(e) => setGenero(e.target.value)}
                         id="genero"
                         options={[
-                        { value: 'femenino', label: 'Femenino' },
-                        { value: 'masculino', label: 'Masculino' },
-                        { value: 'otro', label: 'Otro' },
+                        { value: '', label: 'Seleccione una opción' },
+                        { value: 'Femenino', label: 'Femenino' },
+                        { value: 'Masculino', label: 'Masculino' },
+                        { value: 'Otro', label: 'Otro' },
                         ]}
                         required
                     />
@@ -109,7 +186,6 @@ export default function PatientForm() {
                         value={fin}
                         onChange={(e) => setFin(e.target.value)}
                         id="fin"
-                        required
                     />
                     <FormInput
                         label="Motivo de consulta"
@@ -125,14 +201,18 @@ export default function PatientForm() {
                         onChange={(e) => setFinal(e.target.value)}
                         id="final"
                         placeholder="Motivo de alta"
-                        required
                     />
-                    <FormInput
+                    <FormSelect
                         label="Estado"
                         value={estado}
                         onChange={(e) => setEstado(e.target.value)}
                         id="estado"
-                        placeholder="Diagnóstico, Tratamiento o de Alta"
+                        options={[
+                        { value: '', label: 'Seleccione una opción' },
+                        { value: 'diagnóstico', label: 'Diagnóstico' },
+                        { value: 'tratamiento', label: 'Tratamiento' },
+                        { value: 'alta', label: 'Alta' },
+                        ]}
                         required
                     />
                     <FormInput
@@ -160,7 +240,6 @@ export default function PatientForm() {
                         onChange={(e) => setObservacion(e.target.value)}
                         id="observacion"
                         placeholder="Observaciones"
-                        required
                     />
                 </div>
                 <div className='relative bottom-2 right-1'>
