@@ -1,16 +1,28 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import avatarFemenino from '../../../../../public/assets/avatar_mujer.jpg';
-import avatarMasculino from '../../../../../public/assets/hombre_avatar.avif';
-import styles from '../../../../styles/dashboard/diagnosis/Diagnosis.module.css';
+import avatarFemenino from '/assets/avatar_mujer.jpg';
+import avatarMasculino from '/assets/hombre_avatar.avif';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import styles from '../../../styles/dashboard/diagnosis/Diagnosis.module.css';
 
-export default function TreatmentList({ pacientes, vista }) {
+
+export default function PatientsList({ pacientes, vista, error }) {
   const columnasArray = Array.from({ length: 5 }, () => []);
   if (vista === 'grid') {
     pacientes.forEach((paciente, index) => {
       const columnaIndex = index % 5;
       columnasArray[columnaIndex].push(paciente);
     });
+  }
+
+  if (error && error.includes('No hay token de autenticación')) {
+    return (
+      <div className={`${styles['tarjeta_paciente']}`}>
+        <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+          <ErrorOutlineTwoToneIcon className='mr-2'/>
+          Error al cargar datos: No hay token de autenticación
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -47,7 +59,7 @@ export default function TreatmentList({ pacientes, vista }) {
                     paciente.genero === 'Masculino' ? avatarMasculino : avatarFemenino;
 
                   return (
-                    <Link
+                     <Link
                       key={paciente.id}
                       className={`${styles['paciente_detalles']} ${styles[paciente.estado]}`}
                       to={`/patients/profile/${paciente.id}`}
@@ -66,7 +78,10 @@ export default function TreatmentList({ pacientes, vista }) {
           </div>
         )
       ) : (
-        <p>No hay pacientes disponibles.</p>
+        <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+          <ErrorOutlineTwoToneIcon className='mr-2'/>
+          No hay pacientes disponibles.
+        </div>
       )}
     </div>
   );

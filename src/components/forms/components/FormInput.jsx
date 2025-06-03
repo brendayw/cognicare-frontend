@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../../../../styles/dashboard/forms/components/FormInput.module.css';
+import styles from '../../../styles/dashboard/forms/components/FormInput.module.css';
 
 export default function FormInput( { label,
   value,

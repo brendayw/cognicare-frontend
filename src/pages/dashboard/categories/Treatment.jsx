@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../../../components/Menu.jsx';
-import VistaSelector from '../../../components/VistaSelector.jsx';
-import TreatmentList from '../../../components/dashboard/categories/Treatment/TreatmentList.jsx';
+import Menu from '../../../components/ui/Menu.jsx';
+import VistaSelector from '../../../components/ui/VistaSelector.jsx';
+import TreatmentList from '../../../components/patients/lists/TreatmentList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Diagnosis() {

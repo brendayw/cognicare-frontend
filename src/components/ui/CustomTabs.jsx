@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import ResumenTab from '../components/patients/tabs/ResumenTab.jsx';
-import UltimaSesionTab from '../components/patients/tabs/UltimaSesionTab.jsx';
+import ResumenTab from '../patients/tabs/ResumenTab.jsx';
+import UltimaSesionTab from '../patients/tabs/UltimaSesionTab.jsx';
 import { styled } from '@mui/material/styles';
 
 function TabPanel(props) {

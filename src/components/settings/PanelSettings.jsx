@@ -1,4 +1,3 @@
-import React from 'react';
 import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
 import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
 import styles from '../../styles/settings/PanelSettings.module.css';

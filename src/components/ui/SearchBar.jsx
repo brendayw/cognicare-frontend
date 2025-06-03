@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import styles from '../styles/Menu.module.css';
-import axios from 'axios'; // ¡Asegúrate de tener esta importación!
-
+import styles from '../../styles/Menu.module.css';
+import axios from 'axios';
 export default function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
     const [patients, setPatients] = useState(null);
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value); // Esto debería funcionar
+        setSearchTerm(e.target.value);
     };
 
     useEffect(() => {
@@ -41,11 +40,11 @@ export default function SearchBar() {
                     className={styles.input}
                     placeholder="Buscar paciente"
                     value={searchTerm}
-                    onChange={handleSearchChange} // Esto actualiza searchTerm
+                    onChange={handleSearchChange}
                 />
             </div>
 
-            {/* Resultados solo cuando hay término de búsqueda */}
+           
             {searchTerm && (
                 <div className={styles.search_results}>
                     {patients === null ? (

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios';
-import FormHeader from './components/FormHeader.jsx';
-import FormInput  from './components/FormInput.jsx';
-import FormSelect from './components/FormSelect.jsx';
-import FormButton from './components/FormButton.jsx';
+import FormHeader from '../../forms/components/FormHeader.jsx';
+import FormInput  from '../../forms/components/FormHeader.jsx';
+import FormSelect from '../../forms/components/FormHeader.jsx';
+import FormButton from '../../forms/components/FormHeader.jsx';
 import styles from '../../../styles/dashboard/forms/SessionForm.module.css';
 
 export default function SessionForm() {

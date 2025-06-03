@@ -1,12 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import styles from '../styles/Menu.module.css';
+import styles from '../../styles/Menu.module.css';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import PersonOutlineTwoToneIcon from '@mui/icons-material/PersonOutlineTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
-
 
 export default function Menu() {
     const location = useLocation();

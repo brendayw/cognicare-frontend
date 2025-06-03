@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import FormHeader from './components/FormHeader.jsx';
-import FormInput from './components/FormInput.jsx';
-import FormSelect from './components/FormSelect.jsx';
-import FormButton from './components/FormButton.jsx';
+import FormHeader from '../../forms/components/FormHeader.jsx';
+import FormInput from '../../forms/components/FormInput.jsx';
+import FormSelect from '../../forms/components/FormSelect.jsx';
+import FormButton from '../../forms/components/FormButton.jsx';
 import styles from '../../../styles/dashboard/forms/ReportForm.module.css';
 
 export default function ReportForm() {

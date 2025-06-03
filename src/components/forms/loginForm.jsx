@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css';
+import '../../App.css';
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');

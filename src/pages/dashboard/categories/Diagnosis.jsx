@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../../../components/Menu.jsx';
-import VistaSelector from '../../../components/VistaSelector.jsx';
-import DiagnosisList from '../../../components/dashboard/categories/Diagnosis/DiagnosisList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import Menu from '../../../components/ui/Menu.jsx';
+import VistaSelector from '../../../components/ui/VistaSelector.jsx';
+import DiagnosisList from '../../../components/patients/lists/DiagnosisList.jsx';
+
 
 export default function Diagnosis() {
     const [patients, setPatients] = useState([]);

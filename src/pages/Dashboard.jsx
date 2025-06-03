@@ -1,4 +1,3 @@
-import React from 'react';
 import PatientsCategories from '../components/dashboard/PatientsCategories';
 import ProfileCard from '../components/dashboard/ProfileCard';
 import PatientsChart from '../components/dashboard/PatientsChart';

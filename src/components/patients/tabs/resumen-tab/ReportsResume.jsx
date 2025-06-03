@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
@@ -23,7 +23,7 @@ export default function ReportsResume() {
                 if (!id) throw new Error('ID del paciente no encontrado');
 
                 const [reportResponse, patientResponse] = await Promise.all([ 
-                    axios.get(`${URL_API}report/${id}`, {
+                    axios.get(`${URL_API}patients/${id}/reports`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }), 
                     axios.get(`${URL_API}patients/${id}`, {
@@ -67,13 +67,13 @@ export default function ReportsResume() {
         ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         : 'default';
 
-    const reportRoute = reportsData.archivo;
-    const url = `${window.location.origin}/${reportRoute}`;
     return (
         <div className={styles.reports_resume}>
             <div className={styles.reports_header}>
                 <TabTitle titulo='Reportes' />
-                <BorderColorTwoToneIcon className='text-[#424884]'/>
+                <Link to='reports'>
+                    <BorderColorTwoToneIcon className='text-[#424884] cursor-pointer hover:text-[#00a396]'/>
+                </Link>
             </div>
             {error ? (
                 <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
@@ -82,7 +82,7 @@ export default function ReportsResume() {
                 </p>
             ) : reportsData.length > 0 ? (
                 <div className={styles.report}>
-                    {reportsData.map((report, index) => (
+                    {reportsData.slice(0, 4).map((report) => (
                         
                         <div 
                             key={report.id || index}
@@ -92,14 +92,13 @@ export default function ReportsResume() {
                             <span>{report.tipo_reporte || '-'}</span>
                             <span>{report.fecha_reporte || '-'}</span>
                             <span>
-                                <a 
-                                    className="link-reporte" 
-                                    href={url} 
-                                    target="_blank" 
+                                <Link
+                                    to={report.archivo}
+                                    className='text-[#424884] hover:text-[#00a396] block text-right'
                                     rel="noopener noreferrer"
                                 >
                                     Ver reporte
-                                </a>
+                                </Link>
                             </span>
                         </div>
                     ))}

@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../../../../styles/dashboard/forms/components/FormButton.module.css';
+import styles from '../../../styles/dashboard/forms/components/FormButton.module.css';
 
 export default function FormButton({ texto, tipo = "submit", onClick }) {
     return (

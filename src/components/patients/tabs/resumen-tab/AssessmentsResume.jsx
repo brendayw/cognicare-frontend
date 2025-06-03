@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
-import TabTitle from '../TabTitle';
+import TabTitle from '../TabTitle.jsx';
 import styles from '../../../../styles/patients/tabs/AssessmentResume.module.css';
-
 
 export default function AssessmentResume() {
     const [assessments, setAssessments] = useState([]);
@@ -28,7 +27,7 @@ export default function AssessmentResume() {
                 if (!id) throw new Error('ID del paciente no encontrado');
 
                 const [assessmentResponse, patientResponse] = await Promise.all([
-                   axios.get(`${URL_API}patients/assessments/${id}`, {
+                   axios.get(`${URL_API}patients/${id}/assessments`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }), 
                     axios.get(`${URL_API}patients/${id}`, {
@@ -75,7 +74,9 @@ export default function AssessmentResume() {
         <div className={`${styles.assessments_resume}`}>
             <div className={`${styles.assessments_header} `}>
                 <TabTitle titulo='Evaluaciones' />
-                <BorderColorTwoToneIcon className='text-[#424884]'/>
+                <Link to='assessments'>
+                    <BorderColorTwoToneIcon className='text-[#424884] cursor-pointer hover:text-[#00a396]'/>
+                </Link>
             </div>
             
             {error ? (
@@ -85,7 +86,7 @@ export default function AssessmentResume() {
                 </p>
             ) : assessments.length > 0 ? (
                 <div className={`${styles.assessment} `}>
-                    {assessments.map((assessment, index) => (
+                    {assessments.slice(0,2).map((assessment, index) => (
                         <div
                             key={assessment.id || index}
                             className={`${styles.assessment_details} ${styles[`assessment_details--${estadoNormalizado}`]}`}

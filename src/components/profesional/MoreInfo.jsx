@@ -1,7 +1,8 @@
 import { useEffect, useState, }from 'react';
 import axios from 'axios';
-import styles from '../../styles/profesional/MoreInfo.module.css';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import styles from '../../styles/profesional/MoreInfo.module.css';
+
 
 export default function MoreInfo() {
     const [result, setResult] = useState();

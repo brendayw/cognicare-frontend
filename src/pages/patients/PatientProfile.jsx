@@ -1,10 +1,9 @@
-import React from 'react';
-import Menu from '../../components/Menu.jsx';
+import Menu from '../../components/ui/Menu.jsx';
 import PatientProfileHeader from '../../components/patients/profile/PatientProfileHeader.jsx';
 import PatientName from '../../components/patients/profile/PatientName.jsx';
 import PatientData from '../../components/patients/profile/PatientData.jsx';
 import PatientProgress from '../../components/patients/profile/PatientProgress.jsx';
-import CustomTabs from '../../components/CustomTabs.jsx';
+import CustomTabs from '../../components/ui/CustomTabs.jsx';
 
 export default function PatientProfile() {
     return (

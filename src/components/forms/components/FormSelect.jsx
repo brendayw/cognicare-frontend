@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from '../../../../styles/dashboard/forms/components/FormSelect.module.css';
+import styles from '../../../styles/dashboard/forms/components/FormSelect.module.css';
 
 export default function FormSelect( {
     label,

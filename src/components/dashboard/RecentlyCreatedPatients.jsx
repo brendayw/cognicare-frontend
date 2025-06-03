@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import UserList from '../UserList.jsx';
+import { useEffect, useState } from 'react';
+import UserList from '../ui/UserList.jsx';
 import axios from 'axios';
 
 export default function RecentlyCreatedPatients() {

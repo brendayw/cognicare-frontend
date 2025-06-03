@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import avatarFemenino from '../../../public/assets/female-header.png';
-import avatarMasculino from '../../../public/assets/male-header.png';
+import avatarFemenino from '/assets/female-header.png';
+import avatarMasculino from '/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/ProfesionalCard.module.css';

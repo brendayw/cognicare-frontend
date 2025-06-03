@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import Menu from '../components/Menu.jsx';
+import Menu from '../components/ui/Menu.jsx';
 import ProfesionalCard from '../components/profesional/ProfesionalCard.jsx';
 import Buttons from '../components/profesional/Buttons.jsx';
 import Chart from '../components/profesional/Chart.jsx';

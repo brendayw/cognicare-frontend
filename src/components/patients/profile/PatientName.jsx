@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import AvatarFemenino from '../../../../public/assets/avatar_mujer.jpg';
-import AvatarMasculino from '../../../../public/assets/hombre_avatar.avif';
+import AvatarFemenino from '/assets/avatar_mujer.jpg';
+import AvatarMasculino from '/assets/hombre_avatar.avif';
 import styles from '../../../styles/patients/profile/PatientName.module.css';
 
 

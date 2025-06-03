@@ -1,7 +1,7 @@
-    import { useEffect, useState } from 'react';
-import UserList from '../UserList.jsx';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecentlyCreatedPatients from '../dashboard/RecentlyCreatedPatients.jsx';
+import UserList from '../ui/UserList.jsx';
 
 export default function RecentlyUpdatedPatients() {
     const [patients, setPatients] = useState([]);

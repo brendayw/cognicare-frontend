@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
@@ -23,7 +23,7 @@ export default function HistorySessions() {
                 if (!id) throw new Error('ID del paciente no encontrado');
 
                 const [historyResponse, patientResponse] = await Promise.all([
-                    axios.get(`${URL_API}session/${id}`, {
+                    axios.get(`${URL_API}patients/${id}/sessions`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
                     axios.get(`${URL_API}patients/${id}`, {
@@ -69,7 +69,9 @@ export default function HistorySessions() {
         <div className={`${styles.historysessions_container}`}>
             <div className='flex'>
                 <TabTitle titulo='Historial de sesiones' />
-                <BorderColorTwoToneIcon className='text-[#424884]'/>
+                <Link to='sessions'>
+                    <BorderColorTwoToneIcon className='text-[#424884] cursor-pointer hover:text-[#00a396]'/>
+                </Link>
             </div>
             {error ? (
                 <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>

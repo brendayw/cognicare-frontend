@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../components/Menu.jsx';
+import Menu from '../components/ui/Menu.jsx';
 import PanelSettings from '../components/settings/PanelSettings.jsx';
 import PerfilSolapa from '../components/settings/PerfilSolapa.jsx';
 import PasswordSolapa from '../components/settings/PasswordSolapa.jsx'; // Corregido el import

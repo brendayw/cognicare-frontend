@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import axios from 'axios';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/Chart.module.css';
 
 export default function Chart() {

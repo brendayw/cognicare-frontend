@@ -1,51 +1,50 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import Menu from '../components/ui/Menu.jsx';
-import VistaSelector from '../components/ui/VistaSelector.jsx';
-import PatientsList from '../components/patients/lists/PatientsList.jsx';
+import Menu from '../../components/ui/Menu.jsx';
+import SessionsList from '../../components/sessions/SessionsList.jsx';
 
-export default function Patients() {
-    const [patients, setPatients] = useState([]);
-    const [view, setView] = useState('grid');
+export default function Sessions() {
+    const [sessions, setSessions] = useState([]);
+    const { id } = useParams();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const obtenerTodosLosPacientes = async () => {
+        const obtenerSesionesDelPaciente = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
                 
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const response = await axios.get(`${URL_API}api/patients`, {
+                const response = await axios.get(`${URL_API}patients/${id}/sessions`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de pacientes:", response); 
+                console.log("Respuesta recibida del listado de evaluaciones:", response); 
             
                 if (response.data?.success) {
-                    // Caso 1: Datos en propiedad data (array directo)
                     if (Array.isArray(response.data.data)) {
-                        console.log("Pacientes recibidos (array directo):", response.data.data.length);
-                        setPatients(response.data.data);
+                        console.log("Evaluaciones del paciente recibidas (array directo):", response.data.data.length);
+                        setSessions(response.data.data);
                     } 
                     // Caso 2: Datos en propiedad data.rows (estructura antigua)
                     else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Pacientes recibidos (en propiedad rows):", response.data.data.rows.length);
-                        setPatients(response.data.data.rows);
+                        console.log("Evaluacione recibidas (en propiedad rows):", response.data.data.rows.length);
+                        setSessions(response.data.data.rows);
                     }
                     // Caso 3: Respuesta exitosa pero sin pacientes
                     else {
-                        console.log("No hay pacientes registrados");
-                        setPatients([]);
-                        setError('No se encontraron pacientes registrados');
+                        console.log("No hay evaluaciones registradas");
+                        setSessions([]);
+                        setError('No se encontraron evalucioanes asociadas al paciente');
                     }
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
             } catch (err) {
-                console.error('Error al obtener pacientes:', {
+                console.error('Error al obtener evaluaciones:', {
                     error: err,
                     response: err.response?.data,
                     stack: err.stack
@@ -57,18 +56,13 @@ export default function Patients() {
             }
         };
         
-        obtenerTodosLosPacientes();
-    }, []);
-    
-    const handleViewChange = (newView) => {
-        setView(newView);
-    };
+        obtenerSesionesDelPaciente();
+    }, [id]);
 
     return (
         <div className='h-screen'>
             <Menu/>
             <div className='h-screen'>
-                <VistaSelector currentView={view} onViewChange={handleViewChange} />
                 {loading ? (
                     <div className=''>Cargando pacientes...</div>
                 ) : error ? (
@@ -77,7 +71,7 @@ export default function Patients() {
                         {error}
                     </div>
                 ) : (
-                    <PatientsList pacientes={patients} vista={view} error={error} />
+                    <SessionsList sessions={sessions} error={error} />
                 )}
             </div>
         </div>

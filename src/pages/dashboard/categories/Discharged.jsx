@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Menu from '../../../components/Menu.jsx';
-import VistaSelector from '../../../components/VistaSelector.jsx';
-import DischargedList from '../../../components/dashboard/categories/Discharged/DischargedList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import Menu from '../../../components/ui/Menu.jsx';
+import VistaSelector from '../../../components/ui/VistaSelector.jsx';
+import DischargedList from '../../../components/patients/lists/DischargedList.jsx';
+
 
 export default function Discharged() {
     const [patients, setPatients] = useState([]);

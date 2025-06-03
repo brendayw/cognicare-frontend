@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
-import styles from '../../../../styles/dashboard/forms/components/FormHeader.module.css';
+import styles from '../../../styles/dashboard/forms/components/FormHeader.module.css';
 
 export default function FormHeader( { titulo = 'Formulario'}) {
     const navigate = useNavigate();

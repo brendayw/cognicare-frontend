@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Menu from '../../../components/Menu.jsx';
-import AssessmentForm from '../../../components/dashboard/forms/AssessmentForm.jsx';
+import Menu from '../../../components/ui/Menu.jsx';
+import AssessmentForm from '../../../components/assessments/forms/AssessmentForm.jsx';
 
 export default function Assessment() {
-
     return (
         <div className='h-screen'>
             <Menu/>
