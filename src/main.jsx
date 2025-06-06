@@ -17,8 +17,10 @@ import Session from './pages/dashboard/forms/Session.jsx';
 import Sessions from './pages/patients/Sessions.jsx';
 import Assessment from './pages/dashboard/forms/Assessment.jsx';
 import Assessments from './pages/patients/Assessments.jsx';
+import EditAssessment from './pages/patients/EditAssessment.jsx';
 import Reports from './pages/patients/Reports.jsx';
 import Report from './pages/dashboard/forms/Report.jsx';
+import EditReport from './pages/patients/EditReport.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -48,10 +50,12 @@ root.render(
         {/* Evaluaciones del paciente */}
         <Route path="/patients/assessments/add" element={<Assessment />} />
         <Route path="/patients/profile/:id/assessments" element={<Assessments />} />
+        <Route path="/patients/profile/:patientId/assessments/edit/:assessmentId" element={<EditAssessment />} />
 
         {/* Reportes del paciente */}
         <Route path="/patients/reports/add" element={<Report />} />
         <Route path="/patients/profile/:id/reports" element={<Reports />} />
+        <Route path="/patients/profile/:patientId/reports/edit/:reportId" element={<EditReport />} />
 
 
         <Route path="/profesional" element={<ProfesionalProfile />} />

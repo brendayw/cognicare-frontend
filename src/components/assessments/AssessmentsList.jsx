@@ -27,7 +27,7 @@ export default function AssessmentsList({ assessments, error }) {
                 {assessments.length > 0 ? (
                 assessments.map((assessment) => {
                     return (
-                        <div className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md relative'>
+                        <div key={assessment.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md relative'>
                             <div className='flex flex-col m-4 pr-4 flex-grow'>
                                 <h5> <span className='text-[#b36ed8] text-base'>{assessment.nombre_evaluacion}</span></h5>
                                 <p className='text-[#94a3b8] text-xs'>Tipo de evaluación: <span className='text-[#89898a]'>{assessment.tipo_evaluacion}</span></p>
@@ -36,7 +36,9 @@ export default function AssessmentsList({ assessments, error }) {
                                 <p className='text-[#94a3b8] text-xs'>Observaciones: <span className='text-[#89898a]'>{assessment.observaciones}</span></p>
                             </div>
                             <div className='flex items-center justify-end pr-4'>
-                                <BorderColorTwoToneIcon className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2' />
+                                <Link to={`edit/${assessment.id}`}>
+                                    <BorderColorTwoToneIcon className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2' />
+                                </Link>
                                 <DeleteForeverTwoToneIcon className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2' />
                             </div>
                         </div>

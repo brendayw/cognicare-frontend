@@ -3,32 +3,22 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
+export default function EditReportForm() {
+    const { reportId } = useParams();
+    console.log("Report ID:", reportId);
 
-export default function EditPatientForm() {
-    const { id } = useParams();
     const token = localStorage.getItem('token');
     const fieldOptions = [
-        { id: 'nombre_completo', label: 'Nombre Completo' },
-        { id: 'fecha_nacimiento', label: 'Fecha de nacimiento' },
-        { id: 'edad', label: 'Edad' },
-        { id: 'genero', label: 'Género' },
-        { id: 'direccion', label: 'Dirección' },
-        { id: 'telefono', label: 'Teléfono' },
-        { id: 'email', label: 'Email' },
-        { id: 'fecha_inicio', label: 'Fecha de inicio' },
-        { id: 'fecha_fin', label: 'Fecha de alta' },
-        { id: 'motivo_inicial', label: 'Motivo inicial' },
-        { id: 'motivo_alta', label: 'Motivo de alta' },
-        { id: 'estado', label: 'Estado' },
-        { id: 'sesiones_realizadas', label: 'Sesiones realizadas' },
-        { id: 'sesiones_totales', label: 'Sesiones totales' },
-        { id: 'observaciones', label: 'Observaciones' },   
+        { id: 'fecha_reporte', label: 'Fecha del reporte' },
+        { id: 'descripcion', label: 'Descripción' },
+        { id: 'tipo_reporte', label: 'Tipo de reporte' },
+        { id: 'archivo', label: 'Archivo' }
     ];
-
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
+    const [file, setFile] = useState();
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false); // Estado para manejar el loading
 
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
@@ -41,10 +31,10 @@ export default function EditPatientForm() {
             id: Date.now(),
             type: selectedOption.id,
             label: selectedOption.label,
-            value: ''
+            value: selectedOption.id === 'archivo' ? null : ''
         };
         setFields([...fields, newField]);
-        setError(''); // Limpiar error si había alguno
+        setError('');
     };
 
     const handleRemoveField = (id) => {
@@ -57,27 +47,74 @@ export default function EditPatientForm() {
         ));
     };
 
+    const handleFileChange = (id, e) => {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+        setFields(fields.map(field => 
+            field.id === id ? { ...field, value: selectedFile.name } : field
+        ));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setError('');
         
-        const formData = {};
-        fields.forEach(field => {
-            formData[field.type] = field.value;
-        });
+        if (!reportId) {
+            setError('ID de reporte no encontrado');
+            setIsSubmitting(false);
+            return;
+        }
         
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const response = await axios.put(`${URL_API}patients/${id}`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+        const formData = new FormData();
+        const hasFile = file !== undefined && file !== null;
+        
+        let requestData;
+        let requestHeaders = {
+            'Authorization': `Bearer ${token}`
+        };
+        
+        if (hasFile) {
+
+            requestData = new FormData();
+            fields.forEach(field => {
+                if (field.type !== 'archivo') {
+                    requestData.append(field.type, field.value);
                 }
             });
             
+            requestData.append('archivo', file);
+            delete requestHeaders['Content-Type'];
+        } else {
+            requestData = {};
+            fields.forEach(field => {
+                if (field.type !== 'archivo') {
+                    requestData[field.type] = field.value;
+                }
+            });
+            requestHeaders['Content-Type'] = 'application/json';
+        }
+
+        const hasData = hasFile ? 
+            Array.from(requestData.entries()).length > 0 :
+            Object.keys(requestData).length > 0;
+        
+        console.log("Tiene datos para enviar:", hasData);
+        
+        if (!hasData) {
+            setError('No hay datos para enviar');
+            setIsSubmitting(false);
+            return;
+        }
+        
+        try {
+            const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            const response = await axios.put(`${URL_API}reports/${reportId}`, requestData, {
+                headers: requestHeaders
+            });
+            
             if (response.data.success) {
-                alert('Paciente actualizado con éxito');
+                alert('Reporte actualizado con éxito');
                 // setFields([]);
             }
         } catch (error) {
@@ -108,7 +145,7 @@ export default function EditPatientForm() {
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.title}>Editor Paciente</h1>
+            <h1 style={styles.title}>Editar reporte del paciente</h1>
             
             {error && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
@@ -145,14 +182,30 @@ export default function EditPatientForm() {
                 {fields.map(field => (
                     <div key={field.id} style={styles.field}>
                         <label style={styles.label}>{field.label}:</label>
-                        <input
-                            type={field.type.includes('fecha') ? 'date' : 'text'}
-                            value={field.value}
-                            onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                            placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                            style={styles.input}
-                            disabled={isSubmitting}
-                        />
+                        {field.type === 'archivo' ? (
+                            <div style={{flex: 1}}>
+                                <input
+                                    type="file"
+                                    onChange={(e) => handleFileChange(field.id, e)}
+                                    style={styles.input}
+                                    disabled={isSubmitting}
+                                />
+                                {field.value && (
+                                    <div style={{marginTop: '5px', fontSize: '14px'}}>
+                                        Archivo seleccionado: {field.value}
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <input
+                                type={field.type.includes('fecha') ? 'date' : 'text'}
+                                value={field.value}
+                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                placeholder={`Ingrese ${field.label.toLowerCase()}`}
+                                style={styles.input}
+                                disabled={isSubmitting}
+                            />
+                        )}
                         <button 
                             onClick={() => handleRemoveField(field.id)}
                             style={styles.deleteButton}
