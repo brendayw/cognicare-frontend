@@ -23,29 +23,29 @@ export default function Reports() {
                 const response = await axios.get(`${URL_API}patients/${id}/reports`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de evaluaciones:", response); 
+                console.log("Respuesta recibida del listado de reportes:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Evaluaciones del paciente recibidas (array directo):", response.data.data.length);
+                        console.log("Reportes del paciente recibidos (array directo):", response.data.data.length);
                         setReports(response.data.data);
                     } 
                     // Caso 2: Datos en propiedad data.rows (estructura antigua)
                     else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Evaluacione recibidas (en propiedad rows):", response.data.data.rows.length);
+                        console.log("Reportes recibidos (en propiedad rows):", response.data.data.rows.length);
                         setReports(response.data.data.rows);
                     }
                     // Caso 3: Respuesta exitosa pero sin pacientes
                     else {
                         console.log("No hay evaluaciones registradas");
                         setReports([]);
-                        setError('No se encontraron evalucioanes asociadas al paciente');
+                        setError('No se encontraron reportes asociadas al paciente');
                     }
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
             } catch (err) {
-                console.error('Error al obtener evaluaciones:', {
+                console.error('Error al obtener reportes:', {
                     error: err,
                     response: err.response?.data,
                     stack: err.stack
@@ -60,6 +60,10 @@ export default function Reports() {
         obtenerReportesDelPaciente();
     }, [id]);
 
+    const handleReportDeleted = (deletedId) => {
+        setReports(prev => prev.filter(a => a.id !== deletedId));
+    };
+
     return (
         <div className='h-screen'>
             <Menu/>
@@ -72,7 +76,7 @@ export default function Reports() {
                         {error}
                     </div>
                 ) : (
-                    <ReportsList reports={reports} error={error} />
+                    <ReportsList reports={reports} error={error} onReportDeleted={handleReportDeleted}/>
                 )}
             </div>
         </div>

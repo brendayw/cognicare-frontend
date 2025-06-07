@@ -22,29 +22,29 @@ export default function Sessions() {
                 const response = await axios.get(`${URL_API}patients/${id}/sessions`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de evaluaciones:", response); 
+                console.log("Respuesta recibida del listado de sesiones:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Evaluaciones del paciente recibidas (array directo):", response.data.data.length);
+                        console.log("Sesiones del paciente recibidas (array directo):", response.data.data.length);
                         setSessions(response.data.data);
                     } 
                     // Caso 2: Datos en propiedad data.rows (estructura antigua)
                     else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Evaluacione recibidas (en propiedad rows):", response.data.data.rows.length);
+                        console.log("Sesiones recibidas (en propiedad rows):", response.data.data.rows.length);
                         setSessions(response.data.data.rows);
                     }
                     // Caso 3: Respuesta exitosa pero sin pacientes
                     else {
-                        console.log("No hay evaluaciones registradas");
+                        console.log("No hay sesiones registradas");
                         setSessions([]);
-                        setError('No se encontraron evalucioanes asociadas al paciente');
+                        setError('No se encontraron sesiones asociadas al paciente');
                     }
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
             } catch (err) {
-                console.error('Error al obtener evaluaciones:', {
+                console.error('Error al obtener sesiones:', {
                     error: err,
                     response: err.response?.data,
                     stack: err.stack
@@ -59,6 +59,10 @@ export default function Sessions() {
         obtenerSesionesDelPaciente();
     }, [id]);
 
+    const handleSessionDeleted = (deletedId) => {
+        setSessions(prev => prev.filter(a => a.id !== deletedId));
+    };
+
     return (
         <div className='h-screen'>
             <Menu/>
@@ -71,7 +75,7 @@ export default function Sessions() {
                         {error}
                     </div>
                 ) : (
-                    <SessionsList sessions={sessions} error={error} />
+                    <SessionsList sessions={sessions} error={error} onSessionDeleted={handleSessionDeleted}/>
                 )}
             </div>
         </div>

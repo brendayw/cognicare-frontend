@@ -58,6 +58,10 @@ export default function Assessments() {
         obtenerEvaluacionesDelPaciente();
     }, [id]);
 
+    const handleAssessmentDeleted = (deletedId) => {
+        setAssessments(prev => prev.filter(a => a.id !== deletedId));
+    };
+
     return (
         <div className='h-screen'>
             <Menu/>
@@ -70,7 +74,7 @@ export default function Assessments() {
                         {error}
                     </div>
                 ) : (
-                    <AssessmentsList assessments={assessments} error={error} />
+                    <AssessmentsList assessments={assessments} error={error} onAssessmentDeleted={handleAssessmentDeleted}/>
                 )}
             </div>
         </div>

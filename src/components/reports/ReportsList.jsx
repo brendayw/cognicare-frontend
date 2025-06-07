@@ -1,10 +1,46 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import { softDeleteReport } from './forms/softDeleteReport.jsx';
+import ConfirmationDialog from '../ui/ConfirmationDialog.jsx';
 
-export default function ReportsList({ reports, error }) {
+export default function ReportsList({ reports, error, onReportDeleted }) {
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [deleteError, setDeleteError] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [reportToDelete, setReportToDelete] = useState(null);
+
+    const handleOpenDialog = (report) => {
+        setReportToDelete(report);
+        setDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setDialogOpen(false);
+        setDeleteError(null);
+    };
+
+    const handleConfirmDelete = async () => {
+        setIsDeleting(true);
+        setDeleteError(null);
+            
+        try {
+            const token = localStorage.getItem('token');
+            await softDeleteReport(reportToDelete.id, token);
+                
+            onReportDeleted?.(reportToDelete.id);
+            handleCloseDialog();
+        } catch (error) {
+            setDeleteError(error.message);
+            console.error('Delete error:', error);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     if (error && error.includes('No hay token de autenticación')) {
         return (
             <div>
@@ -44,7 +80,10 @@ export default function ReportsList({ reports, error }) {
                                     <Link to={`edit/${report.id}`}>
                                         <BorderColorTwoToneIcon className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2'/>
                                     </Link>
-                                    <DeleteForeverTwoToneIcon className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2'/>
+                                    <DeleteForeverTwoToneIcon 
+                                        className='text-[#94a3b8] text-base hover:text-[#00a396] cursor-pointer mr-2'
+                                        onClick={() => handleOpenDialog(report)}
+                                    />
                                 </div>
                             </div>
                         );
@@ -56,6 +95,14 @@ export default function ReportsList({ reports, error }) {
                     </div>
                 )} 
             </div>
+            <ConfirmationDialog
+                open={dialogOpen}
+                title={`¿Estás seguro que deseas borrar este reporte?`}
+                onClose={handleCloseDialog}
+                onConfirm={handleConfirmDelete}
+                isProcessing={isDeleting}
+                error={deleteError}
+            />
         </div>
     );
 }

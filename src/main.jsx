@@ -15,6 +15,7 @@ import Patient from './pages/dashboard/forms/Patient.jsx';
 import EditPatient from './pages/patients/EditPatient.jsx';
 import Session from './pages/dashboard/forms/Session.jsx';
 import Sessions from './pages/patients/Sessions.jsx';
+import EditSession from './pages/patients/EditSession.jsx';
 import Assessment from './pages/dashboard/forms/Assessment.jsx';
 import Assessments from './pages/patients/Assessments.jsx';
 import EditAssessment from './pages/patients/EditAssessment.jsx';
@@ -46,6 +47,7 @@ root.render(
         {/* Sesiones del paciente */}
         <Route path="/patients/session/add" element={<Session />} />
         <Route path="/patients/profile/:id/sessions" element={<Sessions />} />
+        <Route path="/patients/profile/:patientId/sessions/edit/:sessionId" element={<EditSession />} />
         
         {/* Evaluaciones del paciente */}
         <Route path="/patients/assessments/add" element={<Assessment />} />
