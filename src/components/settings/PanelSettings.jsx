@@ -1,5 +1,6 @@
 import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
 import PasswordTwoToneIcon from '@mui/icons-material/PasswordTwoTone';
+import HeartBrokenTwoToneIcon from '@mui/icons-material/HeartBrokenTwoTone';
 import styles from '../../styles/settings/PanelSettings.module.css';
 
 export default function PanelSettings({ activeTab, onTabChange }) {
@@ -26,6 +27,17 @@ export default function PanelSettings({ activeTab, onTabChange }) {
             <PasswordTwoToneIcon />
           </div>
           <span>Contraseña</span>  
+        </button>
+
+        <button 
+          className={`${styles.deactivate} ${activeTab === 'deactivate' ? styles.selected : ''}`} 
+          onClick={() => onTabChange('deactivate')} 
+          aria-label="Desactivar cuenta"
+        >
+          <div className={styles.icono_opciones}>
+            <HeartBrokenTwoToneIcon />
+          </div>
+          <span>Desactivar cuenta</span>  
         </button>
       </div>
     </div>

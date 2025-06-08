@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../../styles/patients/profile/PatientData.module.css';
 
-export default function PatientData( {estado}) {
+export default function PatientData({patient}) {
     const [perfilDetallado, setPerfilDetallado] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
@@ -42,6 +42,20 @@ export default function PatientData( {estado}) {
     
     if (loading) return <div className={styles.loading}>Cargando...</div>;
     if (error) return <div className={styles.error}>{error}</div>;
+
+    if (!patient) {
+        return (
+            <div className="p-4 border rounded-lg m-2">
+                <h3 className="text-lg font-medium mb-3">Datos del Paciente</h3>
+                <div className="animate-pulse space-y-3">
+                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-2/3"></div>
+                </div>
+            </div>
+        );
+    }
+    
 
     const normalizeEstado = (estado) => {
         if (!estado) return 'tratamiento'; // Valor por defecto

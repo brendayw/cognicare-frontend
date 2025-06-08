@@ -6,7 +6,7 @@ import AvatarMasculino from '/assets/hombre_avatar.avif';
 import styles from '../../../styles/patients/profile/PatientName.module.css';
 
 
-export default function PatientName() {
+export default function PatientName( {patient}) {
     const [perfilDetallado, setPerfilDetallado] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
@@ -46,6 +46,17 @@ export default function PatientName() {
     if (loading) return <div className={styles.loading}>Cargando...</div>;
 
     const avatarImagen = perfilDetallado.genero === 'Masculino' ? AvatarMasculino : AvatarFemenino;
+    
+    if (!patient) {
+        return (
+            <div className="p-4">
+                <div className="animate-pulse">
+                    <div className="h-6 bg-gray-300 rounded w-48 mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-32"></div>
+                </div>
+            </div>
+        );
+    }
     
     const normalizeEstado = (estado) => {
         if (!estado) return 'tratamiento';

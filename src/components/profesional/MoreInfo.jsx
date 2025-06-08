@@ -1,31 +1,31 @@
 import { useEffect, useState, }from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/MoreInfo.module.css';
 
-
 export default function MoreInfo() {
-    const [result, setResult] = useState();
     const [diasAtencion, setDiasAtencion] = useState([]);
     const [horariosAtencion, setHorariosAtencion] = useState([]);
+    const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const obtenerData = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
 
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const response = await axios.get(`${URL_API}api/profesional`, {
+                const response = await axios.get(`${URL_API}profesional/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 const result = response.data.data;
-                console.log('Datos recibidos:', result); // Para depuración
+                console.log('Datos recibidos:', result);
                 
                 if (result) {
                     const diasSemana = ['Lun', 'Mart', 'Miér', 'Jue', 'Vier', 'Sáb'];

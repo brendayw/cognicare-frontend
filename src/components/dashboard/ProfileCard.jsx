@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/ProfileCard.module.css';
 
 export default function ProfileCard() {
     const [profesional, setProfesional] = useState(null);
+    const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
         
@@ -14,8 +16,8 @@ export default function ProfileCard() {
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const { data } = await axios.get(`${URL_API}api/profesional`,
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
+                const { data } = await axios.get(`${URL_API}profesional/${id}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
 

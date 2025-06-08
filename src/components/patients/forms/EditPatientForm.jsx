@@ -108,7 +108,7 @@ export default function EditPatientForm() {
 
     return (
         <div style={styles.container}>
-            <h1 style={styles.title}>Editor Paciente</h1>
+            <h1 style={styles.title}>Editar datos del paciente</h1>
             
             {error && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>

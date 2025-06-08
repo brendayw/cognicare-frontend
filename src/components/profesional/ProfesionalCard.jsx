@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import avatarFemenino from '/assets/female-header.png';
 import avatarMasculino from '/assets/male-header.png';
@@ -10,17 +10,18 @@ import styles from '../../styles/profesional/ProfesionalCard.module.css';
 // ProfesionalCard.jsx
 export default function ProfesionalCard({ prof }) {
     const [perfilDetallado, setPerfilDetallado] = useState(null);
+    const { id } = useParams();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         const obtenerPerfil = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
 
-                const response = await axios.get(`${URL_API}api/profesional`, 
+                const response = await axios.get(`${URL_API}profesional/${id}`, 
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`

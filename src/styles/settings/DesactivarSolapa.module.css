@@ -1,0 +1,74 @@
+.solapa {
+  display: block;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  height: 325px;
+}
+
+.solapa h3 {
+  color: #00a396;
+}
+
+.solapa_deactivate.activa {
+  display: block;
+  background: #ffffff;
+  box-shadow: 2px 2px 5px #94A3B8;
+}
+
+.solapa_deactivate {
+  background: #ffffff;
+  box-shadow: 2px 2px 5px #94A3B8;
+}
+
+.container_deactivate {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+
+.deactivate_info {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.info_extra {
+  border-top: 1px solid #94a3b883;
+  border-bottom: 1px solid #94a3b883;
+  padding: 0.5rem;
+  font-size: 12px;
+}
+
+.deactivate_info, 
+.info_extra {
+  color: #89898a;
+}
+
+.deactivate_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #fff;
+  color: #ff6f59;
+  border: 1px solid #ff6f59;
+  border-radius: 8px;
+  position: relative;
+  margin: 0 auto;
+  top: 35px;
+  /* border: none; */
+  cursor: pointer;
+  transition: background-color 0.3s ease;                  
+}
+
+.deactivate_btn:hover {
+  background-color: #e65a4a;
+  color: #fff;
+  /* transition-colors */
+}
+
+.deactivate_btn:focus {
+  outline: none; /* O usa outline: 2px solid ... para accesibilidad */
+  box-shadow: 0 0 0 2px rgba(255, 111, 89, 0.5); /* Mejor para accesibilidad */
+}
