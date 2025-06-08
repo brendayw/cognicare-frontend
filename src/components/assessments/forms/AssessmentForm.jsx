@@ -79,7 +79,7 @@ export default function AssessmentForm() {
     };
     
     return (
-       <div className={`${styles.panel_content}`}>
+       <div className={`${styles.form_content}`}>
             <form onSubmit={handleSubmit} className={`${styles.assessment_form}`}>
                 <FormHeader titulo='Agregar Evaluación'/>
                 <div className={`${styles.assessment_data}`}>
