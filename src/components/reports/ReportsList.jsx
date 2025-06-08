@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
@@ -8,6 +8,7 @@ import { softDeleteReport } from './forms/softDeleteReport.jsx';
 import ConfirmationDialog from '../ui/ConfirmationDialog.jsx';
 
 export default function ReportsList({ reports, error, onReportDeleted }) {
+    const { id: patientId } = useParams();
     const [isDeleting, setIsDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
 
     return (
         <div className='space-y-4'>
-            <Link to='/patients' className='inline-block ml-4'>
+            <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>
             <div className='flex flex-col items-center'>

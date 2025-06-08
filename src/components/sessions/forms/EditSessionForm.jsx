@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function EditSessionForm() {
-    const { sessionId } = useParams();
+    const { patientId, sessionId } = useParams();
     console.log("Session ID:", sessionId);
 
     const token = localStorage.getItem('token');
@@ -103,8 +104,14 @@ export default function EditSessionForm() {
     }
 
     return (
-        <div style={styles.container}>
-            <h1 style={styles.title}>Editar sesión del paciente</h1>
+        <div className='w-full bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-4'>
+            <div>
+                <Link to={`/patients/profile/${patientId}/sessions`}>
+                    <ArrowBackIosTwoToneIcon className='text-[#00a396] cursor:pointer'/>
+                </Link>
+            </div>
+            
+            <h1 className='text-[#00a396] text-[25px] text-center p-2'>Editar sesión del paciente</h1>
             
             {error && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
@@ -114,14 +121,14 @@ export default function EditSessionForm() {
             )}
         
             {/* Selector de campo */}
-            <div style={styles.selector}>
+            <div className='flex gap-[10px] mb-[20px]'>
                 <select 
                     value={selectedField}
                     onChange={(e) => setSelectedField(e.target.value)}
-                    style={styles.select}
+                    className='flex-[1_1_0%] p-2.5 rounded-md border border-[rgb(206,212,218)] text-[#94a3b8] text-[14px] focus:outline-none focus:border-[94a3b8]'
                 >
                     {fieldOptions.map(option => (
-                        <option key={option.id} value={option.id}>
+                        <option key={option.id} value={option.id} className='text-[#94a3b8]'>
                             {option.label}
                         </option>
                     ))}
@@ -129,7 +136,7 @@ export default function EditSessionForm() {
             
                 <button 
                     onClick={handleAddField} 
-                    style={styles.addButton}
+                    className='w-[150px] bg-[#27ae60] text-[#ffffff] text-[14px] rounded-md px-[10px] py-[10px] cursor:pointer transition-colors duration-300'
                     disabled={isSubmitting}
                 >
                     Agregar Campo
@@ -137,21 +144,21 @@ export default function EditSessionForm() {
             </div>
 
             {/* Lista de campos */}
-            <div style={styles.fieldsContainer}>
+            <div className='flex flex-col gap-[15px] mb-[25px]'>
                 {fields.map(field => (
-                    <div key={field.id} style={styles.field}>
-                        <label style={styles.label}>{field.label}:</label>
+                    <div key={field.id} className='flex items-center gap-[15px]'>
+                        <label className='w-[150px] text-[14px] text-[#94a3b8]'>{field.label}:</label>
                         <input
                             type={field.type.includes('fecha') ? 'date' : 'text'}
                             value={field.value}
                             onChange={(e) => handleFieldChange(field.id, e.target.value)}
                             placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                            style={styles.input}
+                            className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-none focus:border-[94a3b8]'
                             disabled={isSubmitting}
                         />
                         <button 
                             onClick={() => handleRemoveField(field.id)}
-                            style={styles.deleteButton}
+                            className='bg-[#ff6f59] text-[14px] text-[#ffffff] rounded-md cursor:pointer px-[15px] py-[8px] transition-colors duration-300'
                             disabled={isSubmitting}
                         >
                             ×
@@ -163,7 +170,7 @@ export default function EditSessionForm() {
             {fields.length > 0 && (
                 <button 
                     onClick={handleSubmit}
-                    style={styles.submitButton}
+                    className='w-[200px] bg-[#424884] text-[#ffffff] text-[14px] rounded-md p-[12px] cursor:pointer transition-colors duration-300 mx-auto block'
                     disabled={isSubmitting || fields.some(f => !f.value)}
                 >
                     {isSubmitting ? 'Guardando...' : 'Guardar Datos'}

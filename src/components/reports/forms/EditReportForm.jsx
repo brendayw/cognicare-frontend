@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function EditReportForm() {
-    const { reportId } = useParams();
+    const { patientId, reportId } = useParams();
     console.log("Report ID:", reportId);
 
     const token = localStorage.getItem('token');
@@ -144,8 +145,14 @@ export default function EditReportForm() {
     }
 
     return (
-        <div style={styles.container}>
-            <h1 style={styles.title}>Editar reporte del paciente</h1>
+        <div className='w-full bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-4'>
+            <div>
+                <Link to={`/patients/profile/${patientId}/reports`}>
+                    <ArrowBackIosTwoToneIcon className='text-[#00a396] cursor:pointer'/>
+                </Link>
+            </div>
+            
+            <h1 className='text-[#00a396] text-[25px] text-center p-2'>Editar reporte del paciente</h1>
             
             {error && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
@@ -155,14 +162,15 @@ export default function EditReportForm() {
             )}
         
             {/* Selector de campo */}
-            <div style={styles.selector}>
+            <div className='flex gap-[10px] mb-[20px]'>
                 <select 
                     value={selectedField}
                     onChange={(e) => setSelectedField(e.target.value)}
-                    style={styles.select}
+                    className='flex-[1_1_0%] p-2.5 rounded-md border border-[rgb(206,212,218)] text-[#94a3b8] text-[14px] focus:outline-none focus:border-[94a3b8]'
+
                 >
                     {fieldOptions.map(option => (
-                        <option key={option.id} value={option.id}>
+                        <option key={option.id} value={option.id} className='text-[#94a3b8]'>
                             {option.label}
                         </option>
                     ))}
@@ -170,7 +178,7 @@ export default function EditReportForm() {
             
                 <button 
                     onClick={handleAddField} 
-                    style={styles.addButton}
+                    className='w-[150px] bg-[#27ae60] text-[#ffffff] text-[14px] rounded-md px-[10px] py-[10px] cursor:pointer transition-colors duration-300'
                     disabled={isSubmitting}
                 >
                     Agregar Campo
@@ -178,16 +186,16 @@ export default function EditReportForm() {
             </div>
 
             {/* Lista de campos */}
-            <div style={styles.fieldsContainer}>
+            <div className='flex flex-col gap-[15px] mb-[25px]'>
                 {fields.map(field => (
-                    <div key={field.id} style={styles.field}>
-                        <label style={styles.label}>{field.label}:</label>
+                    <div key={field.id} className='flex items-center gap-[15px]'>
+                        <label className='w-[150px] text-[14px] text-[#94a3b8]'>{field.label}:</label>
                         {field.type === 'archivo' ? (
-                            <div style={{flex: 1}}>
+                            <div className='flex-1'>
                                 <input
                                     type="file"
                                     onChange={(e) => handleFileChange(field.id, e)}
-                                    style={styles.input}
+                                    className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-none'
                                     disabled={isSubmitting}
                                 />
                                 {field.value && (
@@ -202,13 +210,13 @@ export default function EditReportForm() {
                                 value={field.value}
                                 onChange={(e) => handleFieldChange(field.id, e.target.value)}
                                 placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                                style={styles.input}
+                                className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-none focus:border-[94a3b8]'
                                 disabled={isSubmitting}
                             />
                         )}
                         <button 
                             onClick={() => handleRemoveField(field.id)}
-                            style={styles.deleteButton}
+                            className='bg-[#ff6f59] text-[14px] text-[#ffffff] rounded-md cursor:pointer px-[15px] py-[8px] transition-colors duration-300'
                             disabled={isSubmitting}
                         >
                             ×
@@ -220,7 +228,7 @@ export default function EditReportForm() {
             {fields.length > 0 && (
                 <button 
                     onClick={handleSubmit}
-                    style={styles.submitButton}
+                    className='w-[200px] bg-[#424884] text-[#ffffff] text-[14px] rounded-md p-[12px] cursor:pointer transition-colors duration-300 mx-auto block'
                     disabled={isSubmitting || fields.some(f => !f.value)}
                 >
                     {isSubmitting ? 'Guardando...' : 'Guardar Datos'}
@@ -229,113 +237,3 @@ export default function EditReportForm() {
         </div>
     );
 }
-
-// Estilos mejorados
-const styles = {
-  container: {
-    maxWidth: '800px',
-    margin: '20px auto',
-    padding: '25px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '10px',
-    fontFamily: 'Arial, sans-serif',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-  },
-  title: {
-    color: '#2c3e50',
-    textAlign: 'center',
-    marginBottom: '25px',
-    fontSize: '24px'
-  },
-  selector: {
-    display: 'flex',
-    gap: '10px',
-    marginBottom: '20px'
-  },
-  select: {
-    flex: 1,
-    padding: '10px',
-    borderRadius: '6px',
-    border: '1px solid #ced4da',
-    fontSize: '16px'
-  },
-  addButton: {
-    padding: '10px 20px',
-    backgroundColor: '#28a745',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#218838'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  },
-  fieldsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-    marginBottom: '25px'
-  },
-  field: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px'
-  },
-  label: {
-    width: '150px',
-    fontWeight: 'bold',
-    fontSize: '16px'
-  },
-  input: {
-    flex: 1,
-    padding: '10px',
-    borderRadius: '6px',
-    border: '1px solid #ced4da',
-    fontSize: '16px',
-    ':disabled': {
-      backgroundColor: '#e9ecef'
-    }
-  },
-  deleteButton: {
-    padding: '8px 15px',
-    backgroundColor: '#dc3545',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#c82333'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  },
-  submitButton: {
-    width: '100%',
-    padding: '12px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#0069d9'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  }
-};
