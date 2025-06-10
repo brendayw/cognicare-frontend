@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ResetPasswordForm from './resetPasswordForm.jsx';
 import '../../App.css';
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showResetPassword, setShowResetPassword] = useState(false);
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -15,6 +17,14 @@ export default function LoginForm() {
         navigate('/dashboard');
       }
     }, [navigate]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -79,10 +89,21 @@ export default function LoginForm() {
                 />
                 </div>
                 <div className="flex items-center justify-between mb-4">
-                    <a href="#" className="text-sm text-primary hover:underline">
+                    <button 
+                        type="button"
+                        className="text-sm text-primary hover:underline focus:outline-none"
+                        onClick={() => setShowResetPassword(true)}
+                    >
                         ¿Olvidaste tu contraseña?
-                    </a>
+                    </button>
                 </div>
+                
+                {error && (
+                    <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded-md">
+                        {error}
+                    </div>
+                )}
+
                 <button
                 type="submit"
                 className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -92,6 +113,13 @@ export default function LoginForm() {
 
                 {error && <p>{error}</p>}
             </form>
+
+            {showResetPassword && (
+                <ResetPasswordForm 
+                    onClose={() => setShowResetPassword(false)} 
+                />
+            )}
+            
         </div>
     );
 }  

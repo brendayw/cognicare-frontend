@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import FormHeader from '../forms/components/FormHeader';
 import FormInput from '../forms/components/FormInput';
 import FormSelect from '../forms/components/FormSelect';
 import FormCheckbox from '../forms/components/FormCheckbox';
@@ -21,7 +20,7 @@ export default function PerfilSolapa() {
   const [formData, setFormData] = useState({
     email: '',
     nombre_completo: '',
-    especialidad: '', // CORREGIDO: era 'especialdiad'
+    especialidad: '',
     matricula: '',
     telefono: '',
     genero: '',
@@ -84,7 +83,6 @@ export default function PerfilSolapa() {
 
       if (response.data.success) {
         alert("Profesional creado/a con éxito");
-        // CORREGIDO: resetear el formulario en lugar de mantener los datos
         setFormData({
           email: '',
           nombre_completo: '',
@@ -96,7 +94,7 @@ export default function PerfilSolapa() {
           horarios_atencion: '',
           fecha_nacimiento: ''
         });
-        setError(''); // Limpiar errores
+        setError('');
       }
 
     } catch (error) {
@@ -119,7 +117,6 @@ export default function PerfilSolapa() {
       <form onSubmit={handleSubmit} className={`${styles.perfil_form}`}>
         <h3 className={`${styles.titulo_form}`}>Perfil del profesional</h3>
         
-        {/* Mostrar errores si existen */}
         {error && (
           <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
             {error}
@@ -146,7 +143,6 @@ export default function PerfilSolapa() {
             required
           />
 
-          {/* CORREGIDO: el id debe coincidir con el campo del estado */}
           <FormInput
             label="Especialidad"
             value={formData.especialidad}
@@ -168,7 +164,7 @@ export default function PerfilSolapa() {
 
           <FormInput
             label="Correo electónico"
-            type="email" // Agregado type="email" para mejor validación
+            type="email"
             value={formData.email}
             onChange={handleChange}
             id="email"

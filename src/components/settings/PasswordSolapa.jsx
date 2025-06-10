@@ -1,106 +1,113 @@
 import { useState } from 'react';
 import axios from 'axios';
+import FormInput from '../forms/components/FormInput';
+import FormButton from '../forms/components/FormButton';
 import styles from '../../styles/settings/PasswordSolapa.module.css';
 
 export default function PasswordSolapa() {
   const [formData, setFormData] = useState({
-    password_actual: '',
-    nueva_password: '',
-    confirmar_password: ''
+    oldPassword: '',
+    newPassword: '',
+    confirmedNewPassword: ''
   });
+  const [error, setError] = useState();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { id, value } = e.target; // Cambiado de name a id
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [id]: value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { password_actual, nueva_password, confirmar_password } = formData;
-
-    if (nueva_password !== confirmar_password) {
-      alert('Las contraseñas no coinciden.');
-      return;
-    }
-
-    if (!password_actual || !nueva_password || !confirmar_password) {
-      alert('Por favor, ingresa todos los campos.');
-      return;
-    }
-
     try {
-      const URL_API = 'https://cognicare-backend.vercel.app/';
-      await axios.post(`${URL_API}/api/cambiarPassword`, {
-        nueva_password,
-        password_actual
+      const URL_API = 'https://cognicare-backend.vercel.app/api/';
+      const token = localStorage.getItem('token');
+      console.log('Datos enviados:', formData);
+
+      const response = await axios.put(`${URL_API}password/update`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       });
-      alert('Contraseña cambiada con éxito');
-      setFormData({
-        password_actual: '',
-        nueva_password: '',
-        confirmar_password: ''
-      });
+
+      if (response.data.success) {
+        alert('Contraseña cambiada con éxito');
+        setFormData({
+          oldPassword: '',
+          newPassword: '',
+          confirmedNewPassword: ''
+        });
+        setError('');
+      }
+
     } catch (error) {
+      console.error('Error completo:', error);
       if (error.response) {
-        alert('Error: ' + error.response.data.message);
+        console.error('Respuesta del servidor:', error.response.data);
+        setError(error.response.data.message || 'Error del servidor');
+      } else if (error.request) {
+        console.error('No hubo respuesta:', error.request);
+        setError('El servidor no respondió');
       } else {
-        alert('Error al cambiar la contraseña');
+        console.error('Error en la solicitud:', error.message);
+        setError('Error al enviar el formulario');
       }
     }
   };
 
   return (
-    <div id="passwordSolapa" className={`${styles.solapa} ${styles.solapa_password}`}>
-      <h3>Cambiar Contraseña</h3>
-      <form id="cambiarPassword" className={`${styles.form_password}`} onSubmit={handleSubmit}>
-        <div className={`${styles.campo} ${styles.campo_password}`}>
-          <label htmlFor="password_actual">Contraseña actual:</label>
-          <input 
-            type="password" 
-            id="passwordActual" 
-            name="password_actual" 
-            placeholder="Contraseña actual" 
-            value={formData.password_actual}
+    <div className={`${styles.solapa} ${styles.solapa_password} ${styles.panel_content}`}>
+      <form className={`${styles.form_password}`} onSubmit={handleSubmit}>
+        
+        <h3 className={`${styles.titulo_form}`}>Cambiar Contraseña</h3>
+
+        {error && (
+          <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
+            {error}
+          </div>
+        )}
+
+        <div className={`${styles.password_data}`}>
+          <FormInput
+            label="Contraseña actual"
+            type='password'
+            value={formData.oldPassword}
             onChange={handleChange}
-            required 
+            id="oldPassword"
+            placeholder="Ingrese la contraseña actual"
+            required
+          />
+
+          <FormInput
+            label="Nueva contraseña"
+            type='password'
+            value={formData.newPassword}
+            onChange={handleChange}
+            id="newPassword"
+            placeholder="Ingrese la nueva contraseña"
+            required
+          />
+
+          <FormInput
+            label="Confirmar nueva contraseña"
+            type='password'
+            value={formData.confirmedNewPassword}
+            onChange={handleChange}
+            id="confirmedNewPassword"
+            placeholder="Ingrese neuvamente la nueva contraseña"
+            required
           />
         </div>
         
-        <div className={`${styles.campo} ${styles.campo_password}`}>
-          <label htmlFor="nueva_password">Nueva Contraseña:</label>
-          <input 
-            type="password" 
-            id="nuevaPassword" 
-            name="nueva_password" 
-            placeholder="Nueva Contraseña" 
-            value={formData.nueva_password}
-            onChange={handleChange}
-            required 
-          />
-        </div>
-        
-        <div className={`${styles.campo} ${styles.campo_password}`}>
-          <label htmlFor="confirmar_password">Confirmar Nueva Contraseña:</label>
-          <input 
-            type="password" 
-            id="confirmarPassword" 
-            name="confirmar_password" 
-            placeholder="Confirmar nueva contraseña" 
-            value={formData.confirmar_password}
-            onChange={handleChange}
-            required 
-          />
+        <div className='relative bottom-2 right-1'>
+          <FormButton texto="Guardar" />
         </div>
 
-        <div className={`${styles.campo_password}`}>
-          <button className={`${styles.btn_password}`} type="submit" aria-label="Guardar cambios de la contraseña">
-            Guardar cambios
-          </button>
-        </div>
       </form>
     </div>
   );
