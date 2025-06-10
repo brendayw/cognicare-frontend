@@ -13,30 +13,37 @@ export default function ProfesionalProfile() {
     const { id } = useParams();
     const [error, setError] = useState('');
     
-        useEffect(() => {
-            const obtenerProfesional = async () => {
-                try {
-                    const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                    const token = localStorage.getItem('token');
+    useEffect(() => {
+        const obtenerProfesional = async () => {
+            try {
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
+                const token = localStorage.getItem('token');
 
-                    if (!token) throw new Error('No hay token de autenticación');
+                if (!token) throw new Error('No hay token de autenticación');
     
-                    const response = await axios.get(`${URL_API}profesional/${id}`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
+                const response = await axios.get(`${URL_API}profesional/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
                         
-                    if (response.data.success) {
-                        setProfesional(response.data.data);
-                    } else {
-                        setError('No se pudo obtener el perfil.');
-                    }
-                } catch (err) {
-                    console.error('Error:', err.response?.data || err.message);
-                    setError('Error al obtener datos: ' + err.message);
-                } 
-            };
-            obtenerProfesional();
-        }, [id]);
+                if (token) {
+                    const payloadBase64 = token.split('.')[1];
+                    const payload = JSON.parse(atob(payloadBase64));
+                    console.log('Payload del token:', payload);
+                }
+                
+                if (response.data.success) {
+                    setProfesional(response.data.data);
+                        
+                } else {
+                    setError('No se pudo obtener el perfil.');
+                }
+            } catch (err) {
+                console.error('Error:', err.response?.data || err.message);
+                setError('Error al obtener datos: ' + err.message);
+            } 
+        };
+        obtenerProfesional();
+    }, [id]);
 
     return (
         <div className='flex w-full'>

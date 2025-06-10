@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import SearchBar from './SearchBar';
 import styles from '../../styles/Menu.module.css';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
@@ -10,16 +12,48 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 export default function Menu() {
     const location = useLocation();
     const navigate = useNavigate();
+    const [idProfesional, setIdProfesional] = useState(null);
+    const [error, setError] = useState(null);
     
-    // Función de cierre de sesión
     const logout = () => {
         localStorage.removeItem('token');
-        navigate('/'); 
+        navigate('/');
     };
 
-    const isActive = (path) => {
-        return location.pathname.includes(path) ? `${styles.active}` : '';
-    };
+    const isActive = (path) => location.pathname.includes(path) ? 'active' : '';
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        try {
+            // Decodificar token para obtener idUsuario
+            const payloadBase64 = token.split('.')[1];
+            const payload = JSON.parse(atob(payloadBase64));
+            const idUsuario = payload.sub;
+
+            // Obtener idProfesional asociado
+            const obtenerIdProfesional = async () => {
+                try {
+                    const response = await axios.get(`https://cognicare-backend.vercel.app/api/profesional/usuario/${idUsuario}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    if (response.data.success && response.data.data) {
+                        setIdProfesional(response.data.data.id);  // fijate que el id viene como 'id', no '_id'
+                    } else {
+                        setIdProfesional(null);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener profesional:', error);
+                    setIdProfesional(null);
+                }
+            };
+            obtenerIdProfesional();
+        } catch (error) {
+            console.error('Error al decodificar token:', error);
+            setIdProfesional(null);
+        }
+    }, []);
 
     return (        
         <div className={`${styles.menu_dashboard}`}>
@@ -49,7 +83,7 @@ export default function Menu() {
                 </div>
 
                 <div className={`${styles.enlace} ${isActive('/profesional')} `}>
-                    <Link to="/profesional" className={`${styles.link_menu} `} >
+                    <Link to={idProfesional ? `/profesional/${idProfesional}` : '/profesional'} className={`${styles.link_menu} `} >
                         <PersonOutlineTwoToneIcon />
                         <span>Profesional</span>
                     </Link>

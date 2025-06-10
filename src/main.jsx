@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
@@ -6,6 +5,7 @@ import Layout from './components/layout/Layout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Patients from './pages/Patients.jsx';
 import ProfesionalProfile from './pages/ProfesionalProfile.jsx';
+import EditProfesional from './pages/EditProfesional.jsx';
 import Settings from './pages/Settings.jsx';
 import Diagnosis from './pages/dashboard/categories/Diagnosis.jsx';
 import Treatment from './pages/dashboard/categories/Treatment.jsx';
@@ -60,7 +60,8 @@ root.render(
         <Route path="/patients/profile/:patientId/reports/edit/:reportId" element={<EditReport />} />
 
 
-        <Route path="/profesional" element={<ProfesionalProfile />} />
+        <Route path="/profesional/:id" element={<ProfesionalProfile />} />
+        <Route path="/profesional/:id/edit" element={<EditProfesional />} />
         <Route path="/settings" element={<Settings />} />
 
       </Route>

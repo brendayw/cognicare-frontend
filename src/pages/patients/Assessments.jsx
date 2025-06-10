@@ -64,7 +64,7 @@ export default function Assessments() {
 
     return (
         <div className='h-screen'>
-            <Menu/>
+            <Menu />
             <div className='h-screen'>
                 {loading ? (
                     <div className=''>Cargando pacientes...</div>

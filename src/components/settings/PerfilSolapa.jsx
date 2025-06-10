@@ -66,7 +66,7 @@ export default function PerfilSolapa() {
 
     try {
       const URL_API = 'https://cognicare-backend.vercel.app/';
-      const response = await axios.post(`${URL_API}/api/profesional}`, formData);
+      const response = await axios.post(`${URL_API}/api/profesional`, formData);
       alert("Profesional creado/a con éxito");
     } catch (error) {
       if (error.response) {

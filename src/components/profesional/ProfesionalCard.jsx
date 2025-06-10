@@ -100,7 +100,7 @@ export default function ProfesionalCard({ prof }) {
                             </div>
                         </div>
                     </div>
-                    <Link to="/settings">
+                    <Link to="edit">
                         <CreateTwoToneIcon />
                     </Link>
                 </div>
