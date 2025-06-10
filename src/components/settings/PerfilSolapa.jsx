@@ -1,245 +1,232 @@
 import { useState } from 'react';
 import axios from 'axios';
+import FormHeader from '../forms/components/FormHeader';
+import FormInput from '../forms/components/FormInput';
+import FormSelect from '../forms/components/FormSelect';
+import FormCheckbox from '../forms/components/FormCheckbox';
+import FormButton from '../forms/components/FormButton';
 import styles from '../../styles/settings/PerfilSolapa.module.css';
+
+const DIAS_SEMANA = [
+  { value: 'lunes', label: 'Lunes' },
+  { value: 'martes', label: 'Martes' },
+  { value: 'miercoles', label: 'Miércoles' },
+  { value: 'jueves', label: 'Jueves' },
+  { value: 'viernes', label: 'Viernes' },
+  { value: 'sabado', label: 'Sábado' },
+  { value: 'domingo', label: 'Domingo' },
+];
 
 export default function PerfilSolapa() {
   const [formData, setFormData] = useState({
+    email: '',
     nombre_completo: '',
-    especialidad: '',
+    especialidad: '', // CORREGIDO: era 'especialdiad'
     matricula: '',
-    correo_electronico: '',
     telefono: '',
-    fecha_nacimiento: '',
-    genero: 'femenino',
+    genero: '',
     dias_atencion: [],
-    horarios_atencion: [" - "]
+    horarios_atencion: '',
+    fecha_nacimiento: ''
   });
-
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, id } = e.target;
+    const fieldName = name || id;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [fieldName]: value
     }));
   };
 
   const handleCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-    setFormData(prev => {
-      const dias = [...prev.dias_atencion];
-      if (checked) {
-        dias.push(value);
-      } else {
-        const index = dias.indexOf(value);
-        if (index > -1) {
-          dias.splice(index, 1);
-        }
-      }
-      return { ...prev, dias_atencion: dias };
-    });
-  };
-
-  const handleHorarioChange = (e, field) => {
-    const { value } = e.target;
+    const { name, value: newDias } = e.target;
+    console.log('Checkbox change:', { name, newDias });
+    
     setFormData(prev => ({
       ...prev,
-      horarios_atencion: [{
-        ...prev.horarios_atencion[0],
-        [field]: value
-      }]
+      [name]: newDias
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const { nombre_completo, especialidad, matricula, correo_electronico, telefono, 
-      fecha_nacimiento, genero, dias_atencion, horarios_atencion } = formData;
-
-    if (!nombre_completo || !especialidad || !matricula || !correo_electronico
-      || !telefono || !fecha_nacimiento || !genero || !dias_atencion.length 
-      || !horarios_atencion[0].hora_inicio || !horarios_atencion[0].hora_fin) {
-      alert('Por favor, completa todos los campos');
+    // Agregar validación antes del envío
+    console.log('Datos del formulario antes del envío:', formData);
+    
+    // Validar campos requeridos
+    const requiredFields = ['email', 'nombre_completo', 'especialidad', 'matricula', 'telefono', 'genero', 'horarios_atencion', 'fecha_nacimiento'];
+    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].toString().trim() === '');
+    
+    if (missingFields.length > 0) {
+      setError(`Faltan completar los siguientes campos: ${missingFields.join(', ')}`);
       return;
     }
-
+    
+    if (!formData.dias_atencion || formData.dias_atencion.length === 0) {
+      setError('Debe seleccionar al menos un día de atención');
+      return;
+    }
+    
     try {
-      const URL_API = 'https://cognicare-backend.vercel.app/';
-      const response = await axios.post(`${URL_API}/api/profesional`, formData);
-      alert("Profesional creado/a con éxito");
+      const URL_API = 'https://cognicare-backend.vercel.app/api/';
+      const token = localStorage.getItem('token');
+      console.log('Datos enviados:', formData);
+
+      const response = await axios.post(`${URL_API}profesional`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data.success) {
+        alert("Profesional creado/a con éxito");
+        // CORREGIDO: resetear el formulario en lugar de mantener los datos
+        setFormData({
+          email: '',
+          nombre_completo: '',
+          especialidad: '',
+          matricula: '',
+          telefono: '',
+          genero: '',
+          dias_atencion: [],
+          horarios_atencion: '',
+          fecha_nacimiento: ''
+        });
+        setError(''); // Limpiar errores
+      }
+
     } catch (error) {
+      console.error('Error completo:', error);
       if (error.response) {
-        alert('Error ' + error.response.data.message);
+        console.error('Respuesta del servidor:', error.response.data);
+        setError(error.response.data.message || 'Error del servidor');
+      } else if (error.request) {
+        console.error('No hubo respuesta:', error.request);
+        setError('El servidor no respondió');
       } else {
-        alert('Error al enviar la solicitud');
+        console.error('Error en la solicitud:', error.message);
+        setError('Error al enviar el formulario');
       }
     }
   };
 
   return (
-    <div id="perfilSolapa" className={`${styles.solapa} ${styles.activa}`}>
-      <h3>Perfil de usuario</h3>
-      <form id="guardarPerfil" className={`${styles.form_perfil}`} onSubmit={handleSubmit}>
-        <div className={`${styles.campo} ${styles.nombre}`}>
-          <label htmlFor="nombre">Nombre Completo:</label>
-          <input 
-            type="text" 
-            id="nombreCompleto" 
-            name="nombre_completo" 
-            placeholder="Tu nombre" 
+    <div className={`${styles.solapa} ${styles.activa} ${styles.panel_content}`}>
+      <form onSubmit={handleSubmit} className={`${styles.perfil_form}`}>
+        <h3 className={`${styles.titulo_form}`}>Perfil del profesional</h3>
+        
+        {/* Mostrar errores si existen */}
+        {error && (
+          <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
+            {error}
+          </div>
+        )}
+        
+        <div className={`${styles.profesional_data}`}>
+          <FormInput
+            label="Nombre Completo"
             value={formData.nombre_completo}
             onChange={handleChange}
-            required 
+            id="nombre_completo"
+            placeholder="Ingrese su nombre completo"
+            required
           />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="especialidad">Profesión:</label>
-          <input 
-            type="text" 
-            id="especialidad" 
-            name="especialidad" 
-            placeholder="Profesión" 
-            value={formData.especialidad}
-            onChange={handleChange}
-            required 
-          />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="matricula">Matrícula:</label>
-          <input 
-            type="text" 
-            id="matricula" 
-            name="matricula" 
-            placeholder="Número de matrícula" 
-            value={formData.matricula}
-            onChange={handleChange}
-            required 
-          />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="correo_electronico">Correo electrónico:</label>
-          <input 
-            type="email" 
-            id="correoElectronico" 
-            name="correo_electronico" 
-            placeholder="Tu correo" 
-            value={formData.correo_electronico}
-            onChange={handleChange}
-            required 
-          />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="telefono">Teléfono:</label>
-          <input 
-            type="tel" 
-            id="telefono" 
-            name="telefono" 
-            placeholder="Número de teléfono" 
-            value={formData.telefono}
-            onChange={handleChange}
-            required 
-          />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="fecha_nacimiento">Fecha de Nacimiento:</label>
-          <input 
-            type="date" 
-            id="fechaNacimiento" 
-            name="fecha_nacimiento" 
-            placeholder="Fecha de nacimiento" 
+
+          <FormInput
+            label="Fecha de Nacimiento"
+            type="date"
             value={formData.fecha_nacimiento}
             onChange={handleChange}
-            required 
+            id="fecha_nacimiento"
+            placeholder="Ingrese su fecha de nacimiento"
+            required
           />
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="genero">Género:</label>
-          <select 
-            name="genero" 
-            id="genero" 
+
+          {/* CORREGIDO: el id debe coincidir con el campo del estado */}
+          <FormInput
+            label="Especialidad"
+            value={formData.especialidad}
+            onChange={handleChange}
+            id="especialidad"
+            placeholder="Ingrese su profesión"
+            required
+          />
+
+          <FormInput
+            label="Matrícula"
+            type="number"
+            value={formData.matricula}
+            onChange={handleChange}
+            id="matricula"
+            placeholder="Ingrese su número de matrícula"
+            required
+          />
+
+          <FormInput
+            label="Correo electónico"
+            type="email" // Agregado type="email" para mejor validación
+            value={formData.email}
+            onChange={handleChange}
+            id="email"
+            placeholder="Ingrese su correo electrónico"
+            required
+          />
+
+          <FormInput
+            label="Teléfono"
+            type='tel'
+            value={formData.telefono}
+            onChange={handleChange}
+            id="telefono"
+            placeholder="Ingrese un teléfono de contacto"
+            required
+          />
+
+          <FormSelect
+            label="Género"
             value={formData.genero}
             onChange={handleChange}
+            id="genero"
+            options={[
+              { value: '', label: 'Seleccione una opción' },
+              { value: 'Femenino', label: 'Femenino' },
+              { value: 'Masculino', label: 'Masculino' },
+              { value: 'Otro', label: 'Otro' },
+            ]}
             required
-          >
-            <option value="femenino">Femenino</option>
-            <option value="masculino">Masculino</option>
-            <option value="otro">Otro</option>
-          </select>
-        </div>
-    
-        <div className={`${styles.campo}`}>
-          <label htmlFor="dias_atencion">Días de atención:</label><br />
-          <div className={`${styles.dias_container}`}>
-            <div className={`${styles.dias_check}`}>
-              {['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'].map(dia => (
-                <div className={`${styles.dia_opcion}`} key={dia}>
-                  <div className={`${styles.dia_semana}`}>
-                    <label htmlFor={dia}>{dia.charAt(0).toUpperCase() + dia.slice(1)}</label>
-                  </div>
-                  <div className={`${styles.seleccion}`}>
-                    <input 
-                      type="checkbox" 
-                      id={dia} 
-                      name="dias_atencion[]" 
-                      value={dia}
-                      checked={formData.dias_atencion.includes(dia)}
-                      onChange={handleCheckboxChange}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          />
+
+          <FormInput
+            label="Horarios de atención"
+            name="horarios_atencion"
+            value={formData.horarios_atencion}
+            onChange={handleChange}
+            id="horarios_atencion"
+            placeholder="Ej: 09:00 - 17:00"
+            required
+          />
+
+          <FormCheckbox
+            label="Días de atención:"
+            id="dias_atencion"
+            name="dias_atencion"
+            value={formData.dias_atencion}
+            onChange={handleCheckboxChange}
+            options={DIAS_SEMANA}
+            required
+          />
+             
         </div>
 
-        <div className={`${styles.campo}`}>
-          <label htmlFor="horarios_atencion">Horarios de atención:</label>
-          <div className={`${styles.horarios_atencion}`} id="horariosAtencion">
-            {formData.horarios_atencion.map((horario, index) => {
-              // Dividir el string "HH:MM - HH:MM" en inicio y fin
-              const [hora_inicio, hora_fin] = horario.split(' - ');
-              
-              return (
-                <div key={index} className={`${styles.horario_group}`}>
-                  <div>
-                    <label htmlFor={`hora_inicio_${index}`}>Hora de inicio:</label>
-                    <input 
-                      type="time" 
-                      id={`hora_inicio_${index}`}
-                      value={hora_inicio || ''}
-                      onChange={(e) => handleHorarioChange(e, index, 'inicio')}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`hora_fin_${index}`}>Hora de finalización:</label>
-                    <input 
-                      type="time" 
-                      id={`hora_fin_${index}`}
-                      value={hora_fin || ''}
-                      onChange={(e) => handleHorarioChange(e, index, 'fin')}
-                      required
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className='relative bottom-2 right-1'>
+          <FormButton texto="Guardar" />
         </div>
-    
-        <div className={`${styles.campo_perfil}`}>
-          <button className={`${styles.btn_perfil}`} type="submit" aria-label="Guardar cambios del perfil">
-            Guardar cambios
-          </button>
-        </div>
+
       </form>
     </div>
   );
-};
+}

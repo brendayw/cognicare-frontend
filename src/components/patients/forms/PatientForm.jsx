@@ -63,7 +63,7 @@ export default function PatientForm() {
             if (!token) throw new Error('No hay token de autenticación');
             console.log('Token: ' + token);
 
-            const response = await axios.post(`${URL_API}patients`, formData,{
+            const response = await axios.post(`${URL_API}patients`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
