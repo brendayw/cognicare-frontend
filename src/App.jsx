@@ -33,7 +33,7 @@ export default function App() {
 
       <div className="w-1/2 flex items-center justify-center p-8">
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <div className="text-center mb-8">
+          <div className="text-center mb-4">
             <h1 className="text-3xl font-bold text-primary">
               {activeTab === 'login' ? 'Iniciar Sesión' : 'Crea una cuenta'}
             </h1>

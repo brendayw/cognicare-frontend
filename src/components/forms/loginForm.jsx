@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import ResetPasswordForm from './resetPasswordForm.jsx';
 import '../../App.css';
 
@@ -59,26 +60,32 @@ export default function LoginForm() {
 
     return (
         <div>
+            {error && (
+              <div className="flex items-center bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm mb-4 px-2">
+                <ErrorOutlineTwoToneIcon className='m-2'/>
+                {error}
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
-                <div className="mb-4">
+              <div className="mb-4">
                 <label className="block text-soft text-sm font-bold mb-2" htmlFor="email">
-                    Correo Electrónico
+                  Correo Electrónico
                 </label>
                 <input
-                    id="email"
-                    type="email"
-                    className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
-                    value={email}
-                    placeholder='ejemplo@ejemplo'
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                  id="email"
+                  type="email"
+                  className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
+                  value={email}
+                  placeholder='ejemplo@ejemplo'
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
                 </div>
                 <div className="mb-6">
-                <label className="block text-soft text-sm font-bold mb-2" htmlFor="password">
+                  <label className="block text-soft text-sm font-bold mb-2" htmlFor="password">
                     Contraseña
-                </label>
-                <input
+                  </label>
+                  <input
                     id="password"
                     type="password"
                     className="w-full px-3 py-2 border border-gray-300 text-sm text-soft rounded-md focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-sm"
@@ -86,7 +93,7 @@ export default function LoginForm() {
                     placeholder='******'
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                />
+                  />
                 </div>
                 <div className="flex items-center justify-between mb-4">
                     <button 
@@ -98,25 +105,17 @@ export default function LoginForm() {
                     </button>
                 </div>
                 
-                {error && (
-                    <div className="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded-md">
-                        {error}
-                    </div>
-                )}
-
                 <button
-                type="submit"
-                className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark shadow shadow-dark"
+                  type="submit"
+                  className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark shadow shadow-dark"
                 >
-                Iniciar Sesión
+                  Iniciar Sesión
                 </button>
-
-                {error && <p>{error}</p>}
             </form>
 
             {showResetPassword && (
                 <ResetPasswordForm 
-                    onClose={() => setShowResetPassword(false)} 
+                  onClose={() => setShowResetPassword(false)} 
                 />
             )}
             
