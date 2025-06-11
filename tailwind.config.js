@@ -16,7 +16,7 @@ export default {
         'white': '#ffffff',
       },
       fontFamily: {
-        'montserrat': ['Montserrat', 'sans-serif'],   // Fuente sans-serif personalizada
+        'montserrat': ['Montserrat', 'sans-serif'],
         'cabin': ['Cabin', 'serif'],
       },
       height: {

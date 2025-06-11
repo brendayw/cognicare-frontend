@@ -161,7 +161,7 @@ export default function EditProfesionalForm() {
                 <select 
                     value={selectedField}
                     onChange={(e) => setSelectedField(e.target.value)}
-                    className='flex-[1_1_0%] p-2.5 rounded-md border border-[rgb(206,212,218)] text-[#94a3b8] text-[14px] focus:outline-none focus:border-[94a3b8]'
+                    className='flex-[1_1_0%] p-2.5 rounded-md border border-[rgb(206,212,218)] text-[#94a3b8] text-[14px] focus:outline-[#94a3b8] focus:border-[#94a3b8]'
                 >
                     {fieldOptions.map(option => (
                         <option key={option.id} value={option.id} className='text-[#94a3b8]'>

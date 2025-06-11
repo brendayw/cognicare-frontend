@@ -149,7 +149,7 @@ export default function EditAssessmentForm() {
                             value={field.value}
                             onChange={(e) => handleFieldChange(field.id, e.target.value)}
                             placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                            className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-none'
+                            className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-[#94a3b8] focus:border-[#94a3b8]'
                             disabled={isSubmitting}
                         />
                         <button 

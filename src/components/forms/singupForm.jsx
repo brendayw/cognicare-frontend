@@ -83,7 +83,7 @@ export default function SignupForm() {
     
                 <button
                     type="submit"
-                    className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark shadow shadow-dark"
                 >
                     Crear Cuenta
                 </button>

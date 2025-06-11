@@ -23,7 +23,7 @@ export default function App() {
         )}
 
         <button
-          className="mt-6 bg-white text-primary py-2 px-6 rounded-full overflow-hidden"
+          className="mt-6 bg-[#889dbb] text-white py-2 px-6 rounded-full shadow shadow-dark"
           onClick={() => setActiveTab(activeTab === 'login' ? 'signup' : 'login')}
         >
           {activeTab === 'login' ? 'Registrarse' : 'Iniciar sesión'}

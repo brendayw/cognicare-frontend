@@ -41,11 +41,8 @@ export default function ResetPasswordForm({ onClose }) {
     const handleResetPassword = async (e) => {
         e.preventDefault();
         setError('');
-
-        console.log('Comparando:', newPassword, confirmPassword);
     
         if (newPassword.trim() !== confirmPassword.trim()) {
-            console.log('Contraseñas no coinciden');
             return setError('Las contraseñas no coinciden');
         }
         setIsLoading(true);
@@ -75,15 +72,15 @@ export default function ResetPasswordForm({ onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
                 <div className="flex justify-between items-start mb-4">
-                <h2 className="text-xl font-bold">
+                <h2 className="text-xl text-[#94a3b8] font-bold">
                     {step === 1 ? 'Recuperar contraseña' : 'Nueva contraseña'}
                 </h2>
                 <button 
                     onClick={onClose}
-                    className="text-gray-500 hover:text-gray-700 text-2xl"
+                    className="text-soft hover:text-soft text-2xl"
                     aria-label="Cerrar"
                 >
                     &times;
@@ -93,14 +90,14 @@ export default function ResetPasswordForm({ onClose }) {
                 {step === 1 ? (
                 <form onSubmit={handleVerifyEmail}>
                     <div className="mb-4">
-                    <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="reset-email" className="block text-soft text-sm font-medium  mb-1">
                         Ingresa tu correo electrónico
                     </label>
                     <input
                         id="reset-email"
                         type="email"
-                        placeholder="tu@email.com"
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                        placeholder="ejemplo@ejemplo.com"
+                        className="w-full p-2 border border-soft rounded-md text-[#94a3b8] focus:outline-[#94a3b8] focus:border-[#94a3b8]"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
@@ -116,14 +113,14 @@ export default function ResetPasswordForm({ onClose }) {
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md"
+                        className="px-4 py-2 text-[#94a3b8] hover:text-dark rounded-md"
                         disabled={isLoading}
                     >
                         Cancelar
                     </button>
                     <button
                         type="submit"
-                        className={`px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark ${
+                        className={`px-4 py-2 bg-primary text-white rounded-full hover:bg-dark shadow shadow-dark ${
                         isLoading ? 'opacity-75 cursor-not-allowed' : ''
                         }`}
                         disabled={isLoading}
@@ -135,18 +132,18 @@ export default function ResetPasswordForm({ onClose }) {
                 ) : (
                 <form onSubmit={handleResetPassword}>
                     {success && (
-                    <div className="mb-4 text-green-600 text-sm">{success}</div>
+                    <div className="mb-4 text-[#27ae60] text-sm">{success}</div>
                     )}
 
                     <div className="mb-4">
-                    <label htmlFor="new-password" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="new-password" className="block text-sm font-medium text-soft mb-1">
                         Nueva contraseña
                     </label>
                     <input
                         id="new-password"
                         type="password"
-                        placeholder="Mínimo 8 caracteres"
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                        placeholder="Ingrese su nueva contraseña"
+                        className="w-full p-2 border border-gray-300 text-[#94a3b8] rounded-md focus:outline-[#94a3b8] focus:border-[#94a3b8]"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         required
@@ -155,14 +152,14 @@ export default function ResetPasswordForm({ onClose }) {
                     </div>
 
                     <div className="mb-4">
-                    <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="confirm-password" className="block text-sm font-medium text-soft mb-1">
                         Confirmar nueva contraseña
                     </label>
                     <input
                         id="confirm-password"
                         type="password"
                         placeholder="Repite tu contraseña"
-                        className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                        className="w-full p-2 border border-gray-300 text-[#94a3b8] rounded-md focus:outline-[#94a3b8] focus:border-[#94a3b8]"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
@@ -170,7 +167,7 @@ export default function ResetPasswordForm({ onClose }) {
                     </div>
 
                     {error && (
-                    <div className="mb-4 text-red-600 text-sm">{error}</div>
+                    <div className="mb-4 text-[#ff6f59] text-sm">{error}</div>
                     )}
 
                     <div className="flex justify-between items-center">
@@ -183,7 +180,7 @@ export default function ResetPasswordForm({ onClose }) {
                     </button>
                     <button
                         type="submit"
-                        className={`px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark ${
+                        className={`px-4 py-2 bg-primary text-white rounded-full hover:bg-dark shadow shadow-dark ${
                         isLoading ? 'opacity-75 cursor-not-allowed' : ''
                         }`}
                         disabled={isLoading}
