@@ -30,16 +30,16 @@ export default function RecentlyCreatedPatients() {
                 if (response.data?.data && Array.isArray(response.data.data)) {
                     pacientesData = response.data.data;
                 } 
-                // Caso 2: Respuesta directa con array
+                
                 else if (Array.isArray(response.data)) {
                     pacientesData = response.data;
                 }
-                // Caso 3: Respuesta con éxito pero sin datos
+                
                 else if (response.data?.success) {
-                    // No hay pacientes es un caso válido
+                    
                     console.log(response.data.message);
                 }
-                // Caso 4: Formato no reconocido
+                
                 else {
                     throw new Error('Formato de respuesta no reconocido');
                 }
@@ -65,14 +65,16 @@ export default function RecentlyCreatedPatients() {
     }, []);
 
     return (
-        <UserList 
-            title="Últimos pacientes creados"
-            users={patients}
-            loading={loading}
-            error={error}
-            emptyMessage="No hay pacientes recientes"
-            primaryText="nombre_completo"
-            secondaryText="motivo_inicial"
-        />
+        <div className='h-[300px] relative top-[80px] sm:top-[80px] md:top-[20px] lg:top-[50px]'>
+            <UserList 
+                title="Últimos pacientes creados"
+                users={patients}
+                loading={loading}
+                error={error}
+                emptyMessage="No hay pacientes recientes"
+                primaryText="nombre_completo"
+                secondaryText="motivo_inicial"
+            />
+        </div>
     );
 }
