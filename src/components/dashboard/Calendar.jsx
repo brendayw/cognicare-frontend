@@ -87,7 +87,7 @@ export default function Calendar() {
                     <span className={`${styles.month_year}`}>{`${monthNames[month]} ${year}`}</span>
                     <button className={`${styles.calendario_btn}`} onClick={handleNextMonth}>Next</button>
                 </div>
-                <div className={`${styles.calendar_body}`}>
+                <div className={`${styles.days_wrapper}`}>
                     <div className={`${styles.days_of_week}`}>
                         {daysOfWeek.map((day, i) => (
                             <div key={i}>{day}</div>

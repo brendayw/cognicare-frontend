@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import styles from '../../styles/Menu.module.css';
 import axios from 'axios';
-export default function SearchBar() {
+
+const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [patients, setPatients] = useState(null);
+    const [isFocused, setIsFocused] = useState(false);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -31,21 +33,25 @@ export default function SearchBar() {
     }, [searchTerm]);
 
     return (
-        <div className={styles.search_bar}>
-            <div className={styles.input_search}>
+        <div className={ `${styles.search_bar} ${isActive ? styles.active : ''}`}>
+            <div className={styles.input_search} onClick={() => !isActive && onToggle()}>
                 <SearchTwoToneIcon />
                 <input
+                    ref={ref}
                     type="text"
                     id="searchInput"
                     className={styles.input}
-                    placeholder="Buscar paciente"
+                    placeholder={isActive ? "Buscar paciente" : ""}
                     value={searchTerm}
                     onChange={handleSearchChange}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    style={{ cursor: isActive ? 'text' : 'pointer' }}
                 />
             </div>
 
            
-            {searchTerm && (
+            {isActive && searchTerm && (
                 <div className={styles.search_results}>
                     {patients === null ? (
                         <p>Buscando...</p> // Opcional: mensaje de carga
@@ -62,4 +68,6 @@ export default function SearchBar() {
             )}
         </div>
     );
-}
+});
+
+export default SearchBar;

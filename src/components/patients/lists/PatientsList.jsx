@@ -4,15 +4,17 @@ import avatarMasculino from '/assets/hombre_avatar.avif';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/dashboard/diagnosis/Diagnosis.module.css';
 
-
 export default function PatientsList({ pacientes, vista, error }) {
-  const columnasArray = Array.from({ length: 5 }, () => []);
-  if (vista === 'grid') {
-    pacientes.forEach((paciente, index) => {
-      const columnaIndex = index % 5;
-      columnasArray[columnaIndex].push(paciente);
-    });
-  }
+  const columnasArray = vista === 'grid' ? 
+    Array.from({ length: 5 }, () => []) : 
+    Array.from({ length: 2 }, () => []);
+
+  pacientes.forEach((paciente, index) => {
+    const columnaIndex = vista === 'grid' ? 
+      index % 5 : // Para desktop: 5 columnas
+      index % 2;  // Para móvil: 2 columnas
+    columnasArray[columnaIndex].push(paciente);
+  });
 
   if (error && error.includes('No hay token de autenticación')) {
     return (

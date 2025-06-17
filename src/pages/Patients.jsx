@@ -10,6 +10,22 @@ export default function Patients() {
     const [view, setView] = useState('grid');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            
+            if (mobile && view !== 'list') {
+                setView('list');
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    }, [view]);
 
     useEffect(() => {
         const obtenerTodosLosPacientes = async () => {
@@ -25,17 +41,14 @@ export default function Patients() {
                 console.log("Respuesta recibida del listado de pacientes:", response); 
             
                 if (response.data?.success) {
-                    // Caso 1: Datos en propiedad data (array directo)
                     if (Array.isArray(response.data.data)) {
                         console.log("Pacientes recibidos (array directo):", response.data.data.length);
                         setPatients(response.data.data);
                     } 
-                    // Caso 2: Datos en propiedad data.rows (estructura antigua)
                     else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
                         console.log("Pacientes recibidos (en propiedad rows):", response.data.data.rows.length);
                         setPatients(response.data.data.rows);
                     }
-                    // Caso 3: Respuesta exitosa pero sin pacientes
                     else {
                         console.log("No hay pacientes registrados");
                         setPatients([]);
@@ -61,23 +74,41 @@ export default function Patients() {
     }, []);
     
     const handleViewChange = (newView) => {
-        setView(newView);
+        if (!isMobile) {
+            setView(newView);
+        }
     };
 
+    const effectiveView = isMobile ? 'list' : view;
+
     return (
-        <div className='h-screen'>
+        <div className='h-screen flex flex-col'>
             <Menu/>
-            <div className='h-screen'>
-                <VistaSelector currentView={view} onViewChange={handleViewChange} />
+            <div className='flex-1 p-2 md:p-4'>
+                {!isMobile && (
+                    <VistaSelector 
+                        currentView={view} 
+                        onViewChange={handleViewChange} 
+                    />
+                )}
+
+                {isMobile && (
+                    <div className="mt-24 mb-4 px-2">
+                        <h2 className="text-xl font-bold text-[#00a396]">
+                            Todos los pacientes
+                        </h2>
+                    </div>
+                )}
+                
                 {loading ? (
-                    <div className=''>Cargando pacientes...</div>
+                    <div className='flex justify-center items-center h-full'>Cargando pacientes...</div>
                 ) : error ? (
-                    <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                    <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
                     </div>
                 ) : (
-                    <PatientsList pacientes={patients} vista={view} error={error} />
+                    <PatientsList pacientes={patients} vista={effectiveView} error={error} />
                 )}
             </div>
         </div>

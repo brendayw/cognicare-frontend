@@ -19,9 +19,9 @@ export default {
         'montserrat': ['Montserrat', 'sans-serif'],
         'cabin': ['Cabin', 'serif'],
       },
-      height: {
-        'screen': '100vh',
-      }
+      // height: {
+      //   'screen': '100vh',
+      // }
     },
   },
   plugins: [],

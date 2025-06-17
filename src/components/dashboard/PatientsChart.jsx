@@ -83,7 +83,6 @@ export default function PatientsChart() {
         obtenerEstado();
     }, []);
     
-    // Mostrar mensaje de carga si está cargando
     if (loading) return <div className={styles.loading || ''}>Cargando datos...</div>;
     
     return (

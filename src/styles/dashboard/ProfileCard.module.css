@@ -1,9 +1,8 @@
 .perfil_profesional {
     width: 100%;
-    height: 150px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 .tarjeta_profesional {
@@ -30,69 +29,164 @@
 
 .datos h4 {
     color: #B36ED8;
-    font-size: 25px;
-    display: grid;          /* Activa Grid */
-    grid-auto-flow: row;    /* Elementos en columna */
+    font-size: 1.6rem;
+    display: grid;
+    grid-auto-flow: row;
 }
 
 .datos_nombre {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: #00a396;
 }
 
 .datos_perfil {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 columnas de igual ancho */
+    grid-template-columns: 1fr 1fr;
     row-gap: 4px;
 }
 
 .datos_perfil p {
     color: #94a3b8;
     text-align: left;
-    font-size: 13px;
+    font-size: 0.8rem;
 }
 
 .datos_perfil span {
     color: #89898a;
-    font-size: 13px;
-}
-
-button {
-    border: none;
-    outline: none;
-}
-
-.btn {
-    background: #94a3b8;
-    width: 125px;
-    height: 20px;
-    padding: 1.2rem;
-    margin: 1rem;
-    color: #ebebeb;
-    position: absolute;
-    bottom: -5px;
-    right: 0;
-    border-radius: 5px;
-    font-family: 'Montserrat';
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn:hover {
-    background-color: #0f172a;
-    color: #fff;
-}
-
-.ver-perfil {
-    text-decoration: none;
-    color: inherit;
+    font-size: 0.8rem;
 }
 
 .btn:hover {
     border: 1px solid #94a3b8;
     background-color: transparent;
     color: #94a3b8;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1320px) {
+    .tarjeta_profesional {
+        width: calc(100% - 2px);
+    }
+
+    .tarjeta_profesional .datos {
+        width: calc(100% - 50px);
+    }
+
+    .datos h4 {
+        font-size: 1.4rem;
+    }
+
+    .datos_nombre {
+        font-size: 1.1rem;
+    }
+
+    .datos_perfil {
+        width: 98%;
+        column-gap: 1px;
+        row-gap: 5px;
+    }
+
+    .datos_perfil p,
+    .datos_perfil span {
+        font-size: 0.75rem;
+    }
+
+    .perfil img {
+        width: 21rem;
+    }
+
+}
+
+@media (max-width: 1120px) {
+    .perfil_profesional {
+        width: calc(100% - 2px);
+        height: 250px;
+    }
+
+    .tarjeta_profesional {
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .datos h4 {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .datos_nombre {
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .perfil img {
+        width: 250px;
+    }
+
+    .datos_perfil {
+        row-gap: 1px;
+    }
+
+    .datos_perfil p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .perfil_profesional {
+        position: relative;
+        top: 100px;
+        left: 0;
+        width: calc(100% - 2px);
+        height: 230px;
+    }
+
+    .tarjeta_profesional {
+        width: 100%;
+        height: 225px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tarjeta_profesional .datos {
+        width: 485px;
+        height: auto;
+    }
+
+    .perfil img {
+        width: 225px;
+    }
+
+    .datos h4 {
+        margin-top: -15px;
+        font-size: 1.2rem;
+        justify-content: center;
+    }
+
+    .datos_nombre {
+        font-size: 1rem;
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+
+    .datos_perfil {
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+    
+    .datos_perfil p,
+    .datos_perfil span {
+        width: 100%;
+        text-align: center;
+    }
+
+    .datos_perfil span {
+        font-size: 0.7rem;
+    }
 }

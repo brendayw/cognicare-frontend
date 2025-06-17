@@ -1,12 +1,24 @@
 .grafico_container {
+    width: 425px;
+    height: auto;
+    height: 275px;
+    aspect-ratio: 425/275;
+    margin: 8px auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
-    /* background-color: white; */
     border-radius: 12px;
     border: 0.5px solid #94a3b8;
     box-shadow: 0 2px 2px #94a3b8;
-    width: 425px;
-    height: 300px;
+    background: #ffffff;    
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .grafico_container {
+        position: relative;
+        top: 80px;
+        left: 0;
+        width: calc(95% - 2px);
+    }
 }

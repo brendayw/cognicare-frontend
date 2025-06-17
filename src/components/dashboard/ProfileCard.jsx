@@ -38,7 +38,7 @@ export default function ProfileCard() {
     if (loading) return <div className={styles.loading}>Cargando...</div>;
 
     return (
-        <div className={`${styles.perfil_profesional}`}>
+        <div className={styles.perfil_profesional}>
             {error ? (
                 <div className={styles.error}> 
                     <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
@@ -58,10 +58,10 @@ export default function ProfileCard() {
                     <div className={`${styles.datos}`}>
                         <h4>
                             ¡Bienvenido de nuevo!
-                            <span className={`${styles.datos_nombre}`}>
-                                {profesional.nombre_completo}
-                            </span>
                         </h4>
+                        <span className={`${styles.datos_nombre}`}>
+                            {profesional.nombre_completo}
+                        </span>
                         
                         <div className={`${styles.datos_perfil}`}>
                             <p className="text-primary text-base">

@@ -1,40 +1,124 @@
 .add_container {
-    width: 280px;
+    width: 100%;
+    max-width: 100%;
     height: 240px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     place-items: center;
+    gap: 1rem;
+    margin: 0 auto;
 }
 
 .add_card {
-    width: 110px;
+    width: 100%;
+    min-width: 120px;
     height: 100px;
     padding: 1rem;
     background-color: #ffffff;
     box-shadow: 2px 2px 5px #94a3b8;
-    border-radius: 16px;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .add_card span {
     color: #00a396;
+    font-size: 1rem;
 }
 
 .add_card svg {
     color: #424884;
-    font-size: 40px;
+    font-size: 2.5rem;
 }
 
 .add_card:hover {
     background-color: #94A3B8;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 8px #94a3b8;
 }
 
 .add_card:hover span,
 .add_card:hover svg {
     color: #ffffff;
+}
+
+/* media queries*/
+@media (max-width: 1320px) {
+    .add_card {
+        min-width: 115px;
+        width: calc(100% - 2px);
+    }
+}
+
+@media (max-width: 1290px) {
+    .add_card {
+        min-width: 100px;
+        width: calc(100% - 5px);
+    }
+
+    .add_card span {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .add_card svg {
+        font-size: 2.4rem;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1289px) {
+    .add_card {
+        min-width: 90px;
+        width: calc(100% - 5px);
+        height: 90px;
+    }
+
+    .add_card svg {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .add_container {
+        height: 125px;
+    }
+
+    .add_card {
+        height: 50px;
+    }
+
+    .add_card svg {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .add_container {
+        position: relative;
+        top: 80px;
+        left: 0;
+        width: calc(100% - 2px);
+        height: 125px;
+        padding: 0.2rem;
+        gap: 0.5rem; 
+    }
+
+    .add_card {
+        height: 50px;
+        padding: 0.5rem;
+    }
+
+    .add_card svg {
+        width: 1.8rem;
+        height: 1.8rem; 
+    }
+
+    .add_card span {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
 }

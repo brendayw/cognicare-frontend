@@ -4,21 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-:root {
-  --fuente-primaria: "Montserrat", serif;
-
-  --white-color: #fff;
-  --text-light: #94a3b8;
-  --text-dark: #0f172a;
-  --extra-light: #f8fafc;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +12,14 @@
 
 html, body, #root {
   font-family: "Montserrat", serif;
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+div {
+  box-sizing: border-box;
 }
 
 a {
@@ -38,8 +30,3 @@ h1 {
   font-family: "Montserrat", serif;
   color: #94a3b8;
 }
-
-/* 
-p {
-  font-family: ;
-} */

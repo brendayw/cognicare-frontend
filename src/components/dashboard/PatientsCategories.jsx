@@ -7,7 +7,7 @@ import styles from '../../styles/dashboard/PatientsCategories.module.css';
 
 export default function PatientsCategories() {
     return (
-        <div className={`${styles.tarjetas}`}>
+        <div className={styles.tarjetas}>
             <Link to="/patients/diagnosis" className={`${styles.tarjeta} ${styles.diagnostico}`}>
                 <div className={styles['tarjeta-content']}>
                     <PsychologyAltTwoToneIcon />
