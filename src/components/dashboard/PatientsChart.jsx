@@ -8,7 +8,76 @@ export default function PatientsChart() {
     const [chartData, setChartData] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
+    const [screenSize, setScreenSize] = useState('lg');
+
+    //configuraciones del grafico para que sea responsive
+    const chartConfigs = {
+        xs: {
+            width: 250,
+            height: 220,
+            innerRadius: 20,
+            outerRadius: 110,
+            margin: {left: 0, right: 0, top: 10, bottom: 10},
+            cy: "50%",
+            cx: "50%"
+        },
+        sm: {
+            width: 325,
+            height: 230,
+            innerRadius: 20,
+            outerRadius: 110,
+            margin: {left: 0, right: 0, top: 20, bottom: 20},
+            cy: "50%",
+            cx: "50%"
+        },
+        md: {
+            width: 200,
+            height: 230,
+            innerRadius: 20,
+            outerRadius: 90,
+            margin: { left: 0, right: 20, top: 45, bottom: 45 },
+            cx: "50%",
+            cy: "50%"
+        },
+        lg: {
+            width: 220,
+            height: 230,
+            innerRadius: 20,
+            outerRadius: 80,
+            margin: { left: 0, right: 0, top: 45, bottom: 45 },
+            cx: "50%",
+            cy: "50%"
+        },
+        xl: {
+            width: 250,
+            height: 215,
+            innerRadius: 20,
+            outerRadius: 105,
+            margin: { left: 70, right: 0, top: 5, bottom: 20 },
+            cx: "20%",
+            cy: "55%"
+        }
+    }
     
+    useEffect(() => {
+        const getScreenSize = () => {
+            const width = window.innerWidth;
+            if (width < 640) return 'xs';
+            if (width >= 640 && width < 768) return 'sm';
+            if (width >= 768 && width < 1024) return 'md';
+            if (width >= 1024 && width < 1280) return 'lg';
+            if (width >= 1280) return 'xl';
+        }
+
+        const handleResize = () => {
+            setScreenSize(getScreenSize());
+        };
+
+        setScreenSize(getScreenSize());
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     useEffect(() => {
         const obtenerEstado = async () => {
             try {
@@ -56,14 +125,12 @@ export default function PatientsChart() {
                     alta: dischargedCount
                 });
 
-                // Crear estructura de datos para MUI X Charts
                 const newChartData = [
                     { id: 0, value: treatmentCount, label: 'Tratamiento' },
                     { id: 1, value: diagnosisCount, label: 'Diagnóstico' },
                     { id: 2, value: dischargedCount, label: 'Alta' }
                 ];
                 
-                // Verificar si hay datos para mostrar
                 if (newChartData.every(item => item.value === 0)) {
                     console.log('No hay datos para mostrar en el gráfico');
                     setError('No hay pacientes registrados para mostrar en el gráfico');
@@ -82,6 +149,8 @@ export default function PatientsChart() {
     
         obtenerEstado();
     }, []);
+
+    const currentConfing = chartConfigs[screenSize];
     
     if (loading) return <div className={styles.loading || ''}>Cargando datos...</div>;
     
@@ -95,24 +164,39 @@ export default function PatientsChart() {
                     </p>
                 </div>
             ) : (
+                //aca puede ir un div
                 <PieChart
                     colors={['#b36ed8', '#f0890c', '#00a396']}
                     series={[
                         {
                             data: chartData,
-                            innerRadius: 20,
-                            outerRadius: 125,
-                            paddingAngle: 5,
+                            innerRadius: currentConfing.innerRadius,
+                            outerRadius: currentConfing.outerRadius,
+                            paddingAngle: 0,
                             cornerRadius: 5,
                             startAngle: -45,
                             endAngle: 360,
-                            cy: '50%',
-                            cx: "25%",
+                            cy: currentConfing.cy,
+                            cx: currentConfing.cx,
                         },
                     ]}
-                    margin={{ left: 80, right: 20 }}
-                    width={280}
-                    height={250}
+                    margin={currentConfing.margin}
+                    width={currentConfing.width}
+                    height={currentConfing.height}
+                    slotProps={{
+                        legend: {
+                            // direction: screenSize === 'md' ? 'row' : 'column',
+                            position: {
+                                vertical: screenSize === 'md' ? 'middle' : (screenSize === 'xs' || screenSize === 'sm' ? 'middle' : 'middle'),
+                                // horizontal: screenSize === 'lg' || screenSize === 'xl' ? 'right' : 'middle'
+                            },
+                            padding: screenSize === 'xs' ? 5 : 10,
+                            itemMarkWidth: screenSize === 'xs' ? 12 : 18,
+                            itemMarkHeight: screenSize === 'xs' ? 12 : 18,
+                            markGap: screenSize === 'xs' ? 3 : 5,
+                            itemGap: screenSize === 'xs' ? 8 : 10,
+                        }
+                    }}
                 />
             )}
         </div>
