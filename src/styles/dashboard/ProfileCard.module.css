@@ -190,3 +190,35 @@
         font-size: 0.7rem;
     }
 }
+
+@media (max-width: 640px) { 
+    .perfil img {
+        width: 200px;
+    }
+
+    .tarjeta_profesional {
+        height: 275px;
+    }
+
+    .datos h4 {
+        font-size: 1rem;
+        margin-top: -10px;
+    }
+
+    .datos_nombre {
+        font-size: 0.9rem;
+    }
+
+    .datos_perfil {
+        height: 100px;
+        grid-template-columns: 1fr;
+        column-gap: 1px;
+    }
+    
+    .datos_perfil p,
+    .datos_perfil span {
+        width: 100%;
+        text-align: center;
+        font-size: 0.7rem;
+    }
+}
