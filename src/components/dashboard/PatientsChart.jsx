@@ -31,10 +31,10 @@ export default function PatientsChart() {
             cx: "50%"
         },
         md: {
-            width: 200,
+            width: 300,
             height: 230,
             innerRadius: 20,
-            outerRadius: 90,
+            outerRadius: 110,
             margin: { left: 0, right: 20, top: 45, bottom: 45 },
             cx: "50%",
             cy: "50%"
@@ -43,19 +43,19 @@ export default function PatientsChart() {
             width: 220,
             height: 230,
             innerRadius: 20,
-            outerRadius: 80,
+            outerRadius: 110,
             margin: { left: 0, right: 0, top: 45, bottom: 45 },
             cx: "50%",
             cy: "50%"
         },
         xl: {
-            width: 250,
-            height: 215,
+            width: 220,
+            height: 230,
             innerRadius: 20,
-            outerRadius: 105,
-            margin: { left: 70, right: 0, top: 5, bottom: 20 },
-            cx: "20%",
-            cy: "55%"
+            outerRadius: 110,
+            margin: { left: 0, right: 0, top: 45, bottom: 45 },
+            cx: "50%",
+            cy: "50%"
         }
     }
     
@@ -185,10 +185,10 @@ export default function PatientsChart() {
                     height={currentConfing.height}
                     slotProps={{
                         legend: {
-                            // direction: screenSize === 'md' ? 'row' : 'column',
+                            direction: 'row',
                             position: {
-                                vertical: screenSize === 'md' ? 'middle' : (screenSize === 'xs' || screenSize === 'sm' ? 'middle' : 'middle'),
-                                // horizontal: screenSize === 'lg' || screenSize === 'xl' ? 'right' : 'middle'
+                                vertical: 'top',
+                                horizontal: 'middle'
                             },
                             padding: screenSize === 'xs' ? 5 : 10,
                             itemMarkWidth: screenSize === 'xs' ? 12 : 18,

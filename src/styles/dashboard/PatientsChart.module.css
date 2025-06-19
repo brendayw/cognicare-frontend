@@ -20,6 +20,7 @@
         top: 5px;
         left: 0;
         width: calc(100% - 5px);
+        height: auto;
     }
 }
 
@@ -28,7 +29,7 @@
         position: relative;
         top: 0;
         left: 0;
-        width: calc(100% - 5px);
+        width: calc(100% - 2px);
     }
 }
 
@@ -47,5 +48,14 @@
         top: 80px;
         left: 0;
         width: calc(95% - 2px);
+    }
+}
+
+@media (max-width: 640px) {
+    .grafico_container {
+        position: relative;
+        top: 80px;
+        left: 0;
+        width: calc(100% - 2px);
     }
 }
