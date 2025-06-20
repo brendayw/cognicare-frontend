@@ -1,15 +1,14 @@
 .profesional_container {
     width: 100%;
-    height: 150px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .tarjeta_profesional {
     background-color: #ffffff;
-    border: 1px solid #94a3b8;
-    box-shadow: 1px 1px 1px #94a3b8;
+    box-shadow: 2px 2px 5px #94a3b8;
     width: 100%;
     height: 150px;
     display: flex;
@@ -64,27 +63,30 @@
     font-size: 12px;
     font-weight: 100;
 }
-
+/* media queries*/
 @media (max-width: 768px) {
     .profesional_container {
-        width: 475px;
         position: relative;
         top: 100px;
+        left: 0;
+        width: calc(100% - 2px);
     }
 
+    .tarjeta_profesional {
+        width: 100%;
+        height: 175px;
+    }
+
+}
+
+@media (max-width: 640px) {
     .tarjeta_profesional svg {
         color: #00BEB0;
-        font-size: 1.25rem;
-        margin-right: 0.625rem;
+        font-size: 1.2rem;
     }
 
     .tarjeta_profesional:hover svg {
-        font-size: 1.25rem;
-        margin-right: 0.625rem;
-    }
-
-    .profesional_header {
-        width: 100px;
+        font-size: 1.2rem;
     }
 
     .datos {
@@ -93,51 +95,7 @@
     }
 
     .datos_nombre {
-        font-size: 1.4rem;
-    }
-
-    .datos_perfil {
-        grid-template-columns: 1fr;
-        row-gap: 2px;
-        top: 5px;
-    }
-
-    .dato_perfil p {
-        font-size: 0.7rem;
-    }
-
-    .dato_perfil span {
-        font-size: 0.7rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .profesional_container {
-        width: 345px;
-        position: relative;
-        top: 100px;
-    }
-
-    .profesional_header {
-        width: 95px;
-    }
-
-    .tarjeta_profesional svg {
-        color: #00BEB0;
-        font-size: 1.1rem;
-    }
-
-    .tarjeta_profesional:hover svg {
-        font-size: 1.1rem;
-    }
-
-    .datos {
-        width: 50%;
-        padding: 0.2rem;
-    }
-
-    .datos_nombre {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         margin-top: 0.5rem;
     }
 
@@ -148,10 +106,10 @@
     }
 
     .dato_perfil p {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
 
     .dato_perfil span {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
 }

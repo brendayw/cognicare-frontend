@@ -1,13 +1,13 @@
 .acceso_rapido {
     width: 100%;
-    height: auto;
+    height: 110px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
     gap: 5px;
     position: relative;
-    top: 10px
+    top: -20;
 }
 
 .acceso_rapido a {
@@ -28,8 +28,12 @@
     border-radius: 2rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
     position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin: 5px;
 }
 
 .pacientes {
@@ -59,10 +63,13 @@
     color: #ffffff;
     display: block;
     text-align: center;
+    padding: 0 5px;
 }
 
 .access_card:hover {
     background-color: #424884;
+    transform: translateY(-3px);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .access_card:hover span,
@@ -79,10 +86,12 @@
     height: 100%;
     border-radius: 2rem;
     position: relative;
+    transition: all 0.3s ease;
 }
 
 .add_card:hover {
     background-color: #424884;
+    transform: translateY(-3px);
 }
 
 .add_card:hover span {
@@ -140,36 +149,107 @@
 
 /* Animación circular de las opciones */
 .add_card:hover .option:nth-child(1) {
-    transform: rotate(0deg) translateY(-40px) rotate(0deg);
+    transform: rotate(0deg) translateY(-35px) rotate(0deg);
 }
 
 .add_card:hover .option:nth-child(2) {
-    transform: rotate(60deg) translateY(-40px) rotate(-60deg);
+    transform: rotate(60deg) translateY(-30px) rotate(-60deg);
 }
 
 .add_card:hover .option:nth-child(3) {
-    transform: rotate(120deg) translateY(-40px) rotate(-120deg);
+    transform: rotate(120deg) translateY(-30px) rotate(-120deg);
 }
 
 .add_card:hover .option:nth-child(4) {
-    transform: rotate(180deg) translateY(-40px) rotate(-180deg);
+    transform: rotate(180deg) translateY(-35px) rotate(-180deg);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1320px) {
     .acceso_rapido {
-        width: 475px;
-        top: 105px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        width: calc(100% - 2px);
     }
 
     .access_card {
         flex: 1 1 calc(33.333% - 8px);
-        /* min-width: 0;
-        max-width: 100%; */
         height: 50px;
-        border-radius: 0.9rem;
+        border-radius: 0.8rem;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+     .access_card a {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .add_card {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .access_card:last-child:nth-child(5n + 4),
+    .access_card:last-child:nth-child(5n + 5) {
+        width: calc(50% - 4px);
+    }
+
+    .access_card:last-child:nth-child(5n + 1) {
+        flex-basis: 100%;
+    }
+
+    .access_card svg {
+        font-size: 1.6rem;
+        color: #ffffff;
+    }
+
+    .access_card span {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .add_card {
+        border-radius: 0.8rem;
+    }
+
+    .options {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 10px;
+        width: max-content;
+        padding-top: 10px;
+    }
+
+    .add_card:hover .option:nth-child(1),
+    .add_card:hover .option:nth-child(2),
+    .add_card:hover .option:nth-child(3),
+    .add_card:hover .option:nth-child(4) {
+        transform: none !important;
+        position: static;
+    }
+
+    .option {
+        position: static;
+        width: 35px;
+        height: 35px;
+        margin: 0;
+    }
+
+    .option svg {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .acceso_rapido {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+    }
+
+    .access_card {
+        flex: 1 1 calc(33.333% - 8px);
+        border-radius: 0.8rem;
         margin: 0;
         flex-shrink: 0;
     }
@@ -203,6 +283,10 @@
         padding: 0.5rem;
     }
 
+    .add_card {
+        border-radius: 0.8rem;
+    }
+
     .options {
         top: 100%;
         left: 50%;
@@ -210,7 +294,7 @@
         flex-direction: row;
         gap: 10px;
         width: max-content;
-        padding-top: 5px;
+        padding-top: 10px;
     }
     
     .add_card:hover .option:nth-child(1),
@@ -235,21 +319,15 @@
 
 @media (max-width: 640px) {
     .acceso_rapido {
-        width: 345px;
-        top: 110px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
+        width: calc(100% - 2px);
+        height: auto;
+        gap: 8px;
     }
 
     .access_card {
-        flex: 1 1 calc(33.333% - 10px);
-        /* min-width: 0;
-        max-width: 100%; */
+        flex: 1 1 calc(33.333% - 8px);
         height: 40px;
-        border-radius: 0.9rem;
-        margin: 0;
-        flex-shrink: 0;
+        border-radius: 0.8rem;
     }
 
     .access_card svg {
@@ -260,5 +338,23 @@
     .access_card span {
         font-size: 0.7rem;
         padding: 0.5rem;
+    }
+
+    .add_card {
+        border-radius: 0.8rem;
+    }
+
+    .options {
+        padding-top: 10px;
+    }
+
+    .option {
+        width: 25px;
+        height: 25px;
+    }
+
+    .option svg {
+        width: 15px;
+        height: 15px;
     }
 }

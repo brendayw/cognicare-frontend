@@ -12,6 +12,16 @@ export default function ProfesionalProfile() {
     const [profesional, setProfesional] = useState();
     const { id } = useParams();
     const [error, setError] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     
     useEffect(() => {
         const obtenerProfesional = async () => {
@@ -46,15 +56,15 @@ export default function ProfesionalProfile() {
     }, [id]);
 
     return (
-        <div className='flex w-full'>
+        <div className='flex flex-col min-h-screen w-full'>
             <Menu />
-            <div className='flex w-full'>
-                <div className='w-3/4'>
+            <div className='flex flex-col lg:flex-row flex-1 w-full'>
+                <div className='w-full lg:w-3/4 p-2 lg:p-4 space-y-2'>
                     <ProfesionalCard prof={profesional} />
                     <Buttons />
                     <Chart />
                 </div>
-                {/* <div className='w-1/4 p-2'>
+                {/* <div className='w-full lg:w-1/4 p-2 lg:p-4 space-y-2'>
                     <MoreInfo />
                     <RecentlyUpdatedPatients />
                 </div> */}

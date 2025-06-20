@@ -17,28 +17,28 @@ export default function Chart() {
 
     const chartConfigs = {
         xs: {
-            width: 325,
+            width: 420,
             height: 280,
-            margin: { left: -35, right: 10, top: 20, bottom: 80 },
+            margin: { left: -40, right: 0, top: 20, bottom: 80 },
             itemHeight: 20,
             maxItems: 5
         },
         sm: {
-            width: 450,
+            width: 550,
             height: 300,
-            margin: { left: -35, right: 15, top: 20, bottom: 90 },
+            margin: { left: -40, right: 15, top: 20, bottom: 90 },
             itemHeight: 10,
             maxItems: 6
         },
         md: {
-            width: 500,
-            height: 300,
-            margin: { left: -20, right: 30, top: 20, bottom: 100 },
-            itemHeight: 50,
+            width: 600,
+            height: 350,
+            margin: { left: -40, right: 15, top: 20, bottom: 100 },
+            itemHeight: 15,
             maxItems: 8
         },
         lg: {
-            width: 700,
+            width: 650,
             height: 350,
             margin: { left: -20, right: 30, top: 20, bottom: 100 },
             itemHeight: 15,
