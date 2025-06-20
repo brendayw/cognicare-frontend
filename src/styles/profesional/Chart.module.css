@@ -17,3 +17,11 @@
     }
 }
 
+@media (max-width: 640px) {
+    .chart {
+        width: 345px;
+        height: 250px;
+        top: 125px;
+    }
+}
+

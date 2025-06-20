@@ -110,3 +110,48 @@
         font-size: 0.7rem;
     }
 }
+
+@media (max-width: 640px) {
+    .profesional_container {
+        width: 345px;
+        position: relative;
+        top: 100px;
+    }
+
+    .profesional_header {
+        width: 95px;
+    }
+
+    .tarjeta_profesional svg {
+        color: #00BEB0;
+        font-size: 1.1rem;
+    }
+
+    .tarjeta_profesional:hover svg {
+        font-size: 1.1rem;
+    }
+
+    .datos {
+        width: 50%;
+        padding: 0.2rem;
+    }
+
+    .datos_nombre {
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+
+    .datos_perfil {
+        grid-template-columns: 1fr;
+        row-gap: 1px;
+        top: 5px;
+    }
+
+    .dato_perfil p {
+        font-size: 0.6rem;
+    }
+
+    .dato_perfil span {
+        font-size: 0.6rem;
+    }
+}

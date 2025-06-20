@@ -17,7 +17,7 @@ export default function Chart() {
 
     const chartConfigs = {
         xs: {
-            width: 450,
+            width: 325,
             height: 280,
             margin: { left: -35, right: 10, top: 20, bottom: 80 },
             itemHeight: 20,

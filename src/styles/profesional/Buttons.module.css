@@ -232,3 +232,33 @@
         font-size: 1rem;
     }
 }
+
+@media (max-width: 640px) {
+    .acceso_rapido {
+        width: 345px;
+        top: 110px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .access_card {
+        flex: 1 1 calc(33.333% - 10px);
+        /* min-width: 0;
+        max-width: 100%; */
+        height: 40px;
+        border-radius: 0.9rem;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .access_card svg {
+        font-size: 1rem;
+        color: #ffffff;
+    }
+
+    .access_card span {
+        font-size: 0.7rem;
+        padding: 0.5rem;
+    }
+}
