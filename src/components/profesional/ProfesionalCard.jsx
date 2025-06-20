@@ -7,7 +7,6 @@ import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/ProfesionalCard.module.css';
 
-// ProfesionalCard.jsx
 export default function ProfesionalCard({ prof }) {
     const [perfilDetallado, setPerfilDetallado] = useState(null);
     const { id } = useParams();

@@ -1,10 +1,10 @@
 .tarjeta_paciente {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.625rem;
     width: 100%;
-    padding-bottom: 20px;
-    margin-top: 10px;
+    padding-bottom: 1.25rem;
+    margin-top: 0.625rem;
     /* overflow-y: auto; */
     transition: all .3s ease;
 }
@@ -32,19 +32,19 @@
 
 .tarjeta_paciente p {
     color: #94a3b8;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .pacientes_columns {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem;
 }
   
 .paciente_column {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 0.938rem;
 }
 
 
@@ -52,8 +52,8 @@
     background-color: #ffffff;
     box-shadow: 1px 2px 4px  #94a3b8;
     border-radius: 1rem;
-    padding: 10px;
-    margin: 10px;
+    padding: 0.625rem;
+    margin: 0.625rem;
     height: 180px;
     width: 200px;
     display: flex;
@@ -68,10 +68,10 @@
     display: flex;
     width: 95%;
     height: 100px;
-    margin: 10px auto;
+    margin: 0.625rem auto;
     flex-direction: row;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .paciente_detalles:hover {
@@ -83,7 +83,7 @@
 }
 
 .tarjeta_paciente.lista .paciente_foto {
-    margin-right: 20px;
+    margin-right: 1.25rem;
 }
 
 .paciente_foto img {
@@ -104,7 +104,7 @@
 @media (max-width: 768px) {
     .tarjeta_paciente {
         position: relative;
-        top: 10px;
+        top: 0.625rem;
         left: 0;
         width: 100%;
         max-width: calc(100% - 5px);
@@ -126,7 +126,7 @@
     .tarjeta_paciente.lista::-webkit-scrollbar {
         width: 4px;
     }
-    
+
     .tarjeta_paciente.lista::-webkit-scrollbar-thumb {
         background-color: #94a3b8;
         border-radius: 2px;

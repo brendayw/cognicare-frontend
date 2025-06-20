@@ -3,8 +3,17 @@
     border: 1px solid #94A3B8;
     border-radius: 12px;
     width: 100%;
+    max-width: 900px;
     height: 300px;
     position: relative;
     top: 30px;
+}
+
+@media (max-width: 768px) {
+    .chart {
+        width: 475px;
+        height: 250px;
+        top: 125px;
+    }
 }
 

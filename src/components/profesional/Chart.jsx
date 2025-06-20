@@ -12,8 +12,65 @@ export default function Chart() {
         completedSessions: [],
         totalSessions: []
     });
-
+    const [screenSize, setScreenSize] = useState('lg');
     const chartContainerRef = useRef(null);
+
+    const chartConfigs = {
+        xs: {
+            width: 450,
+            height: 280,
+            margin: { left: -35, right: 10, top: 20, bottom: 80 },
+            itemHeight: 20,
+            maxItems: 5
+        },
+        sm: {
+            width: 450,
+            height: 300,
+            margin: { left: -35, right: 15, top: 20, bottom: 90 },
+            itemHeight: 10,
+            maxItems: 6
+        },
+        md: {
+            width: 500,
+            height: 300,
+            margin: { left: -20, right: 30, top: 20, bottom: 100 },
+            itemHeight: 50,
+            maxItems: 8
+        },
+        lg: {
+            width: 700,
+            height: 350,
+            margin: { left: -20, right: 30, top: 20, bottom: 100 },
+            itemHeight: 15,
+            maxItems: 10
+        },
+        xl: {
+            width: 800,
+            height: 375,
+            margin: { left: -25, right: 25, top: 20, bottom: 120 },
+            itemHeight: 15,
+            maxItems: 10
+        }
+    };
+
+    useEffect(() => {
+        const getScreenSize = () => {
+            const width = window.innerWidth;
+            if (width < 640) return 'xs';
+            if (width >= 640 && width < 768) return 'sm';
+            if (width >= 768 && width < 1024) return 'md';
+            if (width >= 1024 && width < 1280) return 'lg';
+            if (width >= 1280) return 'xl';
+        };
+
+        const handleResize = () => {
+            setScreenSize(getScreenSize());
+        };
+
+        setScreenSize(getScreenSize());
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (chartContainerRef.current) {
@@ -23,7 +80,7 @@ export default function Chart() {
                     label.style.fill = '#94A3B8';
                     label.style.color = '#94A3B8';
                     label.style.fontFamily = 'Cabin, sans-serif';
-                    label.style.fontSize = '14px';
+                    label.style.fontSize = screenSize === 'xs' || screenSize === 'sm' ? '12px' : '14px';
                     label.style.fontWeight = '500';
                 });
 
@@ -40,10 +97,11 @@ export default function Chart() {
                 const axisLabels = chartContainerRef.current.querySelectorAll('.MuiChartsAxis-tickLabel');
                 axisLabels.forEach(label => {
                     label.style.fill = '#94A3B8';
+                    label.style.fontSize = screenSize === 'xs' ? '10px' : '12px';
                 });
             }, 100);
         }
-    }, [chartData]);
+    }, [chartData, screenSize]);
 
     useEffect(() => {
         const obtenerData = async () => {
@@ -84,6 +142,18 @@ export default function Chart() {
     }, []);
 
     if (loading) return <div>Cargando...</div>;
+    const currentConfig = chartConfigs[screenSize];
+
+    const displayData = {
+        names: chartData.names.slice(0, currentConfig.maxItems),
+        completedSessions: chartData.completedSessions.slice(0, currentConfig.maxItems),
+        totalSessions: chartData.totalSessions.slice(0, currentConfig.maxItems)
+    };
+
+    const dynamicHeight = Math.max(
+        currentConfig.height, 
+        displayData.names.length * currentConfig.itemHeight + 100
+    );
 
     return (
         <div className={`${styles.chart}`} ref={chartContainerRef}>
@@ -95,22 +165,22 @@ export default function Chart() {
                     </p>
                 </div>            
             ) : (
-                <div>
+                <div style={{ overflow: 'hidden', width: '100%' }}>
                     <BarChart
                         series={[
                             { 
-                                data: chartData.completedSessions, 
+                                data: displayData.completedSessions, 
                                 label: 'Sesiones realizadas', 
                                 color: '#FFC759'
                             },
                             { 
-                                data: chartData.totalSessions, 
+                                data: displayData.totalSessions, 
                                 label: 'Sesiones totales', 
                                 color: '#FF6F59'
                             }
                         ]}
                         yAxis={[{ 
-                            data: chartData.names.slice(0, 10),
+                            data: displayData.names,
                             scaleType: 'band',
                             tickLabelStyle: {
                                 display: 'none'
@@ -121,10 +191,10 @@ export default function Chart() {
                             max: 100
                         }]}
                         layout='horizontal'
-                        margin={{ left: -20, right: 20, top: 20, bottom: 100 }}
-                        borderRadius={10}
-                        height={Math.max(350, chartData.names.length * 60)}
-                        width={800}
+                        margin={currentConfig.margin}
+                        borderRadius={screenSize === 'xs' ? 6 : 10}
+                        height={dynamicHeight}
+                        width={currentConfig.width}
                         sx={{
                             '.MuiChartsAxis-line': { stroke: '#94A3B8 !important' },
                             '.MuiChartsAxis-tick': { stroke: '#94A3B8 !important' },
@@ -133,7 +203,7 @@ export default function Chart() {
                                 fill: '#94A3B8 !important',
                                 color: '#94A3B8 !important',
                                 fontFamily: 'Cabin, sans-serif !important',
-                                fontSize: '14px !important',
+                                fontSize: screenSize === 'xs' ? '10px !important' : '12px !important',
                                 fontWeight: '500 !important'
                             }
                         }}

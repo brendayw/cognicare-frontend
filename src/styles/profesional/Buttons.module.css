@@ -49,13 +49,13 @@
 }
 
 .access_card svg {
-    font-size: 45px;
+    font-size: 2.813rem;
     color: #ffffff;
     margin-bottom: 5px;
 }
 
 .access_card span {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #ffffff;
     display: block;
     text-align: center;
@@ -129,7 +129,7 @@
 }
 
 .option svg {
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0.2rem;
     color: #ffffff;
 }
@@ -153,4 +153,82 @@
 
 .add_card:hover .option:nth-child(4) {
     transform: rotate(180deg) translateY(-40px) rotate(-180deg);
+}
+
+@media (max-width: 768px) {
+    .acceso_rapido {
+        width: 475px;
+        top: 105px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .access_card {
+        flex: 1 1 calc(33.333% - 8px);
+        /* min-width: 0;
+        max-width: 100%; */
+        height: 50px;
+        border-radius: 0.9rem;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .access_card a {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .add_card {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .access_card:last-child:nth-child(5n + 4),
+    .access_card:last-child:nth-child(5n + 5) {
+        width: calc(50% - 4px);
+    }
+
+    .access_card:last-child:nth-child(5n + 1) {
+        flex-basis: 100%;
+    }
+
+    .access_card svg {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+
+    .access_card span {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .options {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        gap: 10px;
+        width: max-content;
+        padding-top: 5px;
+    }
+    
+    .add_card:hover .option:nth-child(1),
+    .add_card:hover .option:nth-child(2),
+    .add_card:hover .option:nth-child(3),
+    .add_card:hover .option:nth-child(4) {
+        transform: none !important;
+        position: static;
+    }
+
+    .option {
+        position: static;
+        width: 30px;
+        height: 30px;
+        margin: 0;
+    }
+
+    .option svg {
+        font-size: 1rem;
+    }
 }
