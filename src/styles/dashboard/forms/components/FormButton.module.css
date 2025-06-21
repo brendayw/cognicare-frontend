@@ -12,3 +12,22 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    .btn {
+        position: relative;
+        top: -20px;
+        padding: 10px 25px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .btn {
+        position: relative;
+        top: -25px;
+        padding: 5px 20px;
+        font-size: 0.8rem;
+    }
+
+}

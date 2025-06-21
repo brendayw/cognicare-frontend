@@ -4,6 +4,7 @@ import FormInput from '../forms/components/FormInput';
 import FormSelect from '../forms/components/FormSelect';
 import FormCheckbox from '../forms/components/FormCheckbox';
 import FormButton from '../forms/components/FormButton';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/PerfilSolapa.module.css';
 
 const DIAS_SEMANA = [
@@ -12,11 +13,10 @@ const DIAS_SEMANA = [
   { value: 'miercoles', label: 'Miércoles' },
   { value: 'jueves', label: 'Jueves' },
   { value: 'viernes', label: 'Viernes' },
-  { value: 'sabado', label: 'Sábado' },
-  { value: 'domingo', label: 'Domingo' },
+  { value: 'sabado', label: 'Sábado' }
 ];
 
-export default function PerfilSolapa() {
+export default function PerfilSolapa({ isMobile = false, onBack }) {
   const [formData, setFormData] = useState({
     email: '',
     nombre_completo: '',
@@ -52,10 +52,8 @@ export default function PerfilSolapa() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Agregar validación antes del envío
     console.log('Datos del formulario antes del envío:', formData);
     
-    // Validar campos requeridos
     const requiredFields = ['email', 'nombre_completo', 'especialidad', 'matricula', 'telefono', 'genero', 'horarios_atencion', 'fecha_nacimiento'];
     const missingFields = requiredFields.filter(field => !formData[field] || formData[field].toString().trim() === '');
     
@@ -114,6 +112,18 @@ export default function PerfilSolapa() {
 
   return (
     <div className={`${styles.solapa} ${styles.activa} ${styles.panel_content}`}>
+      {isMobile && onBack && (
+        <div className="mb-4">
+          <button
+            onClick={onBack}
+            className="flex items-center text-[#00a396] hover:text-[#008a7a] transition-colors"
+            aria-label="Volver al panel de configuraciones"
+          >
+            <ArrowBackIosTwoToneIcon className="cursor-pointer" />
+          </button>
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit} className={`${styles.perfil_form}`}>
         <h3 className={`${styles.titulo_form}`}>Perfil del profesional</h3>
         
@@ -215,13 +225,11 @@ export default function PerfilSolapa() {
             options={DIAS_SEMANA}
             required
           />
-             
         </div>
 
         <div className='relative bottom-2 right-1'>
           <FormButton texto="Guardar" />
         </div>
-
       </form>
     </div>
   );

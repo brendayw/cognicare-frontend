@@ -1,77 +1,184 @@
 .panel_settings {
-    width: 100%;
+  width: 100%;
 }
 
 .opciones {
-    width: 100%;
-    height: 150px;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  width: 100%;
+  height: 150px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .perfil, .password, .deactivate {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #94A3B8;
-    padding: 1rem;
-    border-radius: 12px;
-    transition: all 0.3s ease; /* Agrega transición suave */
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #94A3B8;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.perfil:hover,
-.password:hover,
-.deactivate:hover {
-    background-color: #94A3B8;
-}
-
-.perfil.selected,
-.password.selected {
-    background-color: #424884;
-}
-
-.deactivate.selected {
-    background-color: #ff6f59;
+.perfil:hover, .password:hover, .deactivate:hover {
+  background-color: #94A3B8;
 }
 
 .perfil svg, .password svg {
-    color: #00a396;
+  color: #00a396;
 }
 
 .deactivate svg {
-    color: #ff6f59;
+  color: #ff6f59;
 }
 
 .perfil span, .password span {
-    color: #00a396;
-    padding: 0.8rem;
+  color: #00a396;
+  padding: 0.8rem;
 }
 
 .deactivate span {
-    color: #ff6f59;
-    padding: 0.8rem;
+  color: #ff6f59;
+  padding: 0.8rem;
 }
 
-.perfil:hover span, 
-.password:hover span,
-.perfil:hover svg,
-.password:hover svg,
-.perfil.selected span,
-.password.selected span  {
-    color: #ffffff;
+.perfil:hover span,
+.password:hover span, 
+.perfil:hover svg, 
+.password:hover svg, 
+.perfil.selected span, 
+.password.selected span {
+  color: #ffffff;
 }
 
-.deactivate:hover span,
-.deactivate.selected span,
+.deactivate:hover span, 
+.deactivate.selected span, 
 .deactivate.selected svg {
-    color: #ffffff;
+  color: #ffffff;
 }
 
-.perfil.selected svg,
+.perfil.selected svg, 
 .password.selected svg {
-    color: #00a396;
+  color: #00a396;
 }
 
+.perfil.selected, 
+.password.selected {
+  background-color: #424884;
+}
+
+.deactivate.selected {
+  background-color: #ff6f59;
+}
+
+.perfil:hover, 
+.password:hover, 
+.deactivate:hover {
+  background-color: #94A3B8;
+}
+
+/* Media queries */
+@media (max-width: 1024px) {
+  .solapa.activa {
+    background-color: #ffffff;
+    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .panel_settings {
+    width: 100%;
+    position: relative;
+    top: 100px;
+  }
+  
+  .opciones {
+    height: auto;
+    gap: 10px;
+  }
+  
+  .perfil, .password, .deactivate {
+    height: 80px;
+    padding: 0.8rem;
+  }
+  
+  .solapa.activa {
+    margin-top: 20px;
+    height: auto;
+    min-height: calc(100vh - 200px);
+  }
+  
+  .panel_content {
+    height: auto;
+    min-height: 400px;
+    margin: 0;
+    padding: 15px;
+  }
+  
+  .profesional_data {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .animate-fadeIn {
+    animation: slideInFromRight 0.3s ease-out;
+  }
+  
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .panel_settings {
+    width: 100%;
+    position: relative;
+    top: 100px;
+  }
+  
+  .opciones {
+    height: auto;
+    gap: 10px;
+  }
+
+  .perfil, .password, .deactivate {
+    height: 80px;
+    padding: 0.8rem;
+  }
+
+  .solapa.activa {
+    margin-top: 20px;
+    height: auto;
+    min-height: calc(100vh - 200px);
+  }
+  
+  .panel_content {
+    height: auto;
+    min-height: 400px;
+    margin: 0;
+    padding: 15px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import FormInput from '../forms/components/FormInput';
 import FormButton from '../forms/components/FormButton';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/PasswordSolapa.module.css';
 
-export default function PasswordSolapa() {
+export default function PasswordSolapa({ isMobile = false, onBack }) {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',
@@ -13,7 +14,7 @@ export default function PasswordSolapa() {
   const [error, setError] = useState();
 
   const handleChange = (e) => {
-    const { id, value } = e.target; // Cambiado de name a id
+    const { id, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [id]: value
@@ -62,8 +63,19 @@ export default function PasswordSolapa() {
 
   return (
     <div className={`${styles.solapa} ${styles.solapa_password} ${styles.panel_content}`}>
+      {isMobile && onBack && (
+        <div className="mb-4">
+          <button
+            onClick={onBack}
+            className="flex items-center text-[#00a396] hover:text-[#008a7a] transition-colors"
+            aria-label="Volver al panel de configuraciones"
+          >
+            <ArrowBackIosTwoToneIcon className="cursor-pointer" />
+          </button>
+        </div>
+      )}
+
       <form className={`${styles.form_password}`} onSubmit={handleSubmit}>
-        
         <h3 className={`${styles.titulo_form}`}>Cambiar Contraseña</h3>
 
         {error && (

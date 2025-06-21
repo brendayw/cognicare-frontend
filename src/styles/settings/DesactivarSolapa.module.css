@@ -2,20 +2,22 @@
   display: block;
   padding: 1rem;
   border-radius: 0.5rem;
-  height: 325px;
+  width: 100%;
+  height: auto;
+  max-height: 325px;
 }
 
 .solapa h3 {
+  font-size: 1.2rem;
+  padding: 5px;
   color: #00a396;
 }
 
-.solapa_deactivate.activa {
-  display: block;
-  background: #ffffff;
-  box-shadow: 2px 2px 5px #94A3B8;
-}
-
 .solapa_deactivate {
+  width: 100%;
+  height: 325px;
+  margin: 5px;
+  padding: 10px;
   background: #ffffff;
   box-shadow: 2px 2px 5px #94A3B8;
 }
@@ -65,10 +67,57 @@
 .deactivate_btn:hover {
   background-color: #e65a4a;
   color: #fff;
-  /* transition-colors */
 }
 
 .deactivate_btn:focus {
-  outline: none; /* O usa outline: 2px solid ... para accesibilidad */
-  box-shadow: 0 0 0 2px rgba(255, 111, 89, 0.5); /* Mejor para accesibilidad */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 111, 89, 0.5);
+}
+
+@media (max-width: 768px) {
+  .solapa {
+    position: relative;
+    top: 100px;
+    height: auto;
+  }
+
+  .solapa h3 {
+    position: relative;
+    top: -39px;
+    left: 35px;
+    font-size: 0.9rem;
+  }
+
+  .container_deactivate {
+    position: relative;
+    top: -38px;
+  }
+  
+  .deactivate_info {
+    font-size: 0.8rem;
+  }
+  
+  .info_extra {
+    padding: 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  .deactivate_btn {
+    position: relative;
+    top: -20px;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .deactivate_btn svg {
+    font-size: 1.1rem;
+  }
+
+  .deactivate_btn span {
+    font-size: 0.8rem;
+  }
+
+}
+
+@media (max-width: 640px) {
+  
 }

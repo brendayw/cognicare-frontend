@@ -43,3 +43,9 @@
     color: #94A3B8;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+@media (max-width: 640px) {
+    .dias_container {
+        height: auto;
+    }
+}

@@ -7,14 +7,33 @@ import PerfilSolapa from '../components/settings/PerfilSolapa.jsx';
 import PasswordSolapa from '../components/settings/PasswordSolapa.jsx';
 import DesactivarSolapa from '../components/settings/DesactivarSolapa.jsx';
 
-
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState('perfil');
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeTab, setActiveTab] = useState(null);
+  const [showPanel, setShowPanel] = useState(true);
   const { id } = useParams();
   const [profesional, setProfesional] = useState();
   const [error, setError] = useState();
 
   const URL_API = 'https://cognicare-backend.vercel.app/api/';
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      
+      if (mobile !== isMobile) {
+        setIsMobile(mobile);
+        setActiveTab(null);
+        setShowPanel(true);
+      }
+    }
+
+    const initialMobile = window.innerWidth < 768;
+    setIsMobile(initialMobile);
+    
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [isMobile]); 
 
   useEffect(() => {
     const logoutBtn = document.getElementById('logout');
@@ -43,7 +62,8 @@ export default function Settings() {
         const response = await axios.get(`${URL_API}profesional/${id}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        console.log("Respuesta recibida del profesional:", response); 
+        console.log("Respuesta recibida del profesional:", response);
+
         if (response.data?.success) {
           setProfesional(response.data.data)
         }
@@ -58,23 +78,66 @@ export default function Settings() {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    
+    if (isMobile) {
+      setShowPanel(false);
+    }
+  };
+
+  const handleBackToPanel = () => {
+    if (isMobile) {
+      setShowPanel(true);
+      setActiveTab(null);
+    }
   };
 
   const handleProfesionalDeleted = (deletedId) => {
     setProfesional(prev => prev.filter(a => a.id !== deletedId));
   };
 
+  const shouldShowContent = (tabName) => {
+    if (isMobile) {
+      return activeTab === tabName;
+    } else {
+      return activeTab === tabName || (activeTab === null && tabName === 'perfil');
+    }
+  };
+
   return (
-    <div className="container">
+    <div className="container mx-auto px-4">
       <Menu />
-      <div className='flex w-full'>
-        <div className='w-1/4'>
-          <PanelSettings activeTab={activeTab} onTabChange={handleTabChange} />
-        </div>
-      
-        <div className='w-3/4'>
-          {activeTab === 'perfil' ? <PerfilSolapa /> : activeTab === 'password' ? <PasswordSolapa /> : <DesactivarSolapa profesional={profesional} onProfesionalDeleted={handleProfesionalDeleted}/>}
-        </div>
+            
+      <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} w-full`}>
+        {showPanel && (
+          <div className={`w-full ${!isMobile ? 'lg:w-1/4 lg:pr-4' : ''}`}>
+            <PanelSettings activeTab={activeTab} onTabChange={handleTabChange} isMobile={isMobile} />
+          </div>
+        )}
+  
+        {(activeTab || !isMobile) && (!showPanel || !isMobile) && (
+          <div className={`solapa activa ${!isMobile ? 'w-full lg:w-3/4' : 'w-full'}`}>
+            {shouldShowContent('perfil') && (
+              <PerfilSolapa 
+                isMobile={isMobile} 
+                onBack={handleBackToPanel} 
+              />
+            )}
+            {shouldShowContent('password') && (
+              <PasswordSolapa 
+                isMobile={isMobile} 
+                onBack={handleBackToPanel} 
+              />
+            )}
+            {shouldShowContent('deactivate') && (
+              <DesactivarSolapa 
+                profesional={profesional} 
+                onProfesionalDeleted={handleProfesionalDeleted}
+                isMobile={isMobile} 
+                onBack={handleBackToPanel} 
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

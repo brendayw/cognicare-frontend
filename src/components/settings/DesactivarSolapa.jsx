@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { softDeleteProfesional } from '../profesional/forms/softDeleteProfesional';
 import ConfirmationDialog from '../../components/ui/ConfirmationDialog';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/DesactivarSolapa.module.css';
 
-export default function DesactivarSolapa( { profesional, onProfesionalDeleted }) {
+export default function DesactivarSolapa( { profesional, onProfesionalDeleted, isMobile = false, onBack }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [deleteError, setDeleteError] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -44,7 +45,18 @@ export default function DesactivarSolapa( { profesional, onProfesionalDeleted })
     };
 
     return (
-        <div id="deactivateSolapa" className={`${styles.solapa} ${styles.solapa_deactivate}`}>
+        <div className={`${styles.solapa} ${styles.solapa_deactivate}`}>
+            {isMobile && onBack && (
+                <div className="mb-4">
+                <button
+                    onClick={onBack}
+                    className="flex items-center text-[#00a396] hover:text-[#008a7a] transition-colors"
+                    aria-label="Volver al panel de configuraciones"
+                >
+                    <ArrowBackIosTwoToneIcon className="cursor-pointer" />
+                </button>
+                </div>
+            )}
             <h3>Desactivar cuenta</h3>
             <div className={styles.container_deactivate}>
                 <p className={styles.deactivate_info}>
