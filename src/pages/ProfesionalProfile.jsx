@@ -64,10 +64,10 @@ export default function ProfesionalProfile() {
                     <Buttons />
                     <Chart />
                 </div>
-                {/* <div className='w-full lg:w-1/4 p-2 lg:p-4 space-y-2'>
+                <div className='w-full lg:w-1/4 p-2 lg:p-4 space-y-2'>
                     <MoreInfo />
                     <RecentlyUpdatedPatients />
-                </div> */}
+                </div>
             </div>
          </div>
     );
