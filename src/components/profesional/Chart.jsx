@@ -19,7 +19,7 @@ export default function Chart() {
         xs: {
             width: 300,
             height: 300,
-            margin: { left: -40, right: 5, top: 20, bottom: 80 },
+            margin: { left: -40, right: 15, top: 20, bottom: 80 },
             itemHeight: 20,
             maxItems: 5
         },
