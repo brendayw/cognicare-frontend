@@ -72,14 +72,59 @@
 }
 
 /* media queries */
+@media (max-width: 768px)  {
+    .patient_datacard {
+        position: relative;
+        left: 10px;
+        width: 90%;
+    }
+
+    .id_card p {
+        font-size: 0.8rem;
+    }
+
+    .card_details {
+        padding: 0.85rem;
+    }
+
+    .card_details p {
+        font-size: 0.8rem;
+    }
+}
+
 @media (max-width: 640px) {
     .patient_datacard {
+        position: relative;
+        left: 15px;
+        right: 0;
         width: 90%;
         height: 200px;
     }
 
     .id_card p {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+    }
+
+    .card_details {
+        padding: 0.7rem;
+    }
+
+    .card_details p {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .patient_datacard {
+        position: relative;
+        left: -10px;
+        right: 0;
+        width: 90%;
+        height: 200px;
+    }
+
+    .id_card p {
+        font-size: 0.68rem;
     }
 
     .card_details {

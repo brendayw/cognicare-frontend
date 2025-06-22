@@ -59,17 +59,17 @@ export default function PatientProfile() {
     //error
 
     return (
-        <div className='flex flex-col md:flex-row w-full'>
+        <div className='flex flex-col lg:flew-row w-full'>
             <Menu />
             <div className='w-full relative top-24 md:top-2'>
                 <PatientProfileHeader patient={patient} onPatientDeleted={handlePatientDeleted} />
-                <div className='flex flex-col md:flex-row'>
-                    <div className='w-full md:w-[40%]'>
+                <div className='flex flex-col lg:flex-row'>
+                    <div className='w-full lg:w-[40%]'>
                         <PatientName patient={patient} />
                         <PatientData  patient={patient} />
                         <PatientProgress patient={patient} />
                     </div>
-                    <div className='w-full md:w-[60%]'>
+                    <div className='w-full lg:w-[60%]'>
                         <CustomTabs patient={patient} />
                     </div>
                 </div>

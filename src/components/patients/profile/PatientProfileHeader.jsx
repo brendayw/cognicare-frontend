@@ -43,12 +43,11 @@ export default function PatientProfileHeader( { patient, onPatientDeleted } ) {
     };
 
     return (
-        <div className='w-full flex items-center justify-between p-2'>
+        <div className='relative w-full flex items-center justify-between p-4 ml-2 xs:ml-2'>
             <Link to='/patients'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] cursor-pointer hover:text-[#00a396]'/>
             </Link>
             
-            {/* Siempre mostrar los iconos, pero deshabilitarlos si no hay patient */}
             <div className='flex items-center'>
                 <Link to='edit' className={`${!patient ? 'pointer-events-none opacity-50' : ''}`}>
                     <BorderColorTwoToneIcon className='text-[#94a3b8] cursor-pointer hover:text-[#00a396] mr-4'/>
