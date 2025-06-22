@@ -43,7 +43,7 @@
 }
 
 .card_details {
-    padding: 15px;
+    padding: 0.938rem;
 }
 
 .card_details p {
@@ -69,4 +69,24 @@
 .card_details span {
     color: #89898a;
     text-align: right;
+}
+
+/* media queries */
+@media (max-width: 640px) {
+    .patient_datacard {
+        width: 90%;
+        height: 200px;
+    }
+
+    .id_card p {
+        font-size: 0.7rem;
+    }
+
+    .card_details {
+        padding: 0.7rem;
+    }
+
+    .card_details p {
+        font-size: 0.7rem;
+    }
 }

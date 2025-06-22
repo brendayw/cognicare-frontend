@@ -12,7 +12,16 @@ export default function PatientProfile() {
     const { id } = useParams();
     const [patient, setPatient] = useState(null);
     const [error, setError] = useState(null);
-    console.log('id del paciente', id);
+    const [isMobile, setIsMobile] = useState(false);
+    
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+    
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const obtenerPaciente = async () => {
@@ -43,7 +52,6 @@ export default function PatientProfile() {
     }, [id]);
 
     const handlePatientDeleted = (deletedPatientId) => {
-        // Opcional: mostrar mensaje de éxito
         console.log(`Paciente ${deletedPatientId} eliminado correctamente`);
     };
 
@@ -51,17 +59,17 @@ export default function PatientProfile() {
     //error
 
     return (
-        <div className='flex w-full'>
+        <div className='flex flex-col md:flex-row w-full'>
             <Menu />
-            <div className='w-full'>
+            <div className='w-full relative top-24 md:top-2'>
                 <PatientProfileHeader patient={patient} onPatientDeleted={handlePatientDeleted} />
-                <div className='flex'>
-                    <div className='w-[40%]'>
+                <div className='flex flex-col md:flex-row'>
+                    <div className='w-full md:w-[40%]'>
                         <PatientName patient={patient} />
                         <PatientData  patient={patient} />
                         <PatientProgress patient={patient} />
                     </div>
-                    <div className='w-[60%]'>
+                    <div className='w-full md:w-[60%]'>
                         <CustomTabs patient={patient} />
                     </div>
                 </div>

@@ -58,3 +58,27 @@
     font-size: 2.4rem;
     color:   #FF5349;
 }
+
+/* media queries */
+@media (max-width: 640px) {
+    .sessions {
+        height: 100px;
+        top: 0;
+    }
+
+    .sessions_held, .sessions_total {
+        width: 150px;
+        height: 70px;
+        border-radius: 15px;
+    }
+
+    .sessions_held p, 
+    .sessions_total p {
+        font-size: 0.7rem;
+    }
+
+    .sessions_held p span,
+    .sessions_total p span {
+        font-size: 1.5rem;
+    }
+}
