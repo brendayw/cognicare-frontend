@@ -19,7 +19,7 @@ export default function Settings() {
 
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth <= 1024;
       
       if (mobile !== isMobile) {
         setIsMobile(mobile);
@@ -28,7 +28,7 @@ export default function Settings() {
       }
     }
 
-    const initialMobile = window.innerWidth < 768;
+    const initialMobile = window.innerWidth <= 1024;
     setIsMobile(initialMobile);
     
     window.addEventListener('resize', checkMobile);
@@ -104,12 +104,12 @@ export default function Settings() {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="w-full px-4">
       <Menu />
             
       <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} w-full`}>
         {showPanel && (
-          <div className={`w-full ${!isMobile ? 'lg:w-1/4 lg:pr-4' : ''}`}>
+          <div className={`w-full ${!isMobile ? 'lg:w-1/4' : ''}`}>
             <PanelSettings activeTab={activeTab} onTabChange={handleTabChange} isMobile={isMobile} />
           </div>
         )}

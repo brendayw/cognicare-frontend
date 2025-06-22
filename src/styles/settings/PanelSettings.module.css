@@ -1,10 +1,12 @@
 .panel_settings {
   width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .opciones {
   width: 100%;
-  height: 150px;
+  height: auto;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@
 
 .perfil, .password, .deactivate {
   width: 100%;
-  height: 150px;
+  min-height: 80px; 
   display: flex;
   align-items: center;
   border: 1px solid #94A3B8;
@@ -21,6 +23,7 @@
   border-radius: 0.75rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .perfil:hover, .password:hover, .deactivate:hover {
@@ -80,13 +83,23 @@
   background-color: #94A3B8;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Media queries */
-@media (max-width: 1024px) {
-  .solapa.activa {
-    background-color: #ffffff;
-    height: auto;
-    max-height: 100vh;
-    overflow-y: auto;
+@media (min-width: 1024px) and (max-width: 1138px) {
+  .perfil span, 
+  .password span,
+  .deactivate span {
+    font-size: 0.8rem;    
   }
 }
 
@@ -95,49 +108,6 @@
     width: 100%;
     position: relative;
     top: 100px;
-  }
-  
-  .opciones {
-    height: auto;
-    gap: 10px;
-  }
-  
-  .perfil, .password, .deactivate {
-    height: 80px;
-    padding: 0.8rem;
-  }
-  
-  .solapa.activa {
-    margin-top: 20px;
-    height: auto;
-    min-height: calc(100vh - 200px);
-  }
-  
-  .panel_content {
-    height: auto;
-    min-height: 400px;
-    margin: 0;
-    padding: 15px;
-  }
-  
-  .profesional_data {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  
-  .animate-fadeIn {
-    animation: slideInFromRight 0.3s ease-out;
-  }
-  
-  @keyframes slideInFromRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 }
 
@@ -157,28 +127,5 @@
     height: 80px;
     padding: 0.8rem;
   }
-
-  .solapa.activa {
-    margin-top: 20px;
-    height: auto;
-    min-height: calc(100vh - 200px);
-  }
-  
-  .panel_content {
-    height: auto;
-    min-height: 400px;
-    margin: 0;
-    padding: 15px;
-  }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

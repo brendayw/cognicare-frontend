@@ -4,7 +4,9 @@
   border-radius: 0.5rem;
   width: 100%;
   height: auto;
-  max-height: 325px;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  /* max-height: 325px; */
 }
 
 .solapa h3 {
@@ -15,9 +17,9 @@
 
 .solapa_deactivate {
   width: 100%;
-  height: 325px;
-  margin: 5px;
-  padding: 10px;
+  height: 350px;
+  margin: 0;
+  padding: 1.5rem;
   background: #ffffff;
   box-shadow: 2px 2px 5px #94A3B8;
 }
@@ -38,7 +40,7 @@
   border-top: 1px solid #94a3b883;
   border-bottom: 1px solid #94a3b883;
   padding: 0.5rem;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .deactivate_info, 
@@ -74,11 +76,39 @@
   box-shadow: 0 0 0 2px rgba(255, 111, 89, 0.5);
 }
 
+/* media queries */
+@media (max-width: 1024px) {
+  .solapa {
+    position: relative;
+    width: calc(100% - 2px);
+    height: 320px;
+  }
+
+  .solapa h3 {
+    position: relative;
+    top: -45px;
+    left: 35px;
+    font-size: 1rem;
+  }
+
+  .container_deactivate {
+    position: relative;
+    top: -38px;
+  }
+
+  .deactivate_btn {
+    position: relative;
+    top: -20px;
+    padding: 0.5rem 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .solapa {
     position: relative;
     top: 100px;
-    height: auto;
+    width: calc(100% - 2px);
+    height: 290px;
   }
 
   .solapa h3 {
@@ -119,5 +149,17 @@
 }
 
 @media (max-width: 640px) {
-  
+  .solapa {
+    position: relative;
+    top: 100px;
+    width: calc(100% - 2px);
+    height: 345px;
+  }
+
+  .solapa h3 {
+    position: relative;
+    top: -41px;
+    left: 35px;
+    font-size: 0.9rem;
+  }
 }
