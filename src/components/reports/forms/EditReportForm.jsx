@@ -191,37 +191,39 @@ export default function EditReportForm() {
                 {fields.map(field => (
                     <div key={field.id} className={styles.form_inputcontainer}>
                         <label className={styles.form_label}>{field.label}:</label>
-                        {field.type === 'archivo' ? (
-                            <div className='flex-1'>
+                        <div className={styles.input_with_button}>
+                            {field.type === 'archivo' ? (
+                                <div className='flex-1'>
+                                    <input
+                                        type="file"
+                                        onChange={(e) => handleFileChange(field.id, e)}
+                                        className={styles.form_inputfile}
+                                        disabled={isSubmitting}
+                                    />
+                                    {field.value && (
+                                        <div style={{marginTop: '5px', fontSize: '14px'}}>
+                                            Archivo seleccionado: {field.value}
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
                                 <input
-                                    type="file"
-                                    onChange={(e) => handleFileChange(field.id, e)}
-                                    className={styles.form_inputfile}
+                                    type={field.type.includes('fecha') ? 'date' : 'text'}
+                                    value={field.value}
+                                    onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                    placeholder={`Ingrese ${field.label.toLowerCase()}`}
+                                    className={styles.form_input}
                                     disabled={isSubmitting}
                                 />
-                                {field.value && (
-                                    <div style={{marginTop: '5px', fontSize: '14px'}}>
-                                        Archivo seleccionado: {field.value}
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <input
-                                type={field.type.includes('fecha') ? 'date' : 'text'}
-                                value={field.value}
-                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                                placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                                className={styles.form_input}
+                            )}
+                            <button 
+                                onClick={() => handleRemoveField(field.id)}
+                                className={styles.remove_button}
                                 disabled={isSubmitting}
-                            />
-                        )}
-                        <button 
-                            onClick={() => handleRemoveField(field.id)}
-                            className={styles.remove_button}
-                            disabled={isSubmitting}
-                        >
-                            ×
-                        </button>
+                            >
+                                ×
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

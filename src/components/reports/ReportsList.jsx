@@ -63,7 +63,7 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
                 {reports.length > 0 ? (
                     reports.map((report) => {
                         return (
-                            <div key={report.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md relative'>
+                            <div key={report.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md m-2'>
                                 <div className='flex flex-col m-4 pr-4 flex-grow'>
                                     <h5> <span className='text-[#b36ed8] text-base'>{report.evaluacion?.nombre_evaluacion}</span></h5>
                                     <p className='text-[#94a3b8] text-xs'>Tipo de evaluación: <span className='text-[#89898a]'>{report.tipo_reporte}</span></p>

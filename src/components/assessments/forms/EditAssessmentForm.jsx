@@ -143,21 +143,23 @@ export default function EditAssessmentForm() {
                 {fields.map(field => (
                     <div key={field.id} className={styles.form_inputcontainer}>
                         <label className={styles.form_label}>{field.label}:</label>
-                        <input
-                            type={field.type.includes('fecha') ? 'date' : 'text'}
-                            value={field.value}
-                            onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                            placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                            className={styles.form_input}
-                            disabled={isSubmitting}
-                        />
-                        <button 
-                            onClick={() => handleRemoveField(field.id)}
-                            className={styles.remove_button}
-                            disabled={isSubmitting}
-                        >
-                            ×
-                        </button>
+                        <div className={styles.input_with_button}>
+                            <input
+                                type={field.type.includes('fecha') ? 'date' : 'text'}
+                                value={field.value}
+                                onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                                placeholder={`Ingrese ${field.label.toLowerCase()}`}
+                                className={styles.form_input}
+                                disabled={isSubmitting}
+                            />
+                            <button 
+                                onClick={() => handleRemoveField(field.id)}
+                                className={styles.remove_button}
+                                disabled={isSubmitting}
+                            >
+                                ×
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
