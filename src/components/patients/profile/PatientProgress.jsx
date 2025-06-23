@@ -12,7 +12,7 @@ export default function PatientProgress({patient}) {
     useEffect(() => {
         const obtenerPerfil = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api';
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 if (!id) throw new Error('Id del paciente no reconocido');
