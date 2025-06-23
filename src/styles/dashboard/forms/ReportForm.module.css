@@ -1,18 +1,69 @@
 .panel_content {
-    height: 475px;
-    margin: 5px;
-    padding: 10px;
-    background-color: #ffffff;
+    width: 100%;
+    height: auto;
+    min-height: 450px;
+    margin: 0;
+    padding: 1.5rem;
+    /* background-color: #ffffff; */
     box-shadow: 2px 2px 5px #94a3b8ff;
     border-radius: 1rem;
-    color: #94a3b8ff;  
+    color: #94a3b8ff;
+    box-sizing: border-box;  
 }
 
 .report_form {
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
 
 .report_data {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     padding: 10px;
+}
+
+/* media queries */
+@media (max-width: 768px) {
+    .panel_content {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+        height: auto;
+        padding: 0.6rem;
+    }
+
+    .report_data input,
+    .report_data select,
+    .report_data  {
+        padding: 0.2rem;
+    }
+
+    .report_data label {
+        font-size: 0.75rem;
+    }
+
+}
+
+@media (max-width: 640px) {
+    .panel_content {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+        height: auto;
+        padding: 0.6rem;
+    }
+
+    .report_data input,
+    .report_data select,
+    .report_data {
+        padding: 0.2rem;
+    }
+
+    .report_data label {
+        font-size: 0.75rem;
+    }
+
 }

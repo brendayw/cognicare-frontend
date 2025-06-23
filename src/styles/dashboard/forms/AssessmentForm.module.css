@@ -1,18 +1,68 @@
 .form_content {
-    height: 470px;
-    margin: 5px;
-    padding: 10px;
+    width: 100%;
+    height: auto;
+    min-height: 450px;
+    margin: 0;
+    padding: 1.5rem;
     border-radius: 1rem;
-    color: #94a3b8;
     background: #ffffff;
     box-shadow: 2px 2px 5px #94a3b8;
+    color: #94a3b8;
+    box-sizing: border-box;
 }
 
 .assessment_form {
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
 
 .assessment_data {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 5px;
+}
+
+/* media queries */
+@media (max-width: 768px) {
+    .panel_content {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+        height: auto;
+        padding: 0.6rem;
+    }
+
+    .assessment_data input,
+    .assessment_data select,
+    .report_data  {
+        padding: 0.2rem;
+    }
+
+    .report_data label {
+        font-size: 0.75rem;
+    }
+
+}
+
+@media (max-width: 640px) {
+    .form_content {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+        height: auto;
+    }
+
+    .assessment_data input,
+    .assessment_data select,
+    .assessment_data {
+        padding: 0.2rem;
+    }
+
+    .assessment_data label {
+        font-size: 0.75rem;
+    }
+
 }

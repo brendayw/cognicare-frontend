@@ -151,8 +151,8 @@ export default function AssessmentForm() {
                         placeholder="Observaciones"
                     />
                 </div>
-                <div className='relative top-1 right-1'>
-                    <FormButton texto="Guardar" />
+                <div className='relative top-2 bottom-2 right-1'>
+                    <FormButton texto="Guardar" noTop />
                 </div>
             </form>
         </div>

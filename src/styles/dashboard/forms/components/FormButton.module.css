@@ -20,6 +20,10 @@
         padding: 10px 25px;
         font-size: 0.8rem;
     }
+
+    .noTop {
+        top: 0 !important;
+    }
 }
 
 @media (max-width: 640px) {
@@ -30,4 +34,7 @@
         font-size: 0.8rem;
     }
 
+    .noTop {
+        top: 0 !important;
+    }
 }

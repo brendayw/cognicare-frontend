@@ -153,7 +153,7 @@ export default function SessionForm() {
                     />
                 </div>
                 <div className='relative top-1 right-1'>
-                    <FormButton texto="Guardar" />
+                    <FormButton texto="Guardar" noTop/>
                 </div>
             </form>
         </div>

@@ -158,7 +158,9 @@ export default function ReportForm() {
     return (
         <div className={styles.panel_content}>
             <form onSubmit={handleSubmit} className={styles.report_form}>
-                <FormHeader titulo='Agregar Reporte'/>
+                <div className={styles.report_header}>
+                    <FormHeader titulo='Agregar Reporte'/>
+                </div>
                 <div className={styles.report_data}>
                     <FormSelect
                         label="Tipo de reporte o Test"
@@ -227,8 +229,8 @@ export default function ReportForm() {
                         required
                     />
                 </div>               
-                <div className={styles.form_footer}>
-                    <FormButton texto="Guardar" />
+                <div className='relative top-2 bottom-2 right-1'>
+                    <FormButton texto="Guardar" noTop/>
                 </div>
             </form>
         </div>

@@ -116,8 +116,8 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
           />
         </div>
         
-        <div className='relative bottom-2 right-1'>
-          <FormButton texto="Guardar" />
+        <div className='relative top-[-35px] bottom-2 right-1'>
+          <FormButton texto="Guardar" noTop/>
         </div>
 
       </form>

@@ -1,14 +1,18 @@
 .panel_content {
+    width: 100%;
     height: 575px;
-    margin: 5px;
-    padding: 10px;
+    margin: 0;
+    padding: 1rem;
+    border-radius: 1rem;
     background-color: #ffffff;
     box-shadow: 2px 2px 5px #94a3b8ff;
-    border-radius: 1rem;
     color: #94a3b8ff;  
+    box-sizing: border-box;
 }
 
 .patient_form {
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
@@ -18,4 +22,30 @@
     grid-template-columns: 1fr 1fr;
     gap: 2px;
     padding: 5px;
+}
+
+@media (max-width: 640px) {
+    .panel_content {
+        position: relative;
+        top: 100px;
+        width: calc(100% - 2px);
+        height: auto;
+    }
+
+    .patient_data {
+        grid-template-columns: 1fr;
+        padding: 0.2rem;
+
+    }
+
+    .patient_data input,
+    .patient_data select,
+    .patient_data {
+        padding: 0.2rem;
+    }
+
+    .patient_data label {
+        font-size: 0.75rem;
+    }
+
 }

@@ -227,8 +227,8 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           />
         </div>
 
-        <div className='relative bottom-2 right-1'>
-          <FormButton texto="Guardar" />
+        <div className='relative bottom-3 right-1'>
+          <FormButton texto="Guardar" noTop/>
         </div>
       </form>
     </div>
