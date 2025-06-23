@@ -1,10 +1,18 @@
 .historysessions_container {
     width: 100%;
-    margin-top: 10px;
+    height: auto;
+    margin-top: 0.625rem;
+}
+
+.history_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
 }
 
 .sessions_container {
-    border-radius: 8px;
+    border-radius: 0.5rem;
     padding: 0.5rem;
     margin-top: 0.5rem;
     background-color: #ffffff;
@@ -36,12 +44,12 @@
 }
 
 .sessions_observation p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #94a3b8;
 }
 
 .sessions_observation span {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #89898a;
 }
 
@@ -52,11 +60,66 @@
 }
 
 .sessions_date p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #94a3b8;
 }
 
 .sessions_date span {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #89898a;
+}
+
+/* media queries */
+@media (max-width: 640px) {
+    .historysessions_container {
+        width: 100%;
+    }
+
+    .history_header {
+        height: 1.875rem;
+    }
+
+    .history_header svg {
+        position: relative;
+        top: -0.375rem;
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+
+    .sessions_observation p,
+    .sessions_date p {
+        font-size: 0.7rem;
+    }
+
+    .sessions_observation span,
+    .sessions_date span {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .historysessions_container {
+        width: 100%;
+    }
+
+    .history_header {
+        height: 1.563rem;
+    }
+
+    .history_header svg {
+        position: relative;
+        top: -0.25rem;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .sessions_observation p,
+    .sessions_date p {
+        font-size: 0.6rem;
+    }
+
+    .sessions_observation span,
+    .sessions_date span {
+        font-size: 0.55rem;
+    }
 }

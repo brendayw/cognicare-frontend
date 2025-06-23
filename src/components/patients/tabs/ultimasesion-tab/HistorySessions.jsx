@@ -67,7 +67,7 @@ export default function HistorySessions() {
 
     return (
         <div className={`${styles.historysessions_container}`}>
-            <div className='flex'>
+            <div className={styles.history_header}>
                 <TabTitle titulo='Historial de sesiones' />
                 <Link to='sessions'>
                     <BorderColorTwoToneIcon className='text-[#424884] cursor-pointer hover:text-[#00a396]'/>

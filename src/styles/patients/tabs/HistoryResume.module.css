@@ -1,8 +1,8 @@
 .resume_tab {
   width: 100%;
-  height: 125px;
+  height: 7.813rem;
   background-color: #ffffff;
-  border-radius: 15px;
+  border-radius: 0.938rem;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -25,26 +25,61 @@
 }
 
 .history_details {
-  gap: 5px;
+  gap: 0.313rem;
 }
 
 .history_details--diagnostico p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #f0890c;
 }
 
 .history_details--tratamiento p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #00a396;
 }
 
 .history_details--alta p {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #b36ed8;
 }
 
 .history_details span {
   color: #89898a;
-  font-size: 12px;
+  font-size: 0.75rem;
+}
+
+/* media queries */
+@media (max-width: 640px) {
+  .resume_tab {
+    width: 100%;
+    height: 6.25rem;
+  }
+  
+  .history_details--diagnostico p,
+  .history_details--tratamiento p,
+  .history_details--alta p {
+    font-size: 0.75rem;
+  }
+
+  .history_details span {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .resume_tab {
+    width: 100%;
+    height: 5.625rem;
+  }
+
+  .history_details--diagnostico p,
+  .history_details--tratamiento p,
+  .history_details--alta p {
+    font-size: 0.6rem;
+  }
+
+  .history_details span {
+    font-size: 0.6rem;
+  }
 }
 

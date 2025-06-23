@@ -1,17 +1,15 @@
 .lastsession_container {
     width: 100%;
-    height: 125px;
-    border-radius: 15px;
+    height: 7.813rem;
+    border-radius: 0.938rem;
     box-shadow: 0 2px 2px #f0890c;
     border: 0.5px solid #f0890c;
-    
-    
 }
 
 .session_datetime {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 1.875rem;
     padding: 0.5rem;
 }
 
@@ -20,24 +18,74 @@
 }
 
 .session_datetime span {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #89898a;
 }
 
 .session_details {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 0.125rem;
     padding-left: 0.5rem;
-
 }
 
 .session_details p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #94a3b8;
 }
 
 .session_details span {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #89898a;
-}                
+}
+
+/* media queries */
+@media (max-width: 640px) {
+    .lastsession_container {
+        width: 100%;
+        height: 6.25rem;
+    }
+
+    .session_datetime {
+        gap: 1.25rem;
+        height: 1.875rem;
+    }
+
+    .session_datetime p,
+    .session_datetime span {
+        font-size: 0.7rem;
+    }
+
+    .session_details p {
+        font-size: 0.75rem;
+    }
+    
+    .session_details span {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .lastsession_container {
+        width: 100%;
+        height: 5.625rem;
+    }
+
+    .session_datetime {
+        gap: 0.625rem;
+        height: 1.875rem;
+    }
+
+    .session_datetime p,
+    .session_datetime span {
+        font-size: 0.5rem;
+    }
+
+    .session_details p {
+        font-size: 0.6rem;
+    }
+    
+    .session_details span {
+        font-size: 0.55rem;
+    }
+}

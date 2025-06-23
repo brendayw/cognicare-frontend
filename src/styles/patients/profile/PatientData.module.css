@@ -1,8 +1,8 @@
 .patient_datacard {
     width: 90%;
-    height: 225px;
-    margin: 10px 25px 10px 25px;
-    border-radius: 15px;
+    height: 14.063rem;
+    margin: 0.625rem 1.563rem 0.625rem 1.563rem;
+    border-radius: 0.938rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.26);
     display: flex;
     flex-direction: column;
@@ -17,9 +17,9 @@
 .id_card {
     background-color: #00a396;
     color: #ffffff;
-    border-radius: 15px 15px 0 0;
+    border-radius: 0.938rem 0.938rem 0 0;
     width: 100%;
-    height: 30px;
+    height: 1.875rem;
     display: flex;
     flex-direction: row; 
 }
@@ -27,7 +27,7 @@
 .id_card p {
     font-size: 0.8rem;
     text-align: center;
-    margin: 5px 40px;
+    margin: 0.313rem 2.5rem;
 }
 
 .id_card--diagnostico {
@@ -48,7 +48,7 @@
 
 .card_details p {
     font-size: 0.8rem;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,7 +75,7 @@
 @media (max-width: 768px)  {
     .patient_datacard {
         position: relative;
-        left: 10px;
+        left: 0.625rem;
         width: 90%;
     }
 
@@ -95,10 +95,10 @@
 @media (max-width: 640px) {
     .patient_datacard {
         position: relative;
-        left: 15px;
+        left: 0.938rem;
         right: 0;
         width: 90%;
-        height: 200px;
+        height: 12.5rem;
     }
 
     .id_card p {
@@ -117,10 +117,10 @@
 @media (max-width: 450px) {
     .patient_datacard {
         position: relative;
-        left: -10px;
+        left: -0.625rem;
         right: 0;
         width: 90%;
-        height: 200px;
+        height: 12.5rem;
     }
 
     .id_card p {
