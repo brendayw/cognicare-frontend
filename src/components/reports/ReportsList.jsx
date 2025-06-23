@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { softDeleteReport } from './forms/softDeleteReport.jsx';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import { softDeleteReport } from './forms/softDeleteReport.jsx';
 import ConfirmationDialog from '../ui/ConfirmationDialog.jsx';
+import styles from '../../styles/patients/lists/PatientsProfileLists.module.css';
 
 export default function ReportsList({ reports, error, onReportDeleted }) {
     const { id: patientId } = useParams();
@@ -54,7 +55,7 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
     }
 
     return (
-        <div className='space-y-4'>
+        <div className={`${styles.lists_container} space-y-4`}>
             <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>

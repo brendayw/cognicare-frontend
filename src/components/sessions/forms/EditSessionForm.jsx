@@ -3,11 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditSessionForm() {
     const { patientId, sessionId } = useParams();
-    console.log("Session ID:", sessionId);
-
     const token = localStorage.getItem('token');
     const fieldOptions = [
         { id: 'estado', label: 'Estado de la sesión' },
@@ -104,14 +103,14 @@ export default function EditSessionForm() {
     }
 
     return (
-        <div className='w-full bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-4'>
+        <div className='w-[90%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6'>
             <div>
                 <Link to={`/patients/profile/${patientId}/sessions`}>
                     <ArrowBackIosTwoToneIcon className='text-[#00a396] cursor:pointer'/>
                 </Link>
             </div>
             
-            <h1 className='text-[#00a396] text-[25px] text-center p-2'>Editar sesión del paciente</h1>
+            <h1 className={styles.title_form}>Editar sesión del paciente</h1>
             
             {error && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
@@ -121,14 +120,14 @@ export default function EditSessionForm() {
             )}
         
             {/* Selector de campo */}
-            <div className='flex gap-[10px] mb-[20px]'>
+            <div className={styles.form_select}>
                 <select 
                     value={selectedField}
                     onChange={(e) => setSelectedField(e.target.value)}
-                    className='flex-[1_1_0%] p-2.5 rounded-md border border-[rgb(206,212,218)] text-[#94a3b8] text-[14px] focus:outline-none focus:border-[94a3b8]'
+                    className={styles.form_field}
                 >
                     {fieldOptions.map(option => (
-                        <option key={option.id} value={option.id} className='text-[#94a3b8]'>
+                        <option key={option.id} value={option.id} className={styles.form_placeholder}>
                             {option.label}
                         </option>
                     ))}
@@ -136,7 +135,7 @@ export default function EditSessionForm() {
             
                 <button 
                     onClick={handleAddField} 
-                    className='w-[150px] bg-[#27ae60] text-[#ffffff] text-[14px] rounded-md px-[10px] py-[10px] cursor:pointer transition-colors duration-300'
+                    className={styles.form_button}
                     disabled={isSubmitting}
                 >
                     Agregar Campo
@@ -146,19 +145,19 @@ export default function EditSessionForm() {
             {/* Lista de campos */}
             <div className='flex flex-col gap-[15px] mb-[25px]'>
                 {fields.map(field => (
-                    <div key={field.id} className='flex items-center gap-[15px]'>
-                        <label className='w-[150px] text-[14px] text-[#94a3b8]'>{field.label}:</label>
+                    <div key={field.id} className={styles.form_inputcontainer}>
+                        <label className={styles.form_label}>{field.label}:</label>
                         <input
                             type={field.type.includes('fecha') ? 'date' : 'text'}
                             value={field.value}
                             onChange={(e) => handleFieldChange(field.id, e.target.value)}
                             placeholder={`Ingrese ${field.label.toLowerCase()}`}
-                            className='flex-1 text-[14px] text-[#94a3b8] border border-[#ced4da] rounded-md p-[10px] focus:outline-none focus:border-[94a3b8]'
+                            className={styles.form_input}
                             disabled={isSubmitting}
                         />
                         <button 
                             onClick={() => handleRemoveField(field.id)}
-                            className='bg-[#ff6f59] text-[14px] text-[#ffffff] rounded-md cursor:pointer px-[15px] py-[8px] transition-colors duration-300'
+                            className={styles.remove_button}
                             disabled={isSubmitting}
                         >
                             ×
@@ -170,7 +169,7 @@ export default function EditSessionForm() {
             {fields.length > 0 && (
                 <button 
                     onClick={handleSubmit}
-                    className='w-[200px] bg-[#424884] text-[#ffffff] text-[14px] rounded-md p-[12px] cursor:pointer transition-colors duration-300 mx-auto block'
+                    className={styles.send_button}
                     disabled={isSubmitting || fields.some(f => !f.value)}
                 >
                     {isSubmitting ? 'Guardando...' : 'Guardar Datos'}
@@ -179,113 +178,3 @@ export default function EditSessionForm() {
         </div>
     );
 }
-
-// Estilos mejorados
-const styles = {
-  container: {
-    maxWidth: '800px',
-    margin: '20px auto',
-    padding: '25px',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '10px',
-    fontFamily: 'Arial, sans-serif',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-  },
-  title: {
-    color: '#2c3e50',
-    textAlign: 'center',
-    marginBottom: '25px',
-    fontSize: '24px'
-  },
-  selector: {
-    display: 'flex',
-    gap: '10px',
-    marginBottom: '20px'
-  },
-  select: {
-    flex: 1,
-    padding: '10px',
-    borderRadius: '6px',
-    border: '1px solid #ced4da',
-    fontSize: '16px'
-  },
-  addButton: {
-    padding: '10px 20px',
-    backgroundColor: '#28a745',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#218838'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  },
-  fieldsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-    marginBottom: '25px'
-  },
-  field: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '15px'
-  },
-  label: {
-    width: '150px',
-    fontWeight: 'bold',
-    fontSize: '16px'
-  },
-  input: {
-    flex: 1,
-    padding: '10px',
-    borderRadius: '6px',
-    border: '1px solid #ced4da',
-    fontSize: '16px',
-    ':disabled': {
-      backgroundColor: '#e9ecef'
-    }
-  },
-  deleteButton: {
-    padding: '8px 15px',
-    backgroundColor: '#dc3545',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#c82333'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  },
-  submitButton: {
-    width: '100%',
-    padding: '12px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    transition: 'background-color 0.3s',
-    ':hover': {
-      backgroundColor: '#0069d9'
-    },
-    ':disabled': {
-      backgroundColor: '#6c757d',
-      cursor: 'not-allowed'
-    }
-  }
-};

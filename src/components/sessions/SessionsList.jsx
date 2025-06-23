@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { softDeleteSession } from './forms/softDeleteSession.jsx';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import { softDeleteSession } from './forms/softDeleteSession.jsx';
 import ConfirmationDialog from '../ui/ConfirmationDialog.jsx';
+import styles from '../../styles/patients/lists/PatientsProfileLists.module.css';
 
 export default function SessionsList({ sessions, error, onSessionDeleted }) {
     const { id: patientId } = useParams();
@@ -54,7 +55,7 @@ export default function SessionsList({ sessions, error, onSessionDeleted }) {
     }
 
     return (
-        <div className='space-y-4'>
+        <div className={`${styles.lists_container} space-y-4`}>
             <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>
@@ -62,7 +63,7 @@ export default function SessionsList({ sessions, error, onSessionDeleted }) {
                 {sessions.length > 0 ? (
                     sessions.map((session) => {
                         return (
-                            <div className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md relative'>
+                            <div key={session.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md'>
                                 <div className='flex flex-col m-4 pr-4 flex-grow'>
                                     <h5><span className='text-[#00a396] text-base'>{session.estado}</span></h5>
                                     <p className='text-[#94a3b8] text-xs'>Fecha: <span className='text-[#89898a]'>{session.fecha}</span></p>

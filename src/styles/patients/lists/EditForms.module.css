@@ -1,0 +1,185 @@
+.title_form {
+    font-size: 1.563rem;
+    text-align: center;
+    color: #00a396;
+    padding: 0.2rem
+}
+
+.form_select {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form_field {
+    flex: 1 1 0%;
+    font-size: 14px;
+    color: #94a3b8;
+    border: 0.5px solid rgb(206,212,218);
+    padding: 0.625rem;
+    border-radius: 0.375rem;
+    outline: none;
+}
+
+.form_field:focus {
+  border-color: #94a3b8;
+}
+
+.form_placeholder {
+    color: #94a3b8;
+}
+
+.form_button {
+    width: 9.375rem;
+    background-color: #27ae60;
+    color: #ffffff;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    padding: 10px 0 10px 0;
+    cursor: pointer;
+}
+
+.form_inputcontainer {
+    display: flex;
+    align-items: center;
+    gap: 0.938rem;
+}
+
+.form_label {
+    width: 9.375rem;
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.form_inputfile {
+    width: 100%;
+}
+
+.form_inputfile,
+.form_input {
+    flex: 1;
+    font-size: 0.875rem;
+    color: #94a3b8;
+    border: 1px solid #94a3b8;
+    border-radius: 0.375rem;
+    padding: 0.625rem;
+}
+
+.form_input:focus {
+    outline: #94a3b8;
+    border: 1px solid #94a3b8;
+}
+
+.remove_button {
+    background-color: #ff6f59;
+    font-size: 0.875rem;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 0.375rem;
+    cursor: pointer
+}
+
+.send_button {
+    display: block;
+    width: 12.5rem;
+    background-color: #424884;
+    color: #ffffff;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 640px) {
+    .title_form {
+        position: relative;
+        top: -10px;
+        font-size: 1.1rem;
+    }
+
+    .form_select {
+        height: 2.188rem;
+    }
+
+    .form_field,
+    .form_input {
+        font-size: 0.7rem;
+    }
+
+    .form_placeholder,
+    .form_label {
+        font-size: 0.7rem;
+    }
+
+    .form_button {
+        font-size: 0.7rem;
+    }
+
+    .form_inputcontainer {
+        height: 2.188rem;
+    }
+
+    .send_button {
+        width: 9rem;
+        font-size: 0.7rem;
+    }
+
+    /*solo para report*/
+    .form_inputfile {
+        width: 16rem;
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .title_form {
+        position: relative;
+        top: 0;
+        font-size: 1rem;
+    }
+
+    .form_select {
+        height: 2.1rem;
+    }
+
+    .form_field,
+    .form_input {
+        font-size: 0.6rem;
+    }
+
+    .form_placeholder,
+    .form_label {
+        font-size: 0.6rem;
+    }
+
+    .form_button {
+        width: 6.25rem;
+        font-size: 0.6rem;
+    }
+
+    .form_inputcontainer {
+        height: 2.1rem;
+    }
+
+    .form_input {
+        width: 8rem;
+        height: 2.1rem;
+    }
+
+    .remove_button {
+        height: 2.1rem;
+    }
+
+    .send_button {
+        width: 6.25rem;
+        font-size: 0.6rem;
+    }
+
+    /*solo para reporte*/
+    .form_inputfile {
+        width: 8rem;
+        font-size: 0.5rem;
+    }
+}

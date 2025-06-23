@@ -19,7 +19,7 @@
 
 .assessment_details {
   width: 100%;
-  border-radius: 0.938;
+  border-radius: 0.938rem;
   padding: 0.6rem;
   display: flex;
   flex-direction: column;

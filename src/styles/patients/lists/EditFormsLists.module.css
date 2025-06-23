@@ -1,0 +1,23 @@
+.form_containers {
+    position: relative;
+    top: 1.5rem;
+}
+
+/* media queries*/
+@media (max-width: 768px) {
+    .form_containers {
+        top: 6.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .form_containers {
+        top: 6.5rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .form_containers {
+        top: 6.5rem;
+    }
+}

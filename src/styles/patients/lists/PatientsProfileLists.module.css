@@ -1,0 +1,20 @@
+@media (max-width: 768px) {
+    .lists_container {
+        position: relative;
+        top: 110px;
+    }
+}
+
+@media (max-width: 640px) {
+    .lists_container {
+        position: relative;
+        top: 110px;
+    }
+}
+
+@media (max-width: 450px) {
+    .lists_container {
+        position: relative;
+        top: 110px;
+    }
+}
