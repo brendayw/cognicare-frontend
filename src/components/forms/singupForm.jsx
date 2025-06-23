@@ -10,19 +10,16 @@ export default function SignupForm() {
     const [error, setError] = useState('');
   
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log('Registro con:', { usuario, email, password });
 
         try {
-            const URL_API = 'https://cognicare-backend.vercel.app/';
-            const response = await axios.post(`${URL_API}api/signup`, {  
+            const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            const response = await axios.post(`${URL_API}signup`, {  
                 usuario,
                 email, 
                 password
             });
     
             if (response.data.success) {
-                console.log("Usuario creado con éxito");
                 setSuccessMessage('¡Cuenta creada con éxito!');
             } else {
                 setError(response.data.message || 'Error al crear la cuenta');
@@ -51,7 +48,6 @@ export default function SignupForm() {
             }
             
             <form onSubmit={handleSubmit}>
-
                 <div className="mb-3 md:mb-4">
                     <label className="block text-soft text-sm font-bold mt-2" htmlFor="name">
                         Usuario
@@ -94,7 +90,6 @@ export default function SignupForm() {
                         required
                     />
                 </div>
-    
                 <button
                     type="submit"
                     className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-dark shadow shadow-dark text-sm md:text-base"

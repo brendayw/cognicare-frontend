@@ -31,13 +31,12 @@ export default function SessionsList({ sessions, error, onSessionDeleted }) {
                 
         try {
             const token = localStorage.getItem('token');
+            
             await softDeleteSession(sessionToDelete.id, token);
-                    
             onSessionDeleted?.(sessionToDelete.id);
             handleCloseDialog();
         } catch (error) {
             setDeleteError(error.message);
-            console.error('Delete error:', error);
         } finally {
             setIsDeleting(false);
         }

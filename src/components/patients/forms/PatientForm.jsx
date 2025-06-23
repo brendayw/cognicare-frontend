@@ -53,15 +53,11 @@ export default function PatientForm() {
             estado: estado,
             observaciones: observacion
         }
-        console.log("Datos paciente: ", formData);
 
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/api/';
             const token = localStorage.getItem('token');
-            console.log('Token usado:', token);
-
             if (!token) throw new Error('No hay token de autenticación');
-            console.log('Token: ' + token);
 
             const response = await axios.post(`${URL_API}patients`, formData, {
                 headers: {
@@ -91,15 +87,15 @@ export default function PatientForm() {
             }
 
         } catch (error) {
-            console.error('Error completo:', error);
+
             if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
+
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
-                console.error('No hubo respuesta:', error.request);
+
                 setError('El servidor no respondió');
             } else {
-                console.error('Error en la solicitud:', error.message);
+
                 setError('Error al enviar el formulario');
             }
         }

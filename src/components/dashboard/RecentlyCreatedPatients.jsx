@@ -12,35 +12,25 @@ export default function RecentlyCreatedPatients() {
             try {
                 setLoading(true);
                 setError(null);
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token');
-                
-                if (!token) {
-                    throw new Error('Error al cargar datos: No hay token de autenticación');
-                }
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
 
-                const response = await axios.get(`${URL_API}api/patients/recently`, {
+                const token = localStorage.getItem('token');
+                if (!token) throw new Error('No hay token de autenticación');
+
+                const response = await axios.get(`${URL_API}patients/recently`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log('Respuesta completa del recently:', response);
 
                 let pacientesData = [];
                 if (response.data?.data && Array.isArray(response.data.data)) {
                     pacientesData = response.data.data;
-                } 
-                
-                else if (Array.isArray(response.data)) {
+                } else if (Array.isArray(response.data)) {
                     pacientesData = response.data;
-                }
-                
-                else if (response.data?.success) {
-                    
+                } else if (response.data?.success) {
                     console.log(response.data.message);
-                }
-                
-                else {
+                } else {
                     throw new Error('Formato de respuesta no reconocido');
                 }
 

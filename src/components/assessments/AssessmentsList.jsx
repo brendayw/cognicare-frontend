@@ -32,13 +32,14 @@ export default function AssessmentsList({ assessments, error, onAssessmentDelete
         try {
             const token = localStorage.getItem('token');
             await softDeleteAssessment(assessmentToDelete.id, token);
-            
             onAssessmentDeleted?.(assessmentToDelete.id);
             handleCloseDialog();
+
         } catch (error) {
+
             setDeleteError(error.message);
-            console.error('Delete error:', error);
         } finally {
+
             setIsDeleting(false);
         }
     };

@@ -22,7 +22,6 @@ export default function LastSessionTab() {
                 const response = await axios.get(`${URL_API}session/${id}/last`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Datos de la ultima sesion: ", response);
 
                 if (response.data.success) {
                     let sessionData = response.data.data;
@@ -35,7 +34,6 @@ export default function LastSessionTab() {
                 }
 
             } catch (err) {
-                console.error('Error al cargar datos:', err);
                 if (err.message === 'NO_SESSION') {
                     setError('No se encontraron sesiones para mostrar asociadas al paciente');
                 } else if (err.message === 'Token no encontrado') {

@@ -7,8 +7,6 @@ import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditReportForm() {
     const { patientId, reportId } = useParams();
-    console.log("Report ID:", reportId);
-
     const token = localStorage.getItem('token');
     const fieldOptions = [
         { id: 'fecha_reporte', label: 'Fecha del reporte' },
@@ -101,8 +99,6 @@ export default function EditReportForm() {
             Array.from(requestData.entries()).length > 0 :
             Object.keys(requestData).length > 0;
         
-        console.log("Tiene datos para enviar:", hasData);
-        
         if (!hasData) {
             setError('No hay datos para enviar');
             setIsSubmitting(false);
@@ -117,18 +113,14 @@ export default function EditReportForm() {
             
             if (response.data.success) {
                 alert('Reporte actualizado con éxito');
-                // setFields([]);
+                setFields([]);
             }
         } catch (error) {
-            console.error('Error completo:', error);
             if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
-                console.error('No hubo respuesta:', error.request);
                 setError('El servidor no respondió');
             } else {
-                console.error('Error en la solicitud:', error.message);
                 setError('Error al enviar el formulario');
             }
         } finally {

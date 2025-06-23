@@ -29,8 +29,8 @@ export default function DesactivarSolapa( { profesional, onProfesionalDeleted, i
 
         try {
             const token = localStorage.getItem('token');
+            
             await softDeleteProfesional(profesionalToDelete?.id, token);
-
             onProfesionalDeleted?.(profesionalToDelete.id);
             handleCloseDialog();
             localStorage.removeItem('token');
@@ -38,7 +38,6 @@ export default function DesactivarSolapa( { profesional, onProfesionalDeleted, i
 
         } catch (error) {
             setDeleteError(error.message);
-            console.error('Delete error:', error);
         } finally {
             setIsDeleting(false);
         }

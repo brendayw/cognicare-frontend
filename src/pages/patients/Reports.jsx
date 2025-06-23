@@ -17,46 +17,30 @@ export default function Reports() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-                
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const response = await axios.get(`${URL_API}patients/${id}/reports`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de reportes:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Reportes del paciente recibidos (array directo):", response.data.data.length);
                         setReports(response.data.data);
-                    } 
-                    // Caso 2: Datos en propiedad data.rows (estructura antigua)
-                    else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Reportes recibidos (en propiedad rows):", response.data.data.rows.length);
+                    } else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
                         setReports(response.data.data.rows);
-                    }
-                    // Caso 3: Respuesta exitosa pero sin pacientes
-                    else {
-                        console.log("No hay evaluaciones registradas");
+                    } else {
                         setReports([]);
                         setError('No se encontraron reportes asociadas al paciente');
                     }
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
-            } catch (err) {
-                console.error('Error al obtener reportes:', {
-                    error: err,
-                    response: err.response?.data,
-                    stack: err.stack
-                });
-        
+            } catch (err) {        
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
-        
         obtenerReportesDelPaciente();
     }, [id]);
 

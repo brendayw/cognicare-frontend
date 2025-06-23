@@ -30,6 +30,8 @@ export default function EditProfesionalForm() {
         const fetchProfesional = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
+                if (!token) throw new Error('No hay token de autenticación');
+
                 const response = await axios.get(`${URL_API}profesional/${id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -38,7 +40,6 @@ export default function EditProfesionalForm() {
                     setProfesional(response.data.data);
                 }
             } catch (err) {
-                console.error('Error al obtener profesional:', err);
                 setError('Error al cargar los datos del profesional');
             }
         };
@@ -83,9 +84,8 @@ export default function EditProfesionalForm() {
         setIsSubmitting(true);
         setError('');
           
-
         if (!profesional) {
-            console.warn('Professional data not loaded yet');
+            console.warn('Los datos del profesional aún no se cargaron');
             return;
         }
         
@@ -96,7 +96,7 @@ export default function EditProfesionalForm() {
             }
         });
         
-        // Si no hay cambios, no enviar la petición
+        // Si no hay cambios, no envia la petición
         if (Object.keys(formData).length === 0) {
             setError('No se detectaron cambios para guardar');
             setIsSubmitting(false);
@@ -105,6 +105,8 @@ export default function EditProfesionalForm() {
                 
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            if (!token) throw new Error('No hay token de autenticación');
+
             const response = await axios.put(`${URL_API}profesional/${id}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -117,7 +119,6 @@ export default function EditProfesionalForm() {
                 setFields([]);
             }
         } catch (error) {
-            console.error('Error completo:', error);
             if (error.response) {
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
@@ -134,7 +135,7 @@ export default function EditProfesionalForm() {
         return (
             <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                 <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No estás autenticado. Por favor inicia sesión.
+                No hay token de autenticación
             </div>
         );
     }

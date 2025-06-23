@@ -83,7 +83,6 @@ export default function PatientsChart() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const [diagnosisRes, treatmentRes, dischargedRes] = await Promise.all([
@@ -119,12 +118,6 @@ export default function PatientsChart() {
                     ? dischargedRes.data.data?.length || 0
                     : 0;
 
-                console.log('Conteos calculados:', {
-                    diagnostico: diagnosisCount,
-                    tratamiento: treatmentCount,
-                    alta: dischargedCount
-                });
-
                 const newChartData = [
                     { id: 0, value: treatmentCount, label: 'Tratamiento' },
                     { id: 1, value: diagnosisCount, label: 'Diagnóstico' },
@@ -132,21 +125,19 @@ export default function PatientsChart() {
                 ];
                 
                 if (newChartData.every(item => item.value === 0)) {
-                    console.log('No hay datos para mostrar en el gráfico');
                     setError('No hay pacientes registrados para mostrar en el gráfico');
                 } else {
-                    console.log('Datos para el gráfico:', newChartData);
                     setChartData(newChartData);
                     setError('');
                 }
             } catch (err) {
-                console.error('Error al cargar datos:', err);
+
                 setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
             } finally {
+
                 setLoading(false);
             }
         };
-    
         obtenerEstado();
     }, []);
 

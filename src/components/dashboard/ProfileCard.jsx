@@ -24,14 +24,15 @@ export default function ProfileCard() {
                 if (!data.success) throw new Error(data.message || 'Error en respuesta');
                 
                 setProfesional(data.data);
+                
             } catch (err) {
-                console.error('Error fetching profesional:', err);
+
                 setError('Error al cargar datos: ' + err.message);
             } finally {
+
                 setLoading(false);
             }
         };
-
         obtenerProfesional();
     }, []);
 

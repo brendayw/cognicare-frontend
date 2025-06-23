@@ -20,12 +20,11 @@ export default function ProfesionalCard({ prof }) {
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
 
-                const response = await axios.get(`${URL_API}profesional/${id}`, 
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
+                const response = await axios.get(`${URL_API}profesional/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
                 if (response.data.success) {
                     setPerfilDetallado(response.data.data);
@@ -34,13 +33,11 @@ export default function ProfesionalCard({ prof }) {
                 }
 
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
-
         obtenerPerfil();
     }, []);
 

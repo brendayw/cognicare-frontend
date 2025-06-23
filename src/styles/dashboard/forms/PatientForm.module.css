@@ -24,6 +24,12 @@
     padding: 5px;
 }
 
+.patient_data input:focus,
+.patient_data select:focus {
+    outline: #94a3b8;
+    border: 2px solid #00a396;
+}
+
 @media (max-width: 640px) {
     .panel_content {
         position: relative;

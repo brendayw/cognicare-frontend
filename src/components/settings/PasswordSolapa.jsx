@@ -27,7 +27,7 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
     try {
       const URL_API = 'https://cognicare-backend.vercel.app/api/';
       const token = localStorage.getItem('token');
-      console.log('Datos enviados:', formData);
+      if (!token) throw new Error('No hay token de autenticación');
 
       const response = await axios.put(`${URL_API}password/update`, formData, {
         headers: {
@@ -47,15 +47,11 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
       }
 
     } catch (error) {
-      console.error('Error completo:', error);
       if (error.response) {
-        console.error('Respuesta del servidor:', error.response.data);
         setError(error.response.data.message || 'Error del servidor');
       } else if (error.request) {
-        console.error('No hubo respuesta:', error.request);
         setError('El servidor no respondió');
       } else {
-        console.error('Error en la solicitud:', error.message);
         setError('Error al enviar el formulario');
       }
     }
@@ -116,7 +112,7 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
           />
         </div>
         
-        <div className='relative top-[-35px] bottom-2 right-1'>
+        <div className='relative bottom-8 md:top-[-20px] sm:top-[-20px] right-1'>
           <FormButton texto="Guardar" noTop/>
         </div>
 

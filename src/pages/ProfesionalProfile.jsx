@@ -28,7 +28,6 @@ export default function ProfesionalProfile() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
     
                 const response = await axios.get(`${URL_API}profesional/${id}`, {
@@ -38,7 +37,6 @@ export default function ProfesionalProfile() {
                 if (token) {
                     const payloadBase64 = token.split('.')[1];
                     const payload = JSON.parse(atob(payloadBase64));
-                    console.log('Payload del token:', payload);
                 }
                 
                 if (response.data.success) {
@@ -48,7 +46,6 @@ export default function ProfesionalProfile() {
                     setError('No se pudo obtener el perfil.');
                 }
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
                 setError('Error al obtener datos: ' + err.message);
             } 
         };

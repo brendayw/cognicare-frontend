@@ -14,20 +14,15 @@ export default function RecentlyUpdatedPatients() {
             try {
                 setLoading(true);
                 setError(null);
-                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-
-                if (!token) {
-                    throw new Error('Error al cargar datos: No hay token de autenticación');
-                }
-
-                const response = await axios.get(`${URL_API}api/patients/updated`, {
+                if (!token) throw new Error('Error al cargar datos: No hay token de autenticación');
+                
+                const response = await axios.get(`${URL_API}patients/updated`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log('Respuesta completa updated:', response);
-
 
                 let pacientesData = [];
                 if (response.data?.data && Array.isArray(response.data.data)) {
@@ -54,15 +49,7 @@ export default function RecentlyUpdatedPatients() {
                 }
 
             } catch (err) {
-                console.error('Error al cargar pacientes:', err);
                 const errorMessage = err.response?.data?.message || err.message || 'Error al cargar pacientes';
-
-                console.error('Detalles del error:', {
-                    message: err.message,
-                    response: err.response?.data,
-                    stack: err.stack
-                });
-
                 setError(errorMessage);
                 setPatients([]);
                 

@@ -15,7 +15,6 @@ export default function MoreInfo() {
         const obtenerData = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
-
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
@@ -25,13 +24,12 @@ export default function MoreInfo() {
                     }
                 });
                 const result = response.data.data;
-                console.log('Datos recibidos:', result);
                 
                 if (result) {
                     const diasSemana = ['Lun', 'Mart', 'Miér', 'Jue', 'Vier', 'Sáb'];
                     const diasMapeados = {
                         'lunes': 'Lun',
-                        'martes': 'Mart',
+                        'martes': 'Mar',
                         'miercoles': 'Miér',
                         'jueves': 'Jue',
                         'viernes': 'Vier',
@@ -64,13 +62,10 @@ export default function MoreInfo() {
                             horariosProcesados.push(`${inicio.split(':')[0]} a ${fin.split(':')[0]}`);
                         }
                     }
-
-                    console.log('Horarios procesados:', horariosProcesados); 
                     setHorariosAtencion(horariosProcesados);
                 }
 
             } catch (err) {
-                console.error('Error al cargar datos:', err);
                 setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
             } finally {
                 setLoading(false);

@@ -41,7 +41,6 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
 
   const handleCheckboxChange = (e) => {
     const { name, value: newDias } = e.target;
-    console.log('Checkbox change:', { name, newDias });
     
     setFormData(prev => ({
       ...prev,
@@ -51,8 +50,6 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log('Datos del formulario antes del envío:', formData);
     
     const requiredFields = ['email', 'nombre_completo', 'especialidad', 'matricula', 'telefono', 'genero', 'horarios_atencion', 'fecha_nacimiento'];
     const missingFields = requiredFields.filter(field => !formData[field] || formData[field].toString().trim() === '');
@@ -70,7 +67,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
     try {
       const URL_API = 'https://cognicare-backend.vercel.app/api/';
       const token = localStorage.getItem('token');
-      console.log('Datos enviados:', formData);
+      if (!token) throw new Error('No hay token de autenticación');
 
       const response = await axios.post(`${URL_API}profesional`, formData, {
         headers: {
@@ -96,15 +93,11 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
       }
 
     } catch (error) {
-      console.error('Error completo:', error);
       if (error.response) {
-        console.error('Respuesta del servidor:', error.response.data);
         setError(error.response.data.message || 'Error del servidor');
       } else if (error.request) {
-        console.error('No hubo respuesta:', error.request);
         setError('El servidor no respondió');
       } else {
-        console.error('Error en la solicitud:', error.message);
         setError('Error al enviar el formulario');
       }
     }

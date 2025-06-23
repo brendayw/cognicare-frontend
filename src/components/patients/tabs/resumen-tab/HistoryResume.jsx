@@ -14,7 +14,6 @@ export default function HistoryResume() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
 
                 const response = await axios.get(`${URL_API}api/patients/${id}`, {
@@ -28,7 +27,6 @@ export default function HistoryResume() {
                     }
 
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
                 setError('Error al obtener datos: ' + err.message);
             } finally {
                 setLoading(false);

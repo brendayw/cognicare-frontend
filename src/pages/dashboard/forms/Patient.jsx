@@ -5,7 +5,7 @@ export default function Patient() {
     return (
         <div className='h-screen'>
             <Menu/>
-            <div className='m-2 '>
+            <div >
                 <PatientForm />
             </div>
         </div>

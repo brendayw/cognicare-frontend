@@ -12,17 +12,16 @@ export default function PatientProgress({patient}) {
     useEffect(() => {
         const obtenerPerfil = async () => {
             try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
+                const URL_API = 'https://cognicare-backend.vercel.app/api';
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 if (!id) throw new Error('Id del paciente no reconocido');
         
-                const response = await axios.get(`${URL_API}api/patients/${id}`, 
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
+                const response = await axios.get(`${URL_API}patients/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
         
                 if (response.data.success) {
                     setPerfilDetallado(response.data.data);
@@ -31,7 +30,6 @@ export default function PatientProgress({patient}) {
                 }
         
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);

@@ -25,6 +25,12 @@
     padding: 10px;
 }
 
+.report_data input:focus,
+.report_data select:focus {
+    outline: #94a3b8;
+    border: 2px solid #00a396;
+}
+
 /* media queries */
 @media (max-width: 768px) {
     .panel_content {

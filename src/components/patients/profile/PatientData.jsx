@@ -31,7 +31,7 @@ export default function PatientData({patient}) {
                 }
         
             } catch (err) {
-                console.error('Error:', err.response?.data || err.message);
+                
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);

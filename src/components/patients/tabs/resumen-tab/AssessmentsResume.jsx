@@ -16,14 +16,9 @@ export default function AssessmentResume() {
     useEffect(() => {
         const obtenerData = async () => {
             try {
-                console.log('ID del paciente obtenido de useParams:', id);
-
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
-                console.log('Token: ' + token);
-
                 if (!id) throw new Error('ID del paciente no encontrado');
 
                 const [assessmentResponse, patientResponse] = await Promise.all([
@@ -48,8 +43,6 @@ export default function AssessmentResume() {
                     setPatientStatus(patientResponse.data.data.estado);
                 }
             } catch (err) {
-                console.error('Error al cargar datos:', err);
-
                 if (err.message === 'NO_EVALUATIONS') {
                     setError('No se encontraron evaluaciones para mostrar asociadas al paciente');
                 } else if (err.message === 'Token no encontrado') {

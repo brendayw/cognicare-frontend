@@ -31,13 +31,12 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
             
         try {
             const token = localStorage.getItem('token');
+            
             await softDeleteReport(reportToDelete.id, token);
-                
             onReportDeleted?.(reportToDelete.id);
             handleCloseDialog();
         } catch (error) {
             setDeleteError(error.message);
-            console.error('Delete error:', error);
         } finally {
             setIsDeleting(false);
         }

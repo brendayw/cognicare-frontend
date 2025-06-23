@@ -32,7 +32,6 @@ export default function Diagnosis() {
         const obtenerPacientesEnDiagnostico = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
-
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
                 
@@ -41,30 +40,23 @@ export default function Diagnosis() {
                 });
                 
                 if (response.data && response.data.success && response.data.data) {
-                    // Si data.data contiene directamente las filas de pacientes
                     if (Array.isArray(response.data.data)) {
                         setPatients(response.data.data);
-                    } 
-                    // Si data.data contiene un objeto con rows
-                    else if (response.data.data.rows) {
+                    } else if (response.data.data.rows) {
                         setPatients(response.data.data.rows);
-                    }
-                    // Si es otro tipo de objeto con datos de pacientes
-                    else {
+                    } else {
                         setPatients([response.data.data]);
                     }
                 } else {
                     throw new Error('Estructura de datos inesperada');
                 }
             } catch (err) {
-                console.error('Error:', err);
                 setError('Error al cargar datos: ' + err.message);
                 setPatients([]);
             } finally {
                 setLoading(false);
             }
-        };
-        
+        };      
         obtenerPacientesEnDiagnostico();
     }, []);
     

@@ -57,14 +57,11 @@ export default function EditSessionForm() {
             acc[field.type] = field.value;
             return acc;
         }, {});
-
-        console.log("Datos que se enviarán:", {
-            ...formData,
-            id: sessionId
-        });
         
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/api/';
+            if (!token) throw new Error('No hay token de autenticación');
+
             const response = await axios.put(`${URL_API}session/${sessionId}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -74,18 +71,15 @@ export default function EditSessionForm() {
             
             if (response.data.success) {
                 alert('Sesión actualizada con éxito');
-                // setFields([]);
+                setFields([]);
             }
         } catch (error) {
-            console.error('Error completo:', error);
+
             if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
-                console.error('No hubo respuesta:', error.request);
                 setError('El servidor no respondió');
             } else {
-                console.error('Error en la solicitud:', error.message);
                 setError('Error al enviar el formulario');
             }
         } finally {

@@ -81,18 +81,19 @@ export default function EditPatientForm() {
                 // setFields([]);
             }
         } catch (error) {
-            console.error('Error completo:', error);
+
             if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
+
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
-                console.error('No hubo respuesta:', error.request);
+
                 setError('El servidor no respondió');
             } else {
-                console.error('Error en la solicitud:', error.message);
+
                 setError('Error al enviar el formulario');
             }
         } finally {
+
             setIsSubmitting(false);
         }
     };
@@ -101,7 +102,7 @@ export default function EditPatientForm() {
         return (
             <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                 <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No estás autenticado. Por favor inicia sesión.
+                No hay token de autenticación
             </div>
         );
     }

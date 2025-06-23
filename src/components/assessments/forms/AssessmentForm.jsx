@@ -31,19 +31,13 @@ export default function AssessmentForm() {
             observaciones: observacion,
             nombre_completo: nombre_completo, 
         }
-        console.log("Data de assessment: ", formData);
 
         try {
-            const URL_API = 'https://cognicare-backend.vercel.app/';
-            
+            const URL_API = 'https://cognicare-backend.vercel.app/api/';
             const token = localStorage.getItem('token');
-            if (!token) {
-                setError('No estás autenticado');
-                return; // Detiene el envío si no hay token
-            }
-            console.log('Token usado:', token);
+            if (!token) throw new Error('No hay token de autenticación');
 
-            const response = await axios.post(`${URL_API}api/assessments`, formData, {
+            const response = await axios.post(`${URL_API}assessments`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -64,15 +58,15 @@ export default function AssessmentForm() {
             }
 
         } catch (error) {
-            console.error('Error completo:', error);
+
             if (error.response) {
-                console.error('Respuesta del servidor:', error.response.data);
+
                 setError(error.response.data.message || 'Error del servidor');
             } else if (error.request) {
-                console.error('No hubo respuesta:', error.request);
+
                 setError('El servidor no respondió');
             } else {
-                console.error('Error en la solicitud:', error.message);
+
                 setError('Error al enviar el formulario');
             }
         }

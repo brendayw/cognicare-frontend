@@ -28,6 +28,8 @@ export default function PatientProfile() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/'
                 const token = localStorage.getItem('token');
+                if (!token) throw new Error('No hay token de autenticación');
+                
                 const response = await axios.get(`${URL_API}patients/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -42,7 +44,6 @@ export default function PatientProfile() {
 
             } catch (err) {
                 setError(err.message);
-                console.error('Error fetching patient:', err);
             }
             // } finally {
             //     setLoading(false);

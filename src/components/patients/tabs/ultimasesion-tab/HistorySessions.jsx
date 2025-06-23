@@ -18,7 +18,6 @@ export default function HistorySessions() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
                 if (!id) throw new Error('ID del paciente no encontrado');
 
@@ -44,7 +43,6 @@ export default function HistorySessions() {
                 }
 
             } catch (err) {
-                console.error('Error al cargar datos:', err);
                 if (err.message === 'NO_SESSIONS') {
                     setError('No se encontraron sesiones para mostrar asociadas al paciente');
                 } else if (err.message === 'Token no encontrado') {

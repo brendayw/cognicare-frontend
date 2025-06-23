@@ -107,7 +107,6 @@ export default function Chart() {
         const obtenerData = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
-
                 const token = localStorage.getItem('token');
                 if (!token) throw new Error('No hay token de autenticación');
 
@@ -117,10 +116,8 @@ export default function Chart() {
                     }
                 });
                 const chartData = response.data.data;
-
                 const treatmentPatients = chartData.filter(p => p.estado === 'tratamiento');
                 const diagnosticPatients = chartData.filter(p => p.estado === 'diagnóstico');
-
                 const relevantPatients = [...treatmentPatients, ...diagnosticPatients];
 
                 const formattedData = {
@@ -131,7 +128,6 @@ export default function Chart() {
                 setChartData(formattedData);
 
             } catch (err) {
-                console.error('Error al cargar datos:', err);
                 setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
             
             } finally {

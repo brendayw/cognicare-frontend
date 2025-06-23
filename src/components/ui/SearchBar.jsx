@@ -23,7 +23,6 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                 const response = await axios.get(`http://localhost:5000/api/buscar?texto=${searchTerm}`);
                 setPatients(response.data.pacientes);
             } catch (error) {
-                console.error('Error al realizar la búsqueda:', error);
                 setPatients([]);
             }
         };

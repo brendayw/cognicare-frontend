@@ -6,7 +6,7 @@ export const softDeleteAssessment = async (assessmentId, token) => {
   try {
     const response = await axios.put(
       `${URL_API}assessments/${assessmentId}/soft-delete`,
-      { deleted: true }, // Datos para el soft delete
+      { deleted: true },
       {
         headers: {
           'Authorization': `Bearer ${token}`,

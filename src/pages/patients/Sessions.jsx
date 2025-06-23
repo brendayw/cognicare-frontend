@@ -22,40 +22,25 @@ export default function Sessions() {
                 const response = await axios.get(`${URL_API}patients/${id}/sessions`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de sesiones:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Sesiones del paciente recibidas (array directo):", response.data.data.length);
                         setSessions(response.data.data);
-                    } 
-                    // Caso 2: Datos en propiedad data.rows (estructura antigua)
-                    else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Sesiones recibidas (en propiedad rows):", response.data.data.rows.length);
+                    } else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
                         setSessions(response.data.data.rows);
-                    }
-                    // Caso 3: Respuesta exitosa pero sin pacientes
-                    else {
-                        console.log("No hay sesiones registradas");
+                    } else {
                         setSessions([]);
                         setError('No se encontraron sesiones asociadas al paciente');
                     }
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
-            } catch (err) {
-                console.error('Error al obtener sesiones:', {
-                    error: err,
-                    response: err.response?.data,
-                    stack: err.stack
-                });
-        
+            } catch (err) {        
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
-        
         obtenerSesionesDelPaciente();
     }, [id]);
 

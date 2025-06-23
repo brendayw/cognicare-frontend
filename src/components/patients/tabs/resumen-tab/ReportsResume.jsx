@@ -18,7 +18,6 @@ export default function ReportsResume() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-
                 if (!token) throw new Error('No hay token de autenticación');
                 if (!id) throw new Error('ID del paciente no encontrado');
 
@@ -46,7 +45,6 @@ export default function ReportsResume() {
               
 
             } catch (err) {
-                console.error('Error al cargar datos:', err);
                 if (err.message === 'NO_REPORTS') {
                     setError('No se encontraron reportes para mostrar asociados al paciente');
                 } else if (err.message === 'Token no encontrado') {
@@ -54,6 +52,7 @@ export default function ReportsResume() {
                 } else {
                     setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
                 }
+
             } finally {
                 setLoading(false);
             }

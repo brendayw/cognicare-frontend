@@ -31,26 +31,19 @@ export default function Patients() {
         const obtenerTodosLosPacientes = async () => {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token');
-                
+                const token = localStorage.getItem('token'); 
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const response = await axios.get(`${URL_API}api/patients`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de pacientes:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Pacientes recibidos (array directo):", response.data.data.length);
                         setPatients(response.data.data);
-                    } 
-                    else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Pacientes recibidos (en propiedad rows):", response.data.data.rows.length);
+                    } else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
                         setPatients(response.data.data.rows);
-                    }
-                    else {
-                        console.log("No hay pacientes registrados");
+                    } else {
                         setPatients([]);
                         setError('No se encontraron pacientes registrados');
                     }
@@ -58,18 +51,11 @@ export default function Patients() {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
             } catch (err) {
-                console.error('Error al obtener pacientes:', {
-                    error: err,
-                    response: err.response?.data,
-                    stack: err.stack
-                });
-        
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
-        
         obtenerTodosLosPacientes();
     }, []);
     

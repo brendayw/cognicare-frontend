@@ -16,25 +16,20 @@ export default function Assessments() {
             try {
                 const URL_API = 'https://cognicare-backend.vercel.app/api/';
                 const token = localStorage.getItem('token');
-                
                 if (!token) throw new Error('No hay token de autenticación');
                 
                 const response = await axios.get(`${URL_API}patients/${id}/assessments`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log("Respuesta recibida del listado de evaluaciones:", response); 
             
                 if (response.data?.success) {
                     if (Array.isArray(response.data.data)) {
-                        console.log("Evaluaciones del paciente recibidas (array directo):", response.data.data.length);
                         setAssessments(response.data.data);
                     } 
                     else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        console.log("Evaluacione recibidas (en propiedad rows):", response.data.data.rows.length);
                         setAssessments(response.data.data.rows);
                     }
                     else {
-                        console.log("No hay evaluaciones registradas");
                         setAssessments([]);
                         setError('No se encontraron evalucioanes asociadas al paciente');
                     }
@@ -43,18 +38,11 @@ export default function Assessments() {
                 }
                 
             } catch (err) {
-                console.error('Error al obtener evaluaciones:', {
-                    error: err,
-                    response: err.response?.data,
-                    stack: err.stack
-                });
-        
                 setError('Error al cargar datos: ' + err.message);
             } finally {
                 setLoading(false);
             }
         };
-        
         obtenerEvaluacionesDelPaciente();
     }, [id]);
 
