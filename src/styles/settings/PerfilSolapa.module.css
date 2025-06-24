@@ -11,18 +11,18 @@
 .solapa.activa {
   display: block;
   background: #ffffff;
-  box-shadow: 2px 2px 5px #94A3B8;
+  box-shadow: 0.125rem 0.125rem 0.313rem #94A3B8;
   animation: fadeIn 0.3s ease-out;
 }
 
 .panel_content {
     width: 100%;
     height: auto;
-    min-height: 400px;
+    min-height: 25rem;
     margin: 0;
     padding: 1.5rem;
     background-color: #ffffff;
-    box-shadow: 2px 2px 5px #94a3b8ff;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8ff;
     border-radius: 1rem;
     color: #94a3b8ff;
     box-sizing: border-box;
@@ -35,15 +35,15 @@
 
 .titulo_form {
   font-size: 1.2rem;
-  padding: 5px;
+  padding: 0.313rem;
   color: #00a396ff;
 }
 
 .profesional_data {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  padding: 5px;
+  gap: 0.125rem;
+  padding: 0.313rem;
 }
 
 .profesional_data input:focus,
@@ -55,21 +55,21 @@
 /* media queries */
 @media (max-width: 1024px) {
     .solapa.activa {
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
-        height: 520px;
+        height: 32.5rem;
     }
 
     .titulo_form {
         position: relative;
-        top: -41px;
-        left: 35px;
+        top: -2.563rem;
+        left: 2.188rem;
         font-size: 0.9rem;
     }
 
     .profesional_data {
         position: relative;
-        top: -40px;
+        top: -2.5rem;
     }
 
     .profesional_data input,
@@ -86,22 +86,22 @@
 @media (max-width: 768px) {
     .solapa.activa {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
-        height: 720px;
+        height: 45rem;
     }
 
     .titulo_form {
         position: relative;
-        top: -41px;
-        left: 35px;
+        top: -2.563;
+        left: 2.188rem;
         font-size: 0.9rem;
     }
 
     .profesional_data {
         grid-template-columns: 1fr;
         position: relative;
-        top: -40px;
+        top: -2.5rem;
     }
 
     .profesional_data input,
@@ -118,22 +118,22 @@
 
 @media (max-width: 640px) {
     .solapa.activa {
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
-        height: 675px;
+        height: 42.188rem;
     }
 
     .titulo_form {
         position: relative;
-        top: -41px;
-        left: 35px;
+        top: -2.563;
+        left: 2.188rem;
         font-size: 0.9rem;
     }
 
     .profesional_data {
         grid-template-columns: 1fr;
         position: relative;
-        top: -40px;
+        top: -2.5rem;
     }
 
     .profesional_data input,

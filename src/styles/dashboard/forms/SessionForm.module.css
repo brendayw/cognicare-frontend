@@ -1,12 +1,12 @@
 .panel_content {
     width: 100%;
     height: auto;
-    min-height: 450px;
+    min-height: 28.125rem;
     margin: 0;
     padding: 1.5rem;
     border-radius: 1rem;
     background: #ffffff;
-    box-shadow: 2px 2px 5px #94a3b8;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8;
     color: #94a3b8;
     box-sizing: border-box;
 }
@@ -21,21 +21,21 @@
 .session_data {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    padding: 5px;
+    gap: 0.188rem;
+    padding: 0.313rem;
 }
 
 .session_data input:focus,
 .session_data select:focus {
     outline: #94a3b8;
-    border: 2px solid #00a396;
+    border: 0.125rem solid #00a396;
 }
 
 /* media queries */
 @media (max-width: 768px) {
     .panel_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
         padding: 0.6rem;
@@ -56,7 +56,7 @@
 @media (max-width: 640px) {
     .form_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
     }

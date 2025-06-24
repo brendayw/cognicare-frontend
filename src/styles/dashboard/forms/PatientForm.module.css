@@ -1,11 +1,11 @@
 .panel_content {
     width: 100%;
-    height: 575px;
+    height: 35.938rem;
     margin: 0;
     padding: 1rem;
     border-radius: 1rem;
     background-color: #ffffff;
-    box-shadow: 2px 2px 5px #94a3b8ff;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8ff;
     color: #94a3b8ff;  
     box-sizing: border-box;
 }
@@ -20,14 +20,14 @@
 .patient_data {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    padding: 5px;
+    gap: 0.125rem;
+    padding: 0.313rem;
 }
 
 .patient_data input:focus,
 .patient_data select:focus {
     outline: #94a3b8;
-    border: 2px solid #00a396;
+    border: 0.125rem solid #00a396;
 }
 
 @media (max-width: 640px) {

@@ -1,10 +1,10 @@
 .chart {
     background-color: #ffffff;
     border: 1px solid #94A3B8;
-    border-radius: 12px;
+    border-radius: 0.75rem;
     width: 100%;
-    max-width: 900px;
-    height: 300px;
+    max-width: 56.25rem;
+    height: 18.75rem;
     position: relative;
     top: -25;
 }
@@ -13,7 +13,7 @@
     .chart {
         width: calc(100% - 2px);
         position: relative;
-        top: -5px;
+        top: -0.313rem;
     }
 }
 
@@ -21,7 +21,7 @@
     .chart {
         width: calc(100% - 2px);
         position: relative;
-        top: 30px;
+        top: 1.875rem;
     }
 }
 
@@ -29,23 +29,23 @@
     .chart {
         width: calc(100% - 2px);
         position: relative;
-        top: 35px;
+        top: 2.188rem;
     }
 }
 
 @media (max-width: 768px) {
     .chart {
         width: calc(100% - 2px);
-        height: 250px;
-        top: 125px;
+        height: 15.625rem;
+        top: 7.813rem;
     }
 }
 
 @media (max-width: 640px) {
     .chart {
         width: calc(100% - 2px);
-        height: 250px;
-        top: 125px;
+        height: 15.625rem;
+        top: 7.813rem;
     }
 }
 

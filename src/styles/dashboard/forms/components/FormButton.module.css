@@ -1,6 +1,6 @@
 .form_button {
     width: 100%;
-    padding: 5px 10px;
+    padding: 0.313rem 0.625rem;
     display: flex;
     justify-content: flex-end;
 }
@@ -8,16 +8,16 @@
 .btn {
     background-color: #424884;
     color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
     .btn {
         position: relative;
-        top: -20px;
-        padding: 10px 25px;
+        top: -1.25rem;
+        padding: 0.625rem 1.563rem;
         font-size: 0.8rem;
     }
 
@@ -29,8 +29,8 @@
 @media (max-width: 640px) {
     .btn {
         position: relative;
-        top: -25px;
-        padding: 5px 20px;
+        top: -1.563;
+        padding: 0.313 1.25rem;
         font-size: 0.8rem;
     }
 

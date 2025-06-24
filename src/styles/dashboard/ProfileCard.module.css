@@ -7,22 +7,22 @@
 
 .tarjeta_profesional {
     background: #fff;
-    box-shadow: 2px 2px 5px #94a3b8;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8;
     width: 100%;
-    height: 150px;
+    height: 9.375rem;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-radius: 16px;
+    border-radius: 1rem;
     position: relative;
 }
 
 .perfil img {
-    width: 350px;
+    width: 21.875rem;
 }
 
 .tarjeta_profesional .datos {
-    height: 150px;
+    height: 9.375rem;
     width: 60%;
     padding: 0.5rem;
 }
@@ -42,7 +42,7 @@
 .datos_perfil {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 4px;
+    row-gap: 0.25rem;
 }
 
 .datos_perfil p {
@@ -83,7 +83,7 @@
     .datos_perfil {
         width: 98%;
         column-gap: 1px;
-        row-gap: 5px;
+        row-gap: 0.313rem;
     }
 
     .datos_perfil p,
@@ -100,11 +100,11 @@
 @media (max-width: 1120px) {
     .perfil_profesional {
         width: calc(100% - 2px);
-        height: 250px;
+        height: 15.625rem;
     }
 
     .tarjeta_profesional {
-        height: 250px;
+        height: 15.625rem;
         display: flex;
         flex-direction: column;
     }
@@ -124,7 +124,7 @@
     }
 
     .perfil img {
-        width: 250px;
+        width: 15.625rem;
     }
 
     .datos_perfil {
@@ -139,30 +139,30 @@
 @media (max-width: 768px) {
     .perfil_profesional {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         left: 0;
         width: calc(100% - 2px);
-        height: 230px;
+        height: 14.375rem;
     }
 
     .tarjeta_profesional {
         width: 100%;
-        height: 225px;
+        height: 14.063rem;
         display: flex;
         flex-direction: column;
     }
 
     .tarjeta_profesional .datos {
-        width: 485px;
+        width: 30.313rem;
         height: auto;
     }
 
     .perfil img {
-        width: 225px;
+        width: 14.063rem;
     }
 
     .datos h4 {
-        margin-top: -15px;
+        margin-top: -0.938rem;
         font-size: 1.2rem;
         justify-content: center;
     }
@@ -193,16 +193,16 @@
 
 @media (max-width: 640px) { 
     .perfil img {
-        width: 200px;
+        width: 12.5rem;
     }
 
     .tarjeta_profesional {
-        height: 275px;
+        height: 17.188rem;
     }
 
     .datos h4 {
         font-size: 1rem;
-        margin-top: -10px;
+        margin-top: -0.625rem;
     }
 
     .datos_nombre {
@@ -210,7 +210,7 @@
     }
 
     .datos_perfil {
-        height: 100px;
+        height: 6.25rem;
         grid-template-columns: 1fr;
         column-gap: 1px;
     }

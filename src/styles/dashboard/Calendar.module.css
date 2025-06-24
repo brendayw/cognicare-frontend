@@ -1,8 +1,8 @@
 .calendar_container {
     width: 100%;
-    max-width: 425px;
+    max-width: 26.563rem;
     height: auto;
-    min-height: 275px;
+    min-height: 17.188rem;
     display: flex;
     justify-content: center;
     align-items: flex-start; 
@@ -13,9 +13,9 @@
 .calendario {
     width: 100%;
     height: 100%;
-    min-height: 275px;
-    box-shadow: 2px 2px 5px #94a3b8;
-    border-radius: 8px;
+    min-height: 17.188rem;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8;
+    border-radius: 0.5rem;
     background-color: #ffffff;
     padding: 0.5rem;
     overflow-y: hidden;
@@ -27,20 +27,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
 
 .calendario_btn {
     width: auto;
-    min-width: 80px;
-    padding: 4px 20px;
+    min-width: 5rem;
+    padding: 0.25rem 1.25rem;
     background-color: #424884;
     color: #ffffff;
     border: 1px solid transparent;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0.313rem;
     font-family: 'Montserrat', sans-serif;
     font-size: 0.8rem;
     transition: all 0.2s ease;
@@ -65,7 +65,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 180px;
+    min-height: 11.25rem;
 }
 
 .days_of_week {
@@ -81,7 +81,7 @@
 .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 1fr; /* Filas de igual altura */
+    grid-auto-rows: 1fr;
     gap: 0.15rem;
     font-size: 0.8rem;
     color: #a3a3a3;
@@ -91,11 +91,11 @@
 .day {
     width: 100%;
     aspect-ratio: 1;
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 1.875rem;
+    max-height: 1.875rem;
     margin: 0 auto;
     text-align: center;
-    line-height: 30px;
+    line-height: 1.875rem;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -120,5 +120,4 @@
     .calendario {
         display: none;
     }
-
 }

@@ -3,55 +3,53 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .tarjeta_profesional {
     background-color: #ffffff;
-    box-shadow: 2px 2px 5px #94a3b8;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8;
     width: 100%;
-    height: 150px;
+    height: 9.375rem;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-radius: 16px;
+    border-radius: 1rem;
     position: relative;
 }
 
 .tarjeta_profesional svg {
     color: #00BEB0;
-    font-size: 25px;
-    margin-right: 10px;
+    font-size: 1.563rem;
+    margin-right: 0.625rem;
 }
 
 .tarjeta_profesional:hover svg {
     color: #424884;
-    font-size: 25px;
-    margin-right: 10px;
     cursor: pointer;
 }
 
 .profesional_header {
-    width: 120px;
+    width: 7.5rem;
 }
 
 .datos {
-    height: 150px;
+    height: 9.375rem;
     width: 70%;
     padding: 0.5rem;
 }
 
 .datos_nombre {
-    font-size: 30px;
+    font-size: 1.875rem;
     color: #B36ED8;
 }
 
 .datos_perfil {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 10px;
+    row-gap: 0.625rem;
     position: relative;
-    top: 10px;
+    top: 0.625rem;
 }
 
 .dato_perfil p {
@@ -60,21 +58,21 @@
 
 .dato_perfil span {
     color: #89898a;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 100;
 }
 /* media queries*/
 @media (max-width: 768px) {
     .profesional_container {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         left: 0;
         width: calc(100% - 2px);
     }
 
     .tarjeta_profesional {
         width: 100%;
-        height: 175px;
+        height: 10.938rem;
     }
 
 }
@@ -102,7 +100,7 @@
     .datos_perfil {
         grid-template-columns: 1fr;
         row-gap: 1px;
-        top: 5px;
+        top: 0.313rem;
     }
 
     .dato_perfil p {

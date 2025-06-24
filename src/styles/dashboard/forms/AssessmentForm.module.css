@@ -1,7 +1,7 @@
 .form_content {
     width: 100%;
     height: auto;
-    min-height: 450px;
+    min-height: 28.125rem;
     margin: 0;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -21,8 +21,8 @@
 .assessment_data {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    padding: 5px;
+    gap: 0.188rem;
+    padding: 0.313rem;
 }
 
 .assessment_data input:focus,
@@ -35,7 +35,7 @@
 @media (max-width: 768px) {
     .panel_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
         padding: 0.6rem;
@@ -53,10 +53,10 @@
 
 }
 
-@media (max-width: 640px) {
+@media (max-width: 640px) { n
     .form_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
     }

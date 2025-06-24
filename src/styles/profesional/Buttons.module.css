@@ -1,11 +1,11 @@
 .acceso_rapido {
     width: 100%;
-    height: 110px;
+    height: 6.875rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    gap: 5px;
+    gap: 0.313rem;
     position: relative;
     top: -20;
 }
@@ -22,9 +22,9 @@
 }
 
 .access_card {
-    box-shadow: 2px 2px 5px #94a3b8;
-    width: 110px;
-    height: 100px;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8;
+    width: 6.875rem;
+    height: 6.25rem;
     border-radius: 2rem;
     display: flex;
     justify-content: center;
@@ -33,7 +33,7 @@
     position: relative;
     transition: all 0.3s ease;
     flex-shrink: 0;
-    margin: 5px;
+    margin: 0.313rem;
 }
 
 .pacientes {
@@ -55,7 +55,7 @@
 .access_card svg {
     font-size: 2.813rem;
     color: #ffffff;
-    margin-bottom: 5px;
+    margin-bottom: 0.313rem;
 }
 
 .access_card span {
@@ -63,13 +63,13 @@
     color: #ffffff;
     display: block;
     text-align: center;
-    padding: 0 5px;
+    padding: 0 0.313rem;
 }
 
 .access_card:hover {
     background-color: #424884;
     transform: translateY(-3px);
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0.188rem 0.188rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 .access_card:hover span,
@@ -111,7 +111,7 @@
     left: 120%;
     transform: translateX(-50%);
     flex-direction: row;
-    gap: 10px;
+    gap: 0.625rem;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0s 0.3s;
@@ -123,8 +123,8 @@
 }
 
 .option {
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
     background-color: #424884;
     border-radius: 50%;
     cursor: pointer;
@@ -171,7 +171,7 @@
 
     .access_card {
         flex: 1 1 calc(33.333% - 8px);
-        height: 50px;
+        height: 3.125rem;
         border-radius: 0.8rem;
         margin: 0;
         flex-shrink: 0;
@@ -215,9 +215,9 @@
         left: 50%;
         transform: translateX(-50%);
         flex-direction: row;
-        gap: 10px;
+        gap: 0.625rem;
         width: max-content;
-        padding-top: 10px;
+        padding-top: 0.625rem;
     }
 
     .add_card:hover .option:nth-child(1),
@@ -230,8 +230,8 @@
 
     .option {
         position: static;
-        width: 35px;
-        height: 35px;
+        width: 2.188rem;
+        height: 2.188rem;
         margin: 0;
     }
 
@@ -243,7 +243,7 @@
 @media (max-width: 768px) {
     .acceso_rapido {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
     }
 
@@ -292,9 +292,9 @@
         left: 50%;
         transform: translateX(-50%);
         flex-direction: row;
-        gap: 10px;
+        gap: 0.625rem;
         width: max-content;
-        padding-top: 10px;
+        padding-top: 0.625rem;
     }
     
     .add_card:hover .option:nth-child(1),
@@ -307,8 +307,8 @@
 
     .option {
         position: static;
-        width: 30px;
-        height: 30px;
+        width: 1.875rem;
+        height: 1.875rem;
         margin: 0;
     }
 
@@ -321,12 +321,12 @@
     .acceso_rapido {
         width: calc(100% - 2px);
         height: auto;
-        gap: 8px;
+        gap: 0.5rem;
     }
 
     .access_card {
         flex: 1 1 calc(33.333% - 8px);
-        height: 40px;
+        height: 2.5rem;
         border-radius: 0.8rem;
     }
 
@@ -345,16 +345,16 @@
     }
 
     .options {
-        padding-top: 10px;
+        padding-top: 0.625rem;
     }
 
     .option {
-        width: 25px;
-        height: 25px;
+        width: 1.563rem;
+        height: 1.563rem;
     }
 
     .option svg {
-        width: 15px;
-        height: 15px;
+        width: 0.938rem;
+        height: 0.938rem;
     }
 }

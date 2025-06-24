@@ -1,11 +1,11 @@
 .panel_content {
     width: 100%;
     height: auto;
-    min-height: 450px;
+    min-height: 28.125rem;
     margin: 0;
     padding: 1.5rem;
     /* background-color: #ffffff; */
-    box-shadow: 2px 2px 5px #94a3b8ff;
+    box-shadow: 0.125rem 0.125rem 0.313rem #94a3b8ff;
     border-radius: 1rem;
     color: #94a3b8ff;
     box-sizing: border-box;  
@@ -21,21 +21,21 @@
 .report_data {
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    padding: 10px;
+    gap: 0.188rem;
+    padding: 0.625rem;
 }
 
 .report_data input:focus,
 .report_data select:focus {
     outline: #94a3b8;
-    border: 2px solid #00a396;
+    border: 0.125rem solid #00a396;
 }
 
 /* media queries */
 @media (max-width: 768px) {
     .panel_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
         padding: 0.6rem;
@@ -56,7 +56,7 @@
 @media (max-width: 640px) {
     .panel_content {
         position: relative;
-        top: 100px;
+        top: 6.25rem;
         width: calc(100% - 2px);
         height: auto;
         padding: 0.6rem;

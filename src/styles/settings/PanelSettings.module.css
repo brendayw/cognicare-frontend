@@ -10,12 +10,12 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.313rem;
 }
 
 .perfil, .password, .deactivate {
   width: 100%;
-  min-height: 80px; 
+  min-height: 5rem; 
   display: flex;
   align-items: center;
   border: 1px solid #94A3B8;
@@ -107,7 +107,7 @@
   .panel_settings {
     width: 100%;
     position: relative;
-    top: 100px;
+    top: 6.25rem;
   }
 }
 
@@ -115,16 +115,16 @@
   .panel_settings {
     width: 100%;
     position: relative;
-    top: 100px;
+    top: 6.25rem;
   }
   
   .opciones {
     height: auto;
-    gap: 10px;
+    gap: 0.625rem;
   }
 
   .perfil, .password, .deactivate {
-    height: 80px;
+    height: 5rem;
     padding: 0.8rem;
   }
 }
