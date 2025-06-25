@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useLogout } from '../../hooks/useLogOut.jsx';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import styles from '../../styles/Menu.module.css';
@@ -10,9 +11,10 @@ import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
 
+
 export default function Menu() {
     const location = useLocation();
-    const navigate = useNavigate();
+    const logout = useLogout();
     const [idProfesional, setIdProfesional] = useState(null);
     const [error, setError] = useState(null);
     const [isSearchActive, setIsSearchActive] = useState(false);
@@ -69,12 +71,6 @@ export default function Menu() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-        
-    const logout = () => {
-        localStorage.removeItem('token');
-        navigate('/');
-    };
 
     const isActive = (path) => location.pathname.includes(path) ? 'active' : '';
 

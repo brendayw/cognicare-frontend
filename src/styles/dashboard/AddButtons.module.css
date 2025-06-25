@@ -38,7 +38,7 @@
 .add_card:hover {
     background-color: #94A3B8;
     transform: translateY(-2px);
-    box-shadow: 0.188rem 30.188rem 0.5rem #94a3b8;
+    box-shadow: 0.188rem 0.188rem 0.5rem #94a3b8;
 }
 
 .add_card:hover span,

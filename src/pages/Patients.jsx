@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import { usePatients } from '../hooks/usePatients.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import VistaSelector from '../components/ui/VistaSelector.jsx';
 import PatientsList from '../components/patients/lists/PatientsList.jsx';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Patients() {
-    const [patients, setPatients] = useState([]);
     const [view, setView] = useState('grid');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const { patients, loading, error } = usePatients();
 
     useEffect(() => {
         const handleResize = () => {
@@ -26,38 +24,6 @@ export default function Patients() {
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
     }, [view]);
-
-    useEffect(() => {
-        const obtenerTodosLosPacientes = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token'); 
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const response = await axios.get(`${URL_API}api/patients`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-            
-                if (response.data?.success) {
-                    if (Array.isArray(response.data.data)) {
-                        setPatients(response.data.data);
-                    } else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        setPatients(response.data.data.rows);
-                    } else {
-                        setPatients([]);
-                        setError('No se encontraron pacientes registrados');
-                    }
-                } else {
-                    throw new Error(response.data?.message || 'La respuesta no indica éxito');
-                }
-            } catch (err) {
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerTodosLosPacientes();
-    }, []);
     
     const handleViewChange = (newView) => {
         if (!isMobile) {
@@ -72,10 +38,7 @@ export default function Patients() {
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
-                    <VistaSelector 
-                        currentView={view} 
-                        onViewChange={handleViewChange} 
-                    />
+                    <VistaSelector currentView={view} onViewChange={handleViewChange} />
                 )}
 
                 {isMobile && (

@@ -34,22 +34,19 @@ export default function AssessmentsList({ assessments, error, onAssessmentDelete
             await softDeleteAssessment(assessmentToDelete.id, token);
             onAssessmentDeleted?.(assessmentToDelete.id);
             handleCloseDialog();
-
         } catch (error) {
-
             setDeleteError(error.message);
         } finally {
-
             setIsDeleting(false);
         }
     };
 
-    if (error && error.includes('No hay token de autenticación')) {
+    if (error) {
         return (
             <div>
                 <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    Error al cargar datos: No hay token de autenticación
+                    {error}
                 </div>
             </div>
         );

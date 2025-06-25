@@ -1,52 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import useReportsData from '../../hooks/useReportsData.jsx';
 import Menu from '../../components/ui/Menu.jsx';
 import ReportsList from '../../components/reports/ReportsList.jsx';
-
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Reports() {
-    const [reports, setReports] = useState([]);
     const { id } = useParams();
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const obtenerReportesDelPaciente = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const response = await axios.get(`${URL_API}patients/${id}/reports`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-            
-                if (response.data?.success) {
-                    if (Array.isArray(response.data.data)) {
-                        setReports(response.data.data);
-                    } else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        setReports(response.data.data.rows);
-                    } else {
-                        setReports([]);
-                        setError('No se encontraron reportes asociadas al paciente');
-                    }
-                } else {
-                    throw new Error(response.data?.message || 'La respuesta no indica éxito');
-                }
-            } catch (err) {        
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerReportesDelPaciente();
-    }, [id]);
-
-    const handleReportDeleted = (deletedId) => {
-        setReports(prev => prev.filter(a => a.id !== deletedId));
-    };
+    const { reports, error, loading, handleReportDeleted } = useReportsData(id);
 
     return (
         <div className='h-screen'>

@@ -84,15 +84,6 @@ export default function EditAssessmentForm() {
         }
     };
 
-    if (!token) {
-        return (
-            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No hay token de autenticación
-            </div>
-        );
-    }
-
     return (
         <div className='w-[95%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6'>
             <div>

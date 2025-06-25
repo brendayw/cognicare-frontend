@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useProfesionalData } from '../hooks/useProfesionalData.jsx'; 
+import { useLogout } from '../hooks/useLogOut.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import PanelSettings from '../components/settings/PanelSettings.jsx';
 import PerfilSolapa from '../components/settings/PerfilSolapa.jsx';
@@ -8,14 +9,12 @@ import PasswordSolapa from '../components/settings/PasswordSolapa.jsx';
 import DesactivarSolapa from '../components/settings/DesactivarSolapa.jsx';
 
 export default function Settings() {
+  const { id } = useParams();
+  const { profesional, error, loading, handleProfesionalDeleted } = useProfesionalData(id);
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState(null);
   const [showPanel, setShowPanel] = useState(true);
-  const { id } = useParams();
-  const [profesional, setProfesional] = useState();
-  const [error, setError] = useState();
-
-  const URL_API = 'https://cognicare-backend.vercel.app/api/';
+  const logout = useLogout();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -35,43 +34,6 @@ export default function Settings() {
     return () => window.removeEventListener('resize', checkMobile);
   }, [isMobile]); 
 
-  useEffect(() => {
-    const logoutBtn = document.getElementById('logout');
-    if (logoutBtn) {
-      const handleLogout = async (e) => {
-        e.preventDefault();
-        try {
-          await axios.get(`${URL_API}logout`);
-          window.location.href = '';
-        } catch (error) {
-          alert('Hubo un problema al intentar cerrar sesion');
-        }
-      };
-      logoutBtn.addEventListener('click', handleLogout);
-      return () => logoutBtn.removeEventListener('click', handleLogout);
-    }
-  }, []);
-
-  useEffect(() => {
-    const obtenerProfesional = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) throw new Error('No hay token de autenticación');
-
-        const response = await axios.get(`${URL_API}profesional/${id}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-
-        if (response.data?.success) {
-          setProfesional(response.data.data)
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-    obtenerProfesional();
-  }, [id]);
-
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (isMobile) {
@@ -86,10 +48,6 @@ export default function Settings() {
     }
   };
 
-  const handleProfesionalDeleted = (deletedId) => {
-    setProfesional(prev => prev.filter(a => a.id !== deletedId));
-  };
-
   const shouldShowContent = (tabName) => {
     if (isMobile) {
       return activeTab === tabName;
@@ -97,6 +55,18 @@ export default function Settings() {
       return activeTab === tabName || (activeTab === null && tabName === 'perfil');
     }
   };
+
+  if (loading) {
+    return <div>Cargando perfil...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className="w-full px-4">

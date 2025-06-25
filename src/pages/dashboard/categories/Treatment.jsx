@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useTreatmentData } from '../../../hooks/useTreatmentData.jsx';
 import Menu from '../../../components/ui/Menu.jsx';
 import VistaSelector from '../../../components/ui/VistaSelector.jsx';
 import TreatmentList from '../../../components/patients/lists/TreatmentList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Diagnosis() {
-    const [patients, setPatients] = useState([]);
     const [view, setView] = useState('grid');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-    
+    const { patients, error, loading } = useTreatmentData();
+
     useEffect(() => {
         const handleResize = () => {
             const mobile = window.innerWidth < 768;
@@ -26,37 +24,6 @@ export default function Diagnosis() {
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
     }, [view]);
-
-    useEffect(() => {
-        const obtenerPacientesEnTratamiento = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const response = await axios.get(`${URL_API}patients/treatment`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (response.data && response.data.success && response.data.data) {
-                    if (Array.isArray(response.data.data)) {
-                        setPatients(response.data.data);
-                    } else if (response.data.data.rows) {
-                        setPatients(response.data.data.rows);
-                    } else {
-                        setPatients([response.data.data]);
-                    }
-                } else {
-                    throw new Error('Estructura de datos inesperada');
-                }
-            } catch (err) {
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerPacientesEnTratamiento();
-    }, []);
     
     const handleViewChange = (newView) => {
         if (!isMobile) {
@@ -71,10 +38,7 @@ export default function Diagnosis() {
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
-                    <VistaSelector 
-                        currentView={view} 
-                        onViewChange={handleViewChange} 
-                    />
+                    <VistaSelector currentView={view} onViewChange={handleViewChange} />
                 )}
 
                 {isMobile && (

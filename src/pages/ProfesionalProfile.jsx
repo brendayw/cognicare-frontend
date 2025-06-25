@@ -1,56 +1,29 @@
-import {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useProfesionalData } from '../hooks/useProfesionalData.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import ProfesionalCard from '../components/profesional/ProfesionalCard.jsx';
 import Buttons from '../components/profesional/Buttons.jsx';
 import Chart from '../components/profesional/Chart.jsx';
 import MoreInfo from '../components/profesional/MoreInfo.jsx';
 import RecentlyUpdatedPatients from '../components/profesional/RecentlyUpdatedPatients.jsx';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function ProfesionalProfile() {
-    const [profesional, setProfesional] = useState();
     const { id } = useParams();
-    const [error, setError] = useState('');
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const { profesional, error, loading } = useProfesionalData(id);
     
-    useEffect(() => {
-        const obtenerProfesional = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-    
-                const response = await axios.get(`${URL_API}profesional/${id}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                        
-                if (token) {
-                    const payloadBase64 = token.split('.')[1];
-                    const payload = JSON.parse(atob(payloadBase64));
-                }
-                
-                if (response.data.success) {
-                    setProfesional(response.data.data);
-                        
-                } else {
-                    setError('No se pudo obtener el perfil.');
-                }
-            } catch (err) {
-                setError('Error al obtener datos: ' + err.message);
-            } 
-        };
-        obtenerProfesional();
-    }, [id]);
+    if (loading) {
+        return <div>Cargando perfil del profesional...</div>;
+    }
+
+    if (error) {
+        return (
+            <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                <ErrorOutlineTwoToneIcon className='mr-2'/>
+                {error}
+            </div>
+        );
+    }
 
     return (
         <div className='flex flex-col min-h-screen w-full'>

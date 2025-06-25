@@ -1,54 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import useAssessmentsData from '../../hooks/useAssessmentsData.jsx';
 import Menu from '../../components/ui/Menu.jsx';
 import AssessmentsList from '../../components/assessments/AssessmentsList.jsx';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone'
 
 export default function Assessments() {
-    const [assessments, setAssessments] = useState([]);
     const { id } = useParams();
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const obtenerEvaluacionesDelPaciente = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const response = await axios.get(`${URL_API}patients/${id}/assessments`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-            
-                if (response.data?.success) {
-                    if (Array.isArray(response.data.data)) {
-                        setAssessments(response.data.data);
-                    } 
-                    else if (response.data.data?.rows && Array.isArray(response.data.data.rows)) {
-                        setAssessments(response.data.data.rows);
-                    }
-                    else {
-                        setAssessments([]);
-                        setError('No se encontraron evalucioanes asociadas al paciente');
-                    }
-                } else {
-                    throw new Error(response.data?.message || 'La respuesta no indica éxito');
-                }
-                
-            } catch (err) {
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerEvaluacionesDelPaciente();
-    }, [id]);
-
-    const handleAssessmentDeleted = (deletedId) => {
-        setAssessments(prev => prev.filter(a => a.id !== deletedId));
-    };
+    const { assessments, error, loading, handleAssessmentDeleted } = useAssessmentsData(id);
 
     return (
         <div className='h-screen'>

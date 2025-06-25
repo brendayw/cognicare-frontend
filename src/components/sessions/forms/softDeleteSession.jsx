@@ -4,11 +4,8 @@ const URL_API = 'https://cognicare-backend.vercel.app/api/';
 
 export const softDeleteSession = async (sessionId, token) => {
   try {
-    const response = await axios.put(
-      `${URL_API}session/${sessionId}/soft-delete`,
-      { deleted: true },
-      {
-        headers: {
+    const response = await axios.put(`${URL_API}session/${sessionId}/soft-delete`,
+      { deleted: true }, { headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
@@ -16,7 +13,6 @@ export const softDeleteSession = async (sessionId, token) => {
     );
     return response.data;
   } catch (error) {
-   
     if (error.response) {
       throw new Error(error.response.data.message || 'Error al eliminar la sesión');
     } else if (error.request) {

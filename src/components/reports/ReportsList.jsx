@@ -31,7 +31,6 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
             
         try {
             const token = localStorage.getItem('token');
-            
             await softDeleteReport(reportToDelete.id, token);
             onReportDeleted?.(reportToDelete.id);
             handleCloseDialog();
@@ -42,12 +41,12 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
         }
     };
 
-    if (error && error.includes('No hay token de autenticación')) {
+    if (error) {
         return (
             <div>
                 <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    Error al cargar datos: No hay token de autenticación
+                    {error}
                 </div>
             </div>
         );
@@ -58,6 +57,7 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
             <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>
+            
             <div className='flex flex-col items-center'>
                 {reports.length > 0 ? (
                     reports.map((report) => {
@@ -86,6 +86,14 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
                                         onClick={() => handleOpenDialog(report)}
                                     />
                                 </div>
+                                <ConfirmationDialog
+                                    open={dialogOpen}
+                                    title={`¿Estás seguro que deseas borrar este reporte?`}
+                                    onClose={handleCloseDialog}
+                                    onConfirm={handleConfirmDelete}
+                                    isProcessing={isDeleting}
+                                    error={deleteError}
+                                />
                             </div>
                         );
                     })
@@ -96,14 +104,6 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
                     </div>
                 )} 
             </div>
-            <ConfirmationDialog
-                open={dialogOpen}
-                title={`¿Estás seguro que deseas borrar este reporte?`}
-                onClose={handleCloseDialog}
-                onConfirm={handleConfirmDelete}
-                isProcessing={isDeleting}
-                error={deleteError}
-            />
         </div>
     );
 }
