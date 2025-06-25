@@ -30,7 +30,6 @@ export default function PatientProfileHeader( { patient, onPatientDeleted } ) {
         try {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('No hay token de autenticación');
-
             await softDeletePatient(patientToDelete.id, token);
             onPatientDeleted?.(patientToDelete.id);
             handleCloseDialog();

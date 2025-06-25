@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const useSessionsData = (patientId) => {
     const [sessions, setSessions] = useState([]);
+    const [lastSession, setLastSession] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -29,6 +30,17 @@ const useSessionsData = (patientId) => {
                 } else {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
+
+                const lastSessionResponse = await axios.get(`${URL_API}session/${patientId}/last`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (lastSessionResponse.data?.success) {
+                    setLastSession(lastSessionResponse.data.data[0]);
+                } else {
+                    throw new Error(lastSessionResponse.data?.message || 'La respuesta no indica éxito');
+                }
+
             } catch (error) {        
                 setError('Error al cargar datos: ' + error.message);
             } finally {
@@ -42,7 +54,7 @@ const useSessionsData = (patientId) => {
         setSessions(prev => prev.filter(a => a.id !== deletedId));
     };
 
-    return { sessions, error, loading, handleSessionDeleted };
+    return { sessions, lastSession, error, loading, handleSessionDeleted };
 };
 
 export default useSessionsData;

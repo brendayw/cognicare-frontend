@@ -1,66 +1,20 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import useSessionsData from '../../../../hooks/useSessionsData.jsx';
+import { usePatientData } from '../../../../hooks/usePatientData.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
 import styles from '../../../../styles/patients/tabs/HistorySession.module.css';
 
 export default function HistorySessions() {
-    const [sessionsData, setSessionsData] = useState([]);
-    const [patientStatus, setPatientStatus] = useState('');
     const { id } = useParams();
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const obtenerData = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                if (!id) throw new Error('ID del paciente no encontrado');
-
-                const [historyResponse, patientResponse] = await Promise.all([
-                    axios.get(`${URL_API}patients/${id}/sessions`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }),
-                    axios.get(`${URL_API}patients/${id}`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    })
-                ]);
-                
-                if (historyResponse.data.success && patientResponse.data.success) {
-                    let sessionData = historyResponse.data.data;
-                    if (!sessionData || (Array.isArray(sessionData) && sessionData.length === 0)) {
-                        throw new Error('NO_SESSIONS');
-                    }
-                    if (!Array.isArray(sessionData)) { 
-                        sessionData = [sessionData];
-                    }
-                    setSessionsData(sessionData);
-                    setPatientStatus(patientResponse.data.data.estado);
-                }
-
-            } catch (err) {
-                if (err.message === 'NO_SESSIONS') {
-                    setError('No se encontraron sesiones para mostrar asociadas al paciente');
-                } else if (err.message === 'Token no encontrado') {
-                    setError('Error de autenticación: Token no encontrado');
-                } else {
-                    setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-        obtenerData();
-    }, [id]);
+    const { sessions, loading, error } = useSessionsData(id); 
+    const { patient } = usePatientData(id);
 
     if (loading) return <div className=''>Cargando datos...</div>;
     
-    const estadoNormalizado = patientStatus
-        ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    const estadoNormalizado = patient && patient.estado
+        ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
         : 'default';
 
     return (
@@ -76,9 +30,9 @@ export default function HistorySessions() {
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     {error}
                 </p>
-            ) : sessionsData.length > 0 ? (
+            ) : sessions.length > 0 ? (
                 <div className={`${styles.sessions_container} ${styles[`sessions_container--${estadoNormalizado}`]}`}>
-                    {sessionsData.map((session, index) => (
+                    {sessions.map((session, index) => (
                         <div 
                             key={session.id || index }
                             className={`${styles.sessions} `}>

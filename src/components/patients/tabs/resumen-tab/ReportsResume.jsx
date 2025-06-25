@@ -1,69 +1,20 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import useReportsData from '../../../../hooks/useReportsData.jsx';
+import { usePatientData } from '../../../../hooks/usePatientData.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
 import styles from '../../../../styles/patients/tabs/ReportsResume.module.css';
 
 export default function ReportsResume() {
-    const [reportsData, setReportsData] = useState([]);
-    const [patientStatus, setPatientStatus] = useState('');
     const { id } = useParams();
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const obtenerData = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                if (!id) throw new Error('ID del paciente no encontrado');
-
-                const [reportResponse, patientResponse] = await Promise.all([ 
-                    axios.get(`${URL_API}patients/${id}/reports`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }), 
-                    axios.get(`${URL_API}patients/${id}`, {
-                        headers: { 'Authorization': `Bearer ${token}`}
-                    })
-                ]);
-
-                if (reportResponse.data.success && patientResponse.data.success) {
-                    let reportData = reportResponse.data.data;
-                    
-                    if (!reportData || (Array.isArray(reportData) && reportData.length === 0)) {
-                        throw new Error('NO_REPORTS');
-                    }
-                    if (!Array.isArray(reportData)) {
-                        reportData = [reportData];
-                    }
-                    setReportsData(reportData);
-                    setPatientStatus(patientResponse.data.data.estado);
-                }               
-              
-
-            } catch (err) {
-                if (err.message === 'NO_REPORTS') {
-                    setError('No se encontraron reportes para mostrar asociados al paciente');
-                } else if (err.message === 'Token no encontrado') {
-                    setError('Error de autenticación: Token no encontrado');
-                } else {
-                    setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-                }
-
-            } finally {
-                setLoading(false);
-            }
-        }
-        if (id) obtenerData();
-    }, [id]);
+    const { reports, error, loading } = useReportsData(id);
+    const { patient } = usePatientData(id);
 
     if (loading) return <div>Cargando datos...</div>;
 
-    const estadoNormalizado = patientStatus
-        ? patientStatus.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    const estadoNormalizado = patient && patient.estado
+        ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
         : 'default';
 
     return (
@@ -79,9 +30,9 @@ export default function ReportsResume() {
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     {error}
                 </p>
-            ) : reportsData.length > 0 ? (
+            ) : reports.length > 0 ? (
                 <div className={styles.report}>
-                    {reportsData.slice(0, 4).map((report) => (
+                    {reports.slice(0, 4).map((report) => (
                         
                         <div 
                             key={report.id || index}

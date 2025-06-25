@@ -1,41 +1,12 @@
-import {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useProfesionalData } from '../../hooks/useProfesionalData';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/ProfileCard.module.css';
 
 export default function ProfileCard() {
-    const [profesional, setProfesional] = useState(null);
     const { id } = useParams();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const { profesional, loading, error } = useProfesionalData(id);
         
-    useEffect(() => {
-        const obtenerProfesional = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const { data } = await axios.get(`${URL_API}profesional/${id}`,
-                    { headers: { Authorization: `Bearer ${token}` } }
-                );
-
-                if (!data.success) throw new Error(data.message || 'Error en respuesta');
-                
-                setProfesional(data.data);
-                
-            } catch (err) {
-
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-
-                setLoading(false);
-            }
-        };
-        obtenerProfesional();
-    }, []);
-
     if (loading) return <div className={styles.loading}>Cargando...</div>;
 
     return (
@@ -52,7 +23,7 @@ export default function ProfileCard() {
                     <div className={`${styles.perfil}`}>
                         <img
                             className={`${styles.profesional_header}`}
-                            src='./assets/bg-header.png' // Usar la prop 'perfil' que ya viene de Dashboard
+                            src='./assets/bg-header.png'
                             alt="Avatar del profesional"
                         />
                     </div>

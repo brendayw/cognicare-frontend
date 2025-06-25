@@ -1,78 +1,35 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { usePatientData } from '../../../hooks/usePatientData.jsx';
 import AvatarFemenino from '/assets/avatar_mujer.jpg';
 import AvatarMasculino from '/assets/hombre_avatar.avif';
 import styles from '../../../styles/patients/profile/PatientName.module.css';
 
-
-export default function PatientName( {patient}) {
-    const [perfilDetallado, setPerfilDetallado] = useState(null);
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
+export default function PatientName() {
     const { id } = useParams();
-
-    useEffect(() => {
-        const obtenerPerfil = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                if (!id) throw new Error('Id del paciente no reconocido');
-    
-                const response = await axios.get(`${URL_API}api/patients/${id}`, 
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-    
-                if (response.data.success) {
-                    setPerfilDetallado(response.data.data);
-                } else {
-                    setError('No se pudo obtener el perfil del profesional.');
-                }
-    
-            } catch (err) {
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerPerfil();
-    }, [id]);
+    const { patient, loading, error } = usePatientData(id);
 
     if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (error) return <div className={styles.error}>{error}</div>; 
 
-    const avatarImagen = perfilDetallado.genero === 'Masculino' ? AvatarMasculino : AvatarFemenino;
-    
-    if (!patient) {
-        return (
-            <div className="p-4">
-                <div className="animate-pulse">
-                    <div className="h-6 bg-gray-300 rounded w-48 mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-32"></div>
-                </div>
-            </div>
-        );
-    }
+    const avatarImagen = patient.genero === 'Masculino' ? AvatarMasculino : AvatarFemenino;
     
     const normalizeEstado = (estado) => {
         if (!estado) return 'tratamiento';
         return estado.toLowerCase()
-            .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
     };
 
-    const estadoNormalizado = normalizeEstado(perfilDetallado?.estado);
+    const estadoNormalizado = normalizeEstado(patient.estado);
     
     return (
         <div className={`${styles.patient_card}`} >
             <div className={`${styles.patient_photo}`}>
-                <img src={avatarImagen} alt={`Avatar predeterminado para ${perfilDetallado.nombre_completo}`} />
+                <img src={avatarImagen} alt={`Avatar predeterminado para ${patient.nombre_completo}`} />
             </div>
 
             <div className={`${styles.patient_info} ${styles[`patient_info--${estadoNormalizado}`]}` }>
-                <h4> <span> {perfilDetallado.nombre_completo} </span> </h4>
+                <h4> <span> {patient.nombre_completo} </span> </h4>
 
                 <div className={`${styles.patient_info_details}`}>
                     
@@ -80,12 +37,12 @@ export default function PatientName( {patient}) {
                         
                         <div className={`${styles.details_col}`}>
                             <p className={`${styles.title}`}> ID del paciente </p>
-                            <p className={`${styles.data}`}> {perfilDetallado.id} </p>
+                            <p className={`${styles.data}`}> {patient.id} </p>
                         </div>
                         
                         <div className={`${styles.details_col}`}>
                             <p className={`${styles.title}`}> ID del profesional </p>
-                            <p className={`${styles.data}`}> {perfilDetallado.id_profesional} </p>
+                            <p className={`${styles.data}`}> {patient.id_profesional} </p>
                         </div>
                     </div>
                 </div>  

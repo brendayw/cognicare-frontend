@@ -44,4 +44,5 @@ const useReportsData = (patientId) => {
 
     return { reports, error, loading, handleReportDeleted };
 };
+
 export default useReportsData;

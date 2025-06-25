@@ -26,7 +26,7 @@ export default function MoreInfo() {
                 const result = response.data.data;
                 
                 if (result) {
-                    const diasSemana = ['Lun', 'Mart', 'Miér', 'Jue', 'Vier', 'Sáb'];
+                    const diasSemana = ['Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb'];
                     const diasMapeados = {
                         'lunes': 'Lun',
                         'martes': 'Mar',

@@ -1,44 +1,15 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { usePatientData } from '../../../hooks/usePatientData.jsx';
 import axios from 'axios';
 import styles from '../../../styles/patients/profile/PatientProgress.module.css';
 
-export default function PatientProgress({patient}) {
-    const [perfilDetallado, setPerfilDetallado] = useState(null);
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
+export default function PatientProgress() {
     const { id } = useParams();
-    
-    useEffect(() => {
-        const obtenerPerfil = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                if (!id) throw new Error('Id del paciente no reconocido');
-        
-                const response = await axios.get(`${URL_API}patients/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-        
-                if (response.data.success) {
-                    setPerfilDetallado(response.data.data);
-                } else {
-                    setError('No se pudo obtener el perfil del profesional.');
-                }
-        
-            } catch (err) {
-                setError('Error al cargar datos: ' + err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerPerfil();
-    }, [id]);
+    const { patient, loading, error } = usePatientData(id);
     
     if (loading) return <div className={styles.loading}>Cargando...</div>;
+
+    /*skeleton*/
     if (!patient) {
         return (
             <div className="p-4 border rounded-lg m-2">
@@ -56,12 +27,12 @@ export default function PatientProgress({patient}) {
        <div className={`${styles.sessions}`}>
             <div className={`${styles.sessions_held}`}>
                 <p>Sesiones Realizadas
-                    <span>{perfilDetallado.sesiones_realizadas} </span>
+                    <span>{patient.sesiones_realizadas} </span>
                 </p>
             </div>
             <div className={`${styles.sessions_total}`}>
                 <p>Sesiones Totales
-                    <span>{perfilDetallado.sesiones_totales} </span>
+                    <span>{patient.sesiones_totales} </span>
                 </p>
             </div>
        </div>
