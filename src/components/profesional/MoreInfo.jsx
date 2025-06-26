@@ -1,78 +1,53 @@
-import { useEffect, useState, }from 'react';
+import { useState, }from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useProfesionalData } from '../../hooks/useProfesionalData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/MoreInfo.module.css';
 
 export default function MoreInfo() {
-    const [diasAtencion, setDiasAtencion] = useState([]);
-    const [horariosAtencion, setHorariosAtencion] = useState([]);
     const { id } = useParams();
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { profesional, loading, error } = useProfesionalData(id);
 
-    useEffect(() => {
-        const obtenerData = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const response = await axios.get(`${URL_API}profesional/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                const result = response.data.data;
-                
-                if (result) {
-                    const diasSemana = ['Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb'];
-                    const diasMapeados = {
-                        'lunes': 'Lun',
-                        'martes': 'Mar',
-                        'miercoles': 'Miér',
-                        'jueves': 'Jue',
-                        'viernes': 'Vier',
-                        'sabado': 'Sáb',
-                    };
-
-                    const diasMarcados = result.dias_atencion ? result.dias_atencion.split(',') : [];
-                    const diasMarcadosAbreviados = diasMarcados.map(dia => {
-                        const diaFormateado = dia.trim().toLowerCase();
-                        return diasMapeados[diaFormateado] || '';
-                    });
-
-                    const dias = diasSemana.map(dia => ({
-                        dia,
-                        estaMarcado: diasMarcadosAbreviados.includes(dia)
-                    }));
-                    setDiasAtencion(dias);
-
-                    let horariosProcesados = [];
-
-                    if (result.horarios_atencion) {
-                        if (Array.isArray(result.horarios_atencion)) {
-                            horariosProcesados = result.horarios_atencion.map(h => {
-                                const [inicio, fin] = h.split(' - ');
-                                return `${inicio.split(':')[0]} a ${fin.split(':')[0]}`;
-                            });
-                        } 
-                        else if (typeof result.horarios_atencion === 'string') {
-                            const [inicio, fin] = result.horarios_atencion.split(' - ');
-                            horariosProcesados.push(`${inicio.split(':')[0]} a ${fin.split(':')[0]}`);
-                        }
-                    }
-                    setHorariosAtencion(horariosProcesados);
-                }
-
-            } catch (err) {
-                setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-            } finally {
-                setLoading(false);
-            }
+    const diasAtencion = (() => {
+        if (!profesional?.dias_atencion) return [];
+        
+        const diasSemana = ['Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb'];
+        const diasMapeados = {
+            'lunes': 'Lun',
+            'martes': 'Mar',
+            'miercoles': 'Miér',
+            'jueves': 'Jue',
+            'viernes': 'Vier',
+            'sabado': 'Sáb',
         };
-        obtenerData();
-    }, []);
+
+        const diasMarcados = profesional.dias_atencion.split(',').map(d => d.trim().toLowerCase());
+        return diasSemana.map(dia => ({
+            dia,
+            estaMarcado: diasMarcados.some(d => diasMapeados[d] === dia)
+        }));
+    })();
+
+    const horariosAtencion = (() => {
+        if (!profesional?.horarios_atencion) return [];
+        
+        let horariosProcesados = [];
+
+        if (Array.isArray(profesional.horarios_atencion)) {
+            horariosProcesados = profesional.horarios_atencion.map(h => {
+                const [inicio, fin] = h.split(' - ');
+                return `${inicio.split(':')[0]} a ${fin.split(':')[0]}`;
+            });
+        } 
+        else if (typeof profesional.horarios_atencion === 'string') {
+            const [inicio, fin] = profesional.horarios_atencion.split(' - ');
+            horariosProcesados.push(`${inicio.split(':')[0]} a ${fin.split(':')[0]}`);
+        }
+
+        return horariosProcesados;
+    })();
+
+    if (loading) return <div className={styles.loading}>Cargando información...</div>;
 
     return (
         <div className={`${styles.profesional_detalles}`}>

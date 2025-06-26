@@ -1,14 +1,17 @@
 import { PieChart } from '@mui/x-charts/PieChart';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { usePatientStatusData } from '../../hooks/patients/usePatientStatusData';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
 
 export default function PatientsChart() {
-    const [chartData, setChartData] = useState([]);
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
     const [screenSize, setScreenSize] = useState('lg');
+    const { diagnosisCount, treatmentCount, dischargedCount, loading, error } = usePatientStatusData();
+    const chartData = [
+        { id: 0, value: treatmentCount, label: 'Tratamiento' },
+        { id: 1, value: diagnosisCount, label: 'Diagnóstico' },
+        { id: 2, value: dischargedCount, label: 'Alta' }
+    ];
 
     //configuraciones del grafico para que sea responsive
     const chartConfigs = {
@@ -78,69 +81,6 @@ export default function PatientsChart() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        const obtenerEstado = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-                
-                const [diagnosisRes, treatmentRes, dischargedRes] = await Promise.all([
-                    axios.get(`${URL_API}api/patients/diagnosis`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }).catch(err => {
-                        console.error('Error en diagnóstico:', err?.response?.data || err.message);
-                        return { data: { success: false, data: { rows: [] } } };
-                    }),
-                    axios.get(`${URL_API}api/patients/treatment`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }).catch(err => {
-                        console.error('Error en tratamiento:', err?.response?.data || err.message);
-                        return { data: { success: false, data: { rows: [] } } };
-                    }),
-                    axios.get(`${URL_API}api/patients/discharged`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }).catch(err => {
-                        console.error('Error en alta:', err?.response?.data || err.message);
-                        return { data: { success: false, data: { rows: [] } } };
-                    })
-                ]);
-                
-                const diagnosisCount = diagnosisRes.data?.success 
-                    ? diagnosisRes.data.data?.length || 0
-                    : 0;
-
-                const treatmentCount = treatmentRes.data?.success 
-                    ? treatmentRes.data.data?.length || 0
-                    : 0;
-
-                const dischargedCount = dischargedRes.data?.success 
-                    ? dischargedRes.data.data?.length || 0
-                    : 0;
-
-                const newChartData = [
-                    { id: 0, value: treatmentCount, label: 'Tratamiento' },
-                    { id: 1, value: diagnosisCount, label: 'Diagnóstico' },
-                    { id: 2, value: dischargedCount, label: 'Alta' }
-                ];
-                
-                if (newChartData.every(item => item.value === 0)) {
-                    setError('No hay pacientes registrados para mostrar en el gráfico');
-                } else {
-                    setChartData(newChartData);
-                    setError('');
-                }
-            } catch (err) {
-
-                setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-            } finally {
-
-                setLoading(false);
-            }
-        };
-        obtenerEstado();
-    }, []);
-
     const currentConfing = chartConfigs[screenSize];
     
     if (loading) return <div className={styles.loading || ''}>Cargando datos...</div>;
@@ -155,7 +95,6 @@ export default function PatientsChart() {
                     </p>
                 </div>
             ) : (
-                //aca puede ir un div
                 <PieChart
                     colors={['#b36ed8', '#f0890c', '#00a396']}
                     series={[

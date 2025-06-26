@@ -1,20 +1,23 @@
 import { useEffect, useState, useRef } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
-import axios from 'axios';
+import { usePatientSessionsData } from '../../hooks/patients/usePatientSessionsData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/Chart.module.css';
 
+
 export default function Chart() {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [chartData, setChartData] = useState({
-        names: [],
-        completedSessions: [],
-        totalSessions: []
-    });
+    const { 
+        names, 
+        completedSessions, 
+        totalSessions, 
+        loading, 
+        error 
+    } = usePatientSessionsData();
+    
     const [screenSize, setScreenSize] = useState('lg');
     const chartContainerRef = useRef(null);
 
+    // Configuraciones responsive
     const chartConfigs = {
         xs: {
             width: 300,
@@ -53,6 +56,7 @@ export default function Chart() {
         }
     };
 
+    // Manejo del tamaño de pantalla
     useEffect(() => {
         const getScreenSize = () => {
             const width = window.innerWidth;
@@ -60,7 +64,7 @@ export default function Chart() {
             if (width >= 640 && width < 768) return 'sm';
             if (width >= 768 && width < 1024) return 'md';
             if (width >= 1024 && width < 1280) return 'lg';
-            if (width >= 1280) return 'xl';
+            return 'xl';
         };
 
         const handleResize = () => {
@@ -72,78 +76,11 @@ export default function Chart() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    useEffect(() => {
-        if (chartContainerRef.current) {
-            setTimeout(() => {
-                const legendLabels = chartContainerRef.current.querySelectorAll('.MuiChartsLegend-label');
-                legendLabels.forEach(label => {
-                    label.style.fill = '#94A3B8';
-                    label.style.color = '#94A3B8';
-                    label.style.fontFamily = 'Cabin, sans-serif';
-                    label.style.fontSize = screenSize === 'xs' || screenSize === 'sm' ? '12px' : '14px';
-                    label.style.fontWeight = '500';
-                });
-
-                const axisLines = chartContainerRef.current.querySelectorAll('.MuiChartsAxis-line');
-                axisLines.forEach(line => {
-                    line.style.stroke = '#94A3B8';
-                });
-
-                const axisTicks = chartContainerRef.current.querySelectorAll('.MuiChartsAxis-tick');
-                axisTicks.forEach(tick => {
-                    tick.style.stroke = '#94A3B8';
-                });
-
-                const axisLabels = chartContainerRef.current.querySelectorAll('.MuiChartsAxis-tickLabel');
-                axisLabels.forEach(label => {
-                    label.style.fill = '#94A3B8';
-                    label.style.fontSize = screenSize === 'xs' ? '10px' : '12px';
-                });
-            }, 100);
-        }
-    }, [chartData, screenSize]);
-
-    useEffect(() => {
-        const obtenerData = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
-
-                const response = await axios.get(`${URL_API}api/patients`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                const chartData = response.data.data;
-                const treatmentPatients = chartData.filter(p => p.estado === 'tratamiento');
-                const diagnosticPatients = chartData.filter(p => p.estado === 'diagnóstico');
-                const relevantPatients = [...treatmentPatients, ...diagnosticPatients];
-
-                const formattedData = {
-                names: relevantPatients.map(p => p.nombre_completo),
-                completedSessions: relevantPatients.map(p => p.sesiones_realizadas),
-                totalSessions: relevantPatients.map(p => p.sesiones_totales)
-                };
-                setChartData(formattedData);
-
-            } catch (err) {
-                setError('Error al cargar datos: ' + (err.message || 'Error desconocido'));
-            
-            } finally {
-                setLoading(false);
-            }
-        };
-        obtenerData();
-    }, []);
-
-    if (loading) return <div>Cargando...</div>;
     const currentConfig = chartConfigs[screenSize];
-
     const displayData = {
-        names: chartData.names.slice(0, currentConfig.maxItems),
-        completedSessions: chartData.completedSessions.slice(0, currentConfig.maxItems),
-        totalSessions: chartData.totalSessions.slice(0, currentConfig.maxItems)
+        names: names.slice(0, currentConfig.maxItems),
+        completedSessions: completedSessions.slice(0, currentConfig.maxItems),
+        totalSessions: totalSessions.slice(0, currentConfig.maxItems)
     };
 
     const dynamicHeight = Math.max(
@@ -151,8 +88,10 @@ export default function Chart() {
         displayData.names.length * currentConfig.itemHeight + 100
     );
 
+    if (loading) return <div className={styles.loading}>Cargando datos...</div>;
+
     return (
-        <div className={`${styles.chart}`} ref={chartContainerRef}>
+        <div className={styles.chart} ref={chartContainerRef}>
             {error ? (
                 <div className={styles.error}>
                     <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
@@ -178,29 +117,26 @@ export default function Chart() {
                         yAxis={[{ 
                             data: displayData.names,
                             scaleType: 'band',
-                            tickLabelStyle: {
-                                display: 'none'
-                            }
+                            tickLabelStyle: { display: 'none' }
                         }]}
-                        xAxis={[{ 
-                            min: 0,
-                            max: 100
-                        }]}
+                        xAxis={[{ min: 0, max: 100 }]}
                         layout='horizontal'
                         margin={currentConfig.margin}
                         borderRadius={screenSize === 'xs' ? 6 : 10}
                         height={dynamicHeight}
                         width={currentConfig.width}
                         sx={{
-                            '.MuiChartsAxis-line': { stroke: '#94A3B8 !important' },
-                            '.MuiChartsAxis-tick': { stroke: '#94A3B8 !important' },
-                            '.MuiChartsAxis-tickLabel': { fill: '#94A3B8 !important' },
+                            '.MuiChartsAxis-line': { stroke: '#94A3B8' },
+                            '.MuiChartsAxis-tick': { stroke: '#94A3B8' },
+                            '.MuiChartsAxis-tickLabel': { 
+                                fill: '#94A3B8',
+                                fontSize: screenSize === 'xs' ? '10px' : '12px'
+                            },
                             '.MuiChartsLegend-label': {
-                                fill: '#94A3B8 !important',
-                                color: '#94A3B8 !important',
-                                fontFamily: 'Cabin, sans-serif !important',
-                                fontSize: screenSize === 'xs' ? '10px !important' : '12px !important',
-                                fontWeight: '500 !important'
+                                fill: '#94A3B8',
+                                fontFamily: 'Cabin, sans-serif',
+                                fontSize: screenSize === 'xs' || screenSize === 'sm' ? '12px' : '14px',
+                                fontWeight: '500'
                             }
                         }}
                     />
