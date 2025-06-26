@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import axios from 'axios';
+import useForm from '../../hooks/useForm.jsx';
+import useProfesionalForm from '../../hooks/profesional/useProfesionalForm.jsx';
 import FormInput from '../forms/components/FormInput';
 import FormSelect from '../forms/components/FormSelect';
 import FormCheckbox from '../forms/components/FormCheckbox';
 import FormButton from '../forms/components/FormButton';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/PerfilSolapa.module.css';
+
 
 const DIAS_SEMANA = [
   { value: 'lunes', label: 'Lunes' },
@@ -17,7 +19,7 @@ const DIAS_SEMANA = [
 ];
 
 export default function PerfilSolapa({ isMobile = false, onBack }) {
-  const [formData, setFormData] = useState({
+  const initialValues = {
     email: '',
     nombre_completo: '',
     especialidad: '',
@@ -27,80 +29,50 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
     dias_atencion: [],
     horarios_atencion: '',
     fecha_nacimiento: ''
+  };
+
+  //validaciones
+  const validate = (values) => {
+    const errors = {};
+    if (!values.email) errors.email = 'El email del profeisonal es obligatorio';
+    if (!values.nombre_completo) errors.nombre_completo = 'El nombre del profesional es obligatorio';
+    if (!values.especialidad) errors.especialidad = 'La especialidad del profesional es obligatoria';
+    if (!values.matricula) errors.matricula = 'La matrícula del profesional es obligatoria';
+    if (!values.telefono) errors.telefono = 'El télefono del profesional es obligatorio';
+    if (!values.genero) errors.genero = 'El género del profesional es obligatorio';
+    if (!values.dias_atencion) errors.dias_atencion = 'Los días de atención del profesional es obligatorio';
+    if (!values.horarios_atencion) errors.horarios_atencion = 'Los horarios de atención del profesional es obligatorio';
+    if (!values.fecha_nacimiento) errors.fecha_nacimiento = 'La fecha de nacimiento del profesional es obligatoria';
+    return errors;
+  }
+
+  const { submitProfesional, error: submitError, loading } = useProfesionalForm();
+
+  const handleSubmitForm = (formData) => {
+    const formattedData = {
+      email: formData.email,
+      nombre_completo: formData.nombre_completo,
+      especialidad: formData.especialidad,
+      matricula: formData.matricula,
+      telefono: formData.telefono,
+      genero: formData.genero,
+      dias_atencion: formData.dias_atencion,
+      horarios_atencion: formData.horarios_atencion,
+      fecha_nacimiento: formData.fecha_nacimiento
+    };
+
+    submitProfesional(formattedData, resetForm);
+  };
+
+  const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+    initialValues,
+    onSubmit: handleSubmitForm,
+    validate,
   });
-  const [error, setError] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value, id } = e.target;
-    const fieldName = name || id;
-    setFormData(prev => ({
-      ...prev,
-      [fieldName]: value
-    }));
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { name, value: newDias } = e.target;
-    
-    setFormData(prev => ({
-      ...prev,
-      [name]: newDias
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    const requiredFields = ['email', 'nombre_completo', 'especialidad', 'matricula', 'telefono', 'genero', 'horarios_atencion', 'fecha_nacimiento'];
-    const missingFields = requiredFields.filter(field => !formData[field] || formData[field].toString().trim() === '');
-    
-    if (missingFields.length > 0) {
-      setError(`Faltan completar los siguientes campos: ${missingFields.join(', ')}`);
-      return;
-    }
-    
-    if (!formData.dias_atencion || formData.dias_atencion.length === 0) {
-      setError('Debe seleccionar al menos un día de atención');
-      return;
-    }
-    
-    try {
-      const URL_API = 'https://cognicare-backend.vercel.app/api/';
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('No hay token de autenticación');
-
-      const response = await axios.post(`${URL_API}profesional`, formData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.data.success) {
-        alert("Profesional creado/a con éxito");
-        setFormData({
-          email: '',
-          nombre_completo: '',
-          especialidad: '',
-          matricula: '',
-          telefono: '',
-          genero: '',
-          dias_atencion: [],
-          horarios_atencion: '',
-          fecha_nacimiento: ''
-        });
-        setError('');
-      }
-
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message || 'Error del servidor');
-      } else if (error.request) {
-        setError('El servidor no respondió');
-      } else {
-        setError('Error al enviar el formulario');
-      }
-    }
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
   };
 
   return (
@@ -120,16 +92,16 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
       <form onSubmit={handleSubmit} className={`${styles.perfil_form}`}>
         <h3 className={`${styles.titulo_form}`}>Perfil del profesional</h3>
         
-        {error && (
+        {/* {errors && (
           <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
-            {error}
+            {errors}
           </div>
-        )}
+        )} */}
         
         <div className={`${styles.profesional_data}`}>
           <FormInput
             label="Nombre Completo"
-            value={formData.nombre_completo}
+            value={values.nombre_completo}
             onChange={handleChange}
             id="nombre_completo"
             placeholder="Ingrese su nombre completo"
@@ -139,7 +111,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           <FormInput
             label="Fecha de Nacimiento"
             type="date"
-            value={formData.fecha_nacimiento}
+            value={values.fecha_nacimiento}
             onChange={handleChange}
             id="fecha_nacimiento"
             placeholder="Ingrese su fecha de nacimiento"
@@ -148,7 +120,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
 
           <FormInput
             label="Especialidad"
-            value={formData.especialidad}
+            value={values.especialidad}
             onChange={handleChange}
             id="especialidad"
             placeholder="Ingrese su profesión"
@@ -158,7 +130,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           <FormInput
             label="Matrícula"
             type="number"
-            value={formData.matricula}
+            value={values.matricula}
             onChange={handleChange}
             id="matricula"
             placeholder="Ingrese su número de matrícula"
@@ -168,7 +140,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           <FormInput
             label="Correo electónico"
             type="email"
-            value={formData.email}
+            value={values.email}
             onChange={handleChange}
             id="email"
             placeholder="Ingrese su correo electrónico"
@@ -178,7 +150,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           <FormInput
             label="Teléfono"
             type='tel'
-            value={formData.telefono}
+            value={values.telefono}
             onChange={handleChange}
             id="telefono"
             placeholder="Ingrese un teléfono de contacto"
@@ -187,7 +159,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
 
           <FormSelect
             label="Género"
-            value={formData.genero}
+            value={values.genero}
             onChange={handleChange}
             id="genero"
             options={[
@@ -202,7 +174,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
           <FormInput
             label="Horarios de atención"
             name="horarios_atencion"
-            value={formData.horarios_atencion}
+            value={values.horarios_atencion}
             onChange={handleChange}
             id="horarios_atencion"
             placeholder="Ej: 09:00 - 17:00"
@@ -213,8 +185,8 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             label="Días de atención:"
             id="dias_atencion"
             name="dias_atencion"
-            value={formData.dias_atencion}
-            onChange={handleCheckboxChange}
+            value={values.dias_atencion}
+            onChange={handleChange}
             options={DIAS_SEMANA}
             required
           />

@@ -1,70 +1,39 @@
 import { useState } from 'react';
-import axios from 'axios';
+import useResetPassword from '../../hooks/user/useResetPassword';
 
 export default function ResetPasswordForm({ onClose }) {
     const [email, setEmail] = useState('');
-    const [step, setStep] = useState(1);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    
+    const { step, error, success, isLoading, 
+        verifyEmail, resetPassword, resetState, setStep } = useResetPassword();
 
-    const URL_API = 'https://cognicare-backend.vercel.app/api/';
 
     const handleVerifyEmail = async (e) => {
         e.preventDefault();
-        setError('');
-        setIsLoading(true);
-
-        try {
-            const response = await axios.post(`${URL_API}verify-email`, { email }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.data.success) {
-                setStep(2);
-                setSuccess('Email verificado. Ingresa tu nueva contraseña');
-            } else {
-                setError('No existe una cuenta asociada a este email');
-            }
-        } catch (error) {
-            setError(error.response?.data?.message || 'Error al verificar el email');
-        } finally {
-            setIsLoading(false);
-        }
+        await verifyEmail(email);
     };
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
+        const result = await resetPassword(email, newPassword, confirmPassword);
+
+        if (result.success) {
+            setTimeout(() => {
+                onClose();
+                resetState();
+                setEmail('');
+                setNewPassword('');
+                setConfirmPassword('');
+            }, 2000);
+        }
+    };
+
+    const handleBack = () => {
+        setStep(1);
         setError('');
-    
-        if (newPassword.trim() !== confirmPassword.trim()) {
-            return setError('Las contraseñas no coinciden');
-        }
-        setIsLoading(true);
-
-        try {
-            const response = await axios.post(`${URL_API}password/reset`, 
-                { email, password: newPassword, confirmPassword }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.data.success) {
-                setSuccess('Contraseña actualizada correctamente');
-                setTimeout(() => onClose(), 2000);
-            } else {
-                setError(response.data.message || 'Error al actualizar la contraseña');
-            }
-        } catch (error) {
-            setError(error.response?.data?.message || 'Error al actualizar la contraseña');
-        } finally {
-            setIsLoading(false);
-        }
+        setSuccess('');
     };
 
     return (
@@ -75,7 +44,10 @@ export default function ResetPasswordForm({ onClose }) {
                         {step === 1 ? 'Recuperar contraseña' : 'Nueva contraseña'}
                     </h2>
                     <button 
-                        onClick={onClose}
+                        onClick={() => {
+                            onClose();
+                            resetState();
+                        }}
                         className="text-[#94a3b8] hover:text-gray-700 text-2xl"
                         aria-label="Cerrar"
                     >
@@ -108,12 +80,16 @@ export default function ResetPasswordForm({ onClose }) {
                         <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
                             <button
                                 type="button"
-                                onClick={onClose}
+                                onClick={() => {
+                                    onClose();
+                                    resetState();
+                                }}
                                 className="px-4 py-2 text-[#94a3b8] hover:text-dark rounded-md order-2 sm:order-1"
                                 disabled={isLoading}
                             >
                                 Cancelar
                             </button>
+
                             <button
                                 type="submit"
                                 className={`px-4 py-2 bg-primary text-white rounded-full hover:bg-dark shadow shadow-dark ${
@@ -169,7 +145,7 @@ export default function ResetPasswordForm({ onClose }) {
                         <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3">
                             <button
                                 type="button"
-                                onClick={() => setStep(1)}
+                                 onClick={handleBack}
                                 className="text-sm text-primary hover:underline order-2 sm:order-1"
                             >
                                 Volver

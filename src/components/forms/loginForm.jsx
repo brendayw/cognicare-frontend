@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import useLogin from '../../hooks/user/useLogin.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import ResetPasswordForm from './resetPasswordForm.jsx';
 import '../../App.css';
@@ -8,8 +8,8 @@ import '../../App.css';
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const { loading, error, submitLogin } = useLogin();
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -21,24 +21,7 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    try {
-      const response = await axios.post('https://cognicare-backend.vercel.app/api/login', {
-        email,
-        password,
-      }, {
-        withCredentials: true,
-      });
-  
-      if (response.data.success) {
-        localStorage.setItem('token', response.data.token);
-        navigate('/dashboard');
-      } else {
-        setError('Credenciales incorrectas');
-      }
-    } catch (error) {
-      setError('Error en la autenticación');
-    }
+    await submitLogin(email, password);
   };
   
   return (

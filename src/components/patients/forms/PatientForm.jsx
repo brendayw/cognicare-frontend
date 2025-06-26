@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from 'axios';
+import useForm from '../../../hooks/useForm.jsx';
+import usePatientForm from "../../../hooks/patients/usePatientForm.jsx";
 import FormHeader from '../../forms/components/FormHeader.jsx';
 import FormInput from '../../forms/components/FormInput.jsx';
 import FormSelect from '../../forms/components/FormSelect.jsx';
@@ -7,100 +8,76 @@ import FormButton from '../../forms/components/FormButton.jsx';
 import styles from '../../../styles/dashboard/forms/PatientForm.module.css';
 
 export default function PatientForm() {
-    const [nombre, setNombre] = useState('');
-    const [fechaNacimiento, setfechaNacimiento] = useState('');
-    const [edad, setEdad] = useState('');
-    const [genero, setGenero] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [inicio, setInicio] = useState('');
-    const [fin, setFin] = useState('');
-    const [motivo, setMotivo] = useState('');
-    const [final, setFinal] = useState('');
-    const [sesiones_realizadas, setTSesionesRealizadas] = useState('');
-    const [sesiones_totales, setSesionesTotales] = useState('');
-    const [estado, setEstado] = useState('');
-    const [observacion, setObservacion] = useState('');
-    const [error, setError] = useState('');
+    const initialValues = {
+        nombre_completo: '',
+        fecha_nacimiento: '', 
+        edad: '',
+        genero: '',
+        direccion: '',
+        email: '',
+        telefono: '',
+        inicio: '',
+        fin: '',
+        motivo: '',
+        final: '',
+        sesiones_realizadas: '',
+        sesiones_totales: '',
+        estado: '',
+        observacion: '',
+    }
+
+    const validate = (values) => {
+        const errors = {};
+        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!values.fecha_nacimiento) errors.fecha_nacimiento = 'La fecha de nacimiento es obligatoria';
+        if (!values.edad) errors.edad = 'La edad es obligatoria';
+        if (!values.genero) errors.genero = 'El género es obligatorio';
+        if (!values.direccion) errors.direccion = 'La dirección es obligatoria';
+        if (!values.telefono) errors.telefono = 'El télefono es obligatorio'
+        if (!values.inicio) errors.inicio = 'La fecha de inicio es obligatoria';
+        if (!values.motivo) errors.motivo = 'El motivo inicial es obligatorio';
+        if (!values.sesiones_realizadas) errors.sesiones_realizadas = 'La cantidad de sesiones realizadas es obligatoria';
+        if (!values.sesiones_totales) errors.sesiones_totales = 'La cantidad de sesiones realizadas es obligatoria';
+        return errors;
+    }
+
+    const { submitPatient, loading, error: submitError } = usePatientForm();
+    
+    const handleSubmitForm = (formData) => {
+        const formattedData = {
+            nombre_completo: formData.nombre_completo,
+            fecha_nacimiento: formatDate(formData.fecha_nacimiento),
+            edad: formData.edad,
+            genero: formData.genero,
+            direccion: formData.direccion,
+            telefono: formData.telefono,
+            email: formData.email,
+            fecha_inicio: formatDate(formData.inicio),
+            fecha_fin: formatDate(formData.fin),
+            motivo_inicial: formData.motivo,
+            motivo_alta: formData.final,
+            sesiones_realizadas: formData.sesiones_realizadas,
+            sesiones_totales: formData.sesiones_realizadas,
+            estado: formData.estado,
+            observaciones: formData.observacion
+        };
+
+        submitPatient(formattedData, resetForm);
+    }
+
+    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+        initialValues,
+        onSubmit: handleSubmitForm,
+        validate,
+    });
 
     const formatDate = (dateString) => {
         if (!dateString) return null;
-    
         const date = new Date(dateString);
         if (isNaN(date.getTime())) return null;
-    
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
     };
     
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const formData = {
-            nombre_completo: nombre,
-            fecha_nacimiento: formatDate(fechaNacimiento),
-            edad: edad,
-            genero: genero,
-            direccion: direccion,
-            telefono: telefono,
-            email: email,
-            fecha_inicio: formatDate(inicio),
-            fecha_fin: formatDate(fin),
-            motivo_inicial: motivo,
-            motivo_alta: final,
-            sesiones_realizadas: sesiones_realizadas,
-            sesiones_totales: sesiones_realizadas,
-            estado: estado,
-            observaciones: observacion
-        }
-
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const token = localStorage.getItem('token');
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.post(`${URL_API}patients`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            });
-
-            if (response.data.success) {
-                alert('Formulario enviado con éxito');
-                setNombre('');
-                setfechaNacimiento('');
-                setEdad('');
-                setGenero('');
-                setDireccion('');
-                setEmail('');
-                setTelefono('');
-                setInicio('');
-                setFin('');
-                setMotivo('');
-                setFinal('');
-                setSesionesRealizadas('');
-                setSesionesTotales('');
-                setEstado('');
-                setObservacion('');
-            } else {
-                alert('Hubo un error al enviar el formulario');
-            }
-
-        } catch (error) {
-
-            if (error.response) {
-
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-
-                setError('El servidor no respondió');
-            } else {
-
-                setError('Error al enviar el formulario');
-            }
-        }
-    };
-
     return (
         <div className={`${styles.panel_content}`}>
             <form onSubmit={handleSubmit} className={`${styles.patient_form}`}>
@@ -108,33 +85,39 @@ export default function PatientForm() {
                 <div className={`${styles.patient_data}`}>
                     <FormInput
                         label="Nombre Completo"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        id="nombre"
-                        placeholder="Ingrese el nombre"
+                        value={values.nombre_completo}
+                        onChange={handleChange}
+                        id="nombre_completo"
+                        placeholder="Ingrese el nombre completo"
                         required
                     />
+                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+
                     <FormInput
                         label="Fecha de Nacimiento"
                         type="date"
-                        value={fechaNacimiento}
-                        onChange={(e) => setfechaNacimiento(e.target.value)}
-                        id="fechaNacimiento"
+                        value={values.fecha_nacimiento}
+                        onChange={handleChange}
+                        id="fecha_nacimiento"
                         required
                     />
+                    {errors.fecha_nacimiento&& <span>{errors.fecha_nacimiento}</span>}
+
                     <FormInput
                         label="Edad"
                         type="number"
-                        value={edad}
-                        onChange={(e) => setEdad(e.target.value)}
+                        value={values.edad}
+                        onChange={handleChange}
                         id="edad"
                         placeholder="Ingrese la edad del paciente"
                         required
                     />
+                    {errors.edad && <span>{errors.edad}</span>}
+
                     <FormSelect
                         label="Genero"
-                        value={genero}
-                        onChange={(e) => setGenero(e.target.value)}
+                        value={values.genero}
+                        onChange={handleChange}
                         id="genero"
                         options={[
                         { value: '', label: 'Seleccione una opción' },
@@ -144,64 +127,77 @@ export default function PatientForm() {
                         ]}
                         required
                     />
+                    {errors.genero && <span>{errors.genero}</span>}
+
                     <FormInput
                         label="Direccion"
-                        value={direccion}
-                        onChange={(e) => setDireccion(e.target.value)}
+                        value={values.direccion}
+                        onChange={handleChange}
                         id="direccion"
                         placeholder="Ingrese el domicilio del paciente"
                         required
                     />
+                    {errors.direccion && <span>{errors.direccion}</span>}
+
                     <FormInput
                         label="Correo electrónico"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={values.email}
+                        onChange={handleChange}
                         id="email"
                         placeholder="Ingrese un correo electrónico"
                     />
+
                     <FormInput
                         label="Telefono"
                         type='tel'
-                        value={telefono}
-                        onChange={(e) => setTelefono(e.target.value)}
+                        value={values.telefono}
+                        onChange={handleChange}
                         id="telefono"
                         placeholder="Ingrese un teléfono de contacto"
                         required
                     />
+                    {errors.telefono && <span>{errors.telefono}</span>}
+
                     <FormInput
                         label="Fecha de inicio"
                         type='date'
-                        value={inicio}
-                        onChange={(e) => setInicio(e.target.value)}
+                        value={values.inicio}
+                        onChange={handleChange}
                         id="inicio"
                         required
                     />
+                    {errors.inicio && <span>{errors.inicio}</span>}
+
                     <FormInput
                         label="Fecha de alta"
                         type='date'
-                        value={fin}
-                        onChange={(e) => setFin(e.target.value)}
+                        value={values.fin}
+                        onChange={handleChange}
                         id="fin"
                     />
+
                     <FormInput
                         label="Motivo de consulta"
-                        value={motivo}
-                        onChange={(e) => setMotivo(e.target.value)}
+                        value={values.motivo}
+                        onChange={handleChange}
                         id="motivo"
                         placeholder="Motivo de consulta"
                         required
                     />
+                    {errors.motivo && <span>{errors.motivo}</span>}
+                    
                     <FormInput
                         label="Motivo de alta"
-                        value={final}
-                        onChange={(e) => setFinal(e.target.value)}
+                        value={values.final}
+                        onChange={handleChange}
                         id="final"
                         placeholder="Motivo de alta"
                     />
+
                     <FormSelect
                         label="Estado"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
+                        value={values.estado}
+                        onChange={handleChange}
                         id="estado"
                         options={[
                         { value: '', label: 'Seleccione una opción' },
@@ -211,33 +207,39 @@ export default function PatientForm() {
                         ]}
                         required
                     />
+                    {errors.estado && <span>{errors.estado}</span>}
+                    
                     <FormInput
                         label="Cantidad de sesiones realizadas"
                         type='number'
-                        value={sesiones_realizadas}
-                        onChange={(e) => setTSesionesRealizadas(e.target.value)}
+                        value={values.sesiones_realizadas}
+                        onChange={handleChange}
                         id="sesiones_realizadas"
                         placeholder="Sesiones realizadas"
                         required
                     />
+                    {errors.sesiones_realizadas && <span>{errors.sesiones_realizadas}</span>}
+
                     <FormInput
                         label="Cantidad de sesiones totales"
                         type='number'
-                        value={sesiones_totales}
-                        onChange={(e) => setSesionesTotales(e.target.value)}
+                        value={values.sesiones_totales}
+                        onChange={handleChange}
                         id="sesiones_totales"
                         placeholder="Sesiones Totales"
                         required
                     />
-                    
+                    {errors.sesiones_totales && <span>{errors.sesiones_totales}</span>}
+
                     <FormInput
                         label="Observación"
-                        value={observacion}
-                        onChange={(e) => setObservacion(e.target.value)}
+                        value={values.observacion}
+                        onChange={handleChange}
                         id="observacion"
                         placeholder="Observaciones"
                     />
                 </div>
+
                 <div className='relative bottom-2 right-1'>
                     <FormButton texto="Guardar" />
                 </div>

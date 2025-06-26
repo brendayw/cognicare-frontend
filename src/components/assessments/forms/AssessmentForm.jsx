@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from 'axios';
+import useForm from '../../../hooks/useForm.jsx';
+import useAssessmentForm from "../../../hooks/assessments/useAssessmentForm.jsx";
 import FormHeader from '../../forms/components/FormHeader.jsx';
 import FormInput from '../../forms/components/FormInput.jsx';
 import FormSelect from '../../forms/components/FormSelect.jsx';
@@ -7,69 +8,50 @@ import FormButton from '../../forms/components/FormButton.jsx';
 import styles from '../../../styles/dashboard/forms/AssessmentForm.module.css';
 
 export default function AssessmentForm() {
-    const [nombre_completo, setNombre] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [nombre_evaluacion, setNombreEvaluacion] = useState('');
-    const [tipo_evaluacion, setTipoEvaluacion] = useState('');
-    const [resultado, setResultado] = useState('');
-    const [observacion, setObservacion] = useState('');
-    const [error, setError] = useState('');
+    const initialValues = {
+        nombre_completo: '',
+        fecha: '',
+        nombre_evaluacion: '',
+        tipo_evaluacion: '',
+        resultado: '',
+        observacion: ''
+    };
+
+    // Validaciones
+    const validate = (values) => {
+        const errors = {};
+        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!values.fecha) errors.fecha = 'La fecha es obligatoria';
+        if (!values.nombre_evaluacion) errors.nombre_evaluacion = 'El nombre de la evaluación es obligatorio';
+        if (!values.tipo_evaluacion) errors.tipo_evaluacion = 'Debe seleccionar un tipo de evaluación';
+        if (!values.resultado) errors.resultado = 'El resultado es obligatorio';
+        return errors;
+    };
+
+    const { submitAssessment, error: submitError, loading } = useAssessmentForm();
+
+    const handleSubmitForm = (formData) => {
+        const formattedData = {
+            fecha_evaluacion: formatDate(formData.fecha),
+            nombre_evaluacion: formData.nombre_evaluacion,
+            tipo_evaluacion: formData.tipo_evaluacion,
+            resultado: formData.resultado,
+            observaciones: formData.observacion,
+            nombre_completo: formData.nombre_completo
+        };
+
+        submitAssessment(formattedData, resetForm);
+    };
+
+    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+        initialValues,
+        onSubmit: handleSubmitForm,
+        validate,
+    });
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const formData = {
-            fecha_evaluacion: formatDate(fecha), 
-            nombre_evaluacion: nombre_evaluacion, 
-            tipo_evaluacion: tipo_evaluacion, 
-            resultado: resultado, 
-            observaciones: observacion,
-            nombre_completo: nombre_completo, 
-        }
-
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const token = localStorage.getItem('token');
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.post(`${URL_API}assessments`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.data.success) {
-                alert('Formulario enviado con éxito');
-                setNombre('');
-                setFecha('');
-                setNombreEvaluacion('');
-                setTipoEvaluacion('');
-                setResultado('');
-                setObservacion('');
-                setError('');
-            } else {
-                alert('Hubo un error al enviar el formulario')
-            }
-
-        } catch (error) {
-
-            if (error.response) {
-
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-
-                setError('El servidor no respondió');
-            } else {
-
-                setError('Error al enviar el formulario');
-            }
-        }
     };
     
     return (
@@ -79,33 +61,39 @@ export default function AssessmentForm() {
                 <div className={`${styles.assessment_data}`}>
                     <FormInput
                         label="Nombre del Paciente"
-                        value={nombre_completo}
-                        onChange={(e) => setNombre(e.target.value)}
-                        id="nombre"
+                        value={values.nombre_completo}
+                        onChange={handleChange}
+                        id="nombre_completo"
                         placeholder="Ingrese el nombre del paciente"
                         required
                     />
+                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+
                     <FormInput
                         label="Fecha"
                         type="date"
-                        value={fecha}
-                        onChange={(e) => setFecha(e.target.value)}
+                        value={values.fecha}
+                        onChange={handleChange}
                         id="fecha"
                         required
                     />
+                    {errors.fecha && <span>{errors.fecha}</span>}
+
                     <FormInput
                         label="Nombre de la evaluación"
-                        value={nombre_evaluacion}
-                        onChange={(e) => setNombreEvaluacion(e.target.value)}
-                        id="nombreEvalucion"
+                        value={values.nombre_evaluacion}
+                        onChange={handleChange}
+                        id="nombre_evaluacion"
                         placeholder="Ingrese el nombre de la evaluación"
                         required
                     />
+                    {errors.nombre_evaluacion && <span>{errors.nombre_evaluacion}</span>}
+
                     <FormSelect
-                        label="Tipo de evalución"
-                        value={tipo_evaluacion}
-                        onChange={(e) => setTipoEvaluacion(e.target.value)}
-                        id="tipoEvaluacion"
+                        label="Tipo de evaluación"
+                        value={values.tipo_evaluacion}
+                        onChange={handleChange}
+                        id="tipo_evaluacion"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value:'Conciencia Intelectual', label: 'Cociente Intelectual'},
@@ -129,22 +117,27 @@ export default function AssessmentForm() {
                         ]}
                         required
                     />
+                    {errors.tipo_evaluacion && <span>{errors.tipo_evaluacion}</span>}
+
                     <FormInput
                         label="Resultado"
-                        value={resultado}
-                        onChange={(e) => setResultado(e.target.value)}
-                        id="resultdo"
+                        value={values.resultado}
+                        onChange={handleChange}
+                        id="resultado"
                         placeholder="Resultados de la evaluación"
                         required
                     />
+                    {errors.resultado && <span>{errors.resultado}</span>}
+
                     <FormInput
                         label="Observaciones"
-                        value={observacion}
-                        onChange={(e) => setObservacion(e.target.value)}
+                        value={values.observacion}
+                        onChange={handleChange}
                         id="observacion"
                         placeholder="Observaciones"
                     />
                 </div>
+                
                 <div className='relative top-2 bottom-2 right-1'>
                     <FormButton texto="Guardar" noTop />
                 </div>

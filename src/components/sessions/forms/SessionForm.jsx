@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
+import useForm from '../../../hooks/useForm.jsx';
+import useSessionForm from '../../../hooks/sessions/useSessionForm.jsx';
 import FormHeader from '../../forms/components/FormHeader.jsx';
 import FormInput  from '../../forms/components/FormInput.jsx';
 import FormSelect from '../../forms/components/FormSelect.jsx';
@@ -7,71 +8,56 @@ import FormButton from '../../forms/components/FormButton.jsx';
 import styles from '../../../styles/dashboard/forms/SessionForm.module.css';
 
 export default function SessionForm() {
-    const [nombre, setNombre] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [hora, setHora] = useState('');
-    const [duracion, setDuracion] = useState('');
-    const [tipo_sesion, setTipoSesion] = useState('');
-    const [estado, setEstado] = useState('');
-    const [observacion, setObservacion] = useState('');
-    const [error, setError] = useState('');
+    const initialValues = {
+        nombre_completo: '',
+        fecha:'',
+        hora: '',
+        duracion: '',
+        tipo_sesion: '',
+        estado: '',
+        observaciones: ''
+    }
+
+    //validaciones
+    const validate = (values) => {
+        const errors = {}; 
+        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!values.fecha) errors.fecha = 'La fecha del reporte es obligatoria';
+        if (!values.hora) errors.hora = 'La hora del reporte es obligatoria';
+        if (!values.duracion) errors.duracion = 'La duración del reporte es obligatoria';
+        if (!values.tipo_sesion) errors.tipo_sesion = 'El tipo de sesión es obligatorio';
+        if (!values.estado) errors.estado = 'El estado de la sesión es obligatoria';
+        return errors;
+    }
 
     const formatDate = (dateString) => {
         if (!dateString) return null;
-    
         const date = new Date(dateString);
         if (isNaN(date.getTime())) return null;
-    
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        const formData = {
-            nombre_completo: nombre,
-            fecha: formatDate(fecha),
-            hora: hora,
-            duracion: duracion,
-            tipo_sesion: tipo_sesion,
-            estado: estado,
-            observaciones: observacion
+    const { submitSession, loading, error: submitError } = useSessionForm();
+
+    const handleSubmitForm = (formData) => {    
+        const formattedData = {
+            nombre_completo: formData.nombre_completo,
+            fecha: formatDate(formData.fecha),
+            hora: formData.hora,
+            duracion: formData.duracion,
+            tipo_sesion: formData.tipo_sesion,
+            estado: formData.estado,
+            observaciones: formData.observaciones
         }
 
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const token = localStorage.getItem('token');
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.post(`${URL_API}session`, formData,{
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            });
-
-            if (response.data.success) {
-                alert('Formulario enviado con éxito');
-                setNombre('');
-                setFecha('');
-                setHora('');
-                setDuracion('');
-                setTipoSesion('');
-                setEstado('');
-                setObservacion('');
-            } else {
-                alert('Hubo un error al enviar el formulario')
-            }
-
-        } catch (error) {
-            if (error.response) {
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-                setError('El servidor no respondió');
-            } else {
-                setError('Error al enviar el formulario');
-            }
-        }
+        submitSession(formattedData, resetForm);
     };
+
+    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+        initialValues,
+        onSubmit: handleSubmitForm,
+        validate,
+    });
     
     return (
         <div className={`${styles.panel_content}`}>
@@ -80,40 +66,46 @@ export default function SessionForm() {
                 <div className={`${styles.session_data}`}>
                     <FormInput 
                         label='Nombre del paciente'
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        id="nombre"
+                        value={values.nombre_completo}
+                        onChange={handleChange}
+                        id="nombre_completo"
                         placeholder="Ingrese el nombre del paciente"
                         required
                     />
+                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+
                     <FormInput
                         label="Fecha"
                         type="date"
-                        value={fecha}
-                        onChange={(e) => setFecha(e.target.value)}
+                        value={values.fecha}
+                        onChange={handleChange}
                         id="fecha"
                         required
                     />
+                    {errors.fecha && <span>{errors.fecha}</span>}
                     <FormInput
                         label="Hora"
                         type="time"
-                        value={hora}
-                        onChange={(e) => setHora(e.target.value)}
+                        value={values.hora}
+                        onChange={handleChange}
                         id="hora"
                         required
                     />
+                    {errors.hora && <span>{errors.hora}</span>}
+
                     <FormInput
                         label="Duración"
-                        value={duracion}
-                        onChange={(e) => setDuracion(e.target.value)}
+                        value={values.duracion}
+                        onChange={handleChange}
                         id="duracion"
                         placeholder="Ingrese la duración de la sesión en minutos"
                         required
                     />
+                    {errors.duracion && <span>{errors.duracion}</span>}
                     <FormSelect
                         label="Estado de la sesión"
-                        value={estado}
-                        onChange={(e) => setEstado(e.target.value)}
+                        value={values.estado}
+                        onChange={handleChange}
                         id="estado"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
@@ -123,11 +115,13 @@ export default function SessionForm() {
                         ]}
                         required
                     />
+                    {errors.estado && <span>{errors.estado}</span>}
+
                     <FormSelect
                         label="Tipo de sesión"
-                        value={tipo_sesion}
-                        onChange={(e) => setTipoSesion(e.target.value)}
-                        id="tipoSesion"
+                        value={values.tipo_sesion}
+                        onChange={handleChange}
+                        id="tipo_sesion"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value: 'Inicial', label: 'Inicial' },
@@ -137,14 +131,17 @@ export default function SessionForm() {
                         ]}
                         required
                     />
+                    {errors.tipo_sesion && <span>{errors.tipo_sesion}</span>}
+
                     <FormInput
                         label="Observaciones"
-                        value={observacion}
-                        onChange={(e) => setObservacion(e.target.value)}
-                        id="observacion"
+                        value={values.observaciones}
+                        onChange={handleChange}
+                        id="observaciones"
                         placeholder="Observaciones"
                     />
                 </div>
+
                 <div className='relative top-1 right-1'>
                     <FormButton texto="Guardar" noTop/>
                 </div>

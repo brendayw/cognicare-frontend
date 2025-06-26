@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from 'axios';
+import { useState, useCallback } from 'react';
+import useForm from '../../../hooks/useForm.jsx';
+import useReportForm from '../../../hooks/reports/useReportForm.jsx';
+import useAssessment from '../../../hooks/assessments/useAssessment.jsx';
 import FormHeader from '../../forms/components/FormHeader.jsx';
 import FormInput from '../../forms/components/FormInput.jsx';
 import FormSelect from '../../forms/components/FormSelect.jsx';
@@ -7,133 +9,122 @@ import FormButton from '../../forms/components/FormButton.jsx';
 import styles from '../../../styles/dashboard/forms/ReportForm.module.css';
 
 export default function ReportForm() {
-    const [tipo, setTipoReporte] = useState('');
-    const [nombre, setNombre] = useState('');
-    const [fecha, setFecha] = useState('');
-    const [descripcion, setDescripcion] = useState('');
     const [archivoFile, setArchivoFile] = useState(null);
-    const [assessments, setAssessments] = useState([]);
     const [assessmentId, setAssessmentId] = useState('');
     const [patientId, setPatientId] = useState(null);
-    const [loadingAssessments, setLoadingAssessments] = useState(false);
-    const [error, setError] = useState(null);
+    const [fechaReporte, setFechaReporte] = useState('');
 
-    useEffect(() => {
-        const fetchAssessments = async () => {
-            try {
-                setLoadingAssessments(true);
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                const token = localStorage.getItem('token');
-                if (!token) throw new Error('No hay token de autenticación');
+    const initialValues = {
+        tipo_reporte: '',
+        nombre_completo: '',
+        fecha_reporte:'',
+        descripcion: '',
+        archivoFile: '',
+    }
 
-                const response = await axios.get(`${URL_API}assessments`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });   
-                setAssessments(response.data.data || []);
-            } catch (error) {
-                setError('Error al cargar evaluaciones');
-            } finally {
-                setLoadingAssessments(false);
-            }
-        };
-        
-        fetchAssessments();
-    }, []);
+    //validaciones
+    const validate = (values) => {
+        const errors = {}; 
+        if (!values.tipo_reporte) errors.tipo_reporte = 'El tipo de reporte es obligatorio';
+        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!fechaReporte) errors.fecha_reporte = 'La fecha del reporte es obligatoria';
+        if (!values.descripcion) errors.descripcion = 'La descripcion del reporte es obligatorio';
+        if (!archivoFile) errors.archivoFile = 'El archivo del reporte es obligatorio';
+        if (!assessmentId) errors.assessmentId = 'Debes seleccionar una evaluación';
+        return errors;
+    }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+    };
+
+    const {assessments, loading: loadingAssessments, error: assessmentError } = useAssessment();
+    const { submitReport, loading: submitting, error: submitError } = useReportForm();
+
+    const handleSubmitForm = useCallback((formData) => {
         if (!archivoFile) {
-            setError('Por favor, adjunta un archivo válido');
+            alert('Por favor, adjunta un archivo válido');
             return;
         }
-       
-        // Convertir assessmentId a número para la comparación
-        const numericAssessmentId = assessmentId ? parseInt(assessmentId) : null;
+
+        if (!assessmentId || !patientId) {
+            alert('Debes seleccionar una evaluación válida');
+            return;
+        }
+
+        const formattedData = new FormData();
+        formattedData.append('tipo_reporte', formData.tipo_reporte);
+        formattedData.append('nombre_completo', formData.nombre_completo);
+        formattedData.append('fecha_reporte', fechaReporte);
+        formattedData.append('descripcion', formData.descripcion);
+        formattedData.append('archivo', archivoFile);
+        formattedData.append('id_evaluacion', parseInt(assessmentId));
+        formattedData.append('id_paciente', patientId);
         
-        if (!numericAssessmentId || !patientId) {
-            setError('Debes seleccionar una evaluación válida');
-            return;
-        }
+        submitReport(formattedData, () => {
+            resetForm();
+            setArchivoFile(null);
+            setAssessmentId('');
+            setPatientId(null);
+            setFechaReporte('');
+        });
+    }, [archivoFile, assessmentId, patientId, submitReport]);
 
-        // Validaciones adicionales
-        if (!tipo || !nombre || !fecha || !descripcion) {
-            setError('Todos los campos son obligatorios');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('tipo_reporte', tipo);
-        formData.append('nombre_completo', nombre);
-        formData.append('fecha_reporte', fecha);
-        formData.append('descripcion', descripcion);
-        formData.append('archivo', archivoFile);
-        formData.append('id_evaluacion', numericAssessmentId);
-        formData.append('id_paciente', patientId);
-
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const token = localStorage.getItem('token');
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.post(`${URL_API}report`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-            if (response.data.success) {
-                alert('Reporte creado con éxito');
-                resetForm();
-            }
-        } catch (error) {
-            
-            if (error.response) {
-                const serverMessage = error.response.data?.message || error.response.data?.error || 'Error del servidor';
-                setError(`Error del servidor: ${serverMessage}`);
-            } else if (error.request) {
-                setError('El servidor no respondió');
-            } else {
-                setError('Error al enviar el formulario');
-            }
-        }
-    };
-
-    const resetForm = () => {
-        setTipoReporte('');
-        setNombre('');
-        setFecha('');
-        setDescripcion('');
-        setAssessmentId('');
-        setPatientId('');
-        setArchivoFile(null); 
-        setError(null);
-    };
-
-    const handleAssessmentChange = (e) => {
+    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+        initialValues,
+        onSubmit: handleSubmitForm,
+        validate,
+    });
+    
+    const handleAssessmentChange = useCallback((e) => {
         const selectedId = e.target.value;
         setAssessmentId(selectedId);
         
         if (!selectedId) {
             setPatientId(null);
-            setNombre('');
+            handleChange({
+                target: {
+                    name: 'nombre_completo',
+                    value: ''
+                }
+            });
             return;
         }
         
         const numericSelectedId = parseInt(selectedId);
-        
         const selectedAssessment = assessments.find(a => a.id === numericSelectedId);
+        
         if (selectedAssessment) {
             setPatientId(selectedAssessment.paciente.id);
-            setNombre(selectedAssessment.paciente.nombre || '');
+            handleChange({
+                target: {
+                    name: 'nombre_completo',
+                    value: selectedAssessment.paciente.nombre || ''
+                }
+            });
         } else {
             setPatientId(null);
-            setNombre('');
+            handleChange({
+                target: {  
+                    name: 'nombre_completo',
+                    value: ''
+                }
+            });
         }
-    };
+    }, [assessments, handleChange]);
+
+    const handleFileChange = useCallback((e) => {
+        const file = e.target.files[0];
+        setArchivoFile(file);
+    }, []);
+
+    const handleDateChange = useCallback((e) => {
+        setFechaReporte(e.target.value);
+    }, []);
+
+    const displayError = submitError || assessmentError;
 
     return (
         <div className={styles.panel_content}>
@@ -141,12 +132,20 @@ export default function ReportForm() {
                 <div className={styles.report_header}>
                     <FormHeader titulo='Agregar Reporte'/>
                 </div>
+
+                {displayError && (
+                    <div className="error-message" style={{ color: 'red', margin: '10px 0' }}>
+                        {displayError}
+                    </div>
+                )}
+
                 <div className={styles.report_data}>
                     <FormSelect
                         label="Tipo de reporte o Test"
-                        value={tipo}
-                        onChange={(e) => setTipoReporte(e.target.value)}
-                        id="tipoReporte"
+                        value={values.tipo_reporte}
+                        onChange={handleChange}
+                        name="tipo_reporte"
+                        id="tipo_reporte"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value:"Informe", label: 'Informe'},
@@ -155,15 +154,19 @@ export default function ReportForm() {
                             { value:"Test", label: 'Test'}
                         ]}
                         required
+                        error={errors.tipo_reporte}
                     />
                     
                     <FormInput
                         label="Nombre del Paciente"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        id="nombre"
+                        value={values.nombre_completo}
+                        name="nombre_completo"
+                        onChange={handleChange}
+                        id="nombre_completo"
                         placeholder="Ingrese el nombre del paciente"
                         required
+                        disabled={true}
+                        error={errors.nombre_completo}
                     />
                     
                     <FormSelect
@@ -180,35 +183,42 @@ export default function ReportForm() {
                             }))
                         ]}
                         required
+                        error={errors.assessmentId}
                     />
                     
                     <FormInput
                         label="Fecha"
                         type="date"
-                        value={fecha}
-                        onChange={(e) => setFecha(e.target.value)}
+                        value={fechaReporte}
+                        onChange={handleDateChange} 
+                        name="fecha_reporte"
                         id="fecha"
                         required
+                        error={errors.fecha_reporte}
                     />
                     
                     <FormInput
                         label="Descripción"
-                        value={descripcion}
-                        onChange={(e) => setDescripcion(e.target.value)}
+                        value={values.descripcion}
+                        onChange={handleChange}
+                        name="descripcion"
                         id="descripcion"
                         placeholder="Descripción"
                         required
+                        error={errors.descripcion}
                     />
     
                     <FormInput
                         label="Archivo adjunto"
                         type="file"
-                        onChange={(e) => setArchivoFile(e.target.files[0])}
+                        onChange={handleFileChange}
                         id="archivo"
                         accept=".pdf, .docx, .doc, .jpg, .png"
                         required
+                        error={errors.archivoFile}
                     />
-                </div>               
+                </div>
+                               
                 <div className='relative top-2 bottom-2 right-1'>
                     <FormButton texto="Guardar" noTop/>
                 </div>

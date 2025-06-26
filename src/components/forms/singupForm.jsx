@@ -1,35 +1,17 @@
 import { useState } from 'react';
-import axios from 'axios';
+import useSignUp from '../../hooks/user/useSignUp';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import '../../App.css';
 
 export default function SignupForm() {
     const [usuario, setUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [error, setError] = useState('');
-  
+    const { submitSignUp, loading, error, success } = useSignUp();
+      
     const handleSubmit = async (e) => {
-
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const response = await axios.post(`${URL_API}signup`, {  
-                usuario,
-                email, 
-                password
-            });
-    
-            if (response.data.success) {
-                setSuccessMessage('¡Cuenta creada con éxito!');
-            } else {
-                setError(response.data.message || 'Error al crear la cuenta');
-                setSuccessMessage('');
-            }
-    
-        } catch (error) {
-            setError('Error al crear una cuenta: ' + error.message);
-            setSuccessMessage('');
-        }
+        e.preventDefault(),
+        await submitSignUp(usuario, email, password);
     };
   
     return (
@@ -40,13 +22,11 @@ export default function SignupForm() {
                     {error}
                 </div>
             )}
-
-            {successMessage && 
+            {success && 
                 <div className="bg-[#27ae60] rounded-md text-center text-white text-xs md:text-sm mb-4 p-2">
-                    {successMessage}
+                    ¡Cuenta creada con éxito!
                 </div>
             }
-            
             <form onSubmit={handleSubmit}>
                 <div className="mb-3 md:mb-4">
                     <label className="block text-soft text-sm font-bold mt-2" htmlFor="name">
