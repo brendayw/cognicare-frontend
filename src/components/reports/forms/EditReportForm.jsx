@@ -1,24 +1,25 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import useEditReport from '../../../hooks/reports/useEditReport';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditReportForm() {
     const { patientId, reportId } = useParams();
-    const token = localStorage.getItem('token');
+    const { editReport, isSubmitting, error: apiError } = useEditReport();
+    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
+    const [fields, setFields] = useState([]);
+    const [file, setFile] = useState();
+    const [formError, setFormError] = useState('');
+    
     const fieldOptions = [
         { id: 'fecha_reporte', label: 'Fecha del reporte' },
         { id: 'descripcion', label: 'Descripción' },
         { id: 'tipo_reporte', label: 'Tipo de reporte' },
         { id: 'archivo', label: 'Archivo' }
     ];
-    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
-    const [fields, setFields] = useState([]);
-    const [file, setFile] = useState();
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState('');
+    
 
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
@@ -34,7 +35,7 @@ export default function EditReportForm() {
             value: selectedOption.id === 'archivo' ? null : ''
         };
         setFields([...fields, newField]);
-        setError('');
+        setFormError('');
     };
 
     const handleRemoveField = (id) => {
@@ -57,34 +58,26 @@ export default function EditReportForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError('');
-        
+            
         if (!reportId) {
-            setError('ID de reporte no encontrado');
+            setFormError('ID de reporte no encontrado');
             setIsSubmitting(false);
             return;
         }
         
-        const formData = new FormData();
         const hasFile = file !== undefined && file !== null;
-        
         let requestData;
-        let requestHeaders = {
-            'Authorization': `Bearer ${token}`
-        };
+        let isFileUpload = false;
         
         if (hasFile) {
-
             requestData = new FormData();
             fields.forEach(field => {
                 if (field.type !== 'archivo') {
                     requestData.append(field.type, field.value);
                 }
             });
-            
             requestData.append('archivo', file);
-            delete requestHeaders['Content-Type'];
+            isFileUpload = true;
         } else {
             requestData = {};
             fields.forEach(field => {
@@ -92,7 +85,6 @@ export default function EditReportForm() {
                     requestData[field.type] = field.value;
                 }
             });
-            requestHeaders['Content-Type'] = 'application/json';
         }
 
         const hasData = hasFile ? 
@@ -101,41 +93,16 @@ export default function EditReportForm() {
         
         if (!hasData) {
             setError('No hay datos para enviar');
-            setIsSubmitting(false);
             return;
         }
-        
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const response = await axios.put(`${URL_API}reports/${reportId}`, requestData, {
-                headers: requestHeaders
-            });
-            
-            if (response.data.success) {
-                alert('Reporte actualizado con éxito');
-                setFields([]);
-            }
-        } catch (error) {
-            if (error.response) {
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-                setError('El servidor no respondió');
-            } else {
-                setError('Error al enviar el formulario');
-            }
-        } finally {
-            setIsSubmitting(false);
+
+        const response = await editReport(reportId, requestData, isFileUpload);
+        if (response.success) {
+            alert('Reporte actualizado con éxito');
+            setFields([]);
+            setFile(null);
         }
     };
-
-    if (!token) {
-        return (
-            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No estás autenticado. Por favor inicia sesión.
-            </div>
-        );
-    }
 
     return (
         <div className='w-[90%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6'>
@@ -147,10 +114,10 @@ export default function EditReportForm() {
             
             <h1 className={styles.title_form}>Editar reporte del paciente</h1>
             
-            {error && (
+            {(apiError || formError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
+                    {apiError || formError}
                 </div>
             )}
         

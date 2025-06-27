@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useProfesionalData } from '../../../hooks/useProfesionalData.jsx';
+import useEditProfesional from '../../../hooks/profesional/useEditProfesional.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditProfesionalForm() {
     const { id } = useParams();
-    const token = localStorage.getItem('token');
-    const [profesional, setProfesional] = useState('');
+    const { profesional, error: fetchError, loading } = useProfesionalData(id);
+    const { editProfesional, isSubmitting, error: apiError } = useEditProfesional();
+
     const fieldOptions = [
         { id: 'email', label: 'Email' },
         { id: 'nombre_completo', label: 'Nombre Completo' },
@@ -23,31 +25,7 @@ export default function EditProfesionalForm() {
     ];
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
-    const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    useEffect(() => {
-        const fetchProfesional = async () => {
-            try {
-                const URL_API = 'https://cognicare-backend.vercel.app/api/';
-                if (!token) throw new Error('No hay token de autenticación');
-
-                const response = await axios.get(`${URL_API}profesional/${id}`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                if (response.data.success) {
-                    setProfesional(response.data.data);
-                }
-            } catch (err) {
-                setError('Error al cargar los datos del profesional');
-            }
-        };
-        
-        if (id && token) {
-            fetchProfesional();
-        }
-    }, [id, token]);
+    const [formError, setFormError] = useState('');
 
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
@@ -66,7 +44,7 @@ export default function EditProfesionalForm() {
         };
         
         setFields([...fields, newField]);
-        setError('');
+        setFormError('');
     };
 
     const handleRemoveField = (id) => {
@@ -81,64 +59,31 @@ export default function EditProfesionalForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError('');
-          
+                  
         if (!profesional) {
-            console.warn('Los datos del profesional aún no se cargaron');
+            setFormError('Los datos del profesional aún no se cargaron');
             return;
         }
         
-        const formData = {};
-        fields.forEach(field => {
+        const formData = fields.reduce((acc, field) => {
             if (field.value !== profesional[field.type]) {
-            formData[field.type] = field.value;
+                acc[field.type] = field.value;
             }
-        });
+            return acc;
+        }, {});
         
         // Si no hay cambios, no envia la petición
         if (Object.keys(formData).length === 0) {
-            setError('No se detectaron cambios para guardar');
-            setIsSubmitting(false);
+            setFormError('No se detectaron cambios para guardar');
             return;
         }
                 
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.put(`${URL_API}profesional/${id}`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (response.data.success) {
-                alert('Profesional actualizado con éxito');
-                setFields([]);
-            }
-        } catch (error) {
-            if (error.response) {
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-                setError('El servidor no respondió');
-            } else {
-                setError('Error al enviar el formulario');
-            }
-        } finally {
-            setIsSubmitting(false);
+        const response = await editProfesional(id, formData);
+        if (response.success) {
+            alert('Profesional actualizado con éxito');
+            setFields([]);
         }
     };
-
-    if (!token) {
-        return (
-            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No hay token de autenticación
-            </div>
-        );
-    }
 
     return (
         <div className='w-[95%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6 m-4'>
@@ -150,10 +95,10 @@ export default function EditProfesionalForm() {
             
             <h1 className={styles.title_form}>Editar tus datos</h1>
             
-            {error && (
+            {(fetchError || formError || apiError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
+                    {fetchError || formError || apiError}
                 </div>
             )}
         

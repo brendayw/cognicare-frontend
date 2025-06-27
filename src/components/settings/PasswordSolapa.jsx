@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { usePasswordUpdate } from '../../hooks/user/usePasswordUpdate';
 import FormInput from '../forms/components/FormInput';
 import FormButton from '../forms/components/FormButton';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
@@ -11,7 +11,7 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
     newPassword: '',
     confirmedNewPassword: ''
   });
-  const [error, setError] = useState();
+  const { updatePassword, isSubmitting, error, success } = usePasswordUpdate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -24,36 +24,18 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const URL_API = 'https://cognicare-backend.vercel.app/api/';
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('No hay token de autenticación');
+    if (formData.newPassword !== formData.confirmedNewPassword) {
+      alert('Las contraseñas nuevas no coinciden');
+      return;
+    }
 
-      const response = await axios.put(`${URL_API}password/update`, formData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+    const updated = await updatePassword(formData);
+    if (updated) {
+      setFormData({
+        oldPassword: '',
+        newPassword: '',
+        confirmedNewPassword: ''
       });
-
-      if (response.data.success) {
-        alert('Contraseña cambiada con éxito');
-        setFormData({
-          oldPassword: '',
-          newPassword: '',
-          confirmedNewPassword: ''
-        });
-        setError('');
-      }
-
-    } catch (error) {
-      if (error.response) {
-        setError(error.response.data.message || 'Error del servidor');
-      } else if (error.request) {
-        setError('El servidor no respondió');
-      } else {
-        setError('Error al enviar el formulario');
-      }
     }
   };
 
@@ -77,6 +59,12 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
         {error && (
           <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div className={styles.success_message}>
+            ¡Contraseña cambiada con éxito!
           </div>
         )}
 
@@ -112,7 +100,7 @@ export default function PasswordSolapa({ isMobile = false, onBack }) {
           />
         </div>
         
-        <div className='relative bottom-8 md:top-[-20px] sm:top-[-20px] right-1'>
+        <div className='relative bottom-8 md:top-[-40px] sm:top-[-20px] lg:top-0 right-1'>
           <FormButton texto="Guardar" noTop/>
         </div>
 

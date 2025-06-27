@@ -65,10 +65,10 @@ export default function AssessmentsList({ assessments, error, onAssessmentDelete
                         <div key={assessment.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md'>
                             <div className='flex flex-col m-4 pr-4 flex-grow'>
                                 <h5> <span className='text-[#b36ed8] text-base'>{assessment.nombre_evaluacion}</span></h5>
-                                <p className='text-[#94a3b8] text-xs'>Tipo de evaluación: <span className='text-[#89898a]'>{assessment.tipo_evaluacion}</span></p>
-                                <p className='text-[#94a3b8] text-xs'>Fecha: <span className='text-[#89898a]'>{assessment.fecha_evaluacion}</span></p>
-                                <p className='text-[#94a3b8] text-xs'>Resultado: <span className='text-[#89898a]'>{assessment.resultado}</span></p>
-                                <p className='text-[#94a3b8] text-xs'>Observaciones: <span className='text-[#89898a]'>{assessment.observaciones}</span></p>
+                                <p className='text-[#94a3b8] text-xs'>Tipo de evaluación: <span className='text-[#89898a]'>{assessment.tipo_evaluacion || '-'}</span></p>
+                                <p className='text-[#94a3b8] text-xs'>Fecha: <span className='text-[#89898a]'>{assessment.fecha_evaluacion || '-'}</span></p>
+                                <p className='text-[#94a3b8] text-xs'>Resultado: <span className='text-[#89898a]'>{assessment.resultado || '-'}</span></p>
+                                <p className='text-[#94a3b8] text-xs'>Observaciones: <span className='text-[#89898a]'>{assessment.observaciones || '-'}</span></p>
                             </div>
                             <div className='flex items-center justify-end pr-4'>
                                 <Link to={`edit/${assessment.id}`}>

@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import useEditSession from '../../../hooks/sessions/useEditSession';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditSessionForm() {
     const { patientId, sessionId } = useParams();
-    const token = localStorage.getItem('token');
+    const { editSession, isSubmitting, error: apiError } = useEditSession();
+    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
+    const [fields, setFields] = useState([]);
+    const [formError, setFormError] = useState('');
+
     const fieldOptions = [
         { id: 'estado', label: 'Estado de la sesión' },
         { id: 'fecha', label: 'Fecha de la sesión' },
@@ -16,11 +20,7 @@ export default function EditSessionForm() {
         { id: 'tipo_sesion', label: 'Tipo de sesión' },
         { id: 'observaciones', label: 'Observaciones' },
     ];
-    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
-    const [fields, setFields] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState('');
-
+    
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
             setError('Este campo ya fue agregado');
@@ -35,7 +35,7 @@ export default function EditSessionForm() {
             value: ''
         };
         setFields([...fields, newField]);
-        setError('');
+        setFormError('');
     };
 
     const handleRemoveField = (id) => {
@@ -50,51 +50,18 @@ export default function EditSessionForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError('');
-        
+            
         const formData = fields.reduce((acc, field) => {
             acc[field.type] = field.value;
             return acc;
         }, {});
         
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            if (!token) throw new Error('No hay token de autenticación');
-
-            const response = await axios.put(`${URL_API}session/${sessionId}`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (response.data.success) {
-                alert('Sesión actualizada con éxito');
-                setFields([]);
-            }
-        } catch (error) {
-
-            if (error.response) {
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-                setError('El servidor no respondió');
-            } else {
-                setError('Error al enviar el formulario');
-            }
-        } finally {
-            setIsSubmitting(false);
+        const response = await editSession(sessionId, formData);
+        if (response.success) {
+            alert('Sesión actualizada con éxito');
+            setFields([]);
         }
     };
-
-    if (!token) {
-        return (
-            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No estás autenticado. Por favor inicia sesión.
-            </div>
-        );
-    }
 
     return (
         <div className='w-[90%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6'>
@@ -106,10 +73,10 @@ export default function EditSessionForm() {
             
             <h1 className={styles.title_form}>Editar sesión del paciente</h1>
             
-            {error && (
+            {(apiError || formError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
+                    {apiError || formError}
                 </div>
             )}
         

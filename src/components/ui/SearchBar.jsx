@@ -7,6 +7,7 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [patients, setPatients] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -20,9 +21,25 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
 
         const searchPatients = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/buscar?texto=${searchTerm}`);
-                setPatients(response.data.pacientes);
+                const URL_API = 'https://cognicare-backend.vercel.app/api/';
+                const token = localStorage.getItem('token');
+                if (!token) throw new Error('No hay token de autenticación');
+
+                const response = await axios.get(`${URL_API}search/${encodeURIComponent(searchTerm)}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.success) {
+                    setPatients(response.data.data);
+                    setError('');
+                } else {
+                    throw new Error(response.data.message || 'Error en la búsqueda');
+                }
+
             } catch (error) {
+                setError(error.messagge);
                 setPatients([]);
             }
         };
@@ -57,7 +74,7 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                     ) : patients?.length > 0 ? (
                         <ul>
                             {patients.map((paciente) => (
-                                <li key={paciente.id}>{paciente.nombre}</li>
+                                <li key={paciente.id}>{paciente.nombre_completo}</li>
                             ))}
                         </ul>
                     ) : (

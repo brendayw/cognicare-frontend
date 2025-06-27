@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import useEditPatient from '../../../hooks/patients/useEditPatient';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditPatientForm() {
     const { id } = useParams();
-    const token = localStorage.getItem('token');
+    const { editPatient, isSubmitting, error: apiError } = useEditPatient();
+    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
+    const [fields, setFields] = useState([]);
+    const [formError, setFormError] = useState('');
+
     const fieldOptions = [
         { id: 'nombre_completo', label: 'Nombre Completo' },
         { id: 'fecha_nacimiento', label: 'Fecha de nacimiento' },
@@ -25,11 +29,7 @@ export default function EditPatientForm() {
         { id: 'sesiones_totales', label: 'Sesiones totales' },
         { id: 'observaciones', label: 'Observaciones' },   
     ];
-    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
-    const [fields, setFields] = useState([]);
-    const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
+    
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
             setError('Este campo ya fue agregado');
@@ -44,7 +44,7 @@ export default function EditPatientForm() {
             value: ''
         };
         setFields([...fields, newField]);
-        setError('');
+        setFormError('');
     };
 
     const handleRemoveField = (id) => {
@@ -59,53 +59,18 @@ export default function EditPatientForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError('');
-        
+            
         const formData = {};
         fields.forEach(field => {
             formData[field.type] = field.value;
         });
         
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const response = await axios.put(`${URL_API}patients/${id}`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (response.data.success) {
-                alert('Paciente actualizado con éxito');
-                // setFields([]);
-            }
-        } catch (error) {
-
-            if (error.response) {
-
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-
-                setError('El servidor no respondió');
-            } else {
-
-                setError('Error al enviar el formulario');
-            }
-        } finally {
-
-            setIsSubmitting(false);
+        const response = await editPatient(id, formData);
+        if (response.success) {
+            alert('Paciente editado con éxito');
+            setFields([]);
         }
     };
-
-    if (!token) {
-        return (
-            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                <ErrorOutlineTwoToneIcon className='mr-2'/>
-                No hay token de autenticación
-            </div>
-        );
-    }
 
     return (
         <div className='w-[95%] bg-[#ffffff] shadow shadow-[#94a3b8] rounded-md p-6 m-4'>
@@ -117,10 +82,10 @@ export default function EditPatientForm() {
             
             <h1 className={styles.title_form}>Editar datos del paciente</h1>
             
-            {error && (
+            {(apiError || formError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
+                    { apiError || formError }
                 </div>
             )}
         

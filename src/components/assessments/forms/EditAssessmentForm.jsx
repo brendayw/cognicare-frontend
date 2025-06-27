@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import useEditAssessment from '../../../hooks/assessments/useEditAssessment.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 export default function EditAssessmentForm() {
     const { patientId, assessmentId } = useParams();
-    const token = localStorage.getItem('token');
+    const { editAssessment, isSubmitting, error: apiError } = useEditAssessment();
+    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
+    const [fields, setFields] = useState([]);
+    const [formError, setFormError] = useState('');
+
     const fieldOptions = [
         { id: 'resultado', label: 'Resultado' },
         { id: 'observaciones', label: 'Observaciones' }
     ];
-    const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
-    const [fields, setFields] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState('');
-
+    
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
-            setError('Este campo ya fue agregado');
+            setFormError('Este campo ya fue agregado');
             return;
         }
         
@@ -31,7 +31,7 @@ export default function EditAssessmentForm() {
             value: ''
         };
         setFields([...fields, newField]);
-        setError('');
+        setFormError('');
     };
 
     const handleRemoveField = (id) => {
@@ -46,41 +46,17 @@ export default function EditAssessmentForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setError('');
+        
         
         const formData = fields.reduce((acc, field) => {
             acc[field.type] = field.value;
             return acc;
         }, {});
         
-        try {
-            const URL_API = 'https://cognicare-backend.vercel.app/api/';
-            const response = await axios.put(`${URL_API}assessments/${assessmentId}`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            if (response.data.success) {
-                alert('Evaluación actualizada con éxito');
-                setFields([]);
-            }
-        } catch (error) {
-
-            if (error.response) {
-
-                setError(error.response.data.message || 'Error del servidor');
-            } else if (error.request) {
-
-                setError('El servidor no respondió: ', error.request);
-            } else {
-
-                setError('Error al enviar el formulario: ', error.message);
-            }
-        } finally {
-            setIsSubmitting(false);
+        const response = await editAssessment(assessmentId, formData);
+        if (response.success) {
+            alert('Evaluación actualizada con éxito');
+            setFields([]);
         }
     };
 
@@ -94,10 +70,10 @@ export default function EditAssessmentForm() {
 
             <h1 className={styles.title_form}>Editar evaluación del paciente</h1>
             
-            {error && (
+            {(apiError || formError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
+                    { apiError || formError }
                 </div>
             )}
         

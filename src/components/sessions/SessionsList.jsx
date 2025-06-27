@@ -65,11 +65,11 @@ export default function SessionsList({ sessions, error, onSessionDeleted }) {
                             <div key={session.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md'>
                                 <div className='flex flex-col m-4 pr-4 flex-grow'>
                                     <h5><span className='text-[#00a396] text-base'>{session.estado}</span></h5>
-                                    <p className='text-[#94a3b8] text-xs'>Fecha: <span className='text-[#89898a]'>{session.fecha}</span></p>
-                                    <p className='text-[#94a3b8] text-xs'>Hora: <span className='text-[#89898a]'>{session.hora}</span></p>
-                                    <p className='text-[#94a3b8] text-xs'>Duracion: <span className='text-[#89898a]'>{session.duracion}</span></p>
-                                    <p className='text-[#94a3b8] text-xs'>Tipo de sesión: <span className='text-[#89898a]'>{session.tipo_sesion}</span></p>
-                                    <p className='text-[#94a3b8] text-xs'>Observaciones: <span className='text-[#89898a]'>{session.observaciones}</span></p>
+                                    <p className='text-[#94a3b8] text-xs'>Fecha: <span className='text-[#89898a]'>{session.fecha || '-'}</span></p>
+                                    <p className='text-[#94a3b8] text-xs'>Hora: <span className='text-[#89898a]'>{session.hora || '-'}</span></p>
+                                    <p className='text-[#94a3b8] text-xs'>Duracion: <span className='text-[#89898a]'>{session.duracion || '-'}</span></p>
+                                    <p className='text-[#94a3b8] text-xs'>Tipo de sesión: <span className='text-[#89898a]'>{session.tipo_sesion || '-'}</span></p>
+                                    <p className='text-[#94a3b8] text-xs'>Observaciones: <span className='text-[#89898a]'>{session.observaciones || '-'}</span></p>
                                 </div>
                                 <div className='flex items-center justify-end pr-4'>
                                     <Link to={`edit/${session.id}`}>
