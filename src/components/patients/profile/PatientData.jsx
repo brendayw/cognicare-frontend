@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { usePatientData } from '../../../hooks/usePatientData.jsx';
+import { usePatientData } from '../../../hooks/patients/usePatientData.jsx';
 import styles from '../../../styles/patients/profile/PatientData.module.css';
 
 export default function PatientData() {

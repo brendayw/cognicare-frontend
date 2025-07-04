@@ -44,7 +44,7 @@
 @media (max-width: 768px) {
     .grafico_container {
         position: relative;
-        top: 5rem;
+        top: auto;
         left: 0;
         width: calc(95% - 2px);
     }
@@ -53,9 +53,8 @@
 @media (max-width: 640px) {
     .grafico_container {
         position: relative;
-        top: 5.625rem;
+        top: auto;
         left: 0;
         width: calc(100% - 2px);
     }
-
 }

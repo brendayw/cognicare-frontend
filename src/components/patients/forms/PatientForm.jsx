@@ -26,6 +26,7 @@ export default function PatientForm() {
         observacion: '',
     }
 
+    //validaciones
     const validate = (values) => {
         const errors = {};
         if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
@@ -41,7 +42,7 @@ export default function PatientForm() {
         return errors;
     }
 
-    const { submitPatient, loading, error: submitError } = usePatientForm();
+    const { submitPatient, loading, error: submitError, success } = usePatientForm();
     
     const handleSubmitForm = (formData) => {
         const formattedData = {
@@ -62,10 +63,10 @@ export default function PatientForm() {
             observaciones: formData.observacion
         };
 
-        submitPatient(formattedData, resetForm);
+        submitPatient(formattedData);
     }
 
-    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+    const { values, errors, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: handleSubmitForm,
         validate,
@@ -82,6 +83,19 @@ export default function PatientForm() {
         <div className={`${styles.panel_content}`}>
             <form onSubmit={handleSubmit} className={`${styles.patient_form}`}>
                 <FormHeader titulo='Agregar paciente'/>
+                {submitError && (
+                    <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {submitError }
+                    </div>
+                )}
+                
+                {success && (
+                    <div className={styles.success_message}>
+                        ¡Paciente creado con éxito!
+                    </div>
+                )}
+
                 <div className={`${styles.patient_data}`}>
                     <FormInput
                         label="Nombre Completo"

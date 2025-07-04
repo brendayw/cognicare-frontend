@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { softDeletePatient } from '../forms/softDeletePatient';
+import { softDeletePatient } from '../forms/softDeletePatient.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import ConfirmationDialog from '../../ui/ConfirmationDialog';
+import ConfirmationDialog from '../../ui/ConfirmationDialog.jsx';
 
 export default function PatientProfileHeader( { patient, onPatientDeleted } ) {
     const [isDeleting, setIsDeleting] = useState(false);

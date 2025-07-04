@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import useReportsData from '../../hooks/useReportsData.jsx';
+import useReportsData from '../../hooks/reports/useReportsData.jsx';
 import Menu from '../../components/ui/Menu.jsx';
 import ReportsList from '../../components/reports/ReportsList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
@@ -9,9 +9,9 @@ export default function Reports() {
     const { reports, error, loading, handleReportDeleted } = useReportsData(id);
 
     return (
-        <div className='h-screen'>
+        <div className='min-h-screen'>
             <Menu/>
-            <div className='h-screen'>
+            <div className='relative top-0 [@media_(max-width:_639px)]:top-[-100px] sm:top-[-100px] md:top-0'>
                 {loading ? (
                     <div className=''>Cargando pacientes...</div>
                 ) : error ? (

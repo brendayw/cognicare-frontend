@@ -99,7 +99,7 @@
 @media (max-width: 768px) {
     .add_container {
         position: relative;
-        top: 5rem;
+        top: auto;
         left: 0;
         width: calc(100% - 2px);
         height: 7.813rem;
@@ -126,7 +126,7 @@
 @media (max-width: 640px) {
     .add_container {
         position: relative;
-        top: 5rem;
+        top: 0;
         left: 0;
         width: calc(100% - 2px);
         height: 7.813rem;

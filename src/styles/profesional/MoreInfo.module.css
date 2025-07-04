@@ -76,6 +76,7 @@
 @media (max-width: 1280px) {
     .profesional_detalles {
         width: calc(100% - 2px);  
+        height: auto;
     }
 
     .dias_atencion {
@@ -92,10 +93,12 @@
         font-size: 0.875rem;
     }
 }
+
 @media (max-width: 1024px) {
     .profesional_detalles {
         top: 1.875rem;
-        width: calc(100% - 2px);  
+        width: calc(100% - 2px); 
+        height: auto; 
     }
 
     .dias_atencion {
@@ -129,19 +132,33 @@
 @media (max-width: 768px) {
     .profesional_detalles {
         position: relative;
-        top: 6.875rem;
+        top: 1rem;
         width: calc(100% - 2px);
+        height: auto;
     }
 }
 
 @media (max-width: 640px) {
     .profesional_detalles {
         position: relative;
-        top: 6.875rem;
+        top: 1rem;
         width: calc(100% - 2px);
+        height: auto;
     }
 
     .titulo h5 {
         font-size: 0.9rem;
+    }
+
+    .dias_atencion {
+        height: calc(auto - 10px);
+    }
+
+    .dia_semana {
+        height: calc(auto - 25px);
+    }
+
+    .horarios_atencion {
+        height: calc(auto - 10px);
     }
 }

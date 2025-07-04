@@ -5,25 +5,27 @@ import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
+const fieldOptions = [
+    { id: 'fecha_reporte', label: 'Fecha del reporte' },
+    { id: 'descripcion', label: 'Descripción' },
+    { id: 'tipo_reporte', label: 'Tipo de reporte' },
+    { id: 'archivo', label: 'Archivo' }
+];
+
 export default function EditReportForm() {
     const { patientId, reportId } = useParams();
-    const { editReport, isSubmitting, error: apiError } = useEditReport();
+    const { editReport, isSubmitting, error: apiError, success } = useEditReport();
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
     const [file, setFile] = useState();
-    const [formError, setFormError] = useState('');
-    
-    const fieldOptions = [
-        { id: 'fecha_reporte', label: 'Fecha del reporte' },
-        { id: 'descripcion', label: 'Descripción' },
-        { id: 'tipo_reporte', label: 'Tipo de reporte' },
-        { id: 'archivo', label: 'Archivo' }
-    ];
-    
+    const [formError, setFormError] = useState('');  
 
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
-            setError('Este campo ya fue agregado');
+            setFormError('Este campo ya fue agregado');
+            setTimeout(() => {
+                setFormError('');
+            }, 1000);
             return;
         }
         
@@ -98,7 +100,7 @@ export default function EditReportForm() {
 
         const response = await editReport(reportId, requestData, isFileUpload);
         if (response.success) {
-            alert('Reporte actualizado con éxito');
+            setSuccess(true);
             setFields([]);
             setFile(null);
         }
@@ -120,7 +122,12 @@ export default function EditReportForm() {
                     {apiError || formError}
                 </div>
             )}
-        
+
+            {success && (
+                <div className={styles.success_message}>
+                    ¡Reporte actualizado con éxito!
+                </div>
+            )}
             {/* Selector de campo */}
             <div className={styles.form_select}>
                 <select 

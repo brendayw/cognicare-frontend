@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { usePatients } from '../hooks/usePatients.jsx';
+import { usePatients } from '../hooks/patients/usePatients.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import VistaSelector from '../components/ui/VistaSelector.jsx';
 import PatientsList from '../components/patients/lists/PatientsList.jsx';
@@ -34,7 +34,7 @@ export default function Patients() {
     const effectiveView = isMobile ? 'list' : view;
 
     return (
-        <div className='h-screen flex flex-col'>
+        <div className='flex flex-col min-h-screen w-full'>
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
@@ -42,7 +42,7 @@ export default function Patients() {
                 )}
 
                 {isMobile && (
-                    <div className="mt-24 mb-4 px-2">
+                    <div className="mt-2 mb-4 px-2">
                         <h2 className="text-xl font-bold text-[#00a396]">
                             Todos los pacientes
                         </h2>
@@ -52,7 +52,7 @@ export default function Patients() {
                 {loading ? (
                     <div className='flex justify-center items-center h-full'>Cargando pacientes...</div>
                 ) : error ? (
-                    <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
+                    <div className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
                     </div>

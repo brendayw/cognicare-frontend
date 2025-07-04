@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import useForm from '../../hooks/useForm.jsx';
 import useProfesionalForm from '../../hooks/profesional/useProfesionalForm.jsx';
-import FormInput from '../forms/components/FormInput';
-import FormSelect from '../forms/components/FormSelect';
-import FormCheckbox from '../forms/components/FormCheckbox';
-import FormButton from '../forms/components/FormButton';
+import FormInput from '../forms/components/FormInput.jsx';
+import FormSelect from '../forms/components/FormSelect.jsx';
+import FormCheckbox from '../forms/components/FormCheckbox.jsx';
+import FormButton from '../forms/components/FormButton.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/PerfilSolapa.module.css';
-
 
 const DIAS_SEMANA = [
   { value: 'lunes', label: 'Lunes' },
@@ -46,7 +44,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
     return errors;
   }
 
-  const { submitProfesional, error: submitError, loading } = useProfesionalForm();
+  const { submitProfesional, error: submitError, loading, success } = useProfesionalForm();
 
   const handleSubmitForm = (formData) => {
     const formattedData = {
@@ -61,10 +59,10 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
       fecha_nacimiento: formData.fecha_nacimiento
     };
 
-    submitProfesional(formattedData, resetForm);
+    submitProfesional(formattedData);
   };
 
-  const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+  const { values, errors, handleChange, handleSubmit} = useForm({
     initialValues,
     onSubmit: handleSubmitForm,
     validate,
@@ -92,11 +90,18 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
       <form onSubmit={handleSubmit} className={`${styles.perfil_form}`}>
         <h3 className={`${styles.titulo_form}`}>Perfil del profesional</h3>
         
-        {/* {errors && (
-          <div style={{ color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
-            {errors}
+        {submitError && (
+          <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+            <ErrorOutlineTwoToneIcon className='mr-2'/>
+            {submitError }
           </div>
-        )} */}
+        )}
+                
+        {success && (
+          <div className={styles.success_message}>
+            ¡Profesional creado con éxito!
+          </div>
+        )}
         
         <div className={`${styles.profesional_data}`}>
           <FormInput
@@ -107,6 +112,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese su nombre completo"
             required
           />
+          {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
 
           <FormInput
             label="Fecha de Nacimiento"
@@ -117,6 +123,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese su fecha de nacimiento"
             required
           />
+          {errors.fecha_nacimiento && <span>{errors.fecha_nacimiento}</span>}
 
           <FormInput
             label="Especialidad"
@@ -126,6 +133,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese su profesión"
             required
           />
+          {errors.especialidad && <span>{errors.especialidad}</span>}
 
           <FormInput
             label="Matrícula"
@@ -136,6 +144,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese su número de matrícula"
             required
           />
+          {errors.matricula && <span>{errors.matricula}</span>}
 
           <FormInput
             label="Correo electónico"
@@ -146,6 +155,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese su correo electrónico"
             required
           />
+          {errors.email && <span>{errors.email}</span>}
 
           <FormInput
             label="Teléfono"
@@ -156,6 +166,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ingrese un teléfono de contacto"
             required
           />
+          {errors.telefono && <span>{errors.telefono}</span>}
 
           <FormSelect
             label="Género"
@@ -170,6 +181,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             ]}
             required
           />
+          {errors.genero && <span>{errors.genero}</span>}
 
           <FormInput
             label="Horarios de atención"
@@ -180,6 +192,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             placeholder="Ej: 09:00 - 17:00"
             required
           />
+          {errors.horarios_atencion && <span>{errors.horarios_atencion}</span>}
 
           <FormCheckbox
             label="Días de atención:"
@@ -190,6 +203,7 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
             options={DIAS_SEMANA}
             required
           />
+          {errors.dias_atencion && <span>{errors.dias_atencion}</span>}
         </div>
 
         <div className='relative bottom-3 right-1'>

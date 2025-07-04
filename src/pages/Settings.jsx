@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProfesionalData } from '../hooks/useProfesionalData.jsx'; 
+import { useProfesionalData } from '../hooks/profesional/useProfesionalData.jsx'; 
 import { useLogout } from '../hooks/useLogOut.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import PanelSettings from '../components/settings/PanelSettings.jsx';
@@ -69,7 +69,7 @@ export default function Settings() {
   // }
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full min-h-screen px-4">
       <Menu />
             
       <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} w-full`}>

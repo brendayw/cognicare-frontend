@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useForm from '../../../hooks/useForm.jsx';
 import useAssessmentForm from "../../../hooks/assessments/useAssessmentForm.jsx";
 import FormHeader from '../../forms/components/FormHeader.jsx';
@@ -28,7 +27,7 @@ export default function AssessmentForm() {
         return errors;
     };
 
-    const { submitAssessment, error: submitError, loading } = useAssessmentForm();
+    const { submitAssessment, loading, error: submitError, success } = useAssessmentForm();
 
     const handleSubmitForm = (formData) => {
         const formattedData = {
@@ -40,10 +39,10 @@ export default function AssessmentForm() {
             nombre_completo: formData.nombre_completo
         };
 
-        submitAssessment(formattedData, resetForm);
+        submitAssessment(formattedData);
     };
 
-    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+    const { values, errors, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: handleSubmitForm,
         validate,
@@ -58,6 +57,20 @@ export default function AssessmentForm() {
        <div className={`${styles.form_content}`}>
             <form onSubmit={handleSubmit} className={`${styles.assessment_form}`}>
                 <FormHeader titulo='Agregar Evaluación'/>
+
+                {submitError && (
+                    <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {submitError }
+                    </div>
+                )}
+                
+                {success && (
+                    <div className={styles.success_message}>
+                        ¡Evaluación creada con éxito!
+                    </div>
+                )}
+
                 <div className={`${styles.assessment_data}`}>
                     <FormInput
                         label="Nombre del Paciente"

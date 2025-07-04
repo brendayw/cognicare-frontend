@@ -102,13 +102,26 @@
     margin-right: auto;
 }
 
+.success_message {
+    position: relative;
+    top: -20px;
+    height: 30px;
+    background-color: #27ae60;
+    border-radius: 0.313rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
 /* media queries */
 @media (max-width: 1280px) {
     .title_form {
-        width: 85%;
+        width: 50%;
         top: -1.875rem;
-        left: -1.875rem;
-        font-size: 1.3rem;
+        left: 1.875rem;
+        font-size: 1.1rem;
     }
 }
 
@@ -117,7 +130,7 @@
         width: 85%;
         top: -1.875rem;
         left: -1.875rem;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }
 

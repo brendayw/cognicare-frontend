@@ -10,7 +10,7 @@ export default function RecentlyUpdatedPatients() {
     }
 
     return (
-        <div className='h-[300px] relative top-[115px] sm:top-[115px] md:top-[55px] lg:top-[30px]'>
+        <div className='relative [@media_(max-width:_639px)]:top-[20px] sm:top-[20px] md:top-[30px] xl:top-[20px]'>
             <UserList 
                 title="Últimos actualizados"
                 users={patients}
@@ -19,7 +19,7 @@ export default function RecentlyUpdatedPatients() {
                 emptyMessage="No hay pacientes recientes"
                 primaryText="nombre_completo"
                 secondaryText="motivo_inicial"
-            />
+            />            
         </div>
     );
 }

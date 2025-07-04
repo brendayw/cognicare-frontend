@@ -1,16 +1,25 @@
 import { useState, useEffect, forwardRef } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import styles from '../../styles/Menu.module.css';
-import axios from 'axios';
 
 const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [patients, setPatients] = useState(null);
     const [isFocused, setIsFocused] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    const handlePatientClick = (patientId) => {
+        navigate(`/patients/profile/${patientId}`);
+        setSearchTerm('');
+        setPatients(null);
+        if (onToggle) onToggle();
     };
 
     useEffect(() => {
@@ -74,7 +83,12 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                     ) : patients?.length > 0 ? (
                         <ul>
                             {patients.map((paciente) => (
-                                <li key={paciente.id}>{paciente.nombre_completo}</li>
+                                <li 
+                                    key={paciente.id} 
+                                 onClick={() => handlePatientClick(paciente.id)}
+                                >
+                                    {paciente.nombre_completo}
+                                </li>
                             ))}
                         </ul>
                     ) : (

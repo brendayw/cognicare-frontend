@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import Menu from '../../components/ui/Menu.jsx';
 import SessionsList from '../../components/sessions/SessionsList.jsx';
-import useSessionsData from '../../hooks/useSessionsData.jsx';
+import useSessionsData from '../../hooks/sessions/useSessionsData.jsx';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Sessions() {
     const { id } = useParams();
     const { sessions, error, loading, handleSessionDeleted } = useSessionsData(id);
     
     return (
-        <div className='h-screen'>
+        <div className='min-h-screen'>
             <Menu/>
-            <div className='h-screen'>
+            <div className='relative top-0 [@media_(max-width:_639px)]:top-[-100px] sm:top-[-100px] md:top-0'>
                 {loading ? (
                     <div className=''>Cargando pacientes...</div>
                 ) : error ? (

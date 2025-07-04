@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     gap: 0.625rem;
     width: 100%;
+    height: auto;
     padding-bottom: 1.25rem;
     margin-top: 0.625rem;
     /* overflow-y: auto; */
@@ -28,6 +29,12 @@
 
 .tarjeta_paciente.lista::-webkit-scrollbar-track {
     background-color: #f1f1f1;
+}
+
+/* Para Firefox */
+.tarjeta_paciente.lista {
+    scrollbar-width: thin;
+    scrollbar-color: #94a3b8 #f1f1f1;
 }
 
 .tarjeta_paciente p {

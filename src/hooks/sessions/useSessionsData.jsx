@@ -31,7 +31,7 @@ const useSessionsData = (patientId) => {
                     throw new Error(response.data?.message || 'La respuesta no indica éxito');
                 }
 
-                const lastSessionResponse = await axios.get(`${URL_API}session/${patientId}/last`, {
+                const lastSessionResponse = await axios.get(`${URL_API}sessions/${patientId}/last`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 

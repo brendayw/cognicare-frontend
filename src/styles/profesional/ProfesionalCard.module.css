@@ -30,7 +30,8 @@
 }
 
 .profesional_header {
-    width: 7.5rem;
+    width: 6.5rem;
+    border-radius: 8rem;
 }
 
 .datos {
@@ -65,7 +66,7 @@
 @media (max-width: 768px) {
     .profesional_container {
         position: relative;
-        top: 6.25rem;
+        top: auto;
         left: 0;
         width: calc(100% - 2px);
     }

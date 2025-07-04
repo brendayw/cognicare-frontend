@@ -60,9 +60,9 @@ export default function PatientProfile() {
     //error
 
     return (
-        <div className='flex flex-col lg:flew-row w-full'>
+        <div className='flex flex-col min-h-screen lg:flew-row w-full'>
             <Menu />
-            <div className='w-full relative top-24 md:top-2'>
+            <div className='w-full relative top-0 md:top-2'>
                 <PatientProfileHeader patient={patient} onPatientDeleted={handlePatientDeleted} />
                 <div className='flex flex-col lg:flex-row'>
                     <div className='w-full lg:w-[40%]'>

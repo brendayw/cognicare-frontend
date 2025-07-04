@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import useReportsData from '../../../../hooks/useReportsData.jsx';
-import { usePatientData } from '../../../../hooks/usePatientData.jsx';
+import useReportsData from '../../../../hooks/reports/useReportsData.jsx';
+import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
@@ -54,10 +54,12 @@ export default function ReportsResume() {
                     ))}
                 </div>
             ) : (
-                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                    <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    No se encontraron reportes para mostrar
-                </p>
+                <div className='w-full'>     
+                    <p className='w-[98%] bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2' />
+                        No se encontraron reportes asociados al paciente para mostrar.
+                    </p>
+                </div>
             )}
         </div>
     );

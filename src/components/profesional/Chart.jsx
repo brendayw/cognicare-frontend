@@ -6,16 +6,11 @@ import styles from '../../styles/profesional/Chart.module.css';
 
 
 export default function Chart() {
-    const { 
-        names, 
-        completedSessions, 
-        totalSessions, 
-        loading, 
-        error 
-    } = usePatientSessionsData();
-    
+    const { names, completedSessions, totalSessions, loading, error } = usePatientSessionsData(); 
     const [screenSize, setScreenSize] = useState('lg');
     const chartContainerRef = useRef(null);
+
+    const isDataEmpty = !names.length && !completedSessions.length && !totalSessions.length;
 
     // Configuraciones responsive
     const chartConfigs = {
@@ -56,7 +51,6 @@ export default function Chart() {
         }
     };
 
-    // Manejo del tamaño de pantalla
     useEffect(() => {
         const getScreenSize = () => {
             const width = window.innerWidth;
@@ -93,12 +87,21 @@ export default function Chart() {
     return (
         <div className={styles.chart} ref={chartContainerRef}>
             {error ? (
-                <div className={styles.error}>
-                    <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                //si no se obtienen las listas
+                <div className='flex items-center justify-center h-full'>
+                    <p className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
                     </p>
                 </div>            
+            ) : isDataEmpty ? (
+                // Si se obtienen los datos pero son listas vacías
+                <div className='flex items-center justify-center h-full'>
+                    <p className="w-full bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] m-4 p-4">
+                        <ErrorOutlineTwoToneIcon className="mr-2" />
+                        Aún no hay pacientes registrados para este profesional.
+                    </p>
+                </div>
             ) : (
                 <div style={{ overflow: 'hidden', width: '100%' }}>
                     <BarChart

@@ -53,7 +53,7 @@ export default function AssessmentsList({ assessments, error, onAssessmentDelete
     }
 
     return (
-        <div className={`${styles.lists_container} space-y-4`}>
+        <div className={`${styles.lists_container} ${styles.lists_container_with_scroll} space-y-4`}> 
             <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>
@@ -62,7 +62,7 @@ export default function AssessmentsList({ assessments, error, onAssessmentDelete
                 {assessments.length > 0 ? (
                 assessments.map((assessment) => {
                     return (
-                        <div key={assessment.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md'>
+                        <div key={assessment.id} className='w-[90%] flex shadow shadow-[#94a3b8] rounded-md m-2'>
                             <div className='flex flex-col m-4 pr-4 flex-grow'>
                                 <h5> <span className='text-[#b36ed8] text-base'>{assessment.nombre_evaluacion}</span></h5>
                                 <p className='text-[#94a3b8] text-xs'>Tipo de evaluación: <span className='text-[#89898a]'>{assessment.tipo_evaluacion || '-'}</span></p>

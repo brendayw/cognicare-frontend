@@ -33,7 +33,7 @@ export const useRecentlyCreated = () => {
 
                 setPatients(pacientesData);
                 if (pacientesData.length === 0) {
-                    setError('No se encontraron pacientes recientes');
+                    setError('No se encontraron pacientes creados recientes');
                 }
             } catch (err) {
                 console.error('Error al cargar pacientes:', err);

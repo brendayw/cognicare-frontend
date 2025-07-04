@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { softDeleteProfesional } from '../profesional/forms/softDeleteProfesional';
-import ConfirmationDialog from '../../components/ui/ConfirmationDialog';
+import { softDeleteProfesional } from '../profesional/forms/softDeleteProfesional.jsx';
+import ConfirmationDialog from '../../components/ui/ConfirmationDialog.jsx';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/DesactivarSolapa.module.css';

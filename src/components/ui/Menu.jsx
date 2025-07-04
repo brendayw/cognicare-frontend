@@ -2,15 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLogout } from '../../hooks/useLogOut.jsx';
 import axios from 'axios';
-import SearchBar from './SearchBar';
-import styles from '../../styles/Menu.module.css';
+import SearchBar from './SearchBar.jsx';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import PersonOutlineTwoToneIcon from '@mui/icons-material/PersonOutlineTwoTone';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
-
+import styles from '../../styles/Menu.module.css';
 
 export default function Menu() {
     const location = useLocation();

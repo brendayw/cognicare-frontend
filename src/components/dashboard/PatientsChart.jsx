@@ -1,12 +1,15 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useState, useEffect } from 'react';
-import { usePatientStatusData } from '../../hooks/patients/usePatientStatusData';
+import { usePatientStatusData } from '../../hooks/patients/usePatientStatusData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
 
 export default function PatientsChart() {
     const [screenSize, setScreenSize] = useState('lg');
     const { diagnosisCount, treatmentCount, dischargedCount, loading, error } = usePatientStatusData();
+
+    const isDataEmpty = diagnosisCount === 0 && treatmentCount === 0 && dischargedCount === 0;
+
     const chartData = [
         { id: 0, value: treatmentCount, label: 'Tratamiento' },
         { id: 1, value: diagnosisCount, label: 'Diagnóstico' },
@@ -88,10 +91,19 @@ export default function PatientsChart() {
     return (
         <div className={`${styles.grafico_container}`}>
             {error ? (
+                //si no se obtienen las listas
                 <div className={styles.error}> 
                     <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] m-4 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
+                    </p>
+                </div>
+            ) : isDataEmpty ? (
+                // Si se obtienen los datos pero son listas vacías
+                <div className={styles.noDataMessage}>
+                    <p className="bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] m-4 p-4">
+                        <ErrorOutlineTwoToneIcon className="mr-2" />
+                        Aún no hay pacientes registrados para este profesional.
                     </p>
                 </div>
             ) : (

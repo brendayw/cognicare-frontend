@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { usePatientData } from '../../../hooks/usePatientData.jsx';
+import { usePatientData } from '../../../hooks/patients/usePatientData.jsx';
 import axios from 'axios';
 import styles from '../../../styles/patients/profile/PatientProgress.module.css';
 

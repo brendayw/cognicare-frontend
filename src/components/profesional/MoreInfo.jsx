@@ -1,6 +1,6 @@
 import { useState, }from 'react';
 import { useParams } from 'react-router-dom';
-import { useProfesionalData } from '../../hooks/useProfesionalData.jsx';
+import { useProfesionalData } from '../../hooks/profesional/useProfesionalData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/MoreInfo.module.css';
 
@@ -75,10 +75,12 @@ export default function MoreInfo() {
                             );
                         })
                     ) : (
-                        <p className='bg-[#f6e9e6] w-[250px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                            <ErrorOutlineTwoToneIcon className='mr-2'/>
-                            {error}
-                        </p>
+                        <div className='w-full'>
+                            <p className='bg-[#f6e9e6] w-[98%] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                                <ErrorOutlineTwoToneIcon className='mr-2'/>
+                                {error}
+                            </p>
+                        </div>
                     )}
                 </div>
             </div>
@@ -104,10 +106,12 @@ export default function MoreInfo() {
                         }
                     })
                     ) : (
-                        <p className='bg-[#f6e9e6] w-[250px] h-[75px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                            <ErrorOutlineTwoToneIcon className='mr-2'/>
-                            {error}
-                        </p>
+                        <div className='w-full'>
+                            <p className='bg-[#f6e9e6] w-[98%] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                                <ErrorOutlineTwoToneIcon className='mr-2'/>
+                                {error}
+                            </p>
+                        </div>
                     )}
                 </div>
             </div>

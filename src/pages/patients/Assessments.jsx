@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import useAssessmentsData from '../../hooks/useAssessmentsData.jsx';
+import useAssessmentsData from '../../hooks/assessments/useAssessmentsData.jsx';
 import Menu from '../../components/ui/Menu.jsx';
 import AssessmentsList from '../../components/assessments/AssessmentsList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone'
@@ -9,9 +9,9 @@ export default function Assessments() {
     const { assessments, error, loading, handleAssessmentDeleted } = useAssessmentsData(id);
 
     return (
-        <div className='h-screen'>
+        <div className='h-[100%]'>
             <Menu />
-            <div className='h-screen'>
+            <div className='relative top-0 [@media_(max-width:_639px)]:top-[-100px] sm:top-[-100px] md:top-0'>
                 {loading ? (
                     <div className=''>Cargando pacientes...</div>
                 ) : error ? (

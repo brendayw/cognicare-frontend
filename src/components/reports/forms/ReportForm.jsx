@@ -41,7 +41,7 @@ export default function ReportForm() {
     };
 
     const {assessments, loading: loadingAssessments, error: assessmentError } = useAssessment();
-    const { submitReport, loading: submitting, error: submitError } = useReportForm();
+    const { submitReport, loading: submitting, error: submitError, success } = useReportForm();
 
     const handleSubmitForm = useCallback((formData) => {
         if (!archivoFile) {
@@ -64,7 +64,6 @@ export default function ReportForm() {
         formattedData.append('id_paciente', patientId);
         
         submitReport(formattedData, () => {
-            resetForm();
             setArchivoFile(null);
             setAssessmentId('');
             setPatientId(null);
@@ -72,7 +71,7 @@ export default function ReportForm() {
         });
     }, [archivoFile, assessmentId, patientId, submitReport]);
 
-    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+    const { values, errors, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: handleSubmitForm,
         validate,
@@ -134,8 +133,15 @@ export default function ReportForm() {
                 </div>
 
                 {displayError && (
-                    <div className="error-message" style={{ color: 'red', margin: '10px 0' }}>
+                    <div className="error-message flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4" >
                         {displayError}
+                    </div>
+                )}
+
+                                
+                {success && (
+                    <div className={styles.success_message}>
+                        ¡Reporte creado con éxito!
                     </div>
                 )}
 

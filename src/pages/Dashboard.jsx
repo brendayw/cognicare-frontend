@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import PatientsCategories from '../components/dashboard/PatientsCategories';
-import ProfileCard from '../components/dashboard/ProfileCard';
-import PatientsChart from '../components/dashboard/PatientsChart';
+import PatientsCategories from '../components/dashboard/PatientsCategories.jsx';
+import ProfileCard from '../components/dashboard/ProfileCard.jsx';
+import PatientsChart from '../components/dashboard/PatientsChart.jsx';
 import Calendar from '../components/dashboard/Calendar.jsx';
 import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPatients.jsx';
 import AddButtons from '../components/dashboard/AddButtons.jsx';

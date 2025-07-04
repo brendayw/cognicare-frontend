@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const useEditAssessment = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
-
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
+    
     const editAssessment = async (assessmentId, formData) => {
         setIsSubmitting(true);
         setError('');
@@ -21,7 +24,13 @@ const useEditAssessment = () => {
                 }
             });
             
-            return response.data;
+            if (response.data.success) {
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
+                return true;
+            }
         } catch (error) {
             if (error.response) {
                 setError(error.response.data.message || 'Error del servidor');
@@ -36,7 +45,7 @@ const useEditAssessment = () => {
         }
     };
 
-    return { editAssessment, isSubmitting, error };
+    return { editAssessment, isSubmitting, error, success };
 };
 
 export default useEditAssessment;

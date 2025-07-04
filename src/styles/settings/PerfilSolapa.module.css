@@ -52,12 +52,25 @@
   border: 2px solid #00a396;
 }
 
+.success_message {
+  position: relative;
+  top: 0;
+  height: 30px;
+  background-color: #27ae60;
+  border-radius: 0.313rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
 /* media queries */
 @media (max-width: 1024px) {
     .solapa.activa {
         top: 6.25rem;
         width: calc(100% - 2px);
-        height: 32.5rem;
+        height: auto;
     }
 
     .titulo_form {
@@ -86,9 +99,9 @@
 @media (max-width: 768px) {
     .solapa.activa {
         position: relative;
-        top: 6.25rem;
+        top: auto;
         width: calc(100% - 2px);
-        height: 45rem;
+        height: auto;
     }
 
     .titulo_form {
@@ -118,9 +131,14 @@
 
 @media (max-width: 640px) {
     .solapa.activa {
-        top: 6.25rem;
+        top: auto;
         width: calc(100% - 2px);
-        height: 42.188rem;
+        height: auto;
+        max-height: 715px;
+    }
+
+    .perfil_form {
+        height: auto;
     }
 
     .titulo_form {

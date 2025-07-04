@@ -13,22 +13,30 @@ export default function UserList({
 
   return (
     <Paper sx={{ 
-      width: { xs: '100%', sm: '100%' },
-      height: { xs: 'auto', sm:'auto', md: 'auto', lg: 'auto', xl: 'auto'},
-      minHeight: { xs: 280, sm: 280, md: 280, lg: 280, xl: 280 },
+      width: '100%',
+      height: 'auto',
+      minHeight: error ? 120 : 280,
       boxShadow: 'none',
       position: 'relative',
-      top: {xs: 0, md: -20},
+      top: error 
+      ? { xs: '40px', sm: '30px', md: '40px', lg: '20px', xl: '20px'}
+      : { xs: 0, sm: 0, md: 0, lg: 0, xl: 0},
       left: 0,
       zIndex: 1,
     }}>
   
       {!loading && error && (
+        <div className='relative [@media_(max-width:_639px)]:top-[0px]'>
+          <h5 className='text-[#00a396] font-medium font-montserrat xs:text-sm sm:text-base md:text-base lg:text-sm xl:text-base mb-2'>
+            {title}
+          </h5>
 
-        <div className="bg-[#f6e9e6] w-[100%] text-[#FF6F59] text-center border border-red-300 rounded-md m-2 text-sm p-4">
-          <ErrorOutlineTwoToneIcon className='mr-2'/>
-          {error}
+          <div className="bg-[#f6e9e6] w-[100%] text-[#FF6F59] text-center border border-red-300 rounded-md text-sm p-4">
+            <ErrorOutlineTwoToneIcon className='mr-2'/>
+            {error}
+          </div>
         </div>
+       
       )}    
         
       {!loading && !error && (

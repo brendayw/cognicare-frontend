@@ -53,7 +53,7 @@ export default function ReportsList({ reports, error, onReportDeleted }) {
     }
 
     return (
-        <div className={`${styles.lists_container} space-y-4`}>
+        <div className={`${styles.lists_container} ${styles.lists_container_with_scroll} space-y-4`}>
             <Link to={`/patients/profile/${patientId}`} className='inline-block ml-4'>
                 <ArrowBackIosTwoToneIcon className='text-[#94a3b8] hover:text-[#00a396]'/>
             </Link>

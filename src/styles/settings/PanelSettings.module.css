@@ -94,7 +94,7 @@
   }
 }
 
-/* Media queries */
+/* media queries */
 @media (min-width: 1024px) and (max-width: 1138px) {
   .perfil span, 
   .password span,
@@ -107,7 +107,7 @@
   .panel_settings {
     width: 100%;
     position: relative;
-    top: 6.25rem;
+    top: auto;
   }
 }
 
@@ -115,7 +115,7 @@
   .panel_settings {
     width: 100%;
     position: relative;
-    top: 6.25rem;
+    top: auto;
   }
   
   .opciones {

@@ -5,13 +5,13 @@ export default function RecentlyCreatedPatients() {
     const { patients, loading, error } = useRecentlyCreated();
 
     return (
-        <div className='h-[300px] relative top-[80px] sm:top-[80px] md:top-[20px] lg:top-[50px]'>
+        <div className='relative [@media_(max-width:_639px)]:top-[10px] sm:top-[10px] md:top-[0px] lg:top-[30px] xl:top-[30px]'>
             <UserList 
                 title="Últimos pacientes creados"
                 users={patients}
                 loading={loading}
                 error={error}
-                emptyMessage="No hay pacientes recientes"
+                emptyMessage="No hay pacientes creados recientes"
                 primaryText="nombre_completo"
                 secondaryText="motivo_inicial"
             />

@@ -37,7 +37,7 @@
     .chart {
         width: calc(100% - 2px);
         height: 15.625rem;
-        top: 7.813rem;
+        top: 2rem;
     }
 }
 
@@ -45,7 +45,7 @@
     .chart {
         width: calc(100% - 2px);
         height: 15.625rem;
-        top: 7.813rem;
+        top: 2rem;
     }
 }
 

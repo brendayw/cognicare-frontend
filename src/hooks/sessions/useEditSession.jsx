@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const useEditSession = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const editSession = async (sessionId, formData) => {
         setIsSubmitting(true);
@@ -14,13 +17,21 @@ const useEditSession = () => {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('No hay token de autenticación');
 
-            const response = await axios.put(`${URL_API}session/${sessionId}`, formData, {
+            const response = await axios.put(`${URL_API}sessions/${sessionId}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-            return response.data;
+            
+            if (response.data.success) {
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
+                return true;
+            }
+
         } catch (error) {
             if (error.response) {
                 setError(error.response.data.message || 'Error del servidor');
@@ -34,7 +45,7 @@ const useEditSession = () => {
             setIsSubmitting(false);
         }
     };
-    return { editSession, isSubmitting, error };
+    return { editSession, isSubmitting, error, success};
 }
 
 export default useEditSession;

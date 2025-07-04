@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { usePatientData } from '../../../hooks/usePatientData.jsx';
+import { usePatientData } from '../../../hooks/patients/usePatientData.jsx';
 import AvatarFemenino from '/assets/avatar_mujer.jpg';
 import AvatarMasculino from '/assets/hombre_avatar.avif';
 import styles from '../../../styles/patients/profile/PatientName.module.css';

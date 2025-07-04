@@ -4,7 +4,7 @@ const URL_API = 'https://cognicare-backend.vercel.app/api/';
 
 export const softDeleteSession = async (sessionId, token) => {
   try {
-    const response = await axios.put(`${URL_API}session/${sessionId}/soft-delete`,
+    const response = await axios.put(`${URL_API}sessions/${sessionId}/soft-delete`,
       { deleted: true }, { headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { useProfesionalData } from '../../hooks/useProfesionalData';
+import { useProfesionalData } from '../../hooks/profesional/useProfesionalData';
 import avatarFemenino from '/assets/female-header.png';
 import avatarMasculino from '/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
@@ -11,7 +11,7 @@ export default function ProfesionalCard() {
     const { profesional, loading, error } = useProfesionalData(id);
 
     if (loading) return <div className={styles.loading}>Cargando...</div>;
-
+    
     return (
         <div className={`${styles.profesional_container}`}>
             {error ? (

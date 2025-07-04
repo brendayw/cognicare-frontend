@@ -61,6 +61,7 @@ root.render(
 
 
         <Route path="/profesional/:id" element={<ProfesionalProfile />} />
+        <Route path="/profesional" element={<ProfesionalProfile />} />
         <Route path="/profesional/:id/edit" element={<EditProfesional />} />
         <Route path="/settings" element={<Settings />} />
 

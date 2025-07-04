@@ -37,7 +37,7 @@ export default function SessionForm() {
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
     };
 
-    const { submitSession, loading, error: submitError } = useSessionForm();
+    const { submitSession, loading, error: submitError, success } = useSessionForm();
 
     const handleSubmitForm = (formData) => {    
         const formattedData = {
@@ -50,10 +50,10 @@ export default function SessionForm() {
             observaciones: formData.observaciones
         }
 
-        submitSession(formattedData, resetForm);
+        submitSession(formattedData);
     };
 
-    const { values, errors, handleChange, handleSubmit, resetForm } = useForm({
+    const { values, errors, handleChange, handleSubmit } = useForm({
         initialValues,
         onSubmit: handleSubmitForm,
         validate,
@@ -63,6 +63,20 @@ export default function SessionForm() {
         <div className={`${styles.panel_content}`}>
             <form className={`${styles.session_form}`} onSubmit={handleSubmit}>
                 <FormHeader titulo='Agregar Sesión'/>
+
+                {submitError && (
+                    <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {submitError }
+                    </div>
+                )}
+                
+                {success && (
+                    <div className={styles.success_message}>
+                        ¡Sesión creada con éxito!
+                    </div>
+                )}
+
                 <div className={`${styles.session_data}`}>
                     <FormInput 
                         label='Nombre del paciente'

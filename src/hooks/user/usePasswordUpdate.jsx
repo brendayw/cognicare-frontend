@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const usePasswordUpdate = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const updatePassword = async (formData) => {
         setIsSubmitting(true);
@@ -25,6 +27,9 @@ export const usePasswordUpdate = () => {
 
             if (response.data.success) {
                 setSuccess(true);
+                setTimeout(() => {
+                    navigate('/dashboard');
+                }, 2000);
                 return true;
             }
         } catch (error) {

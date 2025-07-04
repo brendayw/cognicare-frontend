@@ -1,35 +1,38 @@
 import { useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useProfesionalData } from '../../../hooks/useProfesionalData.jsx';
+import { useProfesionalData } from '../../../hooks/profesional/useProfesionalData.jsx';
 import useEditProfesional from '../../../hooks/profesional/useEditProfesional.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
+const fieldOptions = [
+    { id: 'email', label: 'Email' },
+    { id: 'nombre_completo', label: 'Nombre Completo' },
+    { id: 'fecha_nacimiento', label: 'Fecha de nacimiento'},
+    { id: 'especialidad', label: 'Especialidad' },
+    { id: 'edad', label: 'Edad' },
+    { id: 'matricula', label: 'Matrícula' },
+    { id: 'telefono', label: 'Teléfono' },
+    { id: 'genero', label: 'Género' },
+    { id:'dias_atencion', label: 'Días de atención'},
+    { id:'horarios_atencion', label: 'Horarios de atención'},  
+];
+
 export default function EditProfesionalForm() {
     const { id } = useParams();
     const { profesional, error: fetchError, loading } = useProfesionalData(id);
-    const { editProfesional, isSubmitting, error: apiError } = useEditProfesional();
-
-    const fieldOptions = [
-        { id: 'email', label: 'Email' },
-        { id: 'nombre_completo', label: 'Nombre Completo' },
-        { id: 'fecha_nacimiento', label: 'Fecha de nacimiento'},
-        { id: 'especialidad', label: 'Especialidad' },
-        { id: 'edad', label: 'Edad' },
-        { id: 'matricula', label: 'Matrícula' },
-        { id: 'telefono', label: 'Teléfono' },
-        { id: 'genero', label: 'Género' },
-        { id:'dias_atencion', label: 'Días de atención'},
-        { id:'horarios_atencion', label: 'Horarios de atención'},  
-    ];
+    const { editProfesional, isSubmitting, error: apiError, success } = useEditProfesional();
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
     const [formError, setFormError] = useState('');
 
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
-            setError('Este campo ya fue agregado');
+            setFormError('Este campo ya fue agregado');
+            setTimeout(() => {
+                setFormError('');
+            }, 1000);
             return;
         }
     
@@ -80,7 +83,6 @@ export default function EditProfesionalForm() {
                 
         const response = await editProfesional(id, formData);
         if (response.success) {
-            alert('Profesional actualizado con éxito');
             setFields([]);
         }
     };
@@ -99,6 +101,12 @@ export default function EditProfesionalForm() {
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     {fetchError || formError || apiError}
+                </div>
+            )}
+
+            {success && (
+                <div className={styles.success_message}>
+                    ¡Profesional actualizado con éxito!
                 </div>
             )}
         

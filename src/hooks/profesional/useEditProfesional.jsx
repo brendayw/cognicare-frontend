@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const useEditProfesional = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const editProfesional = async (id, formData) => {
         setIsSubmitting(true);
@@ -21,7 +24,14 @@ const useEditProfesional = () => {
                 }
             });
 
-            return response.data;
+            if (response.data.success) {
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
+                return true;
+            }
+
         } catch (error) {
             if (error.response) {
                 setError(error.response.data.message || 'Error del servidor');
@@ -36,7 +46,7 @@ const useEditProfesional = () => {
         }
     };
 
-    return { editProfesional, isSubmitting, error };
+    return { editProfesional, isSubmitting, error, success };
 }
 
 export default useEditProfesional;

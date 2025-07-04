@@ -31,7 +31,7 @@ export const useRecentlyUpdated = () => {
                 } else {
                     throw new Error('Formato de respuesta no reconocido');
                 }
-
+                
                 if (pacientesData.length > 0) {
                     setPatients(pacientesData);
                 } else {

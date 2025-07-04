@@ -5,25 +5,28 @@ import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
+const fieldOptions = [
+    { id: 'estado', label: 'Estado de la sesión' },
+    { id: 'fecha', label: 'Fecha de la sesión' },
+    { id: 'hora', label: 'Hora de la sesión' },
+    { id: 'duracion', label: 'Duración de la sesión' },
+    { id: 'tipo_sesion', label: 'Tipo de sesión' },
+    { id: 'observaciones', label: 'Observaciones' },
+];
+
 export default function EditSessionForm() {
     const { patientId, sessionId } = useParams();
-    const { editSession, isSubmitting, error: apiError } = useEditSession();
+    const { editSession, isSubmitting, error: apiError, success } = useEditSession();
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
     const [formError, setFormError] = useState('');
-
-    const fieldOptions = [
-        { id: 'estado', label: 'Estado de la sesión' },
-        { id: 'fecha', label: 'Fecha de la sesión' },
-        { id: 'hora', label: 'Hora de la sesión' },
-        { id: 'duracion', label: 'Duración de la sesión' },
-        { id: 'tipo_sesion', label: 'Tipo de sesión' },
-        { id: 'observaciones', label: 'Observaciones' },
-    ];
     
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
-            setError('Este campo ya fue agregado');
+            setFormError('Este campo ya fue agregado');
+            setTimeout(() => {
+                setFormError('');
+            }, 1000);
             return;
         }
         
@@ -58,7 +61,6 @@ export default function EditSessionForm() {
         
         const response = await editSession(sessionId, formData);
         if (response.success) {
-            alert('Sesión actualizada con éxito');
             setFields([]);
         }
     };
@@ -77,6 +79,12 @@ export default function EditSessionForm() {
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     {apiError || formError}
+                </div>
+            )}
+
+            {success && (
+                <div className={styles.success_message}>
+                    ¡Sesión actualizada con éxito!
                 </div>
             )}
         

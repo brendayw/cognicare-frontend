@@ -1,20 +1,24 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const useReportForm = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    const submitReport = async (formattedData, resetForm) => {
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
+    
+    const submitReport = async (formattedData) => {
         setLoading(true);
         setError(null);
+        setSuccess(false);
 
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/api/';
             const token = localStorage.getItem('token');
             if (!token) throw new Error('No hay token de autenticación');
 
-            const response = await axios.post(`${URL_API}report`, formattedData, {
+            const response = await axios.post(`${URL_API}reports`, formattedData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',
@@ -22,10 +26,13 @@ const useReportForm = () => {
             });
 
             if (response.data.success) {
-                alert('Formulario enviado con éxito');
-                resetForm();
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
+                return true;
             } else {
-                alert('Hubo un error al enviar el formulario');
+                setError('Hubo un error al enviar el formulario');
             }
         } catch (error) {
             setError(error.response?.data?.message || 'Error del servidor');
@@ -33,7 +40,7 @@ const useReportForm = () => {
             setLoading(false);
         }
     };
-    return { submitReport, loading, error };
+    return { submitReport, loading, error, success };
 };
 
 export default useReportForm;

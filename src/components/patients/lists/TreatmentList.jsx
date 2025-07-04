@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import avatarFemenino from '/assets/avatar_mujer.jpg';
 import avatarMasculino from '/assets/hombre_avatar.avif';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/dashboard/diagnosis/Diagnosis.module.css';
 
 export default function TreatmentList({ pacientes, vista }) {
@@ -63,7 +64,10 @@ export default function TreatmentList({ pacientes, vista }) {
           </div>
         )
       ) : (
-        <p>No hay pacientes disponibles.</p>
+        <div className='bg-[#f6e9e6] w-[95%] xs:w-[100%] sm:w-[97%] border border-red-300 rounded-md text-[#FF6F59] sm:text-sm md:text-sm [@media_(max-width:_639px)]:text-sm m-2 p-4'>
+          <ErrorOutlineTwoToneIcon className='mr-2'/>
+          No hay pacientes en período de tratamiento disponibles.
+        </div>
       )}
     </div>
   );

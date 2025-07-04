@@ -65,7 +65,7 @@ export default function PatientsList({ pacientes, vista }) {
           </div>
         )
       ) : (
-        <div className='bg-[#f6e9e6] w-[95%] xs:w-[100%] sm:w-[97%] border border-red-300 rounded-md text-[#FF6F59] m-2 p-4'>
+        <div className='bg-[#f6e9e6] w-[95%] sm:w-[97%] border border-red-300 rounded-md text-[#FF6F59] m-2 p-4'>
           <ErrorOutlineTwoToneIcon className='mr-2'/>
           No hay pacientes disponibles.
         </div>

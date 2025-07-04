@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import useAssessmentsData from '../../../../hooks/useAssessmentsData';
-import { usePatientData } from '../../../../hooks/usePatientData.jsx';
+import useAssessmentsData from '../../../../hooks/assessments/useAssessmentsData.jsx';
+import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import TabTitle from '../TabTitle.jsx';
@@ -47,10 +47,12 @@ export default function AssessmentResume() {
                     ))}
                 </div>
             ) : (
-                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                    <ErrorOutlineTwoToneIcon className='mr-2' />
-                    No se encontraron evaluaciones para mostrar
-                </p>
+                <div className='w-full'>     
+                    <p className='w-[98%] bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2' />
+                        No se encontraron evaluaciones asociadas al paciente para mostrar.
+                    </p>
+                </div>
             )}
         </div>
     );

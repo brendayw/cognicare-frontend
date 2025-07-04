@@ -5,34 +5,37 @@ import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
+const fieldOptions = [
+    { id: 'nombre_completo', label: 'Nombre Completo' },
+    { id: 'fecha_nacimiento', label: 'Fecha de nacimiento' },
+    { id: 'edad', label: 'Edad' },
+    { id: 'genero', label: 'Género' },
+    { id: 'direccion', label: 'Dirección' },
+    { id: 'telefono', label: 'Teléfono' },
+    { id: 'email', label: 'Email' },
+    { id: 'fecha_inicio', label: 'Fecha de inicio' },
+    { id: 'fecha_fin', label: 'Fecha de alta' },
+    { id: 'motivo_inicial', label: 'Motivo inicial' },
+    { id: 'motivo_alta', label: 'Motivo de alta' },
+    { id: 'estado', label: 'Estado' },
+    { id: 'sesiones_realizadas', label: 'Sesiones realizadas' },
+    { id: 'sesiones_totales', label: 'Sesiones totales' },
+    { id: 'observaciones', label: 'Observaciones' },   
+];
+
 export default function EditPatientForm() {
     const { id } = useParams();
-    const { editPatient, isSubmitting, error: apiError } = useEditPatient();
+    const { editPatient, isSubmitting, error: apiError, success } = useEditPatient();
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);
     const [formError, setFormError] = useState('');
-
-    const fieldOptions = [
-        { id: 'nombre_completo', label: 'Nombre Completo' },
-        { id: 'fecha_nacimiento', label: 'Fecha de nacimiento' },
-        { id: 'edad', label: 'Edad' },
-        { id: 'genero', label: 'Género' },
-        { id: 'direccion', label: 'Dirección' },
-        { id: 'telefono', label: 'Teléfono' },
-        { id: 'email', label: 'Email' },
-        { id: 'fecha_inicio', label: 'Fecha de inicio' },
-        { id: 'fecha_fin', label: 'Fecha de alta' },
-        { id: 'motivo_inicial', label: 'Motivo inicial' },
-        { id: 'motivo_alta', label: 'Motivo de alta' },
-        { id: 'estado', label: 'Estado' },
-        { id: 'sesiones_realizadas', label: 'Sesiones realizadas' },
-        { id: 'sesiones_totales', label: 'Sesiones totales' },
-        { id: 'observaciones', label: 'Observaciones' },   
-    ];
     
     const handleAddField = () => {
         if (fields.some(field => field.type === selectedField)) {
-            setError('Este campo ya fue agregado');
+            setFormError('Este campo ya fue agregado');
+            setTimeout(() => {
+                setFormError('');
+            }, 1000);
             return;
         }
         
@@ -67,7 +70,6 @@ export default function EditPatientForm() {
         
         const response = await editPatient(id, formData);
         if (response.success) {
-            alert('Paciente editado con éxito');
             setFields([]);
         }
     };
@@ -86,6 +88,12 @@ export default function EditPatientForm() {
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
                     { apiError || formError }
+                </div>
+            )}
+
+            {success && (
+                <div className={styles.success_message}>
+                    ¡Paciente actualizado con éxito!
                 </div>
             )}
         

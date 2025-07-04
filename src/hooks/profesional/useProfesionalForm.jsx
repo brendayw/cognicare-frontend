@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const useProfesionalForm = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
-    const submitProfesional = async (formattedData, resetForm) => {
+    const submitProfesional = async (formattedData) => {
         setLoading(true);
         setError(null);
+        setSuccess(false);
 
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/api/';
@@ -22,10 +26,14 @@ const useProfesionalForm = () => {
             });
 
             if (response.data.success) {
-                alert("Profesional creado/a con éxito");
-                resetForm();
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate(-1);
+                }, 2000);
+                return true;
+
             } else {
-                alert('Hubo un error al enviar el formulario');
+                setError('Hubo un error al enviar el formulario');
             }
         } catch (error) {
             setError(error.response?.data?.message || 'Error del servidor');
@@ -33,7 +41,7 @@ const useProfesionalForm = () => {
             setLoading(false);
         }
     };
-    return { submitProfesional, loading, error };
+    return { submitProfesional, loading, error, success };
 }
 
 export default useProfesionalForm;

@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { usePatientData } from '../../../../hooks/usePatientData';
+import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
 import styles from '../../../../styles/patients/tabs/HistoryResume.module.css';
-
 
 export default function HistoryResume() {
     const { id } = useParams();

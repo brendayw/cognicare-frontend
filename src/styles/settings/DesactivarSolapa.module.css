@@ -106,7 +106,7 @@
 @media (max-width: 768px) {
   .solapa {
     position: relative;
-    top: 6.25rem;
+    top: auto;
     width: calc(100% - 2px);
     height: 18.125rem;
   }
@@ -151,7 +151,7 @@
 @media (max-width: 640px) {
   .solapa {
     position: relative;
-    top: 6.25rem;
+    top: auto;
     width: calc(100% - 2px);
     height: 21.563rem;
   }
