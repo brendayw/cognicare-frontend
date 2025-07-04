@@ -94,6 +94,10 @@
     .profesional_data label {
         font-size: 0.75rem;
     }
+
+    .success_message {
+        top: -40px
+    }
 }
 
 @media (max-width: 768px) {
@@ -125,6 +129,10 @@
 
     .profesional_data label {
         font-size: 0.75rem;
+    }
+
+    .success_message {
+        top: -40px
     }
 
 }
@@ -163,5 +171,4 @@
     .profesional_data label {
         font-size: 0.75rem;
     }
-
 }   
