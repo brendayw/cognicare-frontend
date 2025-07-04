@@ -10,8 +10,13 @@ export default function SignupForm() {
     const { submitSignUp, loading, error, success } = useSignUp();
       
     const handleSubmit = async (e) => {
-        e.preventDefault(),
-        await submitSignUp(usuario, email, password);
+        e.preventDefault();
+        const response = await submitSignUp(usuario, email, password);
+        if (response?.success) {
+            setUsuario('');
+            setEmail('');
+            setPassword('');
+        }
     };
   
     return (

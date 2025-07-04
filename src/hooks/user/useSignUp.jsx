@@ -17,6 +17,7 @@ const useSignUp = () => {
 
             if (response.data.success) {
                 setSuccess(true);
+                setTimeout(() => setSuccess(false), 2000);
                 return { success: true };
             } else {
                 setError(response.data.message || 'Error al crear la cuenta');

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -18,13 +18,16 @@ export default function ConfirmationDialog({
       open={open}
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
-      PaperProps={{
-        className: "min-w-[450px] rounded-md shadow-xl font-montserrat"
+      sx={{
+        minWidth: '325px',
+        borderRadius: '24px',
+        fontFamily: 'montserrat',
+        boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
       }}
     >
       <DialogTitle 
         id="alert-dialog-title"
-        className="bg-[#ffffff] text-[#94a3b8] p-4 border-b border-gray-200 font-medium"
+        className="bg-[#ffffff] text-[#94a3b8] p-4 border-b border-gray-200 font-medium !text-sm"
       >
         {title}
       </DialogTitle>
@@ -39,10 +42,12 @@ export default function ConfirmationDialog({
         <Button 
           onClick={onClose}
           disabled={isProcessing}
-          className="min-w-[120px] font-montserrat"
+          className="min-w-[100px] font-montserrat"
           style={{
             color: '#424884',
-            borderColor: '#424884'
+            borderColor: '#424884',
+            borderRadius: '16px',
+            fontSize: '12px'
           }}
           variant="outlined"
         >
@@ -51,10 +56,12 @@ export default function ConfirmationDialog({
         <Button 
           onClick={onConfirm} 
           disabled={isProcessing}
-          className="min-w-[120px] font-montserrat"
+          className="min-w-[100px] font-montserrat"
           style={{
             backgroundColor: '#ff6f59',
-            color: 'white'
+            color: 'white',
+            borderRadius: '16px',
+            fontSize: '12px'
           }}
           variant="contained"
           startIcon={isProcessing ? <CircularProgress size={20} color="inherit" /> : null}

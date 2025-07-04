@@ -45,6 +45,7 @@
 .pacientes_columns {
     display: flex;
     gap: 0.625rem;
+    width: 100%;
 }
   
 .paciente_column {
@@ -52,8 +53,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.938rem;
+    width: 100%;
 }
-
 
 .paciente_detalles {
     background-color: #ffffff;
@@ -101,11 +102,92 @@
 }
 
 .paciente_data {
-    color: #424884;
+    padding: 0.5rem;
 }
 
 .paciente_data h5 {
-    padding: 1rem;
+    color: #424884;
+    font-size: 1rem;
+}
+
+/* media queries */
+@media (min-width: 1291px) {
+    .pacientes_columns {
+        gap: 0.4rem;
+        width: calc(100% - 20px);
+    }
+
+    .paciente_column {
+        gap: 0.538rem;
+    }
+
+    .tarjeta_paciente {
+        width: calc(100% - 20px);
+    }
+
+    .paciente_detalles {
+        width: calc(100% - 0.5rem);
+    }
+    
+}
+
+@media (max-width: 1290px) {
+    .pacientes_columns {
+        gap: 0.4rem;
+        width: calc(100% - 20px);
+    }
+
+    .paciente_column {
+        gap: 0.538rem;
+    }
+
+    .tarjeta_paciente {
+        width: calc(100% - 20px);
+    }
+
+    .paciente_detalles {
+        width: calc(100% - 1rem);
+        height: 9.25rem;
+    }
+
+    .paciente_foto img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .paciente_data h5 {
+        font-size: 0.7rem;
+    }
+
+    .tarjeta_paciente.lista .paciente_data h5 {
+        font-size: 1rem;
+    }
+
+}
+
+@media (max-width: 990px) {
+    .paciente_detalles {
+        height: 8.25rem;
+    }
+
+    .paciente_foto img {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .paciente_data h5 {
+        font-size: 0.55rem;
+    }
+
+    .tarjeta_paciente.lista .paciente_data h5 {
+        font-size: 1rem;
+    }
+
+    .tarjeta_paciente.lista .paciente_foto img {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
 }
 
 @media (max-width: 768px) {
