@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useTreatmentData } from '../../../hooks/useTreatmentData.jsx';
+import { useTreatmentData } from '../../../hooks/patients/useTreatmentData.jsx';
 import Menu from '../../../components/ui/Menu.jsx';
 import VistaSelector from '../../../components/ui/VistaSelector.jsx';
 import TreatmentList from '../../../components/patients/lists/TreatmentList.jsx';

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDiagnosisData } from '../../../hooks/useDiagnosisData.jsx';
+import { useDiagnosisData } from '../../../hooks/patients/useDiagnosisData.jsx';
 import Menu from '../../../components/ui/Menu.jsx';
 import VistaSelector from '../../../components/ui/VistaSelector.jsx';
 import DiagnosisList from '../../../components/patients/lists/DiagnosisList.jsx';

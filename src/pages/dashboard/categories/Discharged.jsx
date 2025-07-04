@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDischargedData } from '../../../hooks/useDischargedData.jsx';
+import { useDischargedData } from '../../../hooks/patients/useDischargedData.jsx';
 import Menu from '../../../components/ui/Menu.jsx';
 import VistaSelector from '../../../components/ui/VistaSelector.jsx';
 import DischargedList from '../../../components/patients/lists/DischargedList.jsx';

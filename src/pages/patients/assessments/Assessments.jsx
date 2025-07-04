@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import useAssessmentsData from '../../hooks/assessments/useAssessmentsData.jsx';
-import Menu from '../../components/ui/Menu.jsx';
-import AssessmentsList from '../../components/assessments/AssessmentsList.jsx';
+import useAssessmentsData from '../../../hooks/assessments/useAssessmentsData.jsx';
+import Menu from '../../../components/ui/Menu.jsx';
+import AssessmentsList from '../../../components/assessments/AssessmentsList.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone'
 
 export default function Assessments() {

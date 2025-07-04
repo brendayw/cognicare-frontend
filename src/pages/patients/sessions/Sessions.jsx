@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import Menu from '../../components/ui/Menu.jsx';
-import SessionsList from '../../components/sessions/SessionsList.jsx';
-import useSessionsData from '../../hooks/sessions/useSessionsData.jsx';
+import Menu from '../../../components/ui/Menu.jsx';
+import SessionsList from '../../../components/sessions/SessionsList.jsx';
+import useSessionsData from '../../../hooks/sessions/useSessionsData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Sessions() {

@@ -1,6 +1,5 @@
 import styles from '../../../styles/dashboard/forms/components/FormCheckbox.module.css';
 
-
 export default function FormCheckbox( {
     label,
     id,

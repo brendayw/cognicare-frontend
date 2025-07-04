@@ -13,7 +13,6 @@ const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
 export default function Calendar() {
     const today = new Date();
     const [currentDate, setCurrentDate] = useState(today);
-    // Inicialmente selecciona el día actual
     const [selectedDay, setSelectedDay] = useState(today.getDate());
 
     const month = currentDate.getMonth();
@@ -21,7 +20,6 @@ export default function Calendar() {
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const totalDays = daysInMonth(month, year);
     
-    // Verifica si el mes mostrado es el actual
     const isCurrentMonth = () => {
         return (
             month === today.getMonth() && 
@@ -32,18 +30,17 @@ export default function Calendar() {
     const handlePrevMonth = () => {
         const prev = new Date(year, month - 1, 1);
         setCurrentDate(prev);
-        // Si es el mes actual, selecciona el día de hoy
         if (prev.getMonth() === today.getMonth() && prev.getFullYear() === today.getFullYear()) {
             setSelectedDay(today.getDate());
         } else {
-            setSelectedDay(null); // En otros meses, no hay selección automática
+            setSelectedDay(null);
         }
     };
     
     const handleNextMonth = () => {
         const next = new Date(year, month + 1, 1);
         setCurrentDate(next);
-        // Si es el mes actual, selecciona el día de hoy
+        
         if (next.getMonth() === today.getMonth() && next.getFullYear() === today.getFullYear()) {
             setSelectedDay(today.getDate());
         } else {

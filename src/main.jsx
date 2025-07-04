@@ -14,14 +14,14 @@ import PatientProfile from './pages/patients/PatientProfile.jsx';
 import Patient from './pages/dashboard/forms/Patient.jsx';
 import EditPatient from './pages/patients/EditPatient.jsx';
 import Session from './pages/dashboard/forms/Session.jsx';
-import Sessions from './pages/patients/Sessions.jsx';
-import EditSession from './pages/patients/EditSession.jsx';
+import Sessions from './pages/patients/sessions/Sessions.jsx';
+import EditSession from './pages/patients/sessions/EditSession.jsx';
 import Assessment from './pages/dashboard/forms/Assessment.jsx';
-import Assessments from './pages/patients/Assessments.jsx';
-import EditAssessment from './pages/patients/EditAssessment.jsx';
-import Reports from './pages/patients/Reports.jsx';
+import Assessments from './pages/patients/assessments/Assessments.jsx';
+import EditAssessment from './pages/patients/assessments/EditAssessment.jsx';
+import Reports from './pages/patients/reports/Reports.jsx';
 import Report from './pages/dashboard/forms/Report.jsx';
-import EditReport from './pages/patients/EditReport.jsx';
+import EditReport from './pages/patients/reports/EditReport.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
