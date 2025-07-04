@@ -35,17 +35,17 @@ export default function EditProfesionalForm() {
             }, 1000);
             return;
         }
-    
+
         const selectedOption = fieldOptions.find(opt => opt.id === selectedField);
         const currentValue = profesional ? profesional[selectedOption.id] || '' : '';
-        
+
         const newField = {
             id: Date.now(),
             type: selectedOption.id,
             label: selectedOption.label,
             value: currentValue
         };
-        
+
         setFields([...fields, newField]);
         setFormError('');
     };
@@ -62,25 +62,23 @@ export default function EditProfesionalForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-                  
+
         if (!profesional) {
             setFormError('Los datos del profesional aún no se cargaron');
             return;
         }
-        
+
         const formData = fields.reduce((acc, field) => {
             if (field.value !== profesional[field.type]) {
                 acc[field.type] = field.value;
             }
             return acc;
         }, {});
-        
-        // Si no hay cambios, no envia la petición
         if (Object.keys(formData).length === 0) {
             setFormError('No se detectaron cambios para guardar');
             return;
         }
-                
+
         const response = await editProfesional(id, formData);
         if (response.success) {
             setFields([]);
@@ -94,9 +92,9 @@ export default function EditProfesionalForm() {
                     <ArrowBackIosTwoToneIcon className='text-[#00a396] cursor:pointer'/>
                 </Link>
             </div>
-            
+
             <h1 className={styles.title_form}>Editar tus datos</h1>
-            
+
             {(fetchError || formError || apiError) && (
                 <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                     <ErrorOutlineTwoToneIcon className='mr-2'/>
@@ -109,7 +107,7 @@ export default function EditProfesionalForm() {
                     ¡Profesional actualizado con éxito!
                 </div>
             )}
-        
+
             {/* Selector de campo */}
             <div className={styles.form_select}>
                 <select 
@@ -123,7 +121,7 @@ export default function EditProfesionalForm() {
                         </option>
                     ))}
                 </select>
-            
+
                 <button 
                     onClick={handleAddField} 
                     className={styles.form_button}
@@ -158,7 +156,7 @@ export default function EditProfesionalForm() {
                     </div>
                 ))}
             </div>
-            
+
             {fields.length > 0 && (
                 <button 
                     onClick={handleSubmit}

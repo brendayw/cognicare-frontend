@@ -17,7 +17,7 @@ const useEditProfesional = () => {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('No hay token de autenticación');
 
-            const response = await axios.get(`${URL_API}profesional/${id}`, {
+            const response = await axios.put(`${URL_API}profesional/${id}`, formData, {
                 headers: { 
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

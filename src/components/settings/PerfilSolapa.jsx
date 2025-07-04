@@ -54,9 +54,15 @@ export default function PerfilSolapa({ isMobile = false, onBack }) {
       matricula: formData.matricula,
       telefono: formData.telefono,
       genero: formData.genero,
-      dias_atencion: formData.dias_atencion,
       horarios_atencion: formData.horarios_atencion,
-      fecha_nacimiento: formData.fecha_nacimiento
+      fecha_nacimiento: formData.fecha_nacimiento,
+      dias_atencion: (() => {
+        if (Array.isArray(formData.dias_atencion)) {
+          return formData.dias_atencion.join(',');
+        } else {
+          return formData.dias_atencion;
+        }
+      })()
     };
 
     submitProfesional(formattedData);

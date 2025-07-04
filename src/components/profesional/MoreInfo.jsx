@@ -10,7 +10,7 @@ export default function MoreInfo() {
 
     const diasAtencion = (() => {
         if (!profesional?.dias_atencion) return [];
-        
+                
         const diasSemana = ['Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb'];
         const diasMapeados = {
             'lunes': 'Lun',
@@ -18,14 +18,29 @@ export default function MoreInfo() {
             'miercoles': 'Miér',
             'jueves': 'Jue',
             'viernes': 'Vier',
-            'sabado': 'Sáb',
+            'sabado': 'Sáb'
         };
-
-        const diasMarcados = profesional.dias_atencion.split(',').map(d => d.trim().toLowerCase());
-        return diasSemana.map(dia => ({
-            dia,
-            estaMarcado: diasMarcados.some(d => diasMapeados[d] === dia)
-        }));
+  
+        let diasArray = [];
+        if (Array.isArray(profesional.dias_atencion)) {
+            diasArray = profesional.dias_atencion.map(d => d.toLowerCase().trim());
+        } else if (typeof profesional.dias_atencion === 'string') {
+            diasArray = profesional.dias_atencion.toLowerCase()
+                .split(',')
+                .map(d => d.trim())
+                .filter(d => d);
+        }
+        
+        return diasSemana.map(diaAbrev => {
+            const diaCompleto = Object.keys(diasMapeados).find(
+                key => diasMapeados[key] === diaAbrev
+            );
+            return {
+                dia: diaAbrev,
+                estaMarcado: diasArray.includes(diaCompleto)
+            };
+        });
+        
     })();
 
     const horariosAtencion = (() => {
