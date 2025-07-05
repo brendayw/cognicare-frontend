@@ -5,9 +5,9 @@ export default function SkeletonProfesionalData() {
     return (
         <Card sx={{ 
             position: 'relative',
-            top: { lg: 15 },
+            top: { xs: 20, lg: 15,  },
             width: '100%',
-            height: { xs: '213px', sm: '217px', lg: '256px', xl: '260px' },
+            height: { xs: '213px', sm: '217px', lg: '256px', xl: '280px' },
             borderRadius: '20px',
         }}>
             <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
@@ -21,7 +21,7 @@ export default function SkeletonProfesionalData() {
                 }}>
 
                     <Box sx={{ width: '100%', height:'70%' }}>
-                        <Skeleton variant="text" width={{ xs: '50%', md: '50%' }} height={{ xs: 5, sm: 5 }} sx={{ fontSize: { xs: '0.6rem', sm: '1rem' } }} />
+                        <Skeleton variant="text" width={{ xs: '50%', md: '50%' }} height={{ xs: 5, sm: 15 }} sx={{ fontSize: { xs: '0.6rem', sm: '1rem' } }} />
                         <Skeleton variant="text" width={{ xs: '50%', md: '50%' }} height={{ xs: 5, sm: 5 }} />
                         <Skeleton variant="text" width={{ xs: '50%', md: '50%' }} height={{ xs: 5, sm: 5 }} />
                         <Skeleton variant="text" width={{ xs: '50%', md: '50%' }} height={{ xs: 5, sm: 5 }} />

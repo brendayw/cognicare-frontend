@@ -68,6 +68,9 @@ export default function MoreInfo() {
             <SkeletonProfesionalData />
         );
     }
+
+    
+
     return (
         <div className={`${styles.profesional_detalles}`}>
             <div className={styles.columna}>
