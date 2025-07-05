@@ -1,12 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/patients/usePatientData.jsx';
+import SkeletonData from '../../../skeletons/patients/SkeletonData.jsx';
 import styles from '../../../styles/patients/profile/PatientData.module.css';
 
 export default function PatientData() {
     const { id } = useParams();
     const { patient, loading, error } = usePatientData(id);
         
-    if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (loading) {
+        return (
+            <SkeletonData />
+        );
+    }
+    
+    
     if (error) return <div className={styles.error}>{error}</div>; 
 
     const normalizeEstado = (estado) => {

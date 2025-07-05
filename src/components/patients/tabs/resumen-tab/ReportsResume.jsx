@@ -5,13 +5,21 @@ import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
 import styles from '../../../../styles/patients/tabs/ReportsResume.module.css';
+import SkeletonReports from '../../../../skeletons/patients/tabs/SkeletonReports.jsx';
 
 export default function ReportsResume() {
     const { id } = useParams();
     const { reports, error, loading } = useReportsData(id);
     const { patient } = usePatientData(id);
 
-    if (loading) return <div>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <div className='p-2'>
+                <TabTitle titulo='Reportes' />
+                <SkeletonReports />
+            </div> 
+        );
+    }
 
     const estadoNormalizado = patient && patient.estado
         ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 

@@ -103,7 +103,7 @@
 @media (max-width: 640px) {
     .sessions {
         top: 0;
-        left: 3.875rem;
+        left: 3rem;
         width: 80%;
         height: 6.25rem;
     }

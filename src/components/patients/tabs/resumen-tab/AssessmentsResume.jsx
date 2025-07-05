@@ -4,6 +4,7 @@ import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import TabTitle from '../TabTitle.jsx';
+import SkeletonAssessments from '../../../../skeletons/patients/tabs/SkeletonAssessments.jsx';
 import styles from '../../../../styles/patients/tabs/AssessmentResume.module.css';
 
 export default function AssessmentResume() {
@@ -11,7 +12,15 @@ export default function AssessmentResume() {
     const { assessments, error, loading } = useAssessmentsData(id);
     const { patient } = usePatientData(id);
 
-    if (loading) return <div>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <div className='p-2'>
+                <TabTitle titulo='Evaluaciones' />
+                <SkeletonAssessments />
+            </div>
+            
+        );
+    }
 
     const estadoNormalizado = patient && patient.estado
         ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 

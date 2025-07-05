@@ -3,7 +3,9 @@ import { usePatients } from '../hooks/patients/usePatients.jsx';
 import Menu from '../components/ui/Menu.jsx';
 import VistaSelector from '../components/ui/VistaSelector.jsx';
 import PatientsList from '../components/patients/lists/PatientsList.jsx';
+import SkeletonListItemWithIcon from '../skeletons/lists/SkeletonListItemWithIcon.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+
 
 export default function Patients() {
     const [view, setView] = useState('grid');
@@ -42,7 +44,7 @@ export default function Patients() {
                 )}
 
                 {isMobile && (
-                    <div className="mt-2 mb-4 px-2">
+                    <div className="mt-2 mb-2 px-2">
                         <h2 className="text-xl font-bold text-[#00a396]">
                             Todos los pacientes
                         </h2>
@@ -50,7 +52,12 @@ export default function Patients() {
                 )}
                 
                 {loading ? (
-                    <div className='flex justify-center items-center h-full'>Cargando pacientes...</div>
+                    <div className='flex flex-col justify-center items-center h-full'>
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                    </div>
                 ) : error ? (
                     <div className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>

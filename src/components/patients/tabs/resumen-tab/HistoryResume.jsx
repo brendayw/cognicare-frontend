@@ -1,12 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
+import SkeletonHistory from '../../../../skeletons/patients/tabs/SkeletonHistory.jsx';
 import styles from '../../../../styles/patients/tabs/HistoryResume.module.css';
 
 export default function HistoryResume() {
     const { id } = useParams();
     const { patient, loading, error } = usePatientData(id);
 
-    if (loading) return <div className=''>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <SkeletonHistory />
+        );
+    }
 
     const normalizeEstado = (estado) => {
         if (!estado) return 'tratamiento';

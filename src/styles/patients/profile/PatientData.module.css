@@ -95,7 +95,7 @@
 @media (max-width: 640px) {
     .patient_datacard {
         position: relative;
-        left: 0.938rem;
+        left: 0;
         right: 0;
         width: 90%;
         height: 12.5rem;

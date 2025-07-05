@@ -1,14 +1,18 @@
 import { useParams } from 'react-router-dom';
 import useSessionsData from '../../../../hooks/sessions/useSessionsData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import SkeletonHistory from '../../../../skeletons/patients/tabs/SkeletonHistory.jsx';
 import styles from '../../../../styles/patients/tabs/LastSessionTab.module.css';
-
 
 export default function LastSessionTab() {
     const { id } = useParams();
     const { lastSession, loading, error } = useSessionsData(id);
 
-    if (loading) return <div className=''>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <SkeletonHistory />
+        );
+    }
 
     return (
         <div className='flex flex-col items-center justify-center'>

@@ -5,12 +5,17 @@ import avatarMasculino from '/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/ProfesionalCard.module.css';
+import SkeletonProfileHeader from '../../skeletons/headers/SkeletonProfileHeader';
 
 export default function ProfesionalCard() {
     const { id } = useParams();
     const { profesional, loading, error } = useProfesionalData(id);
 
-    if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (loading) {
+        return (
+            <SkeletonProfileHeader />
+        );
+    }
     
     return (
         <div className={`${styles.profesional_container}`}>

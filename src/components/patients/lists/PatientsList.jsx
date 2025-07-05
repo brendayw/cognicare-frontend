@@ -4,7 +4,7 @@ import avatarMasculino from '/assets/hombre_avatar.avif';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/dashboard/categories/Diagnosis.module.css';
 
-export default function PatientsList({ pacientes, vista }) {
+export default function PatientsList({ pacientes, vista}) {
   const columnasArray = Array.from({ length: 5 }, () => []);
 
   pacientes.forEach((paciente, index) => {

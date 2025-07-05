@@ -3,6 +3,7 @@ import { useTreatmentData } from '../../../hooks/patients/useTreatmentData.jsx';
 import Menu from '../../../components/ui/Menu.jsx';
 import VistaSelector from '../../../components/ui/VistaSelector.jsx';
 import TreatmentList from '../../../components/patients/lists/TreatmentList.jsx';
+import SkeletonListItemWithIcon from '../../../skeletons/lists/SkeletonListItemWithIcon.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Diagnosis() {
@@ -50,7 +51,12 @@ export default function Diagnosis() {
                 )}
                 
                 {loading ? (
-                    <div className='flex justify-center items-center h-full'>Cargando pacientes...</div>
+                    <div className='flex flex-col justify-center items-center h-full'>
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                        <SkeletonListItemWithIcon />
+                    </div>
                 ) : error ? (
                     <div className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>

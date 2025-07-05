@@ -2,13 +2,19 @@ import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/patients/usePatientData.jsx';
 import AvatarFemenino from '/assets/avatar_mujer.jpg';
 import AvatarMasculino from '/assets/hombre_avatar.avif';
+import SkeletonPatientName from '../../../skeletons/patients/SkeletonPatientName.jsx';
 import styles from '../../../styles/patients/profile/PatientName.module.css';
+
 
 export default function PatientName() {
     const { id } = useParams();
     const { patient, loading, error } = usePatientData(id);
 
-    if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (loading) {
+        return (
+            <SkeletonPatientName />
+        );
+    }
     if (error) return <div className={styles.error}>{error}</div>; 
 
     const avatarImagen = patient.genero === 'Masculino' ? AvatarMasculino : AvatarFemenino;

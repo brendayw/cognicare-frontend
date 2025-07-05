@@ -4,6 +4,7 @@ import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import TabTitle from '../TabTitle';
+import SkeletonSessions from '../../../../skeletons/patients/tabs/SkeletonSessions.jsx';
 import styles from '../../../../styles/patients/tabs/HistorySession.module.css';
 
 export default function HistorySessions() {
@@ -11,7 +12,15 @@ export default function HistorySessions() {
     const { sessions, loading, error } = useSessionsData(id); 
     const { patient } = usePatientData(id);
 
-    if (loading) return <div className=''>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <div className='p-2'>
+                <TabTitle titulo='Historial de sesiones' />
+                <SkeletonSessions />
+            </div>
+            
+        );
+    }
     
     const estadoNormalizado = patient && patient.estado
         ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 

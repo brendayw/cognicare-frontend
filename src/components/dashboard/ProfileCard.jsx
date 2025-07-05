@@ -3,12 +3,19 @@ import { useProfesionalData } from '../../hooks/profesional/useProfesionalData.j
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import styles from '../../styles/dashboard/ProfileCard.module.css';
+import SkeletonHeader from '../../skeletons/headers/SkeletonHeader.jsx';
 
 export default function ProfileCard() {
     const { id } = useParams();
     const { profesional, loading, error } = useProfesionalData(id);
         
-    if (loading) return <div className={styles.loading}>Cargando...</div>;
+    if (loading) {
+        return (
+            <div className=''>
+                <SkeletonHeader />
+            </div>
+        );
+    }
     const isProfesionalNotFound = error && error.includes('404');
 
     return (
