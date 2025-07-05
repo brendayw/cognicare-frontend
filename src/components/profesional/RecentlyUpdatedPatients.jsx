@@ -1,10 +1,17 @@
 import { useRecentlyUpdated } from '../../hooks/patients/useRecentlyUpdated.jsx';
+import SkeletonPatientsList from '../../skeletons/lists/SkeletonPatientsList.jsx';
 import RecentlyCreatedPatients from '../dashboard/RecentlyCreatedPatients.jsx';
 import UserList from '../ui/UserList.jsx';
 
 export default function RecentlyUpdatedPatients() {
     const { patients, loading, error, showRecentlyCreated } = useRecentlyUpdated();
     
+    if (loading) {
+        return (
+            <SkeletonPatientsList />
+        );
+    }
+
     if (showRecentlyCreated) {
         return <RecentlyCreatedPatients />;
     }

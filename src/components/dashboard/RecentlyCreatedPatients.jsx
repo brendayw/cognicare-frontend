@@ -1,8 +1,15 @@
 import UserList from '../ui/UserList.jsx';
 import { useRecentlyCreated } from '../../hooks/patients/useRecentlyCreated.jsx';
+import SkeletonPatientsList from '../../skeletons/lists/SkeletonPatientsList.jsx';
 
 export default function RecentlyCreatedPatients() {
     const { patients, loading, error } = useRecentlyCreated();
+
+    if (loading) {
+        return (
+            <SkeletonPatientsList />
+        );
+    }
 
     return (
         <div className='relative [@media_(max-width:_639px)]:top-[10px] sm:top-[10px] md:top-[0px] lg:top-[30px] xl:top-[30px]'>

@@ -1,4 +1,4 @@
-import { Skeleton, Typography, Card, CardContent, Box } from '@mui/material';
+import { Skeleton, Card, CardContent, Box } from '@mui/material';
 
 export default function SkeletonListItem() {
         

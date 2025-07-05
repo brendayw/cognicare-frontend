@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { usePatientSessionsData } from '../../hooks/patients/usePatientSessionsData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
+import SkeletonPatientsSessions from '../../skeletons/charts/SkeletonPatientSessions.jsx';
 import styles from '../../styles/profesional/Chart.module.css';
-
 
 export default function Chart() {
     const { names, completedSessions, totalSessions, loading, error } = usePatientSessionsData(); 
@@ -82,7 +82,11 @@ export default function Chart() {
         displayData.names.length * currentConfig.itemHeight + 100
     );
 
-    if (loading) return <div className={styles.loading}>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <SkeletonPatientsSessions />
+        );
+    }
 
     return (
         <div className={styles.chart} ref={chartContainerRef}>

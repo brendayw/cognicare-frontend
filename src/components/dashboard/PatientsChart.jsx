@@ -1,8 +1,10 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useState, useEffect } from 'react';
 import { usePatientStatusData } from '../../hooks/patients/usePatientStatusData.jsx';
+import SkeletonPatientsChart from '../../skeletons/charts/SkeletonPatientsChart.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
+
 
 export default function PatientsChart() {
     const [screenSize, setScreenSize] = useState('lg');
@@ -86,7 +88,11 @@ export default function PatientsChart() {
 
     const currentConfing = chartConfigs[screenSize];
     
-    if (loading) return <div className={styles.loading || ''}>Cargando datos...</div>;
+    if (loading) {
+        return (
+            <SkeletonPatientsChart />
+        );
+    }
     
     return (
         <div className={`${styles.grafico_container}`}>

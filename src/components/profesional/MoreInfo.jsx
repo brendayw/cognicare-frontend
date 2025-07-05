@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useProfesionalData } from '../../hooks/profesional/useProfesionalData.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/MoreInfo.module.css';
+import SkeletonProfesionalData from '../../skeletons/profesional/SkeletonProfesionalData.jsx';
 
 export default function MoreInfo() {
     const { id } = useParams();
@@ -62,8 +63,11 @@ export default function MoreInfo() {
         return horariosProcesados;
     })();
 
-    if (loading) return <div className={styles.loading}>Cargando información...</div>;
-
+    if (loading) {
+        return (
+            <SkeletonProfesionalData />
+        );
+    }
     return (
         <div className={`${styles.profesional_detalles}`}>
             <div className={styles.columna}>

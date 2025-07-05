@@ -35,7 +35,7 @@ export default function SkeletonHeader() {
                 }}>
                     <Skeleton 
                         variant="rectangular"
-                        width= {350}
+                        width= {300}
                         height={125}
                         sx={{
                             borderRadius: '20px',
