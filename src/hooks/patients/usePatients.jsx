@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const usePatients = () => {
+const usePatients = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const obtenerPacientes = async () => {
+    const fetchPatients = async () => {
         try {
             const URL_API = 'https://cognicare-backend.vercel.app/';
             const token = localStorage.getItem('token');
@@ -31,8 +31,10 @@ export const usePatients = () => {
             setLoading(false);
         }
     };
-    obtenerPacientes();
+    fetchPatients();
     }, []);
 
     return { patients, loading, error};
 }
+
+export default usePatients;

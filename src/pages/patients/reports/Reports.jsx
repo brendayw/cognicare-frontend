@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
-import useReportsData from '../../../hooks/reports/useReportsData.jsx';
-import Menu from '../../../components/ui/Menu.jsx';
-import ReportsList from '../../../components/reports/ReportsList.jsx';
+import { Menu, ReportsList } from '../../../components/index.jsx'
+import { useReportsData } from '../../../hooks/index.jsx';
 import SkeletonListItem from '../../../skeletons/lists/SkeletonListItem.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 

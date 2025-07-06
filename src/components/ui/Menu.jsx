@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useLogout } from '../../hooks/useLogOut.jsx';
+import { SearchBar } from '../index.jsx';
+import { useLogOut } from '../../hooks/index.jsx';
 import axios from 'axios';
-import SearchBar from './SearchBar.jsx';
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import PersonOutlineTwoToneIcon from '@mui/icons-material/PersonOutlineTwoTone';
@@ -13,7 +13,7 @@ import styles from '../../styles/Menu.module.css';
 
 export default function Menu() {
     const location = useLocation();
-    const logout = useLogout();
+    const logout = useLogOut();
     const [idProfesional, setIdProfesional] = useState(null);
     const [error, setError] = useState(null);
     const [isSearchActive, setIsSearchActive] = useState(false);

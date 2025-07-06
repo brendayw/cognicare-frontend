@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import PsychologyAltTwoToneIcon from '@mui/icons-material/PsychologyAltTwoTone';
 import PsychologyTwoToneIcon from '@mui/icons-material/PsychologyTwoTone';

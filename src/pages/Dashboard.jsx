@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
-import PatientsCategories from '../components/dashboard/PatientsCategories.jsx';
-import ProfileCard from '../components/dashboard/ProfileCard.jsx';
-import PatientsChart from '../components/dashboard/PatientsChart.jsx';
-import Calendar from '../components/dashboard/Calendar.jsx';
-import RecentlyCreatedPatients from '../components/dashboard/RecentlyCreatedPatients.jsx';
-import AddButtons from '../components/dashboard/AddButtons.jsx';
+import { AddButtons, PatientsCategories, ProfileCard, PatientsChart, 
+    Calendar, RecentlyCreatedPatients } from '../components/index.jsx';
 
 export default function Dashboard() {
     const [isMobile, setIsMobile] = useState(false);
@@ -24,7 +20,7 @@ export default function Dashboard() {
         <div className='flex flex-col min-h-screen w-full'>
             <div className='flex flex-col lg:flex-row flex-1 w-full'>
                 <div className='w-full lg:w-3/4 p-2 lg:p-4 space-y-4'>
-                    <ProfileCard  />
+                    <ProfileCard />
                     <PatientsCategories />
                     
                     <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4 w-full`}>

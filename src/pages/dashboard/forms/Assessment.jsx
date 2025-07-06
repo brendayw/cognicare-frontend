@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import AssessmentForm from '../../../components/assessments/forms/AssessmentForm.jsx';
+import { Menu, AssessmentForm }from '../../../components/index.jsx';
 
 export default function Assessment() {
     return (

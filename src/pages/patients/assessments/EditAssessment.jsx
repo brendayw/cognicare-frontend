@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import EditAssessmentForm from '../../../components/assessments/forms/EditAssessmentForm.jsx';
+import{ Menu, EditAssessmentForm }from '../../../components/index.jsx';
 import styles from '../../../styles/patients/lists/EditFormsLists.module.css';
 
 export default function EditAssessment() {

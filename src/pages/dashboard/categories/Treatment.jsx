@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useTreatmentData } from '../../../hooks/patients/useTreatmentData.jsx';
-import Menu from '../../../components/ui/Menu.jsx';
-import VistaSelector from '../../../components/ui/VistaSelector.jsx';
-import TreatmentList from '../../../components/patients/lists/TreatmentList.jsx';
+import { Menu, ViewSelector, TreatmentList } from '../../../components/index.jsx';
+import { useTreatmentData } from '../../../hooks/index.jsx';
 import SkeletonListItemWithIcon from '../../../skeletons/lists/SkeletonListItemWithIcon.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
@@ -39,7 +37,7 @@ export default function Diagnosis() {
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
-                    <VistaSelector currentView={view} onViewChange={handleViewChange} />
+                    <ViewSelector currentView={view} onViewChange={handleViewChange} />
                 )}
 
                 {isMobile && (

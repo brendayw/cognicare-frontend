@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import SessionForm from '../../../components/sessions/forms/SessionForm.jsx';
+import { Menu, SessionForm }from '../../../components/index.jsx';
 
 export default function Session() {
     return (

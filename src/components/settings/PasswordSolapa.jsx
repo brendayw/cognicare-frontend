@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { usePasswordUpdate } from '../../hooks/user/usePasswordUpdate.jsx';
-import FormInput from '../forms/components/FormInput.jsx';
-import FormButton from '../forms/components/FormButton.jsx';
+import { FormInput, FormButton } from '../index.jsx';
+import { usePasswordUpdate } from '../../hooks/index.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import styles from '../../styles/settings/PasswordSolapa.module.css';
 

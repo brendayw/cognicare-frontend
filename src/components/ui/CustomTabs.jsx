@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { ResumeTab, LastSessionTab } from '../index.jsx';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import ResumenTab from '../patients/tabs/ResumenTab.jsx';
-import UltimaSesionTab from '../patients/tabs/UltimaSesionTab.jsx';
 import { styled } from '@mui/material/styles';
 
 function TabPanel(props) {
@@ -86,12 +85,12 @@ export default function CustomTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <div className='w-full'>
-          <ResumenTab />
+          <ResumeTab />
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className='w-full'>
-          <UltimaSesionTab />
+          <LastSessionTab />
         </div>
       </TabPanel>
     </Box>

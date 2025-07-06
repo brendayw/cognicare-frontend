@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { softDeleteAssessment } from './forms/softDeleteAssessment';
+import { ConfirmationDialog, softDeleteAssessment } from '../index.jsx';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import ConfirmationDialog from '../ui/ConfirmationDialog.jsx';
 import styles from '../../styles/patients/lists/PatientsProfileLists.module.css';
 
 export default function AssessmentsList({ assessments, error, onAssessmentDeleted }) {

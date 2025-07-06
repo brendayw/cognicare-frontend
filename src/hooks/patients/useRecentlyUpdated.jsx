@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useRecentlyUpdated = () => {
+const useRecentlyUpdated = () => {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -52,3 +52,5 @@ export const useRecentlyUpdated = () => {
 
     return { patients, loading, error, showRecentlyCreated };
 };
+
+export default useRecentlyUpdated;

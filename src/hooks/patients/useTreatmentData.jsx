@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useTreatmentData = () => {
+const useTreatmentData = () => {
     const [patients, setPatients] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -39,3 +39,5 @@ export const useTreatmentData = () => {
     }, []);
     return { patients, error, loading };
 }
+
+export default useTreatmentData;

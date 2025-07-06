@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import ReportForm from '../../../components/reports/forms/ReportForm.jsx';
+import { Menu, ReportForm }from '../../../components/index.jsx';
 
 export default function Report() {
     return (

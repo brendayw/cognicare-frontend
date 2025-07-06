@@ -1,11 +1,10 @@
 import { useParams, Link } from 'react-router-dom';
-import useReportsData from '../../../../hooks/reports/useReportsData.jsx';
-import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
+import { TabTitle } from '../../../index.jsx';
+import { useReportsData, usePatientData } from '../../../../hooks/index.jsx';
+import SkeletonReports from '../../../../skeletons/patients/tabs/SkeletonReports.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import TabTitle from '../TabTitle';
 import styles from '../../../../styles/patients/tabs/ReportsResume.module.css';
-import SkeletonReports from '../../../../skeletons/patients/tabs/SkeletonReports.jsx';
 
 export default function ReportsResume() {
     const { id } = useParams();

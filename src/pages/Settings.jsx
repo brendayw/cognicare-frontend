@@ -1,25 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProfesionalData } from '../hooks/profesional/useProfesionalData.jsx'; 
-import { useLogout } from '../hooks/useLogOut.jsx';
-import Menu from '../components/ui/Menu.jsx';
-import PanelSettings from '../components/settings/PanelSettings.jsx';
-import PerfilSolapa from '../components/settings/PerfilSolapa.jsx';
-import PasswordSolapa from '../components/settings/PasswordSolapa.jsx';
-import DesactivarSolapa from '../components/settings/DesactivarSolapa.jsx';
+import { Menu, PanelSettings, ProfileTab, PasswordTab, DeactivateTab } from '../components/index.jsx';
+import { useProfessionalData } from '../hooks/index.jsx'; 
 
 export default function Settings() {
   const { id } = useParams();
-  const { profesional, error, loading, handleProfesionalDeleted } = useProfesionalData(id);
+  const { professional, error, loading, handleProfessionalDeleted } = useProfessionalData(id);
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState(null);
   const [showPanel, setShowPanel] = useState(true);
-  const logout = useLogout();
 
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth <= 1024;
-      
       if (mobile !== isMobile) {
         setIsMobile(mobile);
         setActiveTab(null);
@@ -29,7 +22,6 @@ export default function Settings() {
 
     const initialMobile = window.innerWidth <= 1024;
     setIsMobile(initialMobile);
-    
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, [isMobile]); 
@@ -56,14 +48,6 @@ export default function Settings() {
     }
   };
 
-  // if (error) {
-  //   return (
-  //     <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
-  //       {error}
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="w-full min-h-screen px-4">
       <Menu />
@@ -78,21 +62,21 @@ export default function Settings() {
         {(activeTab || !isMobile) && (!showPanel || !isMobile) && (
           <div className={`solapa activa ${!isMobile ? 'w-full lg:w-3/4' : 'w-full'}`}>
             {shouldShowContent('perfil') && (
-              <PerfilSolapa 
+              <ProfileTab
                 isMobile={isMobile} 
                 onBack={handleBackToPanel} 
               />
             )}
             {shouldShowContent('password') && (
-              <PasswordSolapa 
+              <PasswordTab
                 isMobile={isMobile} 
                 onBack={handleBackToPanel} 
               />
             )}
             {shouldShowContent('deactivate') && (
-              <DesactivarSolapa 
-                profesional={profesional} 
-                onProfesionalDeleted={handleProfesionalDeleted}
+              <DeactivateTab
+                professional={professional} 
+                onProfessionalDeleted={handleProfessionalDeleted}
                 isMobile={isMobile} 
                 onBack={handleBackToPanel} 
               />

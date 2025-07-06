@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const usePatientData = (patientId) => {
+const usePatientData = (patientId) => {
     const [patient, setPatient] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -40,3 +40,5 @@ export const usePatientData = (patientId) => {
 
     return { patient, loading, error, handlePatientDeleted };
 }
+
+export default usePatientData;

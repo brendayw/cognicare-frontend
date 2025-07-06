@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Menu from '../../components/ui/Menu.jsx';
-import PatientProfileHeader from '../../components/patients/profile/PatientProfileHeader.jsx';
-import PatientName from '../../components/patients/profile/PatientName.jsx';
-import PatientData from '../../components/patients/profile/PatientData.jsx';
-import PatientProgress from '../../components/patients/profile/PatientProgress.jsx';
-import CustomTabs from '../../components/ui/CustomTabs.jsx';
+import { Menu, PatientProfileHeader, PatientName, PatientData, 
+    PatientProgress, CustomTabs } from '../../components/index.jsx';
 import axios from 'axios';
 
 export default function PatientProfile() {

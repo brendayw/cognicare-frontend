@@ -1,10 +1,9 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useState, useEffect } from 'react';
-import { usePatientStatusData } from '../../hooks/patients/usePatientStatusData.jsx';
+import { usePatientStatusData } from '../../hooks/index.jsx';
 import SkeletonPatientsChart from '../../skeletons/charts/SkeletonPatientsChart.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
-
 
 export default function PatientsChart() {
     const [screenSize, setScreenSize] = useState('lg');

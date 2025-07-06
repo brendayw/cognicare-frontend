@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import PatientForm from '../../../components/patients/forms/PatientForm.jsx';
+import { Menu, PatientForm }from '../../../components/index.jsx';
 
 export default function Patient() {
     return (

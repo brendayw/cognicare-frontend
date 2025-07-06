@@ -1,10 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import useAssessmentsData from '../../../../hooks/assessments/useAssessmentsData.jsx';
-import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
+import { TabTitle } from '../../../index.jsx';
+import { useAssessmentsData, usePatientData } from '../../../../hooks/index.jsx';
+import SkeletonAssessments from '../../../../skeletons/patients/tabs/SkeletonAssessments.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
-import TabTitle from '../TabTitle.jsx';
-import SkeletonAssessments from '../../../../skeletons/patients/tabs/SkeletonAssessments.jsx';
 import styles from '../../../../styles/patients/tabs/AssessmentResume.module.css';
 
 export default function AssessmentResume() {
@@ -18,7 +17,6 @@ export default function AssessmentResume() {
                 <TabTitle titulo='Evaluaciones' />
                 <SkeletonAssessments />
             </div>
-            
         );
     }
 

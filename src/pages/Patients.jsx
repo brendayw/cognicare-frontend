@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
-import { usePatients } from '../hooks/patients/usePatients.jsx';
-import Menu from '../components/ui/Menu.jsx';
-import VistaSelector from '../components/ui/VistaSelector.jsx';
-import PatientsList from '../components/patients/lists/PatientsList.jsx';
+import { Menu, ViewSelector, PatientsList } from '../components/index.jsx';
+import { usePatients } from '../hooks/index.jsx';
 import SkeletonListItemWithIcon from '../skeletons/lists/SkeletonListItemWithIcon.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-
 
 export default function Patients() {
     const [view, setView] = useState('grid');
@@ -40,7 +37,7 @@ export default function Patients() {
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
-                    <VistaSelector currentView={view} onViewChange={handleViewChange} />
+                    <ViewSelector currentView={view} onViewChange={handleViewChange} />
                 )}
 
                 {isMobile && (

@@ -1,5 +1,4 @@
-import Menu from '../../components/ui/Menu.jsx';
-import EditPatientForm from '../../components/patients/forms/EditPatientForm.jsx';
+import { Menu, EditPatientForm } from '../../components/index.jsx';
 import styles from '../../styles/patients/lists/EditFormsLists.module.css';
 
 export default function EditPatient( ) {

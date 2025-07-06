@@ -1,5 +1,4 @@
-import Menu from '../../../components/ui/Menu.jsx';
-import EditReportForm from '../../../components/reports/forms/EditReportForm.jsx';
+import { Menu, EditReportForm } from '../../../components/index.jsx';
 import styles from '../../../styles/patients/lists/EditFormsLists.module.css';
 
 export default function EditReport() {

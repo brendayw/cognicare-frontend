@@ -1,7 +1,6 @@
 import { useState } from 'react';
+import { LoginForm, SignUpForm } from './components/index.jsx';
 import './App.css'; 
-import LoginForm from './components/forms/loginForm';
-import SignupForm from './components/forms/singupForm';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('login');
@@ -40,7 +39,7 @@ export default function App() {
           </div>
 
           {activeTab === 'login' && <LoginForm />}
-          {activeTab === 'signup' && <SignupForm />}
+          {activeTab === 'signup' && <SignUpForm />}
         </div>
       </div>
     </div>

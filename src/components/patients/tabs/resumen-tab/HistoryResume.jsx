@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
+import { usePatientData } from '../../../../hooks/index.jsx';
 import SkeletonHistory from '../../../../skeletons/patients/tabs/SkeletonHistory.jsx';
 import styles from '../../../../styles/patients/tabs/HistoryResume.module.css';
 

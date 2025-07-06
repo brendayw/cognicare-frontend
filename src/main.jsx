@@ -1,27 +1,13 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Layout } from './components/index.jsx';
+import { Dashboard, Patients, ProfessionalProfile, Settings,
+  Diagnosis, Discharged, Treatment, AssessmentForm, PatientForm,
+  ReportForm, SessionForm, PatientProfile, EditPatientForm, 
+  Assessments, EditAssessmentForm, Reports, EditReportForm,
+  Sessions, EditSessionForm, EditProfessionalForm
+} from './pages/index.jsx';
 import App from './App.jsx';
-import Layout from './components/layout/Layout.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import Patients from './pages/Patients.jsx';
-import ProfesionalProfile from './pages/ProfesionalProfile.jsx';
-import EditProfesional from './pages/EditProfesional.jsx';
-import Settings from './pages/Settings.jsx';
-import Diagnosis from './pages/dashboard/categories/Diagnosis.jsx';
-import Treatment from './pages/dashboard/categories/Treatment.jsx';
-import Discharged from './pages/dashboard/categories/Discharged.jsx';
-import PatientProfile from './pages/patients/PatientProfile.jsx';
-import Patient from './pages/dashboard/forms/Patient.jsx';
-import EditPatient from './pages/patients/EditPatient.jsx';
-import Session from './pages/dashboard/forms/Session.jsx';
-import Sessions from './pages/patients/sessions/Sessions.jsx';
-import EditSession from './pages/patients/sessions/EditSession.jsx';
-import Assessment from './pages/dashboard/forms/Assessment.jsx';
-import Assessments from './pages/patients/assessments/Assessments.jsx';
-import EditAssessment from './pages/patients/assessments/EditAssessment.jsx';
-import Reports from './pages/patients/reports/Reports.jsx';
-import Report from './pages/dashboard/forms/Report.jsx';
-import EditReport from './pages/patients/reports/EditReport.jsx';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -37,32 +23,32 @@ root.render(
 
         {/* Seccion pacientes */}
         <Route path="/patients" element={<Patients />} />
-        <Route path="/patients/add" element={<Patient />} />
+        <Route path="/patients/add" element={<PatientForm />} />
         <Route path="/patients/diagnosis" element={<Diagnosis />} />
         <Route path="/patients/treatment" element={<Treatment />} />
         <Route path="/patients/discharged" element={<Discharged />} />
         <Route path="/patients/profile/:id" element={<PatientProfile />} />
-        <Route path="/patients/profile/:id/edit" element={<EditPatient />} />
+        <Route path="/patients/profile/:id/edit" element={<EditPatientForm />} />
         
         {/* Sesiones del paciente */}
-        <Route path="/patients/session/add" element={<Session />} />
+        <Route path="/patients/session/add" element={<SessionForm />} />
         <Route path="/patients/profile/:id/sessions" element={<Sessions />} />
-        <Route path="/patients/profile/:patientId/sessions/edit/:sessionId" element={<EditSession />} />
+        <Route path="/patients/profile/:patientId/sessions/edit/:sessionId" element={<EditSessionForm />} />
         
         {/* Evaluaciones del paciente */}
-        <Route path="/patients/assessments/add" element={<Assessment />} />
+        <Route path="/patients/assessments/add" element={<AssessmentForm />} />
         <Route path="/patients/profile/:id/assessments" element={<Assessments />} />
-        <Route path="/patients/profile/:patientId/assessments/edit/:assessmentId" element={<EditAssessment />} />
+        <Route path="/patients/profile/:patientId/assessments/edit/:assessmentId" element={<EditAssessmentForm />} />
 
         {/* Reportes del paciente */}
-        <Route path="/patients/reports/add" element={<Report />} />
+        <Route path="/patients/reports/add" element={<ReportForm />} />
         <Route path="/patients/profile/:id/reports" element={<Reports />} />
-        <Route path="/patients/profile/:patientId/reports/edit/:reportId" element={<EditReport />} />
+        <Route path="/patients/profile/:patientId/reports/edit/:reportId" element={<EditReportForm />} />
 
 
-        <Route path="/profesional/:id" element={<ProfesionalProfile />} />
-        <Route path="/profesional" element={<ProfesionalProfile />} />
-        <Route path="/profesional/:id/edit" element={<EditProfesional />} />
+        <Route path="/profesional/:id" element={<ProfessionalProfile />} />
+        <Route path="/profesional" element={<ProfessionalProfile />} />
+        <Route path="/profesional/:id/edit" element={<EditProfessionalForm />} />
         <Route path="/settings" element={<Settings />} />
 
       </Route>

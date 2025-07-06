@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export const usePasswordUpdate = () => {
+const usePasswordUpdate = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
@@ -47,4 +47,6 @@ export const usePasswordUpdate = () => {
     };
     return { updatePassword, isSubmitting, error, success };
 };
+
+export default usePasswordUpdate;
 

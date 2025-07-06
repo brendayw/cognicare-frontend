@@ -1,10 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import useSessionsData from '../../../../hooks/sessions/useSessionsData.jsx';
-import { usePatientData } from '../../../../hooks/patients/usePatientData.jsx';
+import { TabTitle } from '../../../index.jsx';
+import { useSessionsData, usePatientData } from '../../../../hooks/index.jsx';
+import SkeletonSessions from '../../../../skeletons/patients/tabs/SkeletonSessions.jsx';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import TabTitle from '../TabTitle';
-import SkeletonSessions from '../../../../skeletons/patients/tabs/SkeletonSessions.jsx';
 import styles from '../../../../styles/patients/tabs/HistorySession.module.css';
 
 export default function HistorySessions() {
@@ -18,7 +17,6 @@ export default function HistorySessions() {
                 <TabTitle titulo='Historial de sesiones' />
                 <SkeletonSessions />
             </div>
-            
         );
     }
     

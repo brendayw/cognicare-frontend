@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDischargedData } from '../../../hooks/patients/useDischargedData.jsx';
-import Menu from '../../../components/ui/Menu.jsx';
-import VistaSelector from '../../../components/ui/VistaSelector.jsx';
-import DischargedList from '../../../components/patients/lists/DischargedList.jsx';
+import { Menu, ViewSelector, DischargedList } from '../../../components/index.jsx';
+import { useDischargedData } from '../../../hooks/index.jsx';
 import SkeletonListItemWithIcon from '../../../skeletons/lists/SkeletonListItemWithIcon.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
@@ -39,7 +37,7 @@ export default function Discharged() {
             <Menu/>
             <div className='flex-1 p-2 md:p-4'>
                 {!isMobile && (
-                    <VistaSelector currentView={view} onViewChange={handleViewChange} />
+                    <ViewSelector currentView={view} onViewChange={handleViewChange} />
                 )}
 
                 {isMobile && (
