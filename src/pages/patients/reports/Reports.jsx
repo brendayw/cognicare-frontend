@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Menu, ReportsList } from '../../../components/index.jsx'
 import { useReportsData } from '../../../hooks/index.jsx';
-import SkeletonListItem from '../../../skeletons/lists/SkeletonListItem.jsx';
+import { SkeletonListItem } from '../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Reports() {

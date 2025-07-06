@@ -1,6 +1,6 @@
 import { UserList } from '../index.jsx';
 import { useRecentlyCreated } from '../../hooks/index.jsx';
-import SkeletonPatientsList from '../../skeletons/lists/SkeletonPatientsList.jsx';
+import { SkeletonPatientsList } from '../../skeletons/index.jsx';
 
 export default function RecentlyCreatedPatients() {
     const { patients, loading, error } = useRecentlyCreated();

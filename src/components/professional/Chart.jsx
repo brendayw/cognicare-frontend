@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { usePatientSessionsData } from '../../hooks/index.jsx';
-import SkeletonPatientsSessions from '../../skeletons/charts/SkeletonPatientSessions.jsx';
+import { SkeletonPatientsSessions } from '../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/Chart.module.css';
 

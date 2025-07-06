@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/index.jsx';
-import SkeletonPatientName from '../../../skeletons/patients/SkeletonPatientName.jsx';
+import { SkeletonPatientName } from '../../../skeletons/index.jsx';
 import AvatarFemenino from '/assets/avatar_mujer.jpg';
 import AvatarMasculino from '/assets/hombre_avatar.avif';
 import styles from '../../../styles/patients/profile/PatientName.module.css';

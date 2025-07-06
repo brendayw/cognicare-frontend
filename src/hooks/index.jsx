@@ -19,7 +19,6 @@ export { default as usePatientStatusData } from "./patients/usePatientStatusData
 export { default as useRecentlyCreated } from "./patients/useRecentlyCreated.jsx";
 export { default as useRecentlyUpdated } from "./patients/useRecentlyUpdated.jsx";
 
-
 //Professional
 export { default as useProfessionalData } from "./professional/useProfessionalData.jsx";
 export { default as useEditProfessional } from "./professional/useEditProfessional.jsx";

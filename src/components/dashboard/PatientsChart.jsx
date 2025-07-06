@@ -1,7 +1,7 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useState, useEffect } from 'react';
 import { usePatientStatusData } from '../../hooks/index.jsx';
-import SkeletonPatientsChart from '../../skeletons/charts/SkeletonPatientsChart.jsx';
+import { SkeletonPatientsChart } from '../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/dashboard/PatientsChart.module.css';
 

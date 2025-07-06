@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { TabTitle } from '../../../index.jsx';
 import { useAssessmentsData, usePatientData } from '../../../../hooks/index.jsx';
-import SkeletonAssessments from '../../../../skeletons/patients/tabs/SkeletonAssessments.jsx';
+import { SkeletonAssessments } from '../../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 import styles from '../../../../styles/patients/tabs/AssessmentResume.module.css';

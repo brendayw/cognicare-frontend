@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useProfessionalData } from '../../hooks/index.jsx';
-import SkeletonProfessionalData from '../../skeletons/professional/SkeletonProfessionalData.jsx';
+import { SkeletonProfessionalData } from '../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../styles/profesional/MoreInfo.module.css';
 

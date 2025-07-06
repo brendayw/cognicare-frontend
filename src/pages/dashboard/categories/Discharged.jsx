@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, ViewSelector, DischargedList } from '../../../components/index.jsx';
 import { useDischargedData } from '../../../hooks/index.jsx';
-import SkeletonListItemWithIcon from '../../../skeletons/lists/SkeletonListItemWithIcon.jsx';
+import { SkeletonListItemWithIcon } from '../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Discharged() {

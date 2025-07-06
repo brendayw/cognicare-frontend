@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useSessionsData } from '../../../../hooks/index.jsx';
-import SkeletonHistory from '../../../../skeletons/patients/tabs/SkeletonHistory.jsx';
+import { SkeletonHistory } from '../../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../../styles/patients/tabs/LastSessionTab.module.css';
 

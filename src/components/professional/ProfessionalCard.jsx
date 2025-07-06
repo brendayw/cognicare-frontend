@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useProfessionalData } from '../../hooks/index.jsx';
-import SkeletonProfileHeader from '../../skeletons/headers/SkeletonProfileHeader.jsx';
+import { SkeletonProfileHeader } from '../../skeletons/index.jsx';
 import avatarFemenino from '/assets/female-header.png';
 import avatarMasculino from '/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/index.jsx';
-import SkeletonData from '../../../skeletons/patients/SkeletonData.jsx';
+import { SkeletonData } from '../../../skeletons/index.jsx';
 import styles from '../../../styles/patients/profile/PatientData.module.css';
 
 export default function PatientData() {

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/index.jsx';
-import SkeletonProgress from '../../../skeletons/patients/SkeletonProgress.jsx';
+import { SkeletonProgress } from '../../../skeletons/index.jsx';
 import styles from '../../../styles/patients/profile/PatientProgress.module.css';
 
 export default function PatientProgress() {

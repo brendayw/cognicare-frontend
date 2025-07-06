@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useProfessionalData } from '../../hooks/index.jsx';
-import SkeletonHeader from '../../skeletons/headers/SkeletonHeader.jsx';
+import { SkeletonHeader } from '../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 import styles from '../../styles/dashboard/ProfileCard.module.css';

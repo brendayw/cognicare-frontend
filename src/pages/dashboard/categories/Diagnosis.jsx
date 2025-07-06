@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, ViewSelector, DiagnosisList } from '../../../components/index.jsx'
 import { useDiagnosisData } from '../../../hooks/index.jsx';
-import SkeletonListItemWithIcon from '../../../skeletons/lists/SkeletonListItemWithIcon.jsx';
+import { SkeletonListItemWithIcon } from '../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function Diagnosis() {
