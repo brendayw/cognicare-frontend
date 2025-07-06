@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useSessionsData } from '../../../../hooks/index.jsx';
 import { SkeletonHistory } from '../../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import styles from '../../../../styles/patients/tabs/LastSessionTab.module.css';
+import styles from '../../../../styles/patients/tabs/LastSession.module.css';
 
 export default function LastSessionTab() {
     const { id } = useParams();

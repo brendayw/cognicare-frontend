@@ -1,18 +1,18 @@
-export { default as Dashboard } from "./Dashboard";
-export { default as Patients } from "./Patients";
-export { default as ProfessionalProfile } from "./ProfessionalProfile";
-export { default as Settings } from "./Settings";
+export { default as Dashboard } from "./Dashboard.jsx";
+export { default as Patients } from "./Patients.jsx";
+export { default as ProfessionalProfile } from "./ProfessionalProfile.jsx";
+export { default as Settings } from "./Settings.jsx";
 
 //Dashboard categories
-export { default as Diagnosis } from "./Dashboard/categories/Diagnosis";
-export { default as Discharged } from "./Dashboard/categories/Discharged";
-export { default as Treatment } from "./Dashboard/categories/Treatment";
+export { default as Diagnosis } from "./dashboard/categories/Diagnosis.jsx";
+export { default as Discharged } from "./dashboard/categories/Discharged.jsx";
+export { default as Treatment } from "./dashboard/categories/Treatment.jsx";
 
 //Dashboard forms
-export { default as AssessmentForm } from "./Dashboard/forms/Assessment";
-export { default as PatientForm } from "./Dashboard/forms/Patient";
-export { default as ReportForm } from "./Dashboard/forms/Report";
-export { default as SessionForm } from "./Dashboard/forms/Session";
+export { default as AssessmentForm } from "./dashboard/forms/Assessment.jsx";
+export { default as PatientForm } from "./dashboard/forms/Patient.jsx";
+export { default as ReportForm } from "./dashboard/forms/Report.jsx";
+export { default as SessionForm } from "./dashboard/forms/Session";
 
 //Patients
 export { default as PatientProfile } from "./patients/PatientProfile.jsx";

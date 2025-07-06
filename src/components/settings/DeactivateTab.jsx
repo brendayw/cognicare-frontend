@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ConfirmationDialog, softDeleteProfessional } from '../index.jsx';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
-import styles from '../../styles/settings/DesactivarSolapa.module.css';
+import styles from '../../styles/settings/DeactivateTab.module.css';
 
 export default function DeactivateTab( { professional, onProfessionalDeleted, isMobile = false, onBack }) {
     const [isDeleting, setIsDeleting] = useState(false);

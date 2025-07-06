@@ -83,7 +83,7 @@ export { default as softDeleteSession } from "./sessions/sessionsForms/softDelet
 //Settings
 export { default as PanelSettings } from "./settings/PanelSettings.jsx";
 export { default as DeactivateTab } from "./settings/DeactivateTab.jsx";
-export { default as PasswordTab } from "./settings/PasswordSolapa.jsx";
+export { default as PasswordTab } from "./settings/PasswordTab.jsx";
 export { default as ProfileTab } from "./settings/ProfileTab.jsx";
 
 //UI

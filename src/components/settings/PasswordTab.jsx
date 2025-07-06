@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { FormInput, FormButton } from '../index.jsx';
 import { usePasswordUpdate } from '../../hooks/index.jsx';
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
-import styles from '../../styles/settings/PasswordSolapa.module.css';
+import styles from '../../styles/settings/PasswordTab.module.css';
 
-export default function PasswordSolapa({ isMobile = false, onBack }) {
+export default function PasswordTab({ isMobile = false, onBack }) {
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',

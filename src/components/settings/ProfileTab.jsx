@@ -1,7 +1,7 @@
 import { FormInput, FormSelect, FormCheckbox, FormButton } from '../index.jsx';
 import { useForm, useProfessionalForm } from '../../hooks/index.jsx'
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
-import styles from '../../styles/settings/PerfilSolapa.module.css';
+import styles from '../../styles/settings/ProfileTab.module.css';
 
 const DIAS_SEMANA = [
   { value: 'lunes', label: 'Lunes' },

@@ -5,7 +5,7 @@ import avatarFemenino from '/assets/female-header.png';
 import avatarMasculino from '/assets/male-header.png';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
-import styles from '../../styles/profesional/ProfesionalCard.module.css';
+import styles from '../../styles/profesional/ProfessionalCard.module.css';
 
 export default function ProfessionalCard() {
     const { id } = useParams();
