@@ -7,7 +7,7 @@ export default function SignUpForm() {
     const [usuario, setUsuario] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { submitSignUp, loading, error, success } = useSignUp();
+    const { submitSignUp, error, success } = useSignUp();
       
     const handleSubmit = async (e) => {
         e.preventDefault();

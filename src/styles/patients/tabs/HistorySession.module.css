@@ -4,6 +4,7 @@
     margin-top: 0.625rem;
 }
 
+
 .history_header {
     width: 100%;
     display: flex;
@@ -12,10 +13,25 @@
 }
 
 .sessions_container {
+    max-height: 250px;
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin-top: 0.5rem;
     background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.sessions_container::-webkit-scrollbar {
+    width: 0.375rem;
+}
+
+.sessions_container::-webkit-scrollbar-thumb {
+    background-color: #94a3b8;
+    border-radius: 0.188rem;
+}
+
+.sessions_container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
 }
 
 .sessions_container--diagnostico {

@@ -74,7 +74,6 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                     style={{ cursor: isActive ? 'text' : 'pointer' }}
                 />
             </div>
-
            
             {isActive && searchTerm && (
                 <div className={styles.search_results}>

@@ -32,7 +32,7 @@ export default function SessionForm() {
         return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
     };
 
-    const { submitSession, loading, error: submitError, success } = useSessionForm();
+    const { submitSession, error: submitError, success } = useSessionForm();
 
     const handleSubmitForm = (formData) => {    
         const formattedData = {

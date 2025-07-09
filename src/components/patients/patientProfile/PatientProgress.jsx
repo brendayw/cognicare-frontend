@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { usePatientData } from '../../../hooks/index.jsx';
 import { SkeletonProgress } from '../../../skeletons/index.jsx';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/profile/PatientProgress.module.css';
 
 export default function PatientProgress() {
@@ -11,6 +12,15 @@ export default function PatientProgress() {
         return (
             <SkeletonProgress />
         )
+    }
+
+    if (error) {
+        return (
+            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                <ErrorOutlineTwoToneIcon className='mr-2'/>
+                {error}
+            </div>
+        ); 
     }
     
     return (

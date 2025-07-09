@@ -6,7 +6,7 @@ import WarningAmberTwoToneIcon from '@mui/icons-material/WarningAmberTwoTone';
 
 export default function ProfessionalProfile() {
     const { id } = useParams();
-    const { professional, error, loading } = useProfessionalData(id);
+    const { professional, error } = useProfessionalData(id);
     
     const isProfessionalNotFound = error && error.includes('404');
     

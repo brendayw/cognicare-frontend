@@ -28,6 +28,7 @@ root.render(
         <Route path="/patients/treatment" element={<Treatment />} />
         <Route path="/patients/discharged" element={<Discharged />} />
         <Route path="/patients/profile/:id" element={<PatientProfile />} />
+        <Route path="/patients/profile" element={<PatientProfile />} />
         <Route path="/patients/profile/:id/edit" element={<EditPatientForm />} />
         
         {/* Sesiones del paciente */}

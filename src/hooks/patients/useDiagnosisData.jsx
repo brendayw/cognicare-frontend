@@ -30,7 +30,7 @@ const useDiagnosisData = () => {
                 }
 
             } catch (error) {
-                setError('Error al cargar datos: ' + err.message);
+                setError('Error al cargar datos: ' + error.message);
                 setPatients([]);
             } finally {
                 setLoading(false);

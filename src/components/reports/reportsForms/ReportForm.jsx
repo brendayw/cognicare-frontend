@@ -29,14 +29,8 @@ export default function ReportForm() {
         return errors;
     }
 
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
-    };
-
     const {assessments, loading: loadingAssessments, error: assessmentError } = useAssessment();
-    const { submitReport, loading: submitting, error: submitError, success } = useReportForm();
+    const { submitReport, error: submitError, success } = useReportForm();
 
     const handleSubmitForm = useCallback((formData) => {
         if (!archivoFile) {

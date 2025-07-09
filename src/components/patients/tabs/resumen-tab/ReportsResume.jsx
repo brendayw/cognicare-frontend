@@ -20,6 +20,15 @@ export default function ReportsResume() {
         );
     }
 
+    if (error) {
+        return (
+            <div className='flex items-center bg-[#f6e9e6] w-full border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                <ErrorOutlineTwoToneIcon className='mr-2'/>
+                {error}
+            </div>
+        ); 
+    }
+
     const estadoNormalizado = patient && patient.estado
         ? patient.estado.toLowerCase().replace(/\s+/g, '_').normalize("NFD").replace(/[\u0300-\u036f]/g, "") 
         : 'default';
@@ -42,7 +51,7 @@ export default function ReportsResume() {
                     {reports.slice(0, 4).map((report) => (
                         
                         <div 
-                            key={report.id || index}
+                            key={report.id}
                             className={`${styles.report_details} ${styles[`report_details--${estadoNormalizado}`]}`}
                         >
                             <span>{report.descripcion || '-'}</span>

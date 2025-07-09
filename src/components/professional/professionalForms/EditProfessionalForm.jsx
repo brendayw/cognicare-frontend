@@ -20,7 +20,7 @@ const fieldOptions = [
 
 export default function EditProfessionalForm() {
     const { id } = useParams();
-    const { professional, error: fetchError, loading } = useProfessionalData(id);
+    const { professional, error: fetchError } = useProfessionalData(id);
     const { editProfessional, isSubmitting, error: apiError, success } = useEditProfessional();
     const [selectedField, setSelectedField] = useState(fieldOptions[0].id);
     const [fields, setFields] = useState([]);

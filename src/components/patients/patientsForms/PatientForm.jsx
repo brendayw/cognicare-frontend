@@ -37,7 +37,7 @@ export default function PatientForm() {
         return errors;
     }
 
-    const { submitPatient, loading, error: submitError, success } = usePatientForm();
+    const { submitPatient, error: submitError, success } = usePatientForm();
     
     const handleSubmitForm = (formData) => {
         const formattedData = {

@@ -52,6 +52,7 @@ export default function Menu() {
 
                 } catch (error) {
                     setIdProfesional(null);
+                    setError(error.message);
                 }
             };
             obtenerIdProfesional();
@@ -72,10 +73,6 @@ export default function Menu() {
     }, []);
 
     const isActive = (path) => location.pathname.includes(path) ? 'active' : '';
-
-    // const toggleSearch = () => {
-    //     setIsSearchActive(!isSearchActive);
-    // };
 
     return (        
         <div className={styles.menu_dashboard}>

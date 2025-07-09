@@ -5,7 +5,7 @@ import { useProfessionalData } from '../hooks/index.jsx';
 
 export default function Settings() {
   const { id } = useParams();
-  const { professional, error, loading, handleProfessionalDeleted } = useProfessionalData(id);
+  const { professional, handleProfessionalDeleted } = useProfessionalData(id);
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState(null);
   const [showPanel, setShowPanel] = useState(true);

@@ -63,7 +63,6 @@ export default function EditReportForm() {
             
         if (!reportId) {
             setFormError('ID de reporte no encontrado');
-            setIsSubmitting(false);
             return;
         }
         

@@ -8,7 +8,7 @@ const useLogout = () => {
             localStorage.removeItem('token');
             navigate('/');
         } catch (error) {
-            alert('Hubo un problema al intentar cerrar sesión');
+            alert('Hubo un problema al intentar cerrar sesión: ', error);
         }
     };
     return logout;

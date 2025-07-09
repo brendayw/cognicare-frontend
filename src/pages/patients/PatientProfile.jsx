@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Menu, PatientProfileHeader, PatientName, PatientData, 
     PatientProgress, CustomTabs } from '../../components/index.jsx';
 import axios from 'axios';
+import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 
 export default function PatientProfile() {
     const { id } = useParams();
@@ -41,9 +42,6 @@ export default function PatientProfile() {
             } catch (err) {
                 setError(err.message);
             }
-            // } finally {
-            //     setLoading(false);
-            // }
         };
         obtenerPaciente();
     }, [id]);
@@ -52,24 +50,32 @@ export default function PatientProfile() {
         console.log(`Paciente ${deletedPatientId} eliminado correctamente`);
     };
 
-    //loading o skeleton
-    //error
-
     return (
         <div className='flex flex-col min-h-screen lg:flew-row w-full'>
             <Menu />
             <div className='w-full relative top-0 md:top-2'>
                 <PatientProfileHeader patient={patient} onPatientDeleted={handlePatientDeleted} />
-                <div className='flex flex-col lg:flex-row'>
-                    <div className='w-full lg:w-[40%]'>
-                        <PatientName patient={patient} />
-                        <PatientData  patient={patient} />
-                        <PatientProgress patient={patient} />
+                
+                { error ? (
+                    <div className='w-full'>
+                        <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                            <ErrorOutlineTwoToneIcon className='mr-2'/>
+                            {error}
+                        </p>
                     </div>
-                    <div className='w-full lg:w-[60%]'>
-                        <CustomTabs patient={patient} />
+                ) : (
+                    
+                    <div className='flex flex-col lg:flex-row'>
+                        <div className='w-full lg:w-[40%]'>
+                            <PatientName patient={patient} />
+                            <PatientData  patient={patient} />
+                            <PatientProgress patient={patient} />
+                        </div>
+                        <div className='w-full lg:w-[60%]'>
+                            <CustomTabs patient={patient} />
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             
         </div>

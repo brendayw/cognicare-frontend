@@ -30,7 +30,7 @@ const useTreatmentData = () => {
                 }
 
             } catch (error) {
-                setError('Error al cargar datos: ' + err.message);
+                setError('Error al cargar datos: ' + error.message);
             } finally {
                 setLoading(false);
             }

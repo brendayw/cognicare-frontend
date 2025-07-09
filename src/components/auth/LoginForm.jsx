@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showResetPassword, setShowResetPassword] = useState(false);
-  const { loading, error, submitLogin } = useLogin();
+  const { error, submitLogin } = useLogin();
   const navigate = useNavigate();
   
   useEffect(() => {

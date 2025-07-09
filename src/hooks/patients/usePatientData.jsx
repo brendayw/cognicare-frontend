@@ -35,7 +35,7 @@ const usePatientData = (patientId) => {
     }, [patientId]);
 
     const handlePatientDeleted = (deletedId) => {
-        setProfesional(prev => prev.filter(a => a.id !== deletedId));
+        setPatient(prev => prev.filter(a => a.id !== deletedId));
     };
 
     return { patient, loading, error, handlePatientDeleted };

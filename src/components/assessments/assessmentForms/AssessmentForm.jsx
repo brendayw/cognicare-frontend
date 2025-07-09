@@ -23,7 +23,7 @@ export default function AssessmentForm() {
         return errors;
     };
 
-    const { submitAssessment, loading, error: submitError, success } = useAssessmentForm();
+    const { submitAssessment, error: submitError, success } = useAssessmentForm();
 
     const handleSubmitForm = (formData) => {
         const formattedData = {
