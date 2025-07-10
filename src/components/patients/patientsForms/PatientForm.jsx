@@ -4,8 +4,8 @@ import styles from '../../../styles/dashboard/forms/PatientForm.module.css';
 
 export default function PatientForm() {
     const initialValues = {
-        nombre_completo: '',
-        fecha_nacimiento: '', 
+        nombreCompleto: '',
+        fechaNacimiento: '', 
         edad: '',
         genero: '',
         direccion: '',
@@ -15,8 +15,8 @@ export default function PatientForm() {
         fin: '',
         motivo: '',
         final: '',
-        sesiones_realizadas: '',
-        sesiones_totales: '',
+        sesionesRealizadas: '',
+        sesionesTotales: '',
         estado: '',
         observacion: '',
     }
@@ -24,16 +24,16 @@ export default function PatientForm() {
     //validaciones
     const validate = (values) => {
         const errors = {};
-        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
-        if (!values.fecha_nacimiento) errors.fecha_nacimiento = 'La fecha de nacimiento es obligatoria';
+        if (!values.nombreCompleto) errors.nombreCompleto = 'El nombre del paciente es obligatorio';
+        if (!values.fechaNacimiento) errors.fechaNacimiento = 'La fecha de nacimiento es obligatoria';
         if (!values.edad) errors.edad = 'La edad es obligatoria';
         if (!values.genero) errors.genero = 'El género es obligatorio';
         if (!values.direccion) errors.direccion = 'La dirección es obligatoria';
         if (!values.telefono) errors.telefono = 'El télefono es obligatorio'
         if (!values.inicio) errors.inicio = 'La fecha de inicio es obligatoria';
         if (!values.motivo) errors.motivo = 'El motivo inicial es obligatorio';
-        if (!values.sesiones_realizadas) errors.sesiones_realizadas = 'La cantidad de sesiones realizadas es obligatoria';
-        if (!values.sesiones_totales) errors.sesiones_totales = 'La cantidad de sesiones realizadas es obligatoria';
+        if (!values.sesionesRealizadas) errors.sesionesRealizadas = 'La cantidad de sesiones realizadas es obligatoria';
+        if (!values.sesionesTotales) errors.sesionesTotales = 'La cantidad de sesiones realizadas es obligatoria';
         return errors;
     }
 
@@ -41,19 +41,19 @@ export default function PatientForm() {
     
     const handleSubmitForm = (formData) => {
         const formattedData = {
-            nombre_completo: formData.nombre_completo,
-            fecha_nacimiento: formatDate(formData.fecha_nacimiento),
+            nombreCompleto: formData.nombreCompleto,
+            fechaNacimiento: formatDate(formData.fechaNacimiento),
             edad: formData.edad,
             genero: formData.genero,
             direccion: formData.direccion,
             telefono: formData.telefono,
             email: formData.email,
-            fecha_inicio: formatDate(formData.inicio),
-            fecha_fin: formatDate(formData.fin),
-            motivo_inicial: formData.motivo,
-            motivo_alta: formData.final,
-            sesiones_realizadas: formData.sesiones_realizadas,
-            sesiones_totales: formData.sesiones_realizadas,
+            fechaInicio: formatDate(formData.inicio),
+            fechaFin: formatDate(formData.fin),
+            motivoInicial: formData.motivo,
+            motivoAlta: formData.final,
+            sesionesRealizadas: formData.sesionesRealizadas,
+            sesionesTotales: formData.sesionesTotales,
             estado: formData.estado,
             observaciones: formData.observacion
         };
@@ -94,23 +94,23 @@ export default function PatientForm() {
                 <div className={`${styles.patient_data}`}>
                     <FormInput
                         label="Nombre Completo"
-                        value={values.nombre_completo}
+                        value={values.nombreCompleto}
                         onChange={handleChange}
-                        id="nombre_completo"
+                        id="nombreCompleto"
                         placeholder="Ingrese el nombre completo"
                         required
                     />
-                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+                    {errors.nombreCompleto && <span>{errors.nombreCompleto}</span>}
 
                     <FormInput
                         label="Fecha de Nacimiento"
                         type="date"
-                        value={values.fecha_nacimiento}
+                        value={values.fechaNacimiento}
                         onChange={handleChange}
-                        id="fecha_nacimiento"
+                        id="fechaNacimiento"
                         required
                     />
-                    {errors.fecha_nacimiento&& <span>{errors.fecha_nacimiento}</span>}
+                    {errors.fechaNacimiento&& <span>{errors.fechaNacimiento}</span>}
 
                     <FormInput
                         label="Edad"
@@ -221,24 +221,24 @@ export default function PatientForm() {
                     <FormInput
                         label="Cantidad de sesiones realizadas"
                         type='number'
-                        value={values.sesiones_realizadas}
+                        value={values.sesionesRealizadas}
                         onChange={handleChange}
-                        id="sesiones_realizadas"
+                        id="sesionesRealizadas"
                         placeholder="Sesiones realizadas"
                         required
                     />
-                    {errors.sesiones_realizadas && <span>{errors.sesiones_realizadas}</span>}
+                    {errors.sesionesRealizadas && <span>{errors.sesionesRealizadas}</span>}
 
                     <FormInput
                         label="Cantidad de sesiones totales"
                         type='number'
-                        value={values.sesiones_totales}
+                        value={values.sesionesTotales}
                         onChange={handleChange}
-                        id="sesiones_totales"
+                        id="sesionesTotales"
                         placeholder="Sesiones Totales"
                         required
                     />
-                    {errors.sesiones_totales && <span>{errors.sesiones_totales}</span>}
+                    {errors.sesionesTotales && <span>{errors.sesionesTotales}</span>}
 
                     <FormInput
                         label="Observación"
@@ -249,7 +249,7 @@ export default function PatientForm() {
                     />
                 </div>
 
-                <div className='relative bottom-2 right-1'>
+                <div className='relative bottom-2 right-1 sm:bottom-6 md:bottom-2'>
                     <FormButton texto="Guardar" />
                 </div>
             </form>

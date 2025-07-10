@@ -31,12 +31,12 @@ export default function PatientData() {
                 <p>Estado: {patient.estado || 'No disponible' }</p>
             </div>
             <div className={`${styles.card_details} ${styles[`card_details--${estadoNormalizado}`]}`}>
-                <p>Genero: <span> {patient.genero || '-' }</span></p>
-                <p>Fecha de nacimiento: <span>{patient.fecha_nacimiento || '-'}</span></p>
-                <p>Fecha de inicio: <span>{patient.fecha_inicio || '-' }</span></p>
-                <p>Dirección: <span>{patient.direccion || '-' }</span></p>
-                <p>Email: <span>{patient.email || '-' }</span></p>
-                <p>Teléfono: <span>{patient.telefono || '-'}</span></p>
+                <p>Genero: <span> {patient.genero || 'No disponible' }</span></p>
+                <p>Fecha de nacimiento: <span>{patient.fechaNacimiento || 'No disponible'}</span></p>
+                <p>Fecha de inicio: <span>{patient.fechaInicio || 'No disponible' }</span></p>
+                <p>Dirección: <span>{patient.direccion || 'No disponible' }</span></p>
+                <p>Email: <span>{patient.email || 'No disponible' }</span></p>
+                <p>Teléfono: <span>{patient.telefono || 'No disponible'}</span></p>
             </div>
         </div>
     );

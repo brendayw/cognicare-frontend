@@ -33,10 +33,10 @@ export default function HistoryResume() {
     return (
         <div className={`${styles.resume_tab} ${styles[`resume_tab--${estadoNormalizado}`]}`}>
             <div className={`${styles.history_details} ${styles[`history_details--${estadoNormalizado}`]}`}>
-                <p>Motivo inicial: <span> {patient.motivo_inicial || '-' }  </span> </p>
-                <p>Observaciones iniciales: <span> {patient.observaciones || '-' } </span> </p>
-                <p>Motivo de alta: <span>{patient.motivo_alta || '-' }</span> </p>
-                <p>Fecha de alta:  <span>{patient.fecha_fin || '-' } </span> </p>
+                <p>Motivo inicial: <span> {patient.motivoInicial || 'No disponible' }  </span> </p>
+                <p>Observaciones iniciales: <span> {patient.observaciones || 'No disponible' } </span> </p>
+                <p>Motivo de alta: <span>{patient.motivoAlta || 'No disponible' }</span> </p>
+                <p>Fecha de alta:  <span>{patient.fechaFin || 'No disponible' } </span> </p>
             </div>
         </div>
     );

@@ -10,9 +10,9 @@ export default function ReportForm() {
     const [fechaReporte, setFechaReporte] = useState('');
 
     const initialValues = {
-        tipo_reporte: '',
-        nombre_completo: '',
-        fecha_reporte:'',
+        tipoReporte: '',
+        nombreCompleto: '',
+        fechaReporte:'',
         descripcion: '',
         archivoFile: '',
     }
@@ -20,9 +20,9 @@ export default function ReportForm() {
     //validaciones
     const validate = (values) => {
         const errors = {}; 
-        if (!values.tipo_reporte) errors.tipo_reporte = 'El tipo de reporte es obligatorio';
-        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
-        if (!fechaReporte) errors.fecha_reporte = 'La fecha del reporte es obligatoria';
+        if (!values.tipoReporte) errors.tipoReporte = 'El tipo de reporte es obligatorio';
+        if (!values.nombreCompleto) errors.nombreCompleto = 'El nombre del paciente es obligatorio';
+        if (!fechaReporte) errors.fechaReporte = 'La fecha del reporte es obligatoria';
         if (!values.descripcion) errors.descripcion = 'La descripcion del reporte es obligatorio';
         if (!archivoFile) errors.archivoFile = 'El archivo del reporte es obligatorio';
         if (!assessmentId) errors.assessmentId = 'Debes seleccionar una evaluación';
@@ -44,13 +44,13 @@ export default function ReportForm() {
         }
 
         const formattedData = new FormData();
-        formattedData.append('tipo_reporte', formData.tipo_reporte);
-        formattedData.append('nombre_completo', formData.nombre_completo);
-        formattedData.append('fecha_reporte', fechaReporte);
+        formattedData.append('tipoReporte', formData.tipoReporte);
+        formattedData.append('nombreCompleto', formData.nombreCompleto);
+        formattedData.append('fechaReporte', fechaReporte);
         formattedData.append('descripcion', formData.descripcion);
         formattedData.append('archivo', archivoFile);
-        formattedData.append('id_evaluacion', parseInt(assessmentId));
-        formattedData.append('id_paciente', patientId);
+        formattedData.append('idEvaluacion', parseInt(assessmentId));
+        formattedData.append('idPaciente', patientId);
         
         submitReport(formattedData, () => {
             setArchivoFile(null);
@@ -88,7 +88,7 @@ export default function ReportForm() {
             setPatientId(selectedAssessment.paciente.id);
             handleChange({
                 target: {
-                    name: 'nombre_completo',
+                    name: 'nombreCompleto',
                     value: selectedAssessment.paciente.nombre || ''
                 }
             });
@@ -96,7 +96,7 @@ export default function ReportForm() {
             setPatientId(null);
             handleChange({
                 target: {  
-                    name: 'nombre_completo',
+                    name: 'nombreCompleto',
                     value: ''
                 }
             });
@@ -137,10 +137,10 @@ export default function ReportForm() {
                 <div className={styles.report_data}>
                     <FormSelect
                         label="Tipo de reporte o Test"
-                        value={values.tipo_reporte}
+                        value={values.tipoReporte}
                         onChange={handleChange}
-                        name="tipo_reporte"
-                        id="tipo_reporte"
+                        name="tipoReporte"
+                        id="tipoReporte"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value:"Informe", label: 'Informe'},
@@ -149,19 +149,19 @@ export default function ReportForm() {
                             { value:"Test", label: 'Test'}
                         ]}
                         required
-                        error={errors.tipo_reporte}
+                        error={errors.tipoReporte}
                     />
                     
                     <FormInput
                         label="Nombre del Paciente"
-                        value={values.nombre_completo}
-                        name="nombre_completo"
+                        value={values.nombreCompleto}
+                        name="nombreCompleto"
                         onChange={handleChange}
-                        id="nombre_completo"
+                        id="nombreCompleto"
                         placeholder="Ingrese el nombre del paciente"
                         required
                         disabled={true}
-                        error={errors.nombre_completo}
+                        error={errors.nombreCompleto}
                     />
                     
                     <FormSelect
@@ -186,10 +186,10 @@ export default function ReportForm() {
                         type="date"
                         value={fechaReporte}
                         onChange={handleDateChange} 
-                        name="fecha_reporte"
+                        name="fecha_Reporte"
                         id="fecha"
                         required
-                        error={errors.fecha_reporte}
+                        error={errors.fechaReporte}
                     />
                     
                     <FormInput

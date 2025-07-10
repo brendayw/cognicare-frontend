@@ -33,31 +33,26 @@ export default function AssessmentResume() {
                 </Link>
             </div>
             
-            {error ? (
-                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                    <ErrorOutlineTwoToneIcon className='mr-2' />
-                    {error}
-                </p>
-            ) : assessments.length > 0 ? (
+            {assessments.length > 0 ? (
                 <div className={`${styles.assessment} `}>
                     {assessments.slice(0, 2).map((assessment, index) => (
                         <div
                             key={assessment.id || index}
                             className={`${styles.assessment_details} ${styles[`assessment_details--${estadoNormalizado}`]}`}
                         >
-                            <span>{assessment.nombre_evaluacion || '-'}</span>
-                            <span>{assessment.tipo_evaluacion || '-'}</span>
-                            <p>Resultados: <span>{assessment.resultado || '-'}</span></p>
-                            <p>Fecha: <span>{assessment.fecha_evaluacion || '-'}</span></p>
-                            <p>Observaciones: <span>{assessment.observaciones || '-'}</span></p>
+                            <span>{assessment.nombreEvaluacion || 'No disponible'}</span>
+                            <span>{assessment.tipoEvaluacion || 'No disponible'}</span>
+                            <p>Resultados: <span>{assessment.resultado || 'No disponible'}</span></p>
+                            <p>Fecha: <span>{assessment.fechaEvaluacion || 'No disponible'}</span></p>
+                            <p>Observaciones: <span>{assessment.observaciones || 'No disponible'}</span></p>
                         </div>
                     ))}
                 </div>
             ) : (
                 <div className='w-full'>     
-                    <p className='w-[98%] bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                    <p className='bg-[#f6e9e6] w-[98%] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2' />
-                        No se encontraron evaluaciones asociadas al paciente para mostrar.
+                        {error}
                     </p>
                 </div>
             )}

@@ -19,8 +19,8 @@ export default function RecentlyCreatedPatients() {
                 loading={loading}
                 error={error}
                 emptyMessage="No hay pacientes creados recientes"
-                primaryText="nombre_completo"
-                secondaryText="motivo_inicial"
+                primaryText="nombreCompleto"
+                secondaryText="motivoInicial"
             />
         </div>
     );

@@ -32,22 +32,18 @@ export default function HistorySessions() {
                     <BorderColorTwoToneIcon className='text-[#424884] cursor-pointer hover:text-[#00a396]'/>
                 </Link>
             </div>
-            {error ? (
-                <p className='bg-[#f6e9e6] w-[625px] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                    <ErrorOutlineTwoToneIcon className='mr-2'/>
-                    {error}
-                </p>
-            ) : sessions.length > 0 ? (
+            
+            {sessions.length > 0 ? (
                 <div className={`${styles.sessions_container} ${styles[`sessions_container--${estadoNormalizado}`]}`}>
                     {sessions.map((session, index) => (
                         <div 
                             key={session.id || index }
                             className={`${styles.sessions} `}>
                             <div className={`${styles.sessions_observation}`}>
-                                <p>Observaciones: <span>{session.observaciones || '-'}</span> </p>
+                                <p>Observaciones: <span>{session.observaciones || 'No disponible'}</span> </p>
                             </div>
                             <div className={`${styles.sessions_date}`}>
-                                <p>Fecha: <span>{session.fecha || '-'}</span> </p>
+                                <p>Fecha: <span>{session.fecha || 'No disponible'}</span> </p>
                                 
                             </div>
                         </div>
@@ -55,9 +51,9 @@ export default function HistorySessions() {
                 </div>
             ) : (
                 <div className='w-full'>     
-                    <p className='w-[98%] bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
-                        <ErrorOutlineTwoToneIcon className='mr-2' />
-                        No se encontraron sesiones asociadas al paciente para mostrar.
+                    <p className='bg-[#f6e9e6] w-[98%] border border-red-300 rounded-md text-center text-[#FF6F59] text-sm m-2 p-4'>
+                        <ErrorOutlineTwoToneIcon className='mr-2'/>
+                        {error}
                     </p>
                 </div>
             )}

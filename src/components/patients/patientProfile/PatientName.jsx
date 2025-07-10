@@ -31,11 +31,11 @@ export default function PatientName() {
     return (
         <div className={`${styles.patient_card}`} >
             <div className={`${styles.patient_photo}`}>
-                <img src={avatarImagen} alt={`Avatar predeterminado para ${patient.nombre_completo}`} />
+                <img src={avatarImagen} alt={`Avatar predeterminado para ${patient.nombreCompleto}`} />
             </div>
 
             <div className={`${styles.patient_info} ${styles[`patient_info--${estadoNormalizado}`]}` }>
-                <h4> <span> {patient.nombre_completo} </span> </h4>
+                <h4> <span> {patient.nombreCompleto} </span> </h4>
 
                 <div className={`${styles.patient_info_details}`}>
                     
@@ -48,7 +48,7 @@ export default function PatientName() {
                         
                         <div className={`${styles.details_col}`}>
                             <p className={`${styles.title}`}> ID del profesional </p>
-                            <p className={`${styles.data}`}> {patient.id_profesional} </p>
+                            <p className={`${styles.data}`}> {patient.idProfesional} </p>
                         </div>
                     </div>
                 </div>  

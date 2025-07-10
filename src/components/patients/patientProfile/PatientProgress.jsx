@@ -27,12 +27,12 @@ export default function PatientProgress() {
        <div className={`${styles.sessions}`}>
             <div className={`${styles.sessions_held}`}>
                 <p>Sesiones Realizadas
-                    <span>{patient.sesiones_realizadas} </span>
+                    <span>{patient.sesionesRealizadas} </span>
                 </p>
             </div>
             <div className={`${styles.sessions_total}`}>
                 <p>Sesiones Totales
-                    <span>{patient.sesiones_totales} </span>
+                    <span>{patient.sesionesTotales} </span>
                 </p>
             </div>
        </div>

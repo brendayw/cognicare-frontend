@@ -14,7 +14,7 @@ const useDischargedData = () => {
                 if (!token) throw new Error('No hay token de autenticación');
             
                 const response = await axios.get(`${URL_API}patients/discharged`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                    headers: { 'Authorization': `Bearer ${token}` },
                 });
 
                 if (response.data && response.data.success && response.data.data) {
@@ -30,6 +30,7 @@ const useDischargedData = () => {
                 }
 
             } catch (error) {
+                console.log("Error", error.message)
                 setError('Error al cargar datos: ' + error.message);
             } finally {
                 setLoading(false);

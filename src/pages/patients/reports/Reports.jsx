@@ -20,7 +20,7 @@ export default function Reports() {
                         <SkeletonListItem />
                     </>
                 ) : error ? (
-                    <div className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                    <div className='relative top-0 [@media_(max-width:_639px)]:top-[100px] sm:top-[100px] md:top-0 bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] text-sm m-4 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
                     </div>

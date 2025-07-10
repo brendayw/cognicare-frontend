@@ -6,7 +6,6 @@ import styles from '../../../styles/dashboard/categories/Diagnosis.module.css';
 
 export default function TreatmentList({ pacientes, vista }) {
   const columnasArray = Array.from({ length: 5 }, () => []);
-
   pacientes.forEach((paciente, index) => {
     const columnaIndex = index % 5;
     columnasArray[columnaIndex].push(paciente);
@@ -28,10 +27,10 @@ export default function TreatmentList({ pacientes, vista }) {
                 to={`/patients/profile/${paciente.id}`}
               >
                 <div className={styles['paciente_foto']}>
-                  <img src={avatarImagen} alt={paciente.nombre_completo} />
+                  <img src={avatarImagen} alt={paciente.nombreCompleto} />
                 </div>
                 <div className={styles['paciente_data']}>
-                  <h5><span>{paciente.nombre_completo}</span></h5>
+                  <h5><span>{paciente.nombreCompleto}</span></h5>
                 </div>
               </Link>
             );
@@ -52,10 +51,10 @@ export default function TreatmentList({ pacientes, vista }) {
                       to={`/patients/profile/${paciente.id}`}
                     >
                       <div className={styles['paciente_foto']}>
-                        <img src={avatarImagen} alt={paciente.nombre_completo} />
+                        <img src={avatarImagen} alt={paciente.nombreCompleto} />
                       </div>
                       <div className={styles['paciente_data']}>
-                        <h5><span>{paciente.nombre_completo}</span></h5>
+                        <h5><span>{paciente.nombreCompleto}</span></h5>
                       </div>
                     </Link>
                   );

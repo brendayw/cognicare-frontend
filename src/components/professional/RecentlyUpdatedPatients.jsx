@@ -23,8 +23,8 @@ export default function RecentlyUpdatedPatients() {
                 loading={loading}
                 error={error}
                 emptyMessage="No hay pacientes recientes"
-                primaryText="nombre_completo"
-                secondaryText="motivo_inicial"
+                primaryText="nombreCompleto"
+                secondaryText="motivoInicial"
             />            
         </div>
     );

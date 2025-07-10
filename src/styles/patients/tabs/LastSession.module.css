@@ -2,8 +2,21 @@
     width: 100%;
     height: 7.813rem;
     border-radius: 0.938rem;
+}
+
+.lastsession_container--diagnostico {
+    border: 0.5px solid #f0890c7c;
     box-shadow: 0 2px 2px #f0890c;
-    border: 0.5px solid #f0890c;
+}
+
+.lastsession_container--tratamiento {
+    border: 0.5px solid #00a3967c;
+    box-shadow: 0 2px 2px #00a395;
+}
+
+.lastsession_container--alta {
+    border: 0.5px solid #b36ed87c;
+    border: 0.5px solid #b36ed8;
 }
 
 .session_datetime {
@@ -13,8 +26,16 @@
     padding: 0.5rem;
 }
 
-.session_datetime p {
+.lastsession_container--diagnostico .session_datetime p {
     color:  #f0890c;
+}
+
+.lastsession_container--tratamiento .session_datetime p {
+    color:  #00a395;
+}
+
+.lastsession_container--alta .session_datetime p {
+    color:  #b36ed8;
 }
 
 .session_datetime span {

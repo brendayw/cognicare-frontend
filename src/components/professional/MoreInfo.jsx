@@ -9,7 +9,7 @@ export default function MoreInfo() {
     const { professional, loading, error } = useProfessionalData(id);
 
     const diasAtencion = (() => {
-        if (!professional?.dias_atencion) return [];
+        if (!professional?.diasAtencion) return [];
                 
         const diasSemana = ['Lun', 'Mar', 'Miér', 'Jue', 'Vier', 'Sáb'];
         const diasMapeados = {
@@ -22,10 +22,10 @@ export default function MoreInfo() {
         };
   
         let diasArray = [];
-        if (Array.isArray(professional.dias_atencion)) {
-            diasArray = professional.dias_atencion.map(d => d.toLowerCase().trim());
-        } else if (typeof professional.dias_atencion === 'string') {
-            diasArray = professional.dias_atencion.toLowerCase()
+        if (Array.isArray(professional.diasAtencion)) {
+            diasArray = professional.diasAtencion.map(d => d.toLowerCase().trim());
+        } else if (typeof professional.diasAtencion === 'string') {
+            diasArray = professional.diasAtencion.toLowerCase()
                 .split(',')
                 .map(d => d.trim())
                 .filter(d => d);
@@ -44,17 +44,17 @@ export default function MoreInfo() {
     })();
 
     const horariosAtencion = (() => {
-        if (!professional?.horarios_atencion) return [];
+        if (!professional?.horariosAtencion) return [];
         
         let horariosProcesados = [];
-        if (Array.isArray(professional.horarios_atencion)) {
-            horariosProcesados = professional.horarios_atencion.map(h => {
+        if (Array.isArray(professional.horariosAtencion)) {
+            horariosProcesados = professional.horariosAtencion.map(h => {
                 const [inicio, fin] = h.split(' - ');
                 return `${inicio.split(':')[0]} a ${fin.split(':')[0]}`;
             });
         } 
-        else if (typeof professional.horarios_atencion === 'string') {
-            const [inicio, fin] = professional.horarios_atencion.split(' - ');
+        else if (typeof professional.horariosAtencion === 'string') {
+            const [inicio, fin] = professional.horariosAtencion.split(' - ');
             horariosProcesados.push(`${inicio.split(':')[0]} a ${fin.split(':')[0]}`);
         }
 

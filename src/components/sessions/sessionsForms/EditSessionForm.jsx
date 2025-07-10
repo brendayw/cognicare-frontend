@@ -10,7 +10,7 @@ const fieldOptions = [
     { id: 'fecha', label: 'Fecha de la sesión' },
     { id: 'hora', label: 'Hora de la sesión' },
     { id: 'duracion', label: 'Duración de la sesión' },
-    { id: 'tipo_sesion', label: 'Tipo de sesión' },
+    { id: 'tipoSesion', label: 'Tipo de sesión' },
     { id: 'observaciones', label: 'Observaciones' },
 ];
 

@@ -15,28 +15,28 @@ const DIAS_SEMANA = [
 export default function ProfileTab({ isMobile = false, onBack }) {
   const initialValues = {
     email: '',
-    nombre_completo: '',
+    nombreCompleto: '',
     especialidad: '',
     matricula: '',
     telefono: '',
     genero: '',
-    dias_atencion: [],
-    horarios_atencion: '',
-    fecha_nacimiento: ''
+    diasAtencion: [],
+    horariosAtencion: '',
+    fechaNacimiento: ''
   };
 
   //validaciones
   const validate = (values) => {
     const errors = {};
     if (!values.email) errors.email = 'El email del profeisonal es obligatorio';
-    if (!values.nombre_completo) errors.nombre_completo = 'El nombre del profesional es obligatorio';
+    if (!values.nombreCompleto) errors.nombreCompleto = 'El nombre del profesional es obligatorio';
     if (!values.especialidad) errors.especialidad = 'La especialidad del profesional es obligatoria';
     if (!values.matricula) errors.matricula = 'La matrícula del profesional es obligatoria';
     if (!values.telefono) errors.telefono = 'El télefono del profesional es obligatorio';
     if (!values.genero) errors.genero = 'El género del profesional es obligatorio';
-    if (!values.dias_atencion) errors.dias_atencion = 'Los días de atención del profesional es obligatorio';
-    if (!values.horarios_atencion) errors.horarios_atencion = 'Los horarios de atención del profesional es obligatorio';
-    if (!values.fecha_nacimiento) errors.fecha_nacimiento = 'La fecha de nacimiento del profesional es obligatoria';
+    if (!values.diasAtencion) errors.diasAtencion = 'Los días de atención del profesional es obligatorio';
+    if (!values.horariosAtencion) errors.horariosAtencion = 'Los horarios de atención del profesional es obligatorio';
+    if (!values.fechaNacimiento) errors.fechaNacimiento = 'La fecha de nacimiento del profesional es obligatoria';
     return errors;
   }
 
@@ -45,18 +45,18 @@ export default function ProfileTab({ isMobile = false, onBack }) {
   const handleSubmitForm = (formData) => {
     const formattedData = {
       email: formData.email,
-      nombre_completo: formData.nombre_completo,
+      nombreCompleto: formData.nombreCompleto,
       especialidad: formData.especialidad,
       matricula: formData.matricula,
       telefono: formData.telefono,
       genero: formData.genero,
-      horarios_atencion: formData.horarios_atencion,
-      fecha_nacimiento: formData.fecha_nacimiento,
-      dias_atencion: (() => {
-        if (Array.isArray(formData.dias_atencion)) {
-          return formData.dias_atencion.join(',');
+      horariosAtencion: formData.horariosAtencion,
+      fechaNacimiento: formData.fechaNacimiento,
+      diasAtencion: (() => {
+        if (Array.isArray(formData.diasAtencion)) {
+          return formData.diasAtencion.join(',');
         } else {
-          return formData.dias_atencion;
+          return formData.diasAtencion;
         }
       })()
     };
@@ -103,27 +103,27 @@ export default function ProfileTab({ isMobile = false, onBack }) {
         <div className={`${styles.profesional_data}`}>
           <FormInput
             label="Nombre Completo"
-            value={values.nombre_completo}
+            value={values.nombreCompleto}
             onChange={handleChange}
-            id="nombre_completo"
+            id="nombreCompleto"
             placeholder="Ingrese su nombre completo"
             required
           />
-          {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+          {errors.nombreCompleto && <span>{errors.nombreCompleto}</span>}
 
           <FormInput
             label="Fecha de Nacimiento"
             type="date"
-            value={values.fecha_nacimiento}
+            value={values.fechaNacimiento}
             onChange={handleChange}
-            id="fecha_nacimiento"
+            id="fechaNacimiento"
             placeholder="Ingrese su fecha de nacimiento"
             required
           />
-          {errors.fecha_nacimiento && <span>{errors.fecha_nacimiento}</span>}
+          {errors.fechaNacimiento && <span>{errors.fechaNacimiento}</span>}
 
           <FormInput
-            label="Especialidad"
+            label="Profesión"
             value={values.especialidad}
             onChange={handleChange}
             id="especialidad"
@@ -182,25 +182,25 @@ export default function ProfileTab({ isMobile = false, onBack }) {
 
           <FormInput
             label="Horarios de atención"
-            name="horarios_atencion"
-            value={values.horarios_atencion}
+            name="horariosAtencion"
+            value={values.horariosAtencion}
             onChange={handleChange}
-            id="horarios_atencion"
+            id="horariosAtencion"
             placeholder="Ej: 09:00 - 17:00"
             required
           />
-          {errors.horarios_atencion && <span>{errors.horarios_atencion}</span>}
+          {errors.horariosAtencion && <span>{errors.horariosAtencion}</span>}
 
           <FormCheckbox
-            label="Días de atención:"
-            id="dias_atencion"
-            name="dias_atencion"
-            value={values.dias_atencion}
+            label="Días de atención"
+            id="diasAtencion"
+            name="diasAtencion"
+            value={values.diasAtencion}
             onChange={handleChange}
             options={DIAS_SEMANA}
             required
           />
-          {errors.dias_atencion && <span>{errors.dias_atencion}</span>}
+          {errors.diasAtencion && <span>{errors.diasAtencion}</span>}
         </div>
 
         <div className='relative bottom-3 right-1'>

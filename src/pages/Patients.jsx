@@ -55,12 +55,7 @@ export default function Patients() {
                         <SkeletonListItemWithIcon />
                         <SkeletonListItemWithIcon />
                     </div>
-                ) : error ? (
-                    <div className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-2 md:m-4 p-3 md:p-4 flex items-center'>
-                        <ErrorOutlineTwoToneIcon className='mr-2'/>
-                        {error}
-                    </div>
-                ) : (
+                )  : (
                     <PatientsList pacientes={patients} vista={effectiveView} error={error} />
                 )}
             </div>

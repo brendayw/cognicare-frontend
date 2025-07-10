@@ -7,11 +7,12 @@ import styles from '../../styles/dashboard/ProfileCard.module.css';
 
 export default function ProfileCard() {
     const { id } = useParams();
+    console.log(id);
     const { professional, loading, error } = useProfessionalData(id);
         
     if (loading) {
         return (
-            <div className=''>
+            <div className='w-full'>
                 <SkeletonHeader />
             </div>
         );
@@ -49,21 +50,21 @@ export default function ProfileCard() {
                             ¡Bienvenido de nuevo!
                         </h4>
                         <span className={`${styles.datos_nombre}`}>
-                            {professional.nombre_completo}
+                            {professional.nombreCompleto || 'No disponible'}
                         </span>
                         
                         <div className={`${styles.datos_perfil}`}>
                             <p className="text-primary text-base">
-                                Profesión: <span>{professional.especialidad}</span>
+                                Profesión: <span>{professional.especialidad || 'No disponible'}</span>
                             </p>
                             <p className="text-primary text-base">
-                                Matrícula: <span>{professional.matricula}</span>
+                                Matrícula: <span>{professional.matricula || 'No disponible'}</span>
                             </p>
                             <p className="text-primary text-base">
-                            Teléfono: <span>{professional.telefono}</span>
+                            Teléfono: <span>{professional.telefono || 'No disponible'}</span>
                             </p>
                             <p className="text-primary text-base">
-                                E-mail: <span>{professional.email}</span>
+                                E-mail: <span>{professional.email || 'No disponible'}</span>
                             </p>
                         </div>
                     </div>

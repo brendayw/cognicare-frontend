@@ -10,8 +10,6 @@ export default function Chart() {
     const [screenSize, setScreenSize] = useState('lg');
     const chartContainerRef = useRef(null);
 
-    const isDataEmpty = !names.length && !completedSessions.length && !totalSessions.length;
-
     // Configuraciones responsive
     const chartConfigs = {
         xs: {
@@ -95,17 +93,9 @@ export default function Chart() {
                 <div className='flex items-center justify-center h-full'>
                     <p className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
-                        {error}
+                        No hay pacientes disponibles para el profesional.
                     </p>
                 </div>            
-            ) : isDataEmpty ? (
-                // Si se obtienen los datos pero son listas vacías
-                <div className='flex items-center justify-center h-full'>
-                    <p className="w-full bg-[#f6e9e6] border border-red-300 rounded-md text-center text-[#FF6F59] m-4 p-4">
-                        <ErrorOutlineTwoToneIcon className="mr-2" />
-                        Aún no hay pacientes registrados para este profesional.
-                    </p>
-                </div>
             ) : (
                 <div style={{ overflow: 'hidden', width: '100%' }}>
                     <BarChart

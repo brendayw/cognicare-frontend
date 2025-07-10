@@ -6,20 +6,20 @@ import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 const fieldOptions = [
-    { id: 'nombre_completo', label: 'Nombre Completo' },
-    { id: 'fecha_nacimiento', label: 'Fecha de nacimiento' },
+    { id: 'nombreCompleto', label: 'Nombre Completo' },
+    { id: 'fechaNacimiento', label: 'Fecha de nacimiento' },
     { id: 'edad', label: 'Edad' },
     { id: 'genero', label: 'Género' },
     { id: 'direccion', label: 'Dirección' },
     { id: 'telefono', label: 'Teléfono' },
     { id: 'email', label: 'Email' },
-    { id: 'fecha_inicio', label: 'Fecha de inicio' },
-    { id: 'fecha_fin', label: 'Fecha de alta' },
-    { id: 'motivo_inicial', label: 'Motivo inicial' },
-    { id: 'motivo_alta', label: 'Motivo de alta' },
+    { id: 'fechaInicio', label: 'Fecha de inicio' },
+    { id: 'fechaFin', label: 'Fecha de alta' },
+    { id: 'motivoInicial', label: 'Motivo inicial' },
+    { id: 'motivoAlta', label: 'Motivo de alta' },
     { id: 'estado', label: 'Estado' },
-    { id: 'sesiones_realizadas', label: 'Sesiones realizadas' },
-    { id: 'sesiones_totales', label: 'Sesiones totales' },
+    { id: 'sesionesRealizadas', label: 'Sesiones realizadas' },
+    { id: 'sesionesTotales', label: 'Sesiones totales' },
     { id: 'observaciones', label: 'Observaciones' },   
 ];
 

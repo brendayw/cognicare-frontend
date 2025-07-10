@@ -4,11 +4,11 @@ import styles from '../../../styles/dashboard/forms/SessionForm.module.css';
 
 export default function SessionForm() {
     const initialValues = {
-        nombre_completo: '',
+        nombreCompleto: '',
         fecha:'',
         hora: '',
         duracion: '',
-        tipo_sesion: '',
+        tipoSesion: '',
         estado: '',
         observaciones: ''
     }
@@ -16,11 +16,11 @@ export default function SessionForm() {
     //validaciones
     const validate = (values) => {
         const errors = {}; 
-        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!values.nombreCompleto) errors.nombreCompleto = 'El nombre del paciente es obligatorio';
         if (!values.fecha) errors.fecha = 'La fecha del reporte es obligatoria';
         if (!values.hora) errors.hora = 'La hora del reporte es obligatoria';
         if (!values.duracion) errors.duracion = 'La duración del reporte es obligatoria';
-        if (!values.tipo_sesion) errors.tipo_sesion = 'El tipo de sesión es obligatorio';
+        if (!values.tipoSesion) errors.tipoSesion = 'El tipo de sesión es obligatorio';
         if (!values.estado) errors.estado = 'El estado de la sesión es obligatoria';
         return errors;
     }
@@ -36,11 +36,11 @@ export default function SessionForm() {
 
     const handleSubmitForm = (formData) => {    
         const formattedData = {
-            nombre_completo: formData.nombre_completo,
+            nombreCompleto: formData.nombreCompleto,
             fecha: formatDate(formData.fecha),
             hora: formData.hora,
             duracion: formData.duracion,
-            tipo_sesion: formData.tipo_sesion,
+            tipoSesion: formData.tipoSesion,
             estado: formData.estado,
             observaciones: formData.observaciones
         }
@@ -75,13 +75,13 @@ export default function SessionForm() {
                 <div className={`${styles.session_data}`}>
                     <FormInput 
                         label='Nombre del paciente'
-                        value={values.nombre_completo}
+                        value={values.nombreCompleto}
                         onChange={handleChange}
-                        id="nombre_completo"
+                        id="nombreCompleto"
                         placeholder="Ingrese el nombre del paciente"
                         required
                     />
-                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+                    {errors.nombreCompleto && <span>{errors.nombreCompleto}</span>}
 
                     <FormInput
                         label="Fecha"
@@ -130,9 +130,9 @@ export default function SessionForm() {
 
                     <FormSelect
                         label="Tipo de sesión"
-                        value={values.tipo_sesion}
+                        value={values.tipoSesion}
                         onChange={handleChange}
-                        id="tipo_sesion"
+                        id="tipoSesion"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value: 'Inicial', label: 'Inicial' },
@@ -142,7 +142,7 @@ export default function SessionForm() {
                         ]}
                         required
                     />
-                    {errors.tipo_sesion && <span>{errors.tipo_sesion}</span>}
+                    {errors.tipoSesion && <span>{errors.tipoSesion}</span>}
 
                     <FormInput
                         label="Observaciones"

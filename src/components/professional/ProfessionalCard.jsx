@@ -21,7 +21,7 @@ export default function ProfessionalCard() {
         <div className={`${styles.profesional_container}`}>
             {error ? (
                 <div className={styles.error}>
-                    <p className='bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
+                    <p className='w-full bg-[#f6e9e6] border border-red-300 rounded-md text-[#FF6F59] m-4 p-4'>
                         <ErrorOutlineTwoToneIcon className='mr-2'/>
                         {error}
                     </p>
@@ -38,29 +38,29 @@ export default function ProfessionalCard() {
                     <div className={`${styles.datos}`}>
                         <h4>
                             <span className={`${styles.datos_nombre}`}>
-                                {professional.nombre_completo || 'Cargando...'}
+                                {professional.nombreCompleto || 'No disponible'}
                             </span>
                         </h4>
                         
                         <div className={`${styles.datos_perfil}`}>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Profesión: <span>{professional.especialidad || '-'}</span>
+                                    Profesión: <span>{professional.especialidad || 'No disponible'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Matrícula: <span>{professional.matricula || '-'}</span>
+                                    Matrícula: <span>{professional.matricula || 'No disponible'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    Telefono: <span>{professional.telefono || '-'}</span>
+                                    Telefono: <span>{professional.telefono || 'No disponible'}</span>
                                 </p>
                             </div>
                             <div className={`${styles.dato_perfil}`}>
                                 <p className="text-primary text-base">
-                                    E-mail: <span>{professional.email || '-'}</span>
+                                    E-mail: <span>{professional.email || 'No disponible'}</span>
                                 </p>
                             </div>
                         </div>

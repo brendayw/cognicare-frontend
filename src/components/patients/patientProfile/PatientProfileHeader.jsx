@@ -63,7 +63,7 @@ export default function PatientProfileHeader( { patient, onPatientDeleted } ) {
             {patient && (
                 <ConfirmationDialog
                     open={dialogOpen}
-                    title={`¿Estás seguro que deseas borrar al paciente ${patient.nombre_completo || patient.name || ''}?`}
+                    title={`¿Estás seguro que deseas borrar al paciente ${patient.nombreCompleto || 'No disponible'}?`}
                     onClose={handleCloseDialog}
                     onConfirm={handleConfirmDelete}
                     isProcessing={isDeleting}

@@ -27,9 +27,9 @@ const usePatientSessionsData = () => {
                 const relevantPatients = [...treatmentPatients, ...diagnosticPatients];
 
                 setData({
-                    names: relevantPatients.map(p => p.nombre_completo),
-                    completedSessions: relevantPatients.map(p => p.sesiones_realizadas),
-                    totalSessions: relevantPatients.map(p => p.sesiones_totales),
+                    names: relevantPatients.map(p => p.nombreCompleto),
+                    completedSessions: relevantPatients.map(p => p.sesionesRealizadas),
+                    totalSessions: relevantPatients.map(p => p.sesionesTotales),
                     loading: false,
                     error: null
                 });
@@ -37,7 +37,7 @@ const usePatientSessionsData = () => {
                 setData(prev => ({
                     ...prev,
                     loading: false,
-                    error: 'Error al cargar datos: ' + (err.message || 'Error desconocido')
+                    error: 'Error al cargar datos: ' + (err.message)
                 }));
             }
         };

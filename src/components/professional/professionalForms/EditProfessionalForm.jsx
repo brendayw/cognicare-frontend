@@ -7,15 +7,14 @@ import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 const fieldOptions = [
     { id: 'email', label: 'Email' },
-    { id: 'nombre_completo', label: 'Nombre Completo' },
-    { id: 'fecha_nacimiento', label: 'Fecha de nacimiento'},
-    { id: 'especialidad', label: 'Especialidad' },
-    { id: 'edad', label: 'Edad' },
+    { id: 'nombreCompleto', label: 'Nombre Completo' },
+    { id: 'fechaNacimiento', label: 'Fecha de nacimiento'},
+    { id: 'especialidad', label: 'Profesión' },
     { id: 'matricula', label: 'Matrícula' },
     { id: 'telefono', label: 'Teléfono' },
     { id: 'genero', label: 'Género' },
-    { id:'dias_atencion', label: 'Días de atención'},
-    { id:'horarios_atencion', label: 'Horarios de atención'},  
+    { id:'diasAtencion', label: 'Días de atención'},
+    { id:'horariosAtencion', label: 'Horarios de atención'},  
 ];
 
 export default function EditProfessionalForm() {

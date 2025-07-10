@@ -4,10 +4,10 @@ import styles from '../../../styles/dashboard/forms/AssessmentForm.module.css';
 
 export default function AssessmentForm() {
     const initialValues = {
-        nombre_completo: '',
+        nombreCompleto: '',
         fecha: '',
-        nombre_evaluacion: '',
-        tipo_evaluacion: '',
+        nombreEvaluacion: '',
+        tipoEvaluacion: '',
         resultado: '',
         observacion: ''
     };
@@ -15,10 +15,10 @@ export default function AssessmentForm() {
     // Validaciones
     const validate = (values) => {
         const errors = {};
-        if (!values.nombre_completo) errors.nombre_completo = 'El nombre del paciente es obligatorio';
+        if (!values.nombreCompleto) errors.nombreCompleto = 'El nombre del paciente es obligatorio';
         if (!values.fecha) errors.fecha = 'La fecha es obligatoria';
-        if (!values.nombre_evaluacion) errors.nombre_evaluacion = 'El nombre de la evaluación es obligatorio';
-        if (!values.tipo_evaluacion) errors.tipo_evaluacion = 'Debe seleccionar un tipo de evaluación';
+        if (!values.nombreEvaluacion) errors.nombreEvaluacion = 'El nombre de la evaluación es obligatorio';
+        if (!values.tipoEvaluacion) errors.tipoEvaluacion = 'Debe seleccionar un tipo de evaluación';
         if (!values.resultado) errors.resultado = 'El resultado es obligatorio';
         return errors;
     };
@@ -27,12 +27,12 @@ export default function AssessmentForm() {
 
     const handleSubmitForm = (formData) => {
         const formattedData = {
-            fecha_evaluacion: formatDate(formData.fecha),
-            nombre_evaluacion: formData.nombre_evaluacion,
-            tipo_evaluacion: formData.tipo_evaluacion,
+            fechaEvaluacion: formatDate(formData.fecha),
+            nombreEvaluacion: formData.nombreEvaluacion,
+            tipoEvaluacion: formData.tipoEvaluacion,
             resultado: formData.resultado,
             observaciones: formData.observacion,
-            nombre_completo: formData.nombre_completo
+            nombreCompleto: formData.nombreCompleto
         };
 
         submitAssessment(formattedData);
@@ -70,13 +70,13 @@ export default function AssessmentForm() {
                 <div className={`${styles.assessment_data}`}>
                     <FormInput
                         label="Nombre del Paciente"
-                        value={values.nombre_completo}
+                        value={values.nombreCompleto}
                         onChange={handleChange}
-                        id="nombre_completo"
+                        id="nombreCompleto"
                         placeholder="Ingrese el nombre del paciente"
                         required
                     />
-                    {errors.nombre_completo && <span>{errors.nombre_completo}</span>}
+                    {errors.nombreCompleto && <span>{errors.nombreCompleto}</span>}
 
                     <FormInput
                         label="Fecha"
@@ -90,19 +90,19 @@ export default function AssessmentForm() {
 
                     <FormInput
                         label="Nombre de la evaluación"
-                        value={values.nombre_evaluacion}
+                        value={values.nombreEvaluacion}
                         onChange={handleChange}
-                        id="nombre_evaluacion"
+                        id="nombreEvaluacion"
                         placeholder="Ingrese el nombre de la evaluación"
                         required
                     />
-                    {errors.nombre_evaluacion && <span>{errors.nombre_evaluacion}</span>}
+                    {errors.nombreEvaluacion && <span>{errors.nombreEvaluacion}</span>}
 
                     <FormSelect
                         label="Tipo de evaluación"
-                        value={values.tipo_evaluacion}
+                        value={values.tipoEvaluacion}
                         onChange={handleChange}
-                        id="tipo_evaluacion"
+                        id="tipoEvaluacion"
                         options={[
                             { value: '', label: 'Seleccione una opción' },
                             { value:'Conciencia Intelectual', label: 'Cociente Intelectual'},
@@ -126,7 +126,7 @@ export default function AssessmentForm() {
                         ]}
                         required
                     />
-                    {errors.tipo_evaluacion && <span>{errors.tipo_evaluacion}</span>}
+                    {errors.tipoEvaluacion && <span>{errors.tipoEvaluacion}</span>}
 
                     <FormInput
                         label="Resultado"
