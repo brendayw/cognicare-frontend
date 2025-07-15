@@ -4,7 +4,7 @@ import { SkeletonHistory } from '../../../../skeletons/index.jsx';
 import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../../styles/patients/tabs/LastSession.module.css';
 
-export default function LastSessionTab() {
+export default function LastSession() {
     const { id } = useParams();
     const { lastSession, loading, error } = useSessionsData(id);
     const { patient } = usePatientData(id);

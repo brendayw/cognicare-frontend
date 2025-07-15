@@ -6,9 +6,9 @@ import ErrorOutlineTwoToneIcon from '@mui/icons-material/ErrorOutlineTwoTone';
 import styles from '../../../styles/patients/lists/EditForms.module.css';
 
 const fieldOptions = [
-    { id: 'fecha_reporte', label: 'Fecha del reporte' },
+    { id: 'fechaReporte', label: 'Fecha del reporte' },
     { id: 'descripcion', label: 'Descripción' },
-    { id: 'tipo_reporte', label: 'Tipo de reporte' },
+    { id: 'tipoReporte', label: 'Tipo de reporte' },
     { id: 'archivo', label: 'Archivo' }
 ];
 

@@ -32,11 +32,7 @@ const useProfessionalData = (professionalId) => {
         fetchProfessionalData();
     }, [professionalId]);
 
-    const handleProfessionalDeleted = (deletedId) => {
-        setProfessional(prev => prev.filter(a => a.id !== deletedId));
-    };
-
-    return { professional, error, loading, handleProfessionalDeleted };
+    return { professional, error, loading  };
 }
 
 export default useProfessionalData;

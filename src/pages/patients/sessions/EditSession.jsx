@@ -1,7 +1,7 @@
 import { Menu, EditSessionForm }from '../../../components/index.jsx';
 import styles from '../../../styles/patients/lists/EditFormsLists.module.css';
 
-export default function EditAssessment() {
+export default function EditSession() {
     return (
         <div className='h-screen'>
             <Menu/>

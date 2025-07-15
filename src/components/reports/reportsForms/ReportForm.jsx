@@ -186,7 +186,7 @@ export default function ReportForm() {
                         type="date"
                         value={fechaReporte}
                         onChange={handleDateChange} 
-                        name="fecha_Reporte"
+                        name="fechaReporte"
                         id="fecha"
                         required
                         error={errors.fechaReporte}

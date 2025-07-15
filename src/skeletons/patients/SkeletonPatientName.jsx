@@ -37,7 +37,7 @@ export default function SkeletonPatientName() {
                     position: 'relative',
                     left: { xs: '15px', sm: '0' },
                 }}>
-                    <Skeleton variant="text" width="50%" height="50%}"/>
+                    <Skeleton variant="text" width="50%" height="50%"/>
                     <Skeleton variant="text" width="70%" height="30%" sx={{alignItems: 'center'}}/>
                     <Skeleton variant="text" width="70%" height="30%" sx={{alignItems: 'center'}} />
                 </Box>
