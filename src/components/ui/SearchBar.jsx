@@ -48,7 +48,7 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                 }
 
             } catch (error) {
-                setError(error.messagge);
+                setError(error.message);
                 setPatients([]);
             }
         };
@@ -78,7 +78,7 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
             {isActive && searchTerm && (
                 <div className={styles.search_results}>
                     {patients === null ? (
-                        <p>Buscando...</p> // Opcional: mensaje de carga
+                        <p>Buscando...</p>
                     ) : patients?.length > 0 ? (
                         <ul>
                             {patients.map((paciente) => (
@@ -86,7 +86,7 @@ const SearchBar = forwardRef(({ isActive, onToggle }, ref) => {
                                     key={paciente.id} 
                                  onClick={() => handlePatientClick(paciente.id)}
                                 >
-                                    {paciente.nombre_completo}
+                                    {paciente.nombreCompleto}
                                 </li>
                             ))}
                         </ul>
